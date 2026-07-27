@@ -94,3 +94,33 @@ games/truth-or-dare/
 ```text
 games/truth-or-dare/questions.js
 ```
+
+
+## 已上线：法嘉默契挑战
+
+路径：
+
+```text
+games/compatibility/
+├── index.html
+├── style.css
+├── app.js
+└── questions.js
+```
+
+功能：
+
+- 轻松日常、心动回忆、全部混合三种主题
+- 5题、10题、15题三种轮数
+- 同时指向、同时选择、同时回答三类题型
+- 三秒倒计时
+- 手动记录答案一致、答案不同或跳过
+- 自动计算默契百分比
+- 根据结果生成默契称号
+- 手机、平板和电脑适配
+
+后续增加题目时，只需要编辑：
+
+```text
+games/compatibility/questions.js
+```

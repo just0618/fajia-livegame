@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF8AA1" />
+  <meta
+    name="description"
+    content="法嘉默契挑战：适合双人直播的同步回答小游戏。"
+  />
+  <title>法嘉默契挑战</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="background-shape shape-pink" aria-hidden="true"></div>
+  <div class="background-shape shape-gold" aria-hidden="true"></div>
+
+  <header class="game-header">
+    <a class="back-link" href="../../">
+      <span aria-hidden="true">←</span>
+      返回游戏屋
+    </a>
+
+    <div class="mini-brand">
+      <span class="brand-dot brand-dot-pink"></span>
+      法嘉默契挑战
+      <span class="brand-dot brand-dot-gold"></span>
+    </div>
+
+    <button class="text-button" id="openHelpButton" type="button">
+      玩法说明
+    </button>
+  </header>
+
+  <main class="game-shell">
+    <section class="setup-screen" id="setupScreen" aria-labelledby="setupTitle">
+      <div class="setup-intro">
+        <p class="eyebrow">GAME 03 · COMPATIBILITY CHALLENGE</p>
+        <h1 id="setupTitle">不用对答案，也能选得一样吗？</h1>
+        <p>
+          每题倒计时结束后，两个人同时回答、同时指向，
+          再记录这一轮是否默契。
+        </p>
+      </div>
+
+      <div class="player-preview" aria-label="参与玩家">
+        <article class="player-chip player-chip-pink">
+          <img src="../../assets/players/fa.webp" alt="法宣阁" />
+          <div>
+            <span>PLAYER 01</span>
+            <strong>法宣阁</strong>
+          </div>
+        </article>
+
+        <span class="heart-link" aria-hidden="true">♥</span>
+
+        <article class="player-chip player-chip-gold">
+          <img src="../../assets/players/he.webp" alt="贺嘉述" />
+          <div>
+            <span>PLAYER 02</span>
+            <strong>贺嘉述</strong>
+          </div>
+        </article>
+      </div>
+
+      <section class="choice-section" aria-labelledby="themeTitle">
+        <div class="section-label">
+          <span>STEP 01</span>
+          <h2 id="themeTitle">选择题目主题</h2>
+        </div>
+
+        <div class="choice-grid choice-grid-theme">
+          <label class="choice-card">
+            <input type="radio" name="theme" value="light" />
+            <span class="choice-card-inner">
+              <span class="choice-icon">☀</span>
+              <strong>轻松日常</strong>
+              <small>习惯、偏好与日常反应</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="theme" value="heart" />
+            <span class="choice-card-inner">
+              <span class="choice-icon">♥</span>
+              <strong>心动回忆</strong>
+              <small>共同经历与彼此印象</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="theme" value="mixed" checked />
+            <span class="choice-card-inner">
+              <span class="choice-icon">✦</span>
+              <strong>全部混合</strong>
+              <small>三类题目随机出现</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="choice-section" aria-labelledby="roundTitle">
+        <div class="section-label">
+          <span>STEP 02</span>
+          <h2 id="roundTitle">选择挑战轮数</h2>
+        </div>
+
+        <div class="choice-grid choice-grid-round">
+          <label class="choice-card round-card">
+            <input type="radio" name="rounds" value="5" />
+            <span class="choice-card-inner">
+              <strong>5题</strong>
+              <small>快速热场</small>
+            </span>
+          </label>
+
+          <label class="choice-card round-card">
+            <input type="radio" name="rounds" value="10" checked />
+            <span class="choice-card-inner">
+              <strong>10题</strong>
+              <small>标准挑战</small>
+            </span>
+          </label>
+
+          <label class="choice-card round-card">
+            <input type="radio" name="rounds" value="15" />
+            <span class="choice-card-inner">
+              <strong>15题</strong>
+              <small>完整默契局</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="start-panel">
+        <div>
+          <p class="eyebrow">READY TO PLAY</p>
+          <h2>准备好了吗？</h2>
+          <p>无需输入答案，倒计时结束后同时说出或指出答案即可。</p>
+        </div>
+
+        <button class="start-button" id="startGameButton" type="button">
+          开始默契挑战
+          <span aria-hidden="true">→</span>
+        </button>
+      </section>
+    </section>
+
+    <section class="play-screen" id="playScreen" hidden aria-labelledby="questionText">
+      <div class="play-toolbar">
+        <button class="text-button" id="restartButton" type="button">
+          重新选择
+        </button>
+
+        <div class="score-panel" aria-live="polite">
+          <span>默契</span>
+          <strong id="scoreText">0 / 0</strong>
+        </div>
+      </div>
+
+      <div class="round-progress">
+        <div class="round-copy">
+          <span id="roundText">第 1 / 10 题</span>
+          <span id="themeText">全部混合</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <span id="roundProgressBar"></span>
+        </div>
+      </div>
+
+      <article class="question-card" id="questionCard">
+        <div class="card-header">
+          <span class="question-type" id="questionType">同时指向</span>
+          <span class="question-number" id="questionNumber">CARD 01</span>
+        </div>
+
+        <h1 id="questionText" tabindex="-1"></h1>
+
+        <div class="answer-options" id="answerOptions" hidden></div>
+
+        <p class="question-instruction" id="questionInstruction">
+          想好答案后，点击下方按钮开始倒计时。
+        </p>
+
+        <div class="countdown-stage" id="countdownStage" aria-live="assertive">
+          <span id="countdownValue">READY</span>
+        </div>
+      </article>
+
+      <div class="countdown-actions" id="countdownActions">
+        <button class="button button-countdown" id="countdownButton" type="button">
+          开始3秒倒计时
+        </button>
+      </div>
+
+      <div class="judge-actions" id="judgeActions" hidden>
+        <button class="button button-match" id="matchButton" type="button">
+          <span aria-hidden="true">♥</span>
+          答案一致
+          <small>默契 +1</small>
+        </button>
+
+        <button class="button button-different" id="differentButton" type="button">
+          答案不一样
+          <small>继续下一题</small>
+        </button>
+
+        <button class="skip-button" id="skipButton" type="button">
+          这题跳过，不计分
+        </button>
+      </div>
+
+      <p class="session-note">
+        网页不会判断答案内容，由现场操作的人根据两人的回答手动记录。
+      </p>
+    </section>
+
+    <section class="result-screen" id="resultScreen" hidden aria-labelledby="resultTitle">
+      <div class="result-card">
+        <div class="result-photos" aria-hidden="true">
+          <img class="result-photo result-photo-pink" src="../../assets/players/fa.webp" alt="" />
+          <span>♥</span>
+          <img class="result-photo result-photo-gold" src="../../assets/players/he.webp" alt="" />
+        </div>
+
+        <p class="eyebrow">CHALLENGE COMPLETE</p>
+        <h1 id="resultTitle">本轮默契挑战完成</h1>
+
+        <div class="result-score">
+          <strong id="resultPercent">0%</strong>
+          <span id="resultFraction">0 / 10 题默契</span>
+        </div>
+
+        <div class="result-title-box">
+          <span>今日默契称号</span>
+          <strong id="resultBadge">正在计算</strong>
+        </div>
+
+        <p class="result-description" id="resultDescription"></p>
+
+        <div class="result-breakdown">
+          <div>
+            <span>答案一致</span>
+            <strong id="resultMatches">0</strong>
+          </div>
+          <div>
+            <span>答案不同</span>
+            <strong id="resultDifferences">0</strong>
+          </div>
+          <div>
+            <span>跳过题目</span>
+            <strong id="resultSkips">0</strong>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="button button-primary" id="playAgainButton" type="button">
+            再玩一局
+          </button>
+          <a class="button button-secondary" href="../../">
+            返回游戏屋
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="help-dialog" id="helpDialog">
+    <div class="dialog-content">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">HOW TO PLAY</p>
+          <h2>玩法说明</h2>
+        </div>
+        <button class="dialog-close" id="closeHelpButton" type="button" aria-label="关闭">
+          ×
+        </button>
+      </div>
+
+      <ol>
+        <li>选择题目主题和挑战轮数。</li>
+        <li>看到题目后，两个人先分别在心里想好答案。</li>
+        <li>点击倒计时按钮，出现“同时回答”时一起回答或指向。</li>
+        <li>答案一致时点击“答案一致”，否则点击“答案不一样”。</li>
+        <li>完成全部题目后，系统会计算默契值并生成称号。</li>
+      </ol>
+
+      <p>
+        自由回答题不要求文字完全相同，只要双方认可意思一致，就可以记录为默契。
+      </p>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./questions.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
