@@ -71,6 +71,24 @@ window.FAJIA_COMPATIBILITY_BANK = {
       label: "同时回答",
       text: "同时说出一种最适合对方的天气。",
       options: []
+    },
+    {
+      type: "choice",
+      label: "同时选择",
+      text: "如果突然获得一个完全空闲的晚上，更想怎么度过？",
+      options: ["一起吃好吃的", "一起安静休息"]
+    },
+    {
+      type: "who",
+      label: "同时指向",
+      text: "两个人中，谁更可能看到可爱的东西就立刻分享给对方？",
+      options: ["法宣阁", "贺嘉述"]
+    },
+    {
+      type: "free",
+      label: "同时回答",
+      text: "同时说出一种最适合两个人一起玩的小游戏。",
+      options: []
     }
   ],
 
@@ -146,6 +164,24 @@ window.FAJIA_COMPATIBILITY_BANK = {
       label: "同时选择",
       text: "更希望未来一起尝试哪一种新体验？",
       options: ["旅行冒险", "合作创作"]
+    },
+    {
+      type: "free",
+      label: "同时回答",
+      text: "分别说出对方最近一个让你觉得很可爱的瞬间。",
+      options: []
+    },
+    {
+      type: "choice",
+      label: "同时选择",
+      text: "如果为两个人的共同经历留下一句话，更像哪一种？",
+      options: ["一直向前", "慢慢珍惜"]
+    },
+    {
+      type: "who",
+      label: "同时指向",
+      text: "两个人中，谁更容易在对方取得成绩时表现得比本人还开心？",
+      options: ["法宣阁", "贺嘉述"]
     }
   ],
 
@@ -221,6 +257,24 @@ window.FAJIA_COMPATIBILITY_BANK = {
       label: "同时选择",
       text: "如果共同完成一项挑战，更像哪一种组合？",
       options: ["一人计划一人执行", "两人边做边商量"]
+    },
+    {
+      type: "free",
+      label: "同时回答",
+      text: "分别说出一个你认为对方最希望被理解的地方。",
+      options: []
+    },
+    {
+      type: "choice",
+      label: "同时选择",
+      text: "遇到一件重要决定时，两个人更适合哪种方式？",
+      options: ["先各自想清楚", "立刻一起讨论"]
+    },
+    {
+      type: "who",
+      label: "同时指向",
+      text: "两个人中，谁更可能在对方需要时先行动、之后才解释？",
+      options: ["法宣阁", "贺嘉述"]
     }
   ]
 };

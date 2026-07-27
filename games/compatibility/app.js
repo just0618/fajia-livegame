@@ -208,7 +208,7 @@
       elements.countdownStage.classList.add("is-answer");
       elements.countdownValue.textContent = "同时回答！";
       elements.questionInstruction.textContent =
-        "根据两个人刚才的答案，记录这一轮是否默契。";
+        "根据两个人刚才的回答与表现，记录这一轮是否默契。";
       elements.countdownActions.hidden = true;
       elements.judgeActions.hidden = false;
       state.countdownRunning = false;
@@ -261,7 +261,7 @@
 
     if (percent >= 40) {
       return {
-        badge: "答案不同也很有趣的搭档",
+        badge: "不太默契也很有趣的搭档",
         description:
           "这一局出现了不少不同选择，但默契不只是一模一样，也包括理解彼此为什么不同。"
       };
@@ -286,7 +286,7 @@
 
     elements.resultPercent.textContent = `${percent}%`;
     elements.resultFraction.textContent =
-      `${state.score} / ${judgedRounds} 题默契`;
+      `${state.score} / ${judgedRounds} 题表现默契`;
     elements.resultBadge.textContent = copy.badge;
     elements.resultDescription.textContent = copy.description;
     elements.resultMatches.textContent = String(state.score);

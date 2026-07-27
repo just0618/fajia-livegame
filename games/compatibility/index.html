@@ -90,9 +90,18 @@
           </label>
 
           <label class="choice-card">
-            <input type="radio" name="theme" value="mixed" checked />
+            <input type="radio" name="theme" value="challenge" />
             <span class="choice-card-inner">
               <span class="choice-icon">✦</span>
+              <strong>默契挑战</strong>
+              <small>观察、理解与相处方式</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="theme" value="mixed" checked />
+            <span class="choice-card-inner">
+              <span class="choice-icon">∞</span>
               <strong>全部混合</strong>
               <small>三类题目随机出现</small>
             </span>
@@ -197,12 +206,12 @@
       <div class="judge-actions" id="judgeActions" hidden>
         <button class="button button-match" id="matchButton" type="button">
           <span aria-hidden="true">♥</span>
-          答案一致
+          这题很默契
           <small>默契 +1</small>
         </button>
 
         <button class="button button-different" id="differentButton" type="button">
-          答案不一样
+          这题不太默契
           <small>继续下一题</small>
         </button>
 
@@ -212,7 +221,7 @@
       </div>
 
       <p class="session-note">
-        网页不会判断答案内容，由现场操作的人根据两人的回答手动记录。
+        网页不会比较具体答案，由现场操作的人根据两人的表现判断这一题是否默契。
       </p>
     </section>
 
@@ -241,11 +250,11 @@
 
         <div class="result-breakdown">
           <div>
-            <span>答案一致</span>
+            <span>默契题目</span>
             <strong id="resultMatches">0</strong>
           </div>
           <div>
-            <span>答案不同</span>
+            <span>不太默契</span>
             <strong id="resultDifferences">0</strong>
           </div>
           <div>
@@ -282,12 +291,12 @@
         <li>选择题目主题和挑战轮数。</li>
         <li>看到题目后，两个人先分别在心里想好答案。</li>
         <li>点击倒计时按钮，出现“同时回答”时一起回答或指向。</li>
-        <li>答案一致时点击“答案一致”，否则点击“答案不一样”。</li>
+        <li>根据两人的回答与表现，点击“这题很默契”或“这题不太默契”。</li>
         <li>完成全部题目后，系统会计算默契值并生成称号。</li>
       </ol>
 
       <p>
-        自由回答题不要求文字完全相同，只要双方认可意思一致，就可以记录为默契。
+        自由回答题不要求两个人说出相同内容。例如互相评价对方时，只要双方都认可、彼此理解或表现出良好默契，就可以记录为“这题很默契”。
       </p>
     </div>
   </dialog>
