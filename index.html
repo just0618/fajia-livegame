@@ -75,7 +75,9 @@
 
         <div class="player-card player-card-pink">
           <span class="player-number">01</span>
-          <div class="player-avatar">法</div>
+          <div class="player-avatar">
+            <img src="./assets/players/fa.webp" alt="粉色玩家照片" />
+          </div>
           <strong>粉色玩家</strong>
           <span>#FF8AA1</span>
         </div>
@@ -86,7 +88,9 @@
 
         <div class="player-card player-card-gold">
           <span class="player-number">02</span>
-          <div class="player-avatar">贺</div>
+          <div class="player-avatar">
+            <img src="./assets/players/he.webp" alt="金色玩家照片" />
+          </div>
           <strong>金色玩家</strong>
           <span>#FFE25B</span>
         </div>
@@ -113,12 +117,14 @@
           <div class="badge-row">
             <span class="status-badge status-live">现已上线</span>
             <span class="game-index">GAME 01</span>
+            <span class="map-series-badge">MAP 01</span>
           </div>
 
           <h3>发家致富大富翁</h3>
           <p>
             沿着64格棋盘轮流前进，完成任务、触发特殊事件，
-            看看谁会先抵达终点。
+            看看谁会先抵达终点。当前开放的是第一张地图，
+            后续新地图会作为同一系列继续加入。
           </p>
 
           <ul class="game-meta" aria-label="大富翁游戏信息">
@@ -136,17 +142,32 @@
             </li>
           </ul>
 
-          <a
-            class="button button-primary"
-            href="https://just0618.github.io/fajia-game/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            开始游戏
-            <span aria-hidden="true">↗</span>
-          </a>
+          <div class="map-version-list" aria-label="大富翁地图版本">
+            <a
+              class="map-version map-version-live"
+              href="https://just0618.github.io/fajia-game/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>MAP 01</span>
+              <strong>当前地图</strong>
+              <em>已上线 ↗</em>
+            </a>
 
-          <p class="external-note">游戏将在新标签页打开，原大富翁网址保持不变。</p>
+            <button
+              class="map-version map-version-coming"
+              type="button"
+              data-coming-soon="更多大富翁地图"
+            >
+              <span>MAP 02+</span>
+              <strong>更多地图</strong>
+              <em>后续更新</em>
+            </button>
+          </div>
+
+          <p class="external-note">
+            目前点击 MAP 01 会打开原大富翁页面；已有链接不会受到影响。
+          </p>
         </div>
 
         <div class="board-preview" aria-hidden="true">
