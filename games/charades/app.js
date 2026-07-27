@@ -156,26 +156,21 @@
       throw new Error("题库数量不足以完成所选轮数。");
     }
 
-    state.questions = pool.slice(0, state.totalRounds);
+    // 保留完整题库作为抽题队列。
+    // 跳过的题目会排到队尾，因此不会消耗正式回合，也不会立刻再次出现。
+    state.questions = pool;
     state.usedQuestionKeys.clear();
-    state.questions.forEach((question) => {
-      state.usedQuestionKeys.add(`${question.category}:${question.text}`);
-    });
   }
 
-  function getAlternativeQuestion() {
-    const candidates = buildPool().filter(
-      (question) =>
-        !state.usedQuestionKeys.has(`${question.category}:${question.text}`)
-    );
-
-    if (candidates.length === 0) {
-      return null;
+  function takeNextQuestion() {
+    if (state.questions.length === 0) {
+      // 理论上只会在反复跳过或换题时出现。
+      // 重新洗牌保证游戏仍能继续。
+      state.questions = shuffle(buildPool());
+      showToast("本分类题目已轮过一遍，现已重新洗牌。");
     }
 
-    const question = candidates[Math.floor(Math.random() * candidates.length)];
-    state.usedQuestionKeys.add(`${question.category}:${question.text}`);
-    return question;
+    return state.questions.shift();
   }
 
   function clearTimer() {
@@ -225,7 +220,9 @@
   function renderPromptStage() {
     hideAllStages();
 
-    state.currentQuestion = state.questions[state.currentRound - 1];
+    if (!state.currentQuestion) {
+      state.currentQuestion = takeNextQuestion();
+    }
 
     elements.promptCategory.textContent =
       categoryLabels[state.currentQuestion.category];
@@ -240,18 +237,15 @@
   }
 
   function changeQuestion() {
-    const alternative = getAlternativeQuestion();
-
-    if (!alternative) {
-      showToast("本组没有更多未出现的题目了。");
-      return;
+    if (state.currentQuestion) {
+      state.questions.push(state.currentQuestion);
     }
 
-    state.questions[state.currentRound - 1] = alternative;
+    const alternative = takeNextQuestion();
     state.currentQuestion = alternative;
     elements.promptCategory.textContent = categoryLabels[alternative.category];
     elements.promptText.textContent = alternative.text;
-    showToast("已更换为一道新题。");
+    showToast("已更换为一道新题，本轮题号不变。");
   }
 
   function renderReadyStage() {
@@ -323,7 +317,16 @@
 
     clearTimer();
     state.skipped += 1;
-    advanceRound();
+
+    // 跳过不计入所选题数，也不交换角色。
+    // 当前题目排到队尾，当前表演者重新抽取本回合的替代题。
+    if (state.currentQuestion) {
+      state.questions.push(state.currentQuestion);
+    }
+    state.currentQuestion = null;
+
+    showToast("本题已跳过，不占用本轮题数。当前表演者将补抽一题。");
+    renderRoleStage();
   }
 
   function handleTimeout() {
@@ -339,6 +342,8 @@
   }
 
   function advanceRound() {
+    state.currentQuestion = null;
+
     if (state.currentRound >= state.totalRounds) {
       showResults();
       return;
