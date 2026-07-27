@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF8AA1" />
+  <meta
+    name="description"
+    content="法嘉真心话大冒险：双人直播互动抽卡游戏。"
+  />
+  <title>法嘉真心话大冒险</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="background-orb orb-pink" aria-hidden="true"></div>
+  <div class="background-orb orb-gold" aria-hidden="true"></div>
+
+  <header class="game-header">
+    <a class="back-link" href="../../">
+      <span aria-hidden="true">←</span>
+      返回游戏屋
+    </a>
+
+    <div class="mini-brand">
+      <span class="brand-dot brand-dot-pink"></span>
+      法嘉真心话大冒险
+      <span class="brand-dot brand-dot-gold"></span>
+    </div>
+
+    <button class="text-button" id="openHelpButton" type="button">
+      玩法说明
+    </button>
+  </header>
+
+  <main class="game-shell">
+    <section class="setup-screen" id="setupScreen" aria-labelledby="setupTitle">
+      <div class="setup-intro">
+        <p class="eyebrow">GAME 02 · TRUTH OR DARE</p>
+        <h1 id="setupTitle">今晚，想从哪一张卡开始？</h1>
+        <p>
+          选择题目尺度和游玩模式。游戏开始后，
+          法宣阁与贺嘉述会自动轮流抽卡。
+        </p>
+      </div>
+
+      <div class="player-preview" aria-label="参与玩家">
+        <article class="player-chip player-chip-pink">
+          <img src="../../assets/players/fa.webp" alt="法宣阁" />
+          <div>
+            <span>PLAYER 01</span>
+            <strong>法宣阁</strong>
+          </div>
+        </article>
+
+        <span class="versus" aria-hidden="true">♥</span>
+
+        <article class="player-chip player-chip-gold">
+          <img src="../../assets/players/he.webp" alt="贺嘉述" />
+          <div>
+            <span>PLAYER 02</span>
+            <strong>贺嘉述</strong>
+          </div>
+        </article>
+      </div>
+
+      <section class="choice-section" aria-labelledby="levelTitle">
+        <div class="section-label">
+          <span>STEP 01</span>
+          <h2 id="levelTitle">选择题目尺度</h2>
+        </div>
+
+        <div class="choice-grid choice-grid-level">
+          <label class="choice-card">
+            <input type="radio" name="level" value="light" checked />
+            <span class="choice-card-inner">
+              <span class="choice-icon">☀</span>
+              <strong>轻松模式</strong>
+              <small>热场、日常与快速回答</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="level" value="heart" />
+            <span class="choice-card-inner">
+              <span class="choice-icon">♥</span>
+              <strong>心动模式</strong>
+              <small>回忆、印象与真诚表达</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="level" value="challenge" />
+            <span class="choice-card-inner">
+              <span class="choice-icon">✦</span>
+              <strong>挑战模式</strong>
+              <small>更有节目效果的互动任务</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="choice-section" aria-labelledby="modeTitle">
+        <div class="section-label">
+          <span>STEP 02</span>
+          <h2 id="modeTitle">选择游玩模式</h2>
+        </div>
+
+        <div class="choice-grid choice-grid-mode">
+          <label class="choice-card">
+            <input type="radio" name="mode" value="truth" />
+            <span class="choice-card-inner">
+              <span class="mode-tag truth-tag">真</span>
+              <strong>只抽真心话</strong>
+              <small>每一轮都是回答题</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="mode" value="dare" />
+            <span class="choice-card-inner">
+              <span class="mode-tag dare-tag">冒</span>
+              <strong>只抽大冒险</strong>
+              <small>每一轮都是互动任务</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="mode" value="random" checked />
+            <span class="choice-card-inner">
+              <span class="mode-tag random-tag">?</span>
+              <strong>随机决定</strong>
+              <small>真心话与大冒险随机出现</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="start-section" aria-labelledby="starterTitle">
+        <div>
+          <p class="eyebrow">READY TO PLAY</p>
+          <h2 id="starterTitle">谁先开始？</h2>
+          <p>也可以交给系统随机决定第一位玩家。</p>
+        </div>
+
+        <div class="start-buttons">
+          <button class="start-player-button start-pink" type="button" data-starter="0">
+            法宣阁先开始
+          </button>
+          <button class="start-player-button start-gold" type="button" data-starter="1">
+            贺嘉述先开始
+          </button>
+          <button class="start-player-button start-random" type="button" data-starter="random">
+            随机选择
+          </button>
+        </div>
+      </section>
+    </section>
+
+    <section class="play-screen" id="playScreen" hidden aria-labelledby="cardQuestion">
+      <div class="play-toolbar">
+        <button class="text-button" id="restartButton" type="button">
+          重新选择模式
+        </button>
+
+        <div class="turn-counter" aria-live="polite">
+          第 <strong id="turnNumber">1</strong> 轮
+        </div>
+      </div>
+
+      <div class="current-player" id="currentPlayer">
+        <div class="current-player-photo">
+          <img id="currentPlayerImage" src="" alt="" />
+        </div>
+        <div>
+          <span>当前玩家</span>
+          <strong id="currentPlayerName"></strong>
+        </div>
+      </div>
+
+      <article class="question-card" id="questionCard">
+        <div class="card-topline">
+          <span class="card-type" id="cardType">真心话</span>
+          <span class="card-level" id="cardLevel">轻松模式</span>
+        </div>
+
+        <div class="card-number" id="cardNumber">CARD 01</div>
+
+        <h1 id="cardQuestion" tabindex="-1"></h1>
+
+        <p class="card-tip" id="cardTip">
+          回答完成后，点击下方按钮交给下一位玩家。
+        </p>
+
+        <div class="card-progress" aria-label="当前题库使用情况">
+          <span id="remainingText">本组还有 0 张未出现</span>
+          <div class="progress-track" aria-hidden="true">
+            <span id="progressBar"></span>
+          </div>
+        </div>
+      </article>
+
+      <div class="play-actions">
+        <button class="button button-secondary" id="drawAgainButton" type="button">
+          换一张
+        </button>
+
+        <button class="button button-primary" id="completeTurnButton" type="button">
+          完成，轮到下一位
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+
+      <p class="session-note">
+        同一局中已出现的卡片不会重复；题库用完后会自动重新洗牌。
+      </p>
+    </section>
+  </main>
+
+  <dialog class="help-dialog" id="helpDialog">
+    <div class="dialog-content">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">HOW TO PLAY</p>
+          <h2>玩法说明</h2>
+        </div>
+        <button class="dialog-close" id="closeHelpButton" type="button" aria-label="关闭">
+          ×
+        </button>
+      </div>
+
+      <ol>
+        <li>先选择轻松、心动或挑战模式。</li>
+        <li>选择只抽真心话、只抽大冒险或随机模式。</li>
+        <li>决定第一位玩家，系统会为其抽取一张卡。</li>
+        <li>“换一张”会为当前玩家重新抽卡，不会切换玩家。</li>
+        <li>完成后点击“轮到下一位”，系统会自动交换玩家。</li>
+      </ol>
+
+      <p>
+        本版本以直播友好为优先，不设置惩罚、积分或强制完成机制。
+      </p>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./questions.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
