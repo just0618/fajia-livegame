@@ -37,8 +37,10 @@
         </p>
 
         <h1 id="hero-title">
-          今天法嘉<br />
-          想玩点什么？
+          <span class="hero-title-line">
+            今天，<span class="hero-title-highlight">法嘉</span>
+          </span>
+          <span class="hero-title-line">想玩点什么？</span>
         </h1>
 
         <p class="hero-description">
@@ -143,16 +145,33 @@
           </ul>
 
           <div class="map-version-list" aria-label="大富翁地图版本">
-            <a
-              class="map-version map-version-live"
-              href="https://just0618.github.io/fajia-game/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>MAP 01</span>
-              <strong>当前地图</strong>
-              <em>已上线 ↗</em>
-            </a>
+            <article class="map-version map-version-live">
+              <button
+                class="map-thumbnail-button"
+                type="button"
+                data-open-map-preview
+                aria-label="预览 MAP 01 法嘉致富大富翁棋盘"
+              >
+                <img
+                  src="./assets/maps/map-01-board.webp"
+                  alt="法嘉致富大富翁 MAP 01 棋盘缩略图"
+                />
+                <span class="map-thumbnail-overlay">点击预览地图</span>
+              </button>
+
+              <div class="map-version-copy">
+                <span>MAP 01</span>
+                <strong>当前地图</strong>
+                <a
+                  class="map-enter-link"
+                  href="https://just0618.github.io/fajia-game/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  进入游戏 ↗
+                </a>
+              </div>
+            </article>
 
             <button
               class="map-version map-version-coming"
@@ -166,7 +185,7 @@
           </div>
 
           <p class="external-note">
-            目前点击 MAP 01 会打开原大富翁页面；已有链接不会受到影响。
+            点击地图图片可先查看完整棋盘；点击“进入游戏”会打开原大富翁页面，已有链接不会受到影响。
           </p>
         </div>
 
@@ -334,6 +353,55 @@
       #FFE25B
     </p>
   </footer>
+
+
+  <dialog class="map-preview-dialog" id="mapPreviewDialog">
+    <div class="map-preview-panel">
+      <div class="map-preview-heading">
+        <div>
+          <p class="eyebrow">MAP 01 · BOARD PREVIEW</p>
+          <h2>法嘉致富大富翁</h2>
+          <p>可放大查看64格棋盘内容。</p>
+        </div>
+
+        <button
+          class="map-preview-close"
+          id="closeMapPreviewButton"
+          type="button"
+          aria-label="关闭地图预览"
+        >
+          ×
+        </button>
+      </div>
+
+      <div class="map-preview-image-wrap">
+        <img
+          src="./assets/maps/map-01-board.webp"
+          alt="法嘉致富大富翁 MAP 01 完整棋盘"
+        />
+      </div>
+
+      <div class="map-preview-actions">
+        <button
+          class="button button-secondary"
+          id="closeMapPreviewAction"
+          type="button"
+        >
+          关闭预览
+        </button>
+
+        <a
+          class="button button-primary"
+          href="https://just0618.github.io/fajia-game/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          进入游戏
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 

@@ -19,4 +19,40 @@
       showToast(`${gameName}还在准备中，做好后会在这里开放。`);
     });
   });
+
+  const mapPreviewDialog = document.getElementById("mapPreviewDialog");
+  const openMapPreviewButtons = document.querySelectorAll("[data-open-map-preview]");
+  const closeMapPreviewButton = document.getElementById("closeMapPreviewButton");
+  const closeMapPreviewAction = document.getElementById("closeMapPreviewAction");
+
+  function openMapPreview() {
+    if (!mapPreviewDialog) {
+      return;
+    }
+
+    if (typeof mapPreviewDialog.showModal === "function") {
+      mapPreviewDialog.showModal();
+    } else {
+      showToast("当前浏览器不支持弹窗预览，请点击“进入游戏”查看地图。");
+    }
+  }
+
+  function closeMapPreview() {
+    if (mapPreviewDialog && mapPreviewDialog.open) {
+      mapPreviewDialog.close();
+    }
+  }
+
+  openMapPreviewButtons.forEach((button) => {
+    button.addEventListener("click", openMapPreview);
+  });
+
+  closeMapPreviewButton?.addEventListener("click", closeMapPreview);
+  closeMapPreviewAction?.addEventListener("click", closeMapPreview);
+
+  mapPreviewDialog?.addEventListener("click", (event) => {
+    if (event.target === mapPreviewDialog) {
+      closeMapPreview();
+    }
+  });
 })();
