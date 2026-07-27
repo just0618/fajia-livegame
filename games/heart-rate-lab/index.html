@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#FF8AA1" />
   <meta
     name="description"
-    content="法嘉心率实验室：用心率设备记录动作或问答对应的心率变化。"
+    content="法嘉心率实验室：支持单人反应和双人同步，用心率设备记录动作或问答对应的变化。"
   />
   <title>法嘉心率实验室</title>
   <link rel="stylesheet" href="./style.css" />
@@ -41,7 +41,7 @@
           心率变化最大？
         </h1>
         <p>
-          选择动作实验或对视问答，通过心率设备记录每一轮的数据。
+          可选择一人佩戴设备的单人反应，或两个人同时佩戴设备的双人同步。
           网页不会直接连接健康 App，所有数值均由玩家自行查看和录入。
         </p>
       </div>
@@ -50,13 +50,40 @@
         <span aria-hidden="true">⌚</span>
         <div>
           <strong>需要准备</strong>
-          <p>一块可测量心率的手表或手环，以及配套手机。</p>
+          <p id="equipmentCopy">一块可测量心率的手表或手环，以及配套手机。</p>
         </div>
       </div>
 
-      <section class="setup-section" aria-labelledby="gameplayTitle">
+      <section class="setup-section" aria-labelledby="participantTitle">
         <div class="section-heading">
           <span>STEP 01</span>
+          <h2 id="participantTitle">选择记录人数</h2>
+        </div>
+
+        <div class="choice-grid participant-grid">
+          <label class="choice-card">
+            <input type="radio" name="participantMode" value="single" checked />
+            <span class="choice-card-inner">
+              <span class="choice-icon">01</span>
+              <strong>单人反应</strong>
+              <small>一人佩戴设备，记录另一人带来的心率变化。</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="participantMode" value="dual" />
+            <span class="choice-card-inner">
+              <span class="choice-icon choice-icon-gold">02</span>
+              <strong>双人同步</strong>
+              <small>两个人都佩戴设备，同时记录同一个共同互动。</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="setup-section" aria-labelledby="gameplayTitle">
+        <div class="section-heading">
+          <span>STEP 02</span>
           <h2 id="gameplayTitle">选择实验玩法</h2>
         </div>
 
@@ -64,18 +91,18 @@
           <label class="choice-card">
             <input type="radio" name="gameplay" value="action" checked />
             <span class="choice-card-inner">
-              <span class="choice-icon">01</span>
-              <strong>动作心率实验</strong>
-              <small>另一位完成不同小动作，寻找心率最高或波动最大的动作。</small>
+              <span class="choice-icon">A</span>
+              <strong id="actionModeTitle">动作心率实验</strong>
+              <small id="actionModeDescription">另一位完成不同小动作，寻找心率最高或波动最大的动作。</small>
             </span>
           </label>
 
           <label class="choice-card">
             <input type="radio" name="gameplay" value="question" />
             <span class="choice-card-inner">
-              <span class="choice-icon choice-icon-gold">02</span>
-              <strong>对视问答实验</strong>
-              <small>佩戴者提问，对方在对视和牵手状态下回答。</small>
+              <span class="choice-icon choice-icon-gold">Q</span>
+              <strong id="questionModeTitle">对视问答实验</strong>
+              <small id="questionModeDescription">佩戴者提问，对方在对视和牵手状态下回答。</small>
             </span>
           </label>
         </div>
@@ -83,7 +110,7 @@
 
       <section class="setup-section" id="actionScaleSection" aria-labelledby="actionScaleTitle">
         <div class="section-heading">
-          <span>STEP 02</span>
+          <span>STEP 03</span>
           <h2 id="actionScaleTitle">选择动作尺度</h2>
         </div>
 
@@ -114,9 +141,14 @@
         </div>
       </section>
 
-      <section class="setup-section" aria-labelledby="recordModeTitle">
+      <div class="dual-bank-note" id="dualBankNote" hidden>
+        <strong>双人同步使用独立题库</strong>
+        <p>动作均设计为同一个共同互动，不在一分钟内区分“谁先对谁做”。</p>
+      </div>
+
+      <section class="setup-section" id="recordModeSection" aria-labelledby="recordModeTitle">
         <div class="section-heading">
-          <span id="recordModeStep">STEP 03</span>
+          <span id="recordModeStep">STEP 04</span>
           <h2 id="recordModeTitle">选择记录方式</h2>
         </div>
 
@@ -128,12 +160,12 @@
               <strong>健康数据回看</strong>
               <small>
                 每道题独占一个完整分钟，休息分钟自动排除；
-                全部完成后再查看健康 App 中对应分钟的最低和最高心率。
+                全部完成后再查看对应分钟的最低和最高心率。
               </small>
             </span>
           </label>
 
-          <label class="choice-card">
+          <label class="choice-card" id="liveRecordChoice">
             <input type="radio" name="recordMode" value="live" />
             <span class="choice-card-inner">
               <strong>手表实时观察</strong>
@@ -144,11 +176,15 @@
             </span>
           </label>
         </div>
+
+        <div class="dual-record-note" id="dualRecordNote" hidden>
+          双人同步默认使用健康数据回看，两个人在实验结束后分别查询自己的数据。
+        </div>
       </section>
 
-      <section class="setup-section" aria-labelledby="wearerTitle">
+      <section class="setup-section" id="wearerSection" aria-labelledby="wearerTitle">
         <div class="section-heading">
-          <span id="wearerStep">STEP 04</span>
+          <span id="wearerStep">STEP 05</span>
           <h2 id="wearerTitle">选择本局佩戴者</h2>
         </div>
 
@@ -173,13 +209,13 @@
         </div>
 
         <p class="small-note">
-          一局只记录一位佩戴者。双方都想体验时，建议各自使用自己的设备分别开局。
+          单人模式一局只记录一位佩戴者。
         </p>
       </section>
 
       <section class="setup-section" aria-labelledby="roundTitle">
         <div class="section-heading">
-          <span id="roundStep">STEP 05</span>
+          <span id="roundStep">STEP 06</span>
           <h2 id="roundTitle">选择实验轮数</h2>
         </div>
 
@@ -221,7 +257,7 @@
         <button class="text-button" id="restartButton" type="button">
           重新选择
         </button>
-        <div class="mode-pill" id="modePill">健康数据回看</div>
+        <div class="mode-pill" id="modePill">单人反应 · 健康数据回看</div>
       </div>
 
       <div class="round-progress">
@@ -258,7 +294,7 @@
         <h2>下一轮将在整分钟开始</h2>
         <strong class="large-countdown" id="waitCountdown">00:30</strong>
         <p id="waitTargetText">预计开始时间：22:16</p>
-        <p class="support-copy">
+        <p class="support-copy" id="waitSupportCopy">
           请确认心率设备已开始记录。无需把手表一直举向镜头。
         </p>
         <button class="button button-secondary" id="cancelWaitButton" type="button">
@@ -392,7 +428,7 @@
       <div class="data-entry-heading">
         <p class="eyebrow">HEALTH DATA REVIEW</p>
         <h1 id="dataEntryTitle">现在统一回看心率数据</h1>
-        <p>
+        <p id="dataEntryDescription">
           打开手机健康 App，按网页记录的分钟找到对应数据，
           将该分钟的最低和最高心率填入下面。休息分钟无需填写。
         </p>
@@ -415,7 +451,7 @@
       </button>
 
       <p class="small-note centered-note">
-        不同设备显示方式可能不同。无法找到某一分钟时，可留空并仅统计其他轮次。
+        不同设备显示方式可能不同。无法找到某一分钟时，可整轮留空，仅统计其他轮次。
       </p>
     </section>
 
@@ -426,31 +462,11 @@
         <h1 id="resultTitle">本轮心率实验完成</h1>
         <p id="resultSubtitle"></p>
 
-        <div class="result-highlights">
-          <article class="highlight-card highlight-card-pink">
-            <span>最高心率瞬间</span>
-            <strong id="highestPeakValue">—</strong>
-            <p id="highestPeakTask">—</p>
-          </article>
-
-          <article class="highlight-card highlight-card-gold">
-            <span id="largestChangeLabel">最大心率波动</span>
-            <strong id="largestChangeValue">—</strong>
-            <p id="largestChangeTask">—</p>
-          </article>
-        </div>
+        <div class="result-highlights" id="resultHighlights"></div>
 
         <div class="result-table-wrap">
           <table class="result-table">
-            <thead>
-              <tr>
-                <th>轮次</th>
-                <th>题目</th>
-                <th id="resultFirstMetricHeader">最低</th>
-                <th>最高</th>
-                <th id="resultChangeHeader">波动</th>
-              </tr>
-            </thead>
+            <thead id="resultTableHead"></thead>
             <tbody id="resultTableBody"></tbody>
           </table>
         </div>
@@ -482,6 +498,15 @@
         <button class="dialog-close" id="closeHelpButton" type="button" aria-label="关闭">×</button>
       </div>
 
+      <h3>单人反应</h3>
+      <p>一人佩戴设备，另一人完成动作或回答问题。可以使用健康数据回看或手表实时观察。</p>
+
+      <h3>双人同步</h3>
+      <p>
+        两个人都佩戴设备，共同完成同一个互动或依次回答同一道问题。
+        双人模式使用健康数据回看，不在同一分钟内区分动作方向。
+      </p>
+
       <h3>健康数据回看</h3>
       <p>
         每道题占用一个完整分钟，中间安排一个休息分钟。
@@ -490,20 +515,14 @@
 
       <h3>手表实时观察</h3>
       <p>
-        先记录动作前读数，题目揭晓后进行15秒测量，
+        仅用于单人反应。先记录动作前读数，题目揭晓后进行15秒测量，
         再录入观察到的最高心率。
-      </p>
-
-      <h3>现场分工</h3>
-      <p>
-        戴表者自然保持佩戴，另一位完成动作或回答。
-        不需要一直把手表举到镜头前；结果可在最后统一展示。
       </p>
 
       <ul>
         <li>任何动作和问题都可以跳过。</li>
-        <li>健康回看模式会自动记录实验分钟。</li>
-        <li>休息分钟的数据不会出现在录入列表里。</li>
+        <li>双人共同问答中，两个人依次回答同一道问题。</li>
+        <li>双人结果分别展示个人波动和共同高反应瞬间。</li>
         <li>页面不会直接读取或上传任何健康数据。</li>
       </ul>
     </div>
