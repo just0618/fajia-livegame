@@ -23,7 +23,9 @@
   const levelLabels = {
     light: "轻松模式",
     heart: "心动模式",
-    challenge: "挑战模式"
+    challenge: "挑战模式",
+    intimate: "高亲密度",
+    mixed: "全部混合"
   };
 
   const typeLabels = {
@@ -34,6 +36,11 @@
   const state = {
     level: "light",
     mode: "random",
+    includeIntimate: false,
+    activePools: {
+      truth: [],
+      dare: []
+    },
     currentPlayerIndex: 0,
     turn: 1,
     cardCount: 0,
@@ -60,8 +67,12 @@
     cardLevel: document.getElementById("cardLevel"),
     cardNumber: document.getElementById("cardNumber"),
     cardQuestion: document.getElementById("cardQuestion"),
+    cardTip: document.getElementById("cardTip"),
     remainingText: document.getElementById("remainingText"),
     progressBar: document.getElementById("progressBar"),
+    mixedIntimacyOption: document.getElementById("mixedIntimacyOption"),
+    includeIntimateCheckbox: document.getElementById("includeIntimateCheckbox"),
+    intimacyNote: document.getElementById("intimacyNote"),
     helpDialog: document.getElementById("helpDialog"),
     openHelpButton: document.getElementById("openHelpButton"),
     closeHelpButton: document.getElementById("closeHelpButton"),
@@ -90,6 +101,36 @@
     state.used.dare.clear();
   }
 
+  function updateLevelOptions() {
+    const selectedLevel = getSelectedValue("level") || "light";
+    const isMixed = selectedLevel === "mixed";
+    const includesIntimate =
+      selectedLevel === "intimate" ||
+      (isMixed && elements.includeIntimateCheckbox.checked);
+
+    elements.mixedIntimacyOption.hidden = !isMixed;
+    elements.intimacyNote.hidden = !includesIntimate;
+  }
+
+  function buildActivePools() {
+    if (state.level !== "mixed") {
+      return {
+        truth: [...bank[state.level].truth],
+        dare: [...bank[state.level].dare]
+      };
+    }
+
+    const levels = ["light", "heart", "challenge"];
+    if (state.includeIntimate) {
+      levels.push("intimate");
+    }
+
+    return {
+      truth: levels.flatMap((level) => bank[level].truth),
+      dare: levels.flatMap((level) => bank[level].dare)
+    };
+  }
+
   function determineType() {
     if (state.mode === "truth" || state.mode === "dare") {
       return state.mode;
@@ -99,7 +140,7 @@
   }
 
   function getPool(type) {
-    return bank[state.level][type];
+    return state.activePools[type];
   }
 
   function drawIndex(type) {
@@ -115,7 +156,8 @@
       .map((_, index) => index)
       .filter((index) => !usedSet.has(index));
 
-    const selectedIndex = available[Math.floor(Math.random() * available.length)];
+    const selectedIndex =
+      available[Math.floor(Math.random() * available.length)];
     usedSet.add(selectedIndex);
     return selectedIndex;
   }
@@ -126,7 +168,10 @@
     elements.currentPlayerImage.src = player.image;
     elements.currentPlayerImage.alt = player.name;
     elements.currentPlayerName.textContent = player.name;
-    elements.currentPlayer.classList.toggle("is-gold", player.className === "gold");
+    elements.currentPlayer.classList.toggle(
+      "is-gold",
+      player.className === "gold"
+    );
     elements.completeTurnButton.classList.toggle(
       "is-gold",
       player.className === "gold"
@@ -143,6 +188,20 @@
     elements.progressBar.style.width = `${progress}%`;
   }
 
+  function currentLevelLabel() {
+    if (state.level === "mixed" && state.includeIntimate) {
+      return "全部混合＋高亲密度";
+    }
+    return levelLabels[state.level];
+  }
+
+  function usesIntimateCards() {
+    return (
+      state.level === "intimate" ||
+      (state.level === "mixed" && state.includeIntimate)
+    );
+  }
+
   function drawCard() {
     const type = determineType();
     const index = drawIndex(type);
@@ -152,10 +211,18 @@
     state.cardCount += 1;
 
     elements.questionCard.classList.toggle("is-dare", type === "dare");
+    elements.questionCard.classList.toggle(
+      "is-intimate",
+      usesIntimateCards()
+    );
     elements.cardType.textContent = typeLabels[type];
-    elements.cardLevel.textContent = levelLabels[state.level];
-    elements.cardNumber.textContent = `CARD ${String(state.cardCount).padStart(2, "0")}`;
+    elements.cardLevel.textContent = currentLevelLabel();
+    elements.cardNumber.textContent =
+      `CARD ${String(state.cardCount).padStart(2, "0")}`;
     elements.cardQuestion.textContent = question;
+    elements.cardTip.textContent = usesIntimateCards()
+      ? "双方都愿意时再回答或完成；不合适可以直接换一张。"
+      : "回答或完成后，点击下方按钮交给下一位玩家。";
 
     updateProgress(type);
 
@@ -167,8 +234,14 @@
   function beginGame(starter) {
     state.level = getSelectedValue("level") || "light";
     state.mode = getSelectedValue("mode") || "random";
+    state.includeIntimate =
+      state.level === "mixed" &&
+      elements.includeIntimateCheckbox.checked;
+    state.activePools = buildActivePools();
     state.currentPlayerIndex =
-      starter === "random" ? Math.floor(Math.random() * players.length) : Number(starter);
+      starter === "random"
+        ? Math.floor(Math.random() * players.length)
+        : Number(starter);
     state.turn = 1;
     state.cardCount = 0;
 
@@ -182,7 +255,8 @@
   }
 
   function completeTurn() {
-    state.currentPlayerIndex = (state.currentPlayerIndex + 1) % players.length;
+    state.currentPlayerIndex =
+      (state.currentPlayerIndex + 1) % players.length;
     state.turn += 1;
 
     updatePlayer();
@@ -194,8 +268,18 @@
     elements.playScreen.hidden = true;
     elements.setupScreen.hidden = false;
     resetUsedCards();
+    updateLevelOptions();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
+
+  document.querySelectorAll('input[name="level"]').forEach((input) => {
+    input.addEventListener("change", updateLevelOptions);
+  });
+
+  elements.includeIntimateCheckbox.addEventListener(
+    "change",
+    updateLevelOptions
+  );
 
   elements.startButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -203,10 +287,7 @@
     });
   });
 
-  elements.drawAgainButton.addEventListener("click", () => {
-    drawCard();
-  });
-
+  elements.drawAgainButton.addEventListener("click", drawCard);
   elements.completeTurnButton.addEventListener("click", completeTurn);
   elements.restartButton.addEventListener("click", restartGame);
 
@@ -214,7 +295,9 @@
     if (typeof elements.helpDialog.showModal === "function") {
       elements.helpDialog.showModal();
     } else {
-      showToast("选择模式后开始游戏；换一张不会切换玩家，完成后自动轮流。");
+      showToast(
+        "选择模式后开始游戏；高亲密度题目需要主动选择，任何卡片都可以更换。"
+      );
     }
   });
 
@@ -227,4 +310,6 @@
       elements.helpDialog.close();
     }
   });
+
+  updateLevelOptions();
 })();

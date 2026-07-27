@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF8AA1" />
+  <meta
+    name="description"
+    content="法嘉心动值挑战：为假设行为打出1—10分，支持镜头同声和秘密打分。"
+  />
+  <title>法嘉心动值挑战</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="background-shape shape-pink" aria-hidden="true"></div>
+  <div class="background-shape shape-gold" aria-hidden="true"></div>
+
+  <header class="game-header">
+    <a class="back-link" href="../../">
+      <span aria-hidden="true">←</span>
+      返回游戏屋
+    </a>
+
+    <div class="mini-brand">
+      <span class="brand-dot brand-dot-pink"></span>
+      法嘉心动值挑战
+      <span class="brand-dot brand-dot-gold"></span>
+    </div>
+
+    <button class="text-button" id="openHelpButton" type="button">
+      玩法说明
+    </button>
+  </header>
+
+  <main class="game-shell">
+    <section class="setup-screen" id="setupScreen" aria-labelledby="setupTitle">
+      <div class="setup-intro">
+        <p class="eyebrow">GAME 05 · HEART RATING</p>
+        <h1 id="setupTitle">这个小动作，<br />心动值有几分？</h1>
+        <p>
+          对同一个假设行为分别打出1—10分。
+          题目只用于评价，不要求现场完成其中的动作。
+        </p>
+      </div>
+
+      <div class="player-preview" aria-label="参与玩家">
+        <article class="player-chip player-chip-pink">
+          <img src="../../assets/players/fa.webp" alt="法宣阁" />
+          <div>
+            <span>PLAYER 01</span>
+            <strong>法宣阁</strong>
+          </div>
+        </article>
+
+        <span class="switch-mark" aria-hidden="true">♥</span>
+
+        <article class="player-chip player-chip-gold">
+          <img src="../../assets/players/he.webp" alt="贺嘉述" />
+          <div>
+            <span>PLAYER 02</span>
+            <strong>贺嘉述</strong>
+          </div>
+        </article>
+      </div>
+
+      <section class="choice-section" aria-labelledby="categoryTitle">
+        <div class="section-label">
+          <span>STEP 01</span>
+          <h2 id="categoryTitle">选择题目尺度</h2>
+        </div>
+
+        <div class="choice-grid category-grid">
+          <label class="choice-card">
+            <input type="radio" name="category" value="daily" />
+            <span class="choice-card-inner">
+              <span class="choice-icon">01</span>
+              <strong>轻松日常</strong>
+              <small>照顾、分享与记得小事</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="category" value="gesture" />
+            <span class="choice-card-inner">
+              <span class="choice-icon">02</span>
+              <strong>心动小动作</strong>
+              <small>自然靠近与轻量肢体互动</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="category" value="live" />
+            <span class="choice-card-inner">
+              <span class="choice-icon">03</span>
+              <strong>直播与工作</strong>
+              <small>接话、救场与关注状态</small>
+            </span>
+          </label>
+
+          <label class="choice-card high-choice">
+            <input type="radio" name="category" value="high" />
+            <span class="choice-card-inner">
+              <span class="choice-icon">04</span>
+              <strong>高心动动作</strong>
+              <small>亲密度较高，请按当下情况选择</small>
+            </span>
+          </label>
+
+          <label class="choice-card choice-card-wide">
+            <input type="radio" name="category" value="mixed" checked />
+            <span class="choice-card-inner">
+              <span class="choice-icon">∞</span>
+              <strong>全部混合</strong>
+              <small>四类共60题随机出现</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="choice-section" aria-labelledby="modeTitle">
+        <div class="section-label">
+          <span>STEP 02</span>
+          <h2 id="modeTitle">选择打分方式</h2>
+        </div>
+
+        <div class="choice-grid mode-grid">
+          <label class="choice-card mode-card">
+            <input type="radio" name="mode" value="camera" checked />
+            <span class="choice-card-inner">
+              <span class="mode-mark">3·2·1</span>
+              <strong>镜头同声</strong>
+              <small>网页作为提词器，倒计时后同时对镜头说分数</small>
+            </span>
+          </label>
+
+          <label class="choice-card mode-card">
+            <input type="radio" name="mode" value="secret" />
+            <span class="choice-card-inner">
+              <span class="mode-mark">•••</span>
+              <strong>秘密打分</strong>
+              <small>依次选择并隐藏，最后统一揭晓</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="choice-section" aria-labelledby="roundTitle">
+        <div class="section-label">
+          <span>STEP 03</span>
+          <h2 id="roundTitle">选择挑战轮数</h2>
+        </div>
+
+        <div class="choice-grid round-grid">
+          <label class="choice-card round-card">
+            <input type="radio" name="rounds" value="5" />
+            <span class="choice-card-inner">
+              <strong>5题</strong>
+              <small>快速体验</small>
+            </span>
+          </label>
+
+          <label class="choice-card round-card">
+            <input type="radio" name="rounds" value="10" checked />
+            <span class="choice-card-inner">
+              <strong>10题</strong>
+              <small>标准一局</small>
+            </span>
+          </label>
+
+          <label class="choice-card round-card">
+            <input type="radio" name="rounds" value="15" />
+            <span class="choice-card-inner">
+              <strong>15题</strong>
+              <small>完整挑战</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="starter-panel" id="starterPanel" hidden aria-labelledby="starterTitle">
+        <div>
+          <p class="eyebrow">SECRET MODE</p>
+          <h2 id="starterTitle">第一题谁先秘密评分？</h2>
+          <p>之后每个正式回合会自动交换第一位评分者。</p>
+        </div>
+
+        <div class="starter-options">
+          <label>
+            <input type="radio" name="starter" value="0" checked />
+            <span>法宣阁先评分</span>
+          </label>
+          <label>
+            <input type="radio" name="starter" value="1" />
+            <span>贺嘉述先评分</span>
+          </label>
+          <label>
+            <input type="radio" name="starter" value="random" />
+            <span>随机选择</span>
+          </label>
+        </div>
+      </section>
+
+      <button class="button button-primary start-button" id="startButton" type="button">
+        开始心动值挑战
+        <span aria-hidden="true">→</span>
+      </button>
+    </section>
+
+    <section class="play-screen" id="playScreen" hidden aria-labelledby="questionText">
+      <div class="play-toolbar">
+        <button class="text-button" id="restartButton" type="button">
+          重新选择
+        </button>
+
+        <div class="mode-pill" id="modePill">镜头同声</div>
+      </div>
+
+      <div class="round-progress">
+        <div class="round-copy">
+          <span id="roundText">第 1 / 10 题</span>
+          <span id="categoryText">全部混合</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <span id="roundProgressBar"></span>
+        </div>
+      </div>
+
+      <article class="question-card">
+        <div class="question-header">
+          <span class="category-badge" id="questionCategory">轻松日常</span>
+          <span class="question-number" id="questionNumber">CARD 01</span>
+        </div>
+
+        <p class="question-label">这个行为的心动值是——</p>
+        <h1 id="questionText"></h1>
+
+        <div class="scale-guide" aria-label="评分标准">
+          <span><strong>1分</strong> 几乎无感</span>
+          <span><strong>5分</strong> 有一点心动</span>
+          <span><strong>10分</strong> 非常心动</span>
+        </div>
+
+        <p class="boundary-note">
+          只需要评价这个假设行为，不要求现场完成。
+        </p>
+      </article>
+
+      <section class="camera-stage" id="cameraStage">
+        <div class="camera-ready" id="cameraReady">
+          <p>两个人准备好后，点击按钮开始3秒倒计时。</p>
+          <div class="stage-actions">
+            <button class="button button-secondary" id="cameraSkipButton" type="button">
+              跳过并补抽
+            </button>
+            <button class="button button-primary" id="countdownButton" type="button">
+              开始倒计时
+            </button>
+          </div>
+        </div>
+
+        <div class="countdown-panel" id="countdownPanel" hidden aria-live="assertive">
+          <strong id="countdownText">3</strong>
+          <span id="countdownHint">准备同时说出1—10分</span>
+        </div>
+
+        <div class="camera-after" id="cameraAfter" hidden>
+          <div class="speak-callout">
+            <span>NOW</span>
+            <strong>同时说出1—10分！</strong>
+          </div>
+
+          <div class="stage-actions camera-after-actions">
+            <button class="button button-secondary" id="cameraSkipAfterButton" type="button">
+              跳过并补抽
+            </button>
+            <button class="button button-ghost" id="nextWithoutRecordButton" type="button">
+              下一题，不记录
+            </button>
+            <button class="button button-primary" id="openRecordButton" type="button">
+              记录刚才的分数
+            </button>
+          </div>
+        </div>
+
+        <div class="record-panel" id="recordPanel" hidden>
+          <p class="panel-title">补录刚刚对镜头说出的分数</p>
+
+          <div class="dual-score-grid">
+            <div class="score-box score-box-pink">
+              <div class="score-person">
+                <img src="../../assets/players/fa.webp" alt="法宣阁" />
+                <strong>法宣阁</strong>
+              </div>
+              <div class="score-buttons" data-score-group="camera-fa" aria-label="法宣阁分数"></div>
+            </div>
+
+            <div class="score-box score-box-gold">
+              <div class="score-person">
+                <img src="../../assets/players/he.webp" alt="贺嘉述" />
+                <strong>贺嘉述</strong>
+              </div>
+              <div class="score-buttons" data-score-group="camera-he" aria-label="贺嘉述分数"></div>
+            </div>
+          </div>
+
+          <button class="button button-primary confirm-record-button" id="confirmCameraRecordButton" type="button" disabled>
+            确认记录并揭晓
+          </button>
+        </div>
+      </section>
+
+      <section class="secret-stage" id="secretStage" hidden>
+        <div class="secret-score-panel" id="secretScorePanel">
+          <div class="current-rater">
+            <img id="currentRaterImage" src="" alt="" />
+            <div>
+              <span id="currentRaterRole">第一位评分者</span>
+              <strong id="currentRaterName"></strong>
+            </div>
+          </div>
+
+          <h2 id="secretPrompt">请另一位暂时不要看屏幕</h2>
+          <p>选择1—10分后锁定，分数会立即隐藏。</p>
+
+          <div class="score-buttons secret-score-buttons" id="secretScoreButtons" aria-label="秘密评分"></div>
+
+          <div class="stage-actions">
+            <button class="button button-secondary" id="secretSkipButton" type="button">
+              跳过并补抽
+            </button>
+            <button class="button button-primary" id="lockSecretScoreButton" type="button" disabled>
+              锁定分数
+            </button>
+          </div>
+        </div>
+
+        <div class="handover-panel" id="handoverPanel" hidden>
+          <p class="eyebrow">SCORE SAVED</p>
+          <h2>分数已经隐藏</h2>
+          <p id="handoverCopy">请把屏幕交给下一位评分者。</p>
+          <button class="button button-primary" id="continueSecretButton" type="button">
+            开始第二位评分
+          </button>
+        </div>
+      </section>
+
+      <section class="reveal-panel" id="revealPanel" hidden aria-live="polite">
+        <p class="eyebrow">SCORE REVEAL</p>
+        <h2>本题心动值揭晓</h2>
+
+        <div class="reveal-scores">
+          <article class="reveal-score reveal-score-pink">
+            <img src="../../assets/players/fa.webp" alt="法宣阁" />
+            <span>法宣阁</span>
+            <strong id="faRevealScore">—</strong>
+          </article>
+
+          <div class="difference-badge">
+            <span>相差</span>
+            <strong id="differenceScore">—</strong>
+          </div>
+
+          <article class="reveal-score reveal-score-gold">
+            <img src="../../assets/players/he.webp" alt="贺嘉述" />
+            <span>贺嘉述</span>
+            <strong id="heRevealScore">—</strong>
+          </article>
+        </div>
+
+        <p class="reveal-copy" id="revealCopy"></p>
+
+        <button class="button button-primary next-button" id="revealNextButton" type="button">
+          进入下一题
+        </button>
+      </section>
+
+      <p class="session-note">
+        跳过不占用所选题数；已完成的题目在同一局不会重复。
+      </p>
+    </section>
+
+    <section class="result-screen" id="resultScreen" hidden aria-labelledby="resultTitle">
+      <div class="result-card">
+        <div class="result-photos" aria-hidden="true">
+          <img class="result-photo result-photo-pink" src="../../assets/players/fa.webp" alt="" />
+          <span>♥</span>
+          <img class="result-photo result-photo-gold" src="../../assets/players/he.webp" alt="" />
+        </div>
+
+        <p class="eyebrow">CHALLENGE COMPLETE</p>
+        <h1 id="resultTitle">本轮心动值挑战完成</h1>
+
+        <div class="result-title-box">
+          <span>本场称号</span>
+          <strong id="resultBadge">正在计算</strong>
+        </div>
+
+        <p class="result-description" id="resultDescription"></p>
+
+        <div class="result-breakdown">
+          <div>
+            <span>完成题目</span>
+            <strong id="resultCompleted">0</strong>
+          </div>
+          <div>
+            <span>记录分数</span>
+            <strong id="resultRecorded">0</strong>
+          </div>
+          <div>
+            <span>完全同分</span>
+            <strong id="resultExact">0</strong>
+          </div>
+          <div>
+            <span>平均分差</span>
+            <strong id="resultAverageGap">—</strong>
+          </div>
+        </div>
+
+        <div class="top-behavior" id="topBehaviorBox">
+          <span>本场最高心动行为</span>
+          <strong id="topBehaviorText">—</strong>
+        </div>
+
+        <p class="result-note" id="resultNote"></p>
+
+        <div class="result-actions">
+          <button class="button button-primary" id="playAgainButton" type="button">
+            再玩一局
+          </button>
+          <a class="button button-secondary" href="../../">
+            返回游戏屋
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="help-dialog" id="helpDialog">
+    <div class="dialog-content">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">HOW TO PLAY</p>
+          <h2>玩法说明</h2>
+        </div>
+        <button class="dialog-close" id="closeHelpButton" type="button" aria-label="关闭">×</button>
+      </div>
+
+      <h3>镜头同声</h3>
+      <p>网页展示题目并倒计时，两个人同时对着镜头说出1—10分。可以直接进入下一题，也可以补录分数查看统计。</p>
+
+      <h3>秘密打分</h3>
+      <p>两个人依次选择分数，每次锁定后立即隐藏，第二位评分完成后统一揭晓。</p>
+
+      <ul>
+        <li>1分表示几乎无感，10分表示非常心动。</li>
+        <li>跳过不计入5题、10题或15题的正式题数。</li>
+        <li>所有题目都是假设情境，不要求现场完成动作。</li>
+        <li>最终不设置个人输赢，只展示共同统计。</li>
+      </ul>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./questions.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

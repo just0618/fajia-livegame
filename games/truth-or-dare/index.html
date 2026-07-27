@@ -39,7 +39,7 @@
         <p class="eyebrow">GAME 02 · TRUTH OR DARE</p>
         <h1 id="setupTitle">今晚，想从哪一张卡开始？</h1>
         <p>
-          选择题目尺度和游玩模式。游戏开始后，
+          选择题目尺度和游玩模式。高亲密度题目需要主动选择，游戏开始后，
           法宣阁与贺嘉述会自动轮流抽卡。
         </p>
       </div>
@@ -97,6 +97,40 @@
               <small>更有节目效果的互动任务</small>
             </span>
           </label>
+
+          <label class="choice-card intimate-choice">
+            <input type="radio" name="level" value="intimate" />
+            <span class="choice-card-inner">
+              <span class="choice-icon intimate-icon">♥+</span>
+              <strong>高亲密度</strong>
+              <small>更直接的心动、依赖与关系问题</small>
+            </span>
+          </label>
+
+          <label class="choice-card choice-card-wide mixed-choice">
+            <input type="radio" name="level" value="mixed" />
+            <span class="choice-card-inner">
+              <span class="choice-icon mixed-icon">∞</span>
+              <strong>全部混合</strong>
+              <small>默认随机抽取轻松、心动与挑战题目</small>
+            </span>
+          </label>
+        </div>
+
+        <div class="mixed-intimacy-option" id="mixedIntimacyOption" hidden>
+          <label>
+            <input id="includeIntimateCheckbox" type="checkbox" />
+            <span class="custom-checkbox" aria-hidden="true">✓</span>
+            <span>
+              <strong>同时加入高亲密度题目</strong>
+              <small>默认关闭；勾选后，混合题库将由72张扩展为96张。</small>
+            </span>
+          </label>
+        </div>
+
+        <div class="intimacy-note" id="intimacyNote" hidden>
+          <strong>高亲密度题目仅在双方都愿意时进行。</strong>
+          <p>任何问题或动作都可以直接换一张，不需要解释原因，也不设置强制完成机制。</p>
         </div>
       </section>
 
@@ -230,7 +264,8 @@
       </div>
 
       <ol>
-        <li>先选择轻松、心动或挑战模式。</li>
+        <li>先选择轻松、心动、挑战、高亲密度或全部混合。</li>
+        <li>选择全部混合时，可自行决定是否加入高亲密度题目。</li>
         <li>选择只抽真心话、只抽大冒险或随机模式。</li>
         <li>决定第一位玩家，系统会为其抽取一张卡。</li>
         <li>“换一张”会为当前玩家重新抽卡，不会切换玩家。</li>
@@ -238,7 +273,7 @@
       </ol>
 
       <p>
-        本版本以直播友好为优先，不设置惩罚、积分或强制完成机制。
+        本版本以直播友好为优先，不设置惩罚、积分或强制完成机制。高亲密度题目仅在双方均愿意时回答或完成。
       </p>
     </div>
   </dialog>

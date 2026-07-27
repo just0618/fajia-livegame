@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF8AA1" />
+  <meta
+    name="description"
+    content="法嘉心率实验室：用心率设备记录动作或问答对应的心率变化。"
+  />
+  <title>法嘉心率实验室</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="page-glow page-glow-pink" aria-hidden="true"></div>
+  <div class="page-glow page-glow-gold" aria-hidden="true"></div>
+
+  <header class="game-header">
+    <a class="back-link" href="../../">
+      <span aria-hidden="true">←</span>
+      返回游戏屋
+    </a>
+
+    <div class="mini-brand">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      法嘉心率实验室
+    </div>
+
+    <button class="text-button" id="openHelpButton" type="button">
+      玩法说明
+    </button>
+  </header>
+
+  <main class="game-shell">
+    <section class="setup-screen" id="setupScreen" aria-labelledby="setupTitle">
+      <div class="setup-intro">
+        <p class="eyebrow">GAME 06 · HEART RATE LAB</p>
+        <h1 id="setupTitle">
+          哪一个瞬间，<br />
+          心率变化最大？
+        </h1>
+        <p>
+          选择动作实验或对视问答，通过心率设备记录每一轮的数据。
+          网页不会直接连接健康 App，所有数值均由玩家自行查看和录入。
+        </p>
+      </div>
+
+      <div class="equipment-note">
+        <span aria-hidden="true">⌚</span>
+        <div>
+          <strong>需要准备</strong>
+          <p>一块可测量心率的手表或手环，以及配套手机。</p>
+        </div>
+      </div>
+
+      <section class="setup-section" aria-labelledby="gameplayTitle">
+        <div class="section-heading">
+          <span>STEP 01</span>
+          <h2 id="gameplayTitle">选择实验玩法</h2>
+        </div>
+
+        <div class="choice-grid gameplay-grid">
+          <label class="choice-card">
+            <input type="radio" name="gameplay" value="action" checked />
+            <span class="choice-card-inner">
+              <span class="choice-icon">01</span>
+              <strong>动作心率实验</strong>
+              <small>另一位完成不同小动作，寻找心率最高或波动最大的动作。</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="gameplay" value="question" />
+            <span class="choice-card-inner">
+              <span class="choice-icon choice-icon-gold">02</span>
+              <strong>对视问答实验</strong>
+              <small>佩戴者提问，对方在对视和牵手状态下回答。</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="setup-section" id="actionScaleSection" aria-labelledby="actionScaleTitle">
+        <div class="section-heading">
+          <span>STEP 02</span>
+          <h2 id="actionScaleTitle">选择动作尺度</h2>
+        </div>
+
+        <div class="choice-grid scale-grid">
+          <label class="choice-card compact-card">
+            <input type="radio" name="actionScale" value="light" />
+            <span class="choice-card-inner">
+              <strong>轻量动作</strong>
+              <small>牵手、整理衣领、靠肩、轻触等</small>
+            </span>
+          </label>
+
+          <label class="choice-card compact-card">
+            <input type="radio" name="actionScale" value="high" />
+            <span class="choice-card-inner">
+              <strong>高心动动作</strong>
+              <small>拥抱、额头相碰、贴脸等</small>
+            </span>
+          </label>
+
+          <label class="choice-card compact-card">
+            <input type="radio" name="actionScale" value="mixed" checked />
+            <span class="choice-card-inner">
+              <strong>全部混合</strong>
+              <small>两类动作随机出现</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="setup-section" aria-labelledby="recordModeTitle">
+        <div class="section-heading">
+          <span id="recordModeStep">STEP 03</span>
+          <h2 id="recordModeTitle">选择记录方式</h2>
+        </div>
+
+        <div class="choice-grid record-grid">
+          <label class="choice-card recommended-card">
+            <input type="radio" name="recordMode" value="health" checked />
+            <span class="choice-card-inner">
+              <span class="recommend-badge">推荐</span>
+              <strong>健康数据回看</strong>
+              <small>
+                每道题独占一个完整分钟，休息分钟自动排除；
+                全部完成后再查看健康 App 中对应分钟的最低和最高心率。
+              </small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="recordMode" value="live" />
+            <span class="choice-card-inner">
+              <strong>手表实时观察</strong>
+              <small>
+                先输入动作前心率，再进行15秒任务，
+                手动记录看到的最高心率。
+              </small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="setup-section" aria-labelledby="wearerTitle">
+        <div class="section-heading">
+          <span id="wearerStep">STEP 04</span>
+          <h2 id="wearerTitle">选择本局佩戴者</h2>
+        </div>
+
+        <div class="wearer-grid">
+          <label class="wearer-card wearer-card-pink">
+            <input type="radio" name="wearer" value="0" checked />
+            <span>
+              <img src="../../assets/players/fa.webp" alt="法宣阁" />
+              <strong>法宣阁佩戴设备</strong>
+              <small>贺嘉述完成动作或回答</small>
+            </span>
+          </label>
+
+          <label class="wearer-card wearer-card-gold">
+            <input type="radio" name="wearer" value="1" />
+            <span>
+              <img src="../../assets/players/he.webp" alt="贺嘉述" />
+              <strong>贺嘉述佩戴设备</strong>
+              <small>法宣阁完成动作或回答</small>
+            </span>
+          </label>
+        </div>
+
+        <p class="small-note">
+          一局只记录一位佩戴者。双方都想体验时，建议各自使用自己的设备分别开局。
+        </p>
+      </section>
+
+      <section class="setup-section" aria-labelledby="roundTitle">
+        <div class="section-heading">
+          <span id="roundStep">STEP 05</span>
+          <h2 id="roundTitle">选择实验轮数</h2>
+        </div>
+
+        <div class="choice-grid round-grid">
+          <label class="choice-card compact-card">
+            <input type="radio" name="rounds" value="3" />
+            <span class="choice-card-inner">
+              <strong>3轮</strong>
+              <small>快速体验</small>
+            </span>
+          </label>
+
+          <label class="choice-card compact-card">
+            <input type="radio" name="rounds" value="5" checked />
+            <span class="choice-card-inner">
+              <strong>5轮</strong>
+              <small>标准挑战</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <div class="consent-note">
+        <strong>开始前确认</strong>
+        <p>
+          题目仅供双方自愿体验，任何动作和问题都可以跳过。
+          心率结果只用于娱乐，不代表真实情感、说谎情况或健康状态。
+        </p>
+      </div>
+
+      <button class="button button-primary start-button" id="startButton" type="button">
+        开始心率实验
+        <span aria-hidden="true">→</span>
+      </button>
+    </section>
+
+    <section class="play-screen" id="playScreen" hidden aria-labelledby="roundTitleText">
+      <div class="play-toolbar">
+        <button class="text-button" id="restartButton" type="button">
+          重新选择
+        </button>
+        <div class="mode-pill" id="modePill">健康数据回看</div>
+      </div>
+
+      <div class="round-progress">
+        <div class="round-copy">
+          <span id="roundCounter">第 1 / 5 轮</span>
+          <span id="wearerLabel">法宣阁佩戴设备</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <span id="progressBar"></span>
+        </div>
+      </div>
+
+      <section class="ready-panel" id="readyPanel">
+        <p class="eyebrow">ROUND READY</p>
+        <h1 id="roundTitleText">准备第1轮</h1>
+        <p id="readyInstruction">
+          题目会在实验分钟开始时揭晓，避免提前看到题目影响心率。
+        </p>
+
+        <div class="role-box" id="roleBox"></div>
+
+        <div class="ready-actions">
+          <button class="button button-secondary" id="skipButton" type="button">
+            跳过并补抽
+          </button>
+          <button class="button button-primary" id="prepareRoundButton" type="button">
+            等待下一整分钟开始
+          </button>
+        </div>
+      </section>
+
+      <section class="waiting-panel" id="waitingPanel" hidden aria-live="polite">
+        <p class="eyebrow">SYNCING THE MINUTE</p>
+        <h2>下一轮将在整分钟开始</h2>
+        <strong class="large-countdown" id="waitCountdown">00:30</strong>
+        <p id="waitTargetText">预计开始时间：22:16</p>
+        <p class="support-copy">
+          请确认心率设备已开始记录。无需把手表一直举向镜头。
+        </p>
+        <button class="button button-secondary" id="cancelWaitButton" type="button">
+          返回准备页
+        </button>
+      </section>
+
+      <section class="experiment-panel" id="experimentPanel" hidden aria-live="polite">
+        <div class="experiment-top">
+          <div>
+            <p class="eyebrow">EXPERIMENT MINUTE</p>
+            <span id="experimentMinuteLabel">记录分钟 22:16</span>
+          </div>
+          <strong id="experimentTimer">60</strong>
+        </div>
+
+        <div class="task-card">
+          <span class="task-type" id="taskTypeLabel">动作心率实验</span>
+          <h2 id="taskText"></h2>
+          <p id="taskRoleInstruction"></p>
+        </div>
+
+        <div class="phase-card">
+          <span>当前阶段</span>
+          <strong id="phaseTitle">准备开始</strong>
+          <p id="phaseDescription">确认设备正在记录，并保持戴表手腕自然稳定。</p>
+        </div>
+
+        <div class="timeline-bar" aria-hidden="true">
+          <span id="timelineProgress"></span>
+        </div>
+
+        <button class="button button-secondary abort-button" id="abortExperimentButton" type="button">
+          中止本轮，不计入
+        </button>
+      </section>
+
+      <section class="rest-panel" id="restPanel" hidden aria-live="polite">
+        <div class="rest-icon" aria-hidden="true">♡</div>
+        <p class="eyebrow">REST MINUTE</p>
+        <h2>正在休息</h2>
+        <strong class="large-countdown" id="restCountdown">01:00</strong>
+        <p>
+          <strong>无需关闭心率测量。</strong>
+          本分钟的数据不会计入结果，请自然放松。
+        </p>
+        <button class="button button-primary" id="viewNextButton" type="button">
+          查看下一轮准备页
+        </button>
+      </section>
+
+      <section class="live-baseline-panel" id="liveBaselinePanel" hidden>
+        <p class="eyebrow">LIVE MODE · BASELINE</p>
+        <h2>先记录动作前心率</h2>
+        <p>
+          请让设备读数相对稳定后再输入。题目会在正式计时开始时揭晓。
+        </p>
+
+        <label class="bpm-input-label">
+          动作前心率
+          <span class="bpm-input-wrap">
+            <input
+              id="baselineInput"
+              type="number"
+              min="30"
+              max="240"
+              inputmode="numeric"
+              placeholder="例如 78"
+            />
+            <span>BPM</span>
+          </span>
+        </label>
+
+        <div class="ready-actions">
+          <button class="button button-secondary" id="liveSkipButton" type="button">
+            跳过并补抽
+          </button>
+          <button class="button button-primary" id="startLiveButton" type="button">
+            揭晓题目并开始15秒
+          </button>
+        </div>
+      </section>
+
+      <section class="live-task-panel" id="liveTaskPanel" hidden aria-live="polite">
+        <div class="experiment-top">
+          <div>
+            <p class="eyebrow">LIVE MEASUREMENT</p>
+            <span>请观察本轮最高心率</span>
+          </div>
+          <strong id="liveTimer">15</strong>
+        </div>
+
+        <div class="task-card">
+          <span class="task-type" id="liveTaskTypeLabel">动作心率实验</span>
+          <h2 id="liveTaskText"></h2>
+          <p id="liveTaskRoleInstruction"></p>
+        </div>
+      </section>
+
+      <section class="live-result-input-panel" id="liveResultInputPanel" hidden>
+        <p class="eyebrow">RECORD THE PEAK</p>
+        <h2>记录本轮最高心率</h2>
+        <p id="baselineSummary">动作前心率：78 BPM</p>
+
+        <label class="bpm-input-label">
+          观察到的最高心率
+          <span class="bpm-input-wrap">
+            <input
+              id="livePeakInput"
+              type="number"
+              min="30"
+              max="240"
+              inputmode="numeric"
+              placeholder="例如 92"
+            />
+            <span>BPM</span>
+          </span>
+        </label>
+
+        <button class="button button-primary" id="saveLiveResultButton" type="button">
+          保存本轮结果
+        </button>
+      </section>
+
+      <p class="play-note">
+        页面只在当前浏览器内临时计算，不会连接、读取或上传健康 App 数据。
+      </p>
+    </section>
+
+    <section class="data-entry-screen" id="dataEntryScreen" hidden aria-labelledby="dataEntryTitle">
+      <div class="data-entry-heading">
+        <p class="eyebrow">HEALTH DATA REVIEW</p>
+        <h1 id="dataEntryTitle">现在统一回看心率数据</h1>
+        <p>
+          打开手机健康 App，按网页记录的分钟找到对应数据，
+          将该分钟的最低和最高心率填入下面。休息分钟无需填写。
+        </p>
+      </div>
+
+      <div class="health-path">
+        <span>健康 App</span>
+        <i>→</i>
+        <span>心脏</span>
+        <i>→</i>
+        <span>心率</span>
+        <i>→</i>
+        <span>查看对应分钟</span>
+      </div>
+
+      <div class="data-entry-list" id="dataEntryList"></div>
+
+      <button class="button button-primary calculate-button" id="calculateHealthButton" type="button">
+        计算实验结果
+      </button>
+
+      <p class="small-note centered-note">
+        不同设备显示方式可能不同。无法找到某一分钟时，可留空并仅统计其他轮次。
+      </p>
+    </section>
+
+    <section class="result-screen" id="resultScreen" hidden aria-labelledby="resultTitle">
+      <div class="result-card">
+        <div class="result-heart" aria-hidden="true">♥</div>
+        <p class="eyebrow">LAB COMPLETE</p>
+        <h1 id="resultTitle">本轮心率实验完成</h1>
+        <p id="resultSubtitle"></p>
+
+        <div class="result-highlights">
+          <article class="highlight-card highlight-card-pink">
+            <span>最高心率瞬间</span>
+            <strong id="highestPeakValue">—</strong>
+            <p id="highestPeakTask">—</p>
+          </article>
+
+          <article class="highlight-card highlight-card-gold">
+            <span id="largestChangeLabel">最大心率波动</span>
+            <strong id="largestChangeValue">—</strong>
+            <p id="largestChangeTask">—</p>
+          </article>
+        </div>
+
+        <div class="result-table-wrap">
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th>轮次</th>
+                <th>题目</th>
+                <th id="resultFirstMetricHeader">最低</th>
+                <th>最高</th>
+                <th id="resultChangeHeader">波动</th>
+              </tr>
+            </thead>
+            <tbody id="resultTableBody"></tbody>
+          </table>
+        </div>
+
+        <p class="result-disclaimer">
+          心率会受到动作、说话、笑声、紧张程度、设备采样和佩戴状态等因素影响。
+          本结果仅供娱乐，不用于判断感情、说谎情况或健康状态。
+        </p>
+
+        <div class="result-actions">
+          <button class="button button-primary" id="playAgainButton" type="button">
+            再玩一局
+          </button>
+          <a class="button button-secondary" href="../../">
+            返回游戏屋
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="help-dialog" id="helpDialog">
+    <div class="dialog-content">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">HOW TO PLAY</p>
+          <h2>玩法说明</h2>
+        </div>
+        <button class="dialog-close" id="closeHelpButton" type="button" aria-label="关闭">×</button>
+      </div>
+
+      <h3>健康数据回看</h3>
+      <p>
+        每道题占用一个完整分钟，中间安排一个休息分钟。
+        休息时无需关闭测量，最后只读取实验分钟的数据。
+      </p>
+
+      <h3>手表实时观察</h3>
+      <p>
+        先记录动作前读数，题目揭晓后进行15秒测量，
+        再录入观察到的最高心率。
+      </p>
+
+      <h3>现场分工</h3>
+      <p>
+        戴表者自然保持佩戴，另一位完成动作或回答。
+        不需要一直把手表举到镜头前；结果可在最后统一展示。
+      </p>
+
+      <ul>
+        <li>任何动作和问题都可以跳过。</li>
+        <li>健康回看模式会自动记录实验分钟。</li>
+        <li>休息分钟的数据不会出现在录入列表里。</li>
+        <li>页面不会直接读取或上传任何健康数据。</li>
+      </ul>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./questions.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
