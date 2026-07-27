@@ -823,6 +823,12 @@ main {
   background: var(--gold);
 }
 
+.icon-action {
+  color: var(--ink);
+  background:
+    linear-gradient(135deg, var(--pink), var(--gold));
+}
+
 .game-card h3 {
   margin: 8px 0 10px;
   font-size: 1.55rem;

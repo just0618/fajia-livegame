@@ -1,0 +1,487 @@
+(() => {
+  "use strict";
+
+  const bank = window.FAJIA_CHARADES_BANK;
+
+  if (!bank) {
+    throw new Error("题库未加载，请确认 questions.js 与 app.js 位于同一文件夹。");
+  }
+
+  const players = [
+    {
+      name: "法宣阁",
+      image: "../../assets/players/fa.webp",
+      className: "pink"
+    },
+    {
+      name: "贺嘉述",
+      image: "../../assets/players/he.webp",
+      className: "gold"
+    }
+  ];
+
+  const categoryLabels = {
+    simple: "简单动作",
+    daily: "日常情境",
+    story: "脑洞剧情",
+    live: "直播情境",
+    mixed: "全部混合"
+  };
+
+  const ruleLabels = {
+    silent: "完全无声：只能使用表情、手势和上半身动作。",
+    sound: "允许拟声词：可以发出声音，但不能说出题目中的字。"
+  };
+
+  const ROUND_SECONDS = 30;
+
+  const state = {
+    category: "mixed",
+    rule: "sound",
+    totalRounds: 10,
+    currentRound: 1,
+    actorIndex: 0,
+    questions: [],
+    currentQuestion: null,
+    usedQuestionKeys: new Set(),
+    correct: 0,
+    skipped: 0,
+    timeouts: 0,
+    solvedSeconds: [],
+    remainingSeconds: ROUND_SECONDS,
+    timerId: null,
+    timerStartedAt: null
+  };
+
+  const elements = {
+    setupScreen: document.getElementById("setupScreen"),
+    playScreen: document.getElementById("playScreen"),
+    resultScreen: document.getElementById("resultScreen"),
+    restartButton: document.getElementById("restartButton"),
+    scoreText: document.getElementById("scoreText"),
+    roundText: document.getElementById("roundText"),
+    categoryText: document.getElementById("categoryText"),
+    roundProgressBar: document.getElementById("roundProgressBar"),
+
+    roleStage: document.getElementById("roleStage"),
+    actorImage: document.getElementById("actorImage"),
+    actorName: document.getElementById("actorName"),
+    guesserImage: document.getElementById("guesserImage"),
+    guesserName: document.getElementById("guesserName"),
+    ruleReminder: document.getElementById("ruleReminder"),
+    revealButton: document.getElementById("revealButton"),
+
+    promptStage: document.getElementById("promptStage"),
+    promptCategory: document.getElementById("promptCategory"),
+    questionNumber: document.getElementById("questionNumber"),
+    promptText: document.getElementById("promptText"),
+    changeQuestionButton: document.getElementById("changeQuestionButton"),
+    memorizedButton: document.getElementById("memorizedButton"),
+
+    readyStage: document.getElementById("readyStage"),
+    startTimerButton: document.getElementById("startTimerButton"),
+
+    timerStage: document.getElementById("timerStage"),
+    timerActorName: document.getElementById("timerActorName"),
+    timerCategory: document.getElementById("timerCategory"),
+    timerDisplay: document.getElementById("timerDisplay"),
+    timerRuleReminder: document.getElementById("timerRuleReminder"),
+    activeTimerActions: document.getElementById("activeTimerActions"),
+    correctButton: document.getElementById("correctButton"),
+    skipButton: document.getElementById("skipButton"),
+    timeoutActions: document.getElementById("timeoutActions"),
+    timeoutNextButton: document.getElementById("timeoutNextButton"),
+
+    resultScore: document.getElementById("resultScore"),
+    resultFraction: document.getElementById("resultFraction"),
+    resultBadge: document.getElementById("resultBadge"),
+    resultDescription: document.getElementById("resultDescription"),
+    resultCorrect: document.getElementById("resultCorrect"),
+    resultSkipped: document.getElementById("resultSkipped"),
+    resultTimeout: document.getElementById("resultTimeout"),
+    resultAverage: document.getElementById("resultAverage"),
+    playAgainButton: document.getElementById("playAgainButton"),
+
+    helpDialog: document.getElementById("helpDialog"),
+    openHelpButton: document.getElementById("openHelpButton"),
+    closeHelpButton: document.getElementById("closeHelpButton"),
+    toast: document.getElementById("toast")
+  };
+
+  let toastTimer;
+
+  function getSelectedValue(name) {
+    const selected = document.querySelector(`input[name="${name}"]:checked`);
+    return selected ? selected.value : null;
+  }
+
+  function shuffle(items) {
+    const copy = [...items];
+
+    for (let index = copy.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [copy[index], copy[randomIndex]] = [copy[randomIndex], copy[index]];
+    }
+
+    return copy;
+  }
+
+  function showToast(message) {
+    window.clearTimeout(toastTimer);
+    elements.toast.textContent = message;
+    elements.toast.classList.add("is-visible");
+
+    toastTimer = window.setTimeout(() => {
+      elements.toast.classList.remove("is-visible");
+    }, 2400);
+  }
+
+  function buildPool() {
+    if (state.category === "mixed") {
+      return Object.entries(bank).flatMap(([category, questions]) =>
+        questions.map((text) => ({ text, category }))
+      );
+    }
+
+    return bank[state.category].map((text) => ({
+      text,
+      category: state.category
+    }));
+  }
+
+  function prepareQuestions() {
+    const pool = shuffle(buildPool());
+
+    if (pool.length < state.totalRounds) {
+      throw new Error("题库数量不足以完成所选轮数。");
+    }
+
+    state.questions = pool.slice(0, state.totalRounds);
+    state.usedQuestionKeys.clear();
+    state.questions.forEach((question) => {
+      state.usedQuestionKeys.add(`${question.category}:${question.text}`);
+    });
+  }
+
+  function getAlternativeQuestion() {
+    const candidates = buildPool().filter(
+      (question) =>
+        !state.usedQuestionKeys.has(`${question.category}:${question.text}`)
+    );
+
+    if (candidates.length === 0) {
+      return null;
+    }
+
+    const question = candidates[Math.floor(Math.random() * candidates.length)];
+    state.usedQuestionKeys.add(`${question.category}:${question.text}`);
+    return question;
+  }
+
+  function clearTimer() {
+    if (state.timerId !== null) {
+      window.clearInterval(state.timerId);
+      state.timerId = null;
+    }
+  }
+
+  function hideAllStages() {
+    elements.roleStage.hidden = true;
+    elements.promptStage.hidden = true;
+    elements.readyStage.hidden = true;
+    elements.timerStage.hidden = true;
+  }
+
+  function updateHeader() {
+    const judged = state.currentRound - 1;
+    elements.scoreText.textContent = `${state.correct} / ${judged}`;
+    elements.roundText.textContent =
+      `第 ${state.currentRound} / ${state.totalRounds} 题`;
+    elements.categoryText.textContent = categoryLabels[state.category];
+    elements.roundProgressBar.style.width =
+      `${((state.currentRound - 1) / state.totalRounds) * 100}%`;
+  }
+
+  function renderRoleStage() {
+    clearTimer();
+    hideAllStages();
+
+    const actor = players[state.actorIndex];
+    const guesser = players[(state.actorIndex + 1) % players.length];
+
+    elements.actorImage.src = actor.image;
+    elements.actorImage.alt = actor.name;
+    elements.actorName.textContent = actor.name;
+    elements.guesserImage.src = guesser.image;
+    elements.guesserImage.alt = guesser.name;
+    elements.guesserName.textContent = guesser.name;
+    elements.ruleReminder.textContent = ruleLabels[state.rule];
+
+    elements.roleStage.hidden = false;
+    updateHeader();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function renderPromptStage() {
+    hideAllStages();
+
+    state.currentQuestion = state.questions[state.currentRound - 1];
+
+    elements.promptCategory.textContent =
+      categoryLabels[state.currentQuestion.category];
+    elements.questionNumber.textContent =
+      `CARD ${String(state.currentRound).padStart(2, "0")}`;
+    elements.promptText.textContent = state.currentQuestion.text;
+    elements.promptStage.hidden = false;
+
+    window.requestAnimationFrame(() => {
+      elements.promptText.focus({ preventScroll: true });
+    });
+  }
+
+  function changeQuestion() {
+    const alternative = getAlternativeQuestion();
+
+    if (!alternative) {
+      showToast("本组没有更多未出现的题目了。");
+      return;
+    }
+
+    state.questions[state.currentRound - 1] = alternative;
+    state.currentQuestion = alternative;
+    elements.promptCategory.textContent = categoryLabels[alternative.category];
+    elements.promptText.textContent = alternative.text;
+    showToast("已更换为一道新题。");
+  }
+
+  function renderReadyStage() {
+    hideAllStages();
+    elements.readyStage.hidden = false;
+  }
+
+  function updateTimerDisplay() {
+    elements.timerDisplay.textContent = String(state.remainingSeconds);
+    elements.timerDisplay.classList.toggle(
+      "is-warning",
+      state.remainingSeconds <= 10 && state.remainingSeconds > 0
+    );
+  }
+
+  function renderTimerStage() {
+    hideAllStages();
+
+    const actor = players[state.actorIndex];
+
+    state.remainingSeconds = ROUND_SECONDS;
+    state.timerStartedAt = Date.now();
+
+    elements.timerActorName.textContent = actor.name;
+    elements.timerCategory.textContent =
+      categoryLabels[state.currentQuestion.category];
+    elements.timerRuleReminder.textContent = ruleLabels[state.rule];
+    elements.timerDisplay.classList.remove("is-timeout", "is-warning");
+    elements.activeTimerActions.hidden = false;
+    elements.timeoutActions.hidden = true;
+    elements.timerStage.hidden = false;
+
+    updateTimerDisplay();
+
+    state.timerId = window.setInterval(() => {
+      state.remainingSeconds -= 1;
+      updateTimerDisplay();
+
+      if (state.remainingSeconds <= 0) {
+        handleTimeout();
+      }
+    }, 1000);
+  }
+
+  function handleCorrect() {
+    if (elements.timerStage.hidden || state.timerId === null) {
+      return;
+    }
+
+    clearTimer();
+
+    const elapsedSeconds = Math.max(
+      1,
+      Math.min(
+        ROUND_SECONDS,
+        Math.round((Date.now() - state.timerStartedAt) / 1000)
+      )
+    );
+
+    state.correct += 1;
+    state.solvedSeconds.push(elapsedSeconds);
+    advanceRound();
+  }
+
+  function handleSkip() {
+    if (elements.timerStage.hidden) {
+      return;
+    }
+
+    clearTimer();
+    state.skipped += 1;
+    advanceRound();
+  }
+
+  function handleTimeout() {
+    clearTimer();
+    state.remainingSeconds = 0;
+    state.timeouts += 1;
+
+    elements.timerDisplay.textContent = "时间到";
+    elements.timerDisplay.classList.remove("is-warning");
+    elements.timerDisplay.classList.add("is-timeout");
+    elements.activeTimerActions.hidden = true;
+    elements.timeoutActions.hidden = false;
+  }
+
+  function advanceRound() {
+    if (state.currentRound >= state.totalRounds) {
+      showResults();
+      return;
+    }
+
+    state.currentRound += 1;
+    state.actorIndex = (state.actorIndex + 1) % players.length;
+    renderRoleStage();
+  }
+
+  function getResultCopy(rate) {
+    if (rate === 100) {
+      return {
+        badge: "动作翻译官组合",
+        description:
+          "每一题都成功传达，表演和理解已经像使用同一套动作语言。"
+      };
+    }
+
+    if (rate >= 80) {
+      return {
+        badge: "一个动作就懂的搭档",
+        description:
+          "大多数题目都能迅速接住，偶尔的跳过只是在给直播增加悬念。"
+      };
+    }
+
+    if (rate >= 60) {
+      return {
+        badge: "越演越有默契的组合",
+        description:
+          "已经建立起稳定的猜题节奏，下一局很可能会把分数继续推高。"
+      };
+    }
+
+    if (rate >= 40) {
+      return {
+        badge: "脑洞正在同频",
+        description:
+          "有些动作已经成功对上频道，剩下的题目负责贡献节目效果。"
+      };
+    }
+
+    return {
+      badge: "表演派与猜谜派",
+      description:
+        "答案不一定最先猜到，但每一题都很适合留下新的经典画面。"
+    };
+  }
+
+  function showResults() {
+    clearTimer();
+
+    const rate = Math.round((state.correct / state.totalRounds) * 100);
+    const copy = getResultCopy(rate);
+    const average =
+      state.solvedSeconds.length === 0
+        ? null
+        : Math.round(
+            state.solvedSeconds.reduce((sum, value) => sum + value, 0) /
+              state.solvedSeconds.length
+          );
+
+    elements.playScreen.hidden = true;
+    elements.resultScreen.hidden = false;
+
+    elements.resultScore.textContent = `${rate}%`;
+    elements.resultFraction.textContent =
+      `${state.correct} / ${state.totalRounds} 题成功猜中`;
+    elements.resultBadge.textContent = copy.badge;
+    elements.resultDescription.textContent = copy.description;
+    elements.resultCorrect.textContent = String(state.correct);
+    elements.resultSkipped.textContent = String(state.skipped);
+    elements.resultTimeout.textContent = String(state.timeouts);
+    elements.resultAverage.textContent =
+      average === null ? "—" : `${average}秒`;
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function startGame(starter) {
+    state.category = getSelectedValue("category") || "mixed";
+    state.rule = getSelectedValue("rule") || "sound";
+    state.totalRounds = Number(getSelectedValue("rounds") || 10);
+    state.currentRound = 1;
+    state.actorIndex =
+      starter === "random" ? Math.floor(Math.random() * players.length) : Number(starter);
+    state.correct = 0;
+    state.skipped = 0;
+    state.timeouts = 0;
+    state.solvedSeconds = [];
+    state.currentQuestion = null;
+
+    prepareQuestions();
+
+    elements.setupScreen.hidden = true;
+    elements.resultScreen.hidden = true;
+    elements.playScreen.hidden = false;
+
+    renderRoleStage();
+  }
+
+  function returnToSetup() {
+    clearTimer();
+    elements.playScreen.hidden = true;
+    elements.resultScreen.hidden = true;
+    elements.setupScreen.hidden = false;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  document.querySelectorAll("[data-starter]").forEach((button) => {
+    button.addEventListener("click", () => {
+      startGame(button.dataset.starter);
+    });
+  });
+
+  elements.restartButton.addEventListener("click", returnToSetup);
+  elements.revealButton.addEventListener("click", renderPromptStage);
+  elements.changeQuestionButton.addEventListener("click", changeQuestion);
+  elements.memorizedButton.addEventListener("click", renderReadyStage);
+  elements.startTimerButton.addEventListener("click", renderTimerStage);
+  elements.correctButton.addEventListener("click", handleCorrect);
+  elements.skipButton.addEventListener("click", handleSkip);
+  elements.timeoutNextButton.addEventListener("click", advanceRound);
+  elements.playAgainButton.addEventListener("click", returnToSetup);
+
+  elements.openHelpButton.addEventListener("click", () => {
+    if (typeof elements.helpDialog.showModal === "function") {
+      elements.helpDialog.showModal();
+    } else {
+      showToast("猜题者先移开视线，表演者记题后隐藏题目，再开始30秒挑战。");
+    }
+  });
+
+  elements.closeHelpButton.addEventListener("click", () => {
+    elements.helpDialog.close();
+  });
+
+  elements.helpDialog.addEventListener("click", (event) => {
+    if (event.target === elements.helpDialog) {
+      elements.helpDialog.close();
+    }
+  });
+
+  window.addEventListener("beforeunload", clearTimer);
+})();

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF8AA1" />
+  <meta
+    name="description"
+    content="法嘉小动作你比我猜：适合双人直播的坐姿动作猜题游戏。"
+  />
+  <title>法嘉小动作你比我猜</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="background-shape shape-pink" aria-hidden="true"></div>
+  <div class="background-shape shape-gold" aria-hidden="true"></div>
+
+  <header class="game-header">
+    <a class="back-link" href="../../">
+      <span aria-hidden="true">←</span>
+      返回游戏屋
+    </a>
+
+    <div class="mini-brand">
+      <span class="brand-dot brand-dot-pink"></span>
+      法嘉小动作你比我猜
+      <span class="brand-dot brand-dot-gold"></span>
+    </div>
+
+    <button class="text-button" id="openHelpButton" type="button">
+      玩法说明
+    </button>
+  </header>
+
+  <main class="game-shell">
+    <section class="setup-screen" id="setupScreen" aria-labelledby="setupTitle">
+      <div class="setup-intro">
+        <p class="eyebrow">GAME 04 · MINI CHARADES</p>
+        <h1 id="setupTitle">坐着不动，也能把题目演明白吗？</h1>
+        <p>
+          轮流用表情、手势和上半身动作表演。
+          每题30秒，猜出核心意思就算成功。
+        </p>
+      </div>
+
+      <div class="player-preview" aria-label="参与玩家">
+        <article class="player-chip player-chip-pink">
+          <img src="../../assets/players/fa.webp" alt="法宣阁" />
+          <div>
+            <span>PLAYER 01</span>
+            <strong>法宣阁</strong>
+          </div>
+        </article>
+
+        <span class="switch-mark" aria-hidden="true">↔</span>
+
+        <article class="player-chip player-chip-gold">
+          <img src="../../assets/players/he.webp" alt="贺嘉述" />
+          <div>
+            <span>PLAYER 02</span>
+            <strong>贺嘉述</strong>
+          </div>
+        </article>
+      </div>
+
+      <section class="choice-section" aria-labelledby="categoryTitle">
+        <div class="section-label">
+          <span>STEP 01</span>
+          <h2 id="categoryTitle">选择题目类型</h2>
+        </div>
+
+        <div class="choice-grid category-grid">
+          <label class="choice-card">
+            <input type="radio" name="category" value="simple" />
+            <span class="choice-card-inner">
+              <span class="choice-icon">01</span>
+              <strong>简单动作</strong>
+              <small>动作明确，适合快速热身</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="category" value="daily" />
+            <span class="choice-card-inner">
+              <span class="choice-icon">02</span>
+              <strong>日常情境</strong>
+              <small>表演一个生活中的小状况</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="category" value="story" />
+            <span class="choice-card-inner">
+              <span class="choice-icon">03</span>
+              <strong>脑洞剧情</strong>
+              <small>包含连续变化的小故事</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="category" value="live" />
+            <span class="choice-card-inner">
+              <span class="choice-icon">04</span>
+              <strong>直播情境</strong>
+              <small>专门为直播设计的场景题</small>
+            </span>
+          </label>
+
+          <label class="choice-card choice-card-wide">
+            <input type="radio" name="category" value="mixed" checked />
+            <span class="choice-card-inner">
+              <span class="choice-icon">∞</span>
+              <strong>全部混合</strong>
+              <small>四类题目随机出现</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="choice-section" aria-labelledby="ruleTitle">
+        <div class="section-label">
+          <span>STEP 02</span>
+          <h2 id="ruleTitle">选择表演规则</h2>
+        </div>
+
+        <div class="choice-grid rule-grid">
+          <label class="choice-card rule-card">
+            <input type="radio" name="rule" value="silent" />
+            <span class="choice-card-inner">
+              <span class="rule-mark">嘘</span>
+              <strong>完全无声</strong>
+              <small>只能使用表情和动作</small>
+            </span>
+          </label>
+
+          <label class="choice-card rule-card">
+            <input type="radio" name="rule" value="sound" checked />
+            <span class="choice-card-inner">
+              <span class="rule-mark">♪</span>
+              <strong>允许拟声词</strong>
+              <small>可以发出声音，但不能说题目中的字</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="choice-section" aria-labelledby="roundTitle">
+        <div class="section-label">
+          <span>STEP 03</span>
+          <h2 id="roundTitle">选择挑战轮数</h2>
+        </div>
+
+        <div class="choice-grid round-grid">
+          <label class="choice-card round-card">
+            <input type="radio" name="rounds" value="5" />
+            <span class="choice-card-inner">
+              <strong>5题</strong>
+              <small>快速热场</small>
+            </span>
+          </label>
+
+          <label class="choice-card round-card">
+            <input type="radio" name="rounds" value="10" checked />
+            <span class="choice-card-inner">
+              <strong>10题</strong>
+              <small>标准挑战</small>
+            </span>
+          </label>
+
+          <label class="choice-card round-card">
+            <input type="radio" name="rounds" value="15" />
+            <span class="choice-card-inner">
+              <strong>15题</strong>
+              <small>完整一局</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="start-panel" aria-labelledby="starterTitle">
+        <div>
+          <p class="eyebrow">READY TO PLAY</p>
+          <h2 id="starterTitle">谁先表演？</h2>
+          <p>系统会在每一题后自动交换表演者和猜题者。</p>
+        </div>
+
+        <div class="start-buttons">
+          <button class="start-player-button start-pink" type="button" data-starter="0">
+            法宣阁先表演
+          </button>
+          <button class="start-player-button start-gold" type="button" data-starter="1">
+            贺嘉述先表演
+          </button>
+          <button class="start-player-button start-random" type="button" data-starter="random">
+            随机选择
+          </button>
+        </div>
+      </section>
+    </section>
+
+    <section class="play-screen" id="playScreen" hidden aria-labelledby="roleTitle">
+      <div class="play-toolbar">
+        <button class="text-button" id="restartButton" type="button">
+          重新选择
+        </button>
+
+        <div class="score-panel" aria-live="polite">
+          <span>团队得分</span>
+          <strong id="scoreText">0 / 0</strong>
+        </div>
+      </div>
+
+      <div class="round-progress">
+        <div class="round-copy">
+          <span id="roundText">第 1 / 10 题</span>
+          <span id="categoryText">全部混合</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <span id="roundProgressBar"></span>
+        </div>
+      </div>
+
+      <section class="role-card" id="roleStage">
+        <p class="eyebrow">NEXT ROUND</p>
+        <h1 id="roleTitle">请猜题者暂时不要看屏幕</h1>
+
+        <div class="role-players">
+          <article class="role-person role-person-actor" id="actorCard">
+            <img id="actorImage" src="" alt="" />
+            <span>本题表演者</span>
+            <strong id="actorName"></strong>
+          </article>
+
+          <span class="role-arrow" aria-hidden="true">→</span>
+
+          <article class="role-person role-person-guesser" id="guesserCard">
+            <img id="guesserImage" src="" alt="" />
+            <span>本题猜题者</span>
+            <strong id="guesserName"></strong>
+          </article>
+        </div>
+
+        <p class="role-note" id="ruleReminder"></p>
+
+        <button class="button button-primary role-button" id="revealButton" type="button">
+          猜题者已移开视线，查看题目
+        </button>
+      </section>
+
+      <section class="prompt-card" id="promptStage" hidden aria-labelledby="promptText">
+        <div class="card-header">
+          <span class="category-badge" id="promptCategory">简单动作</span>
+          <span class="question-number" id="questionNumber">CARD 01</span>
+        </div>
+
+        <p class="only-actor">仅表演者查看</p>
+        <h1 id="promptText" tabindex="-1"></h1>
+
+        <p class="prompt-note">
+          不要求猜题者逐字复述，猜出核心情境即可。
+        </p>
+
+        <div class="prompt-actions">
+          <button class="button button-secondary" id="changeQuestionButton" type="button">
+            换一题
+          </button>
+          <button class="button button-primary" id="memorizedButton" type="button">
+            我记住了，隐藏题目
+          </button>
+        </div>
+      </section>
+
+      <section class="ready-card" id="readyStage" hidden aria-labelledby="readyTitle">
+        <p class="eyebrow">GET READY</p>
+        <h1 id="readyTitle">把屏幕交还给猜题者</h1>
+        <p>
+          题目已经隐藏。双方准备好后，点击按钮开始30秒倒计时。
+        </p>
+
+        <button class="button button-primary ready-button" id="startTimerButton" type="button">
+          开始30秒倒计时
+        </button>
+      </section>
+
+      <section class="timer-card" id="timerStage" hidden aria-labelledby="timerTitle">
+        <div class="timer-top">
+          <div>
+            <p class="eyebrow">ACT &amp; GUESS</p>
+            <h1 id="timerTitle">
+              <span id="timerActorName"></span>正在表演
+            </h1>
+          </div>
+          <span class="category-badge" id="timerCategory">简单动作</span>
+        </div>
+
+        <div class="timer-display" id="timerDisplay" aria-live="assertive">
+          30
+        </div>
+
+        <p class="timer-reminder" id="timerRuleReminder"></p>
+
+        <div class="timer-actions" id="activeTimerActions">
+          <button class="button button-success" id="correctButton" type="button">
+            猜中了
+            <small>团队 +1</small>
+          </button>
+
+          <button class="button button-skip" id="skipButton" type="button">
+            跳过这题
+          </button>
+        </div>
+
+        <div class="timeout-actions" id="timeoutActions" hidden>
+          <p>时间到，本题未完成。</p>
+          <button class="button button-primary" id="timeoutNextButton" type="button">
+            进入下一题
+          </button>
+        </div>
+      </section>
+
+      <p class="session-note">
+        同一局不会重复抽到同一道题；最终只计算团队总分。
+      </p>
+    </section>
+
+    <section class="result-screen" id="resultScreen" hidden aria-labelledby="resultTitle">
+      <div class="result-card">
+        <div class="result-photos" aria-hidden="true">
+          <img class="result-photo result-photo-pink" src="../../assets/players/fa.webp" alt="" />
+          <span>↔</span>
+          <img class="result-photo result-photo-gold" src="../../assets/players/he.webp" alt="" />
+        </div>
+
+        <p class="eyebrow">CHALLENGE COMPLETE</p>
+        <h1 id="resultTitle">本轮小动作挑战完成</h1>
+
+        <div class="result-score">
+          <strong id="resultScore">0</strong>
+          <span id="resultFraction">共完成0题</span>
+        </div>
+
+        <div class="result-title-box">
+          <span>今日团队称号</span>
+          <strong id="resultBadge">正在计算</strong>
+        </div>
+
+        <p class="result-description" id="resultDescription"></p>
+
+        <div class="result-breakdown">
+          <div>
+            <span>成功猜中</span>
+            <strong id="resultCorrect">0</strong>
+          </div>
+          <div>
+            <span>主动跳过</span>
+            <strong id="resultSkipped">0</strong>
+          </div>
+          <div>
+            <span>时间结束</span>
+            <strong id="resultTimeout">0</strong>
+          </div>
+          <div>
+            <span>平均猜中用时</span>
+            <strong id="resultAverage">—</strong>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="button button-primary" id="playAgainButton" type="button">
+            再玩一局
+          </button>
+          <a class="button button-secondary" href="../../">
+            返回游戏屋
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="help-dialog" id="helpDialog">
+    <div class="dialog-content">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">HOW TO PLAY</p>
+          <h2>玩法说明</h2>
+        </div>
+        <button class="dialog-close" id="closeHelpButton" type="button" aria-label="关闭">
+          ×
+        </button>
+      </div>
+
+      <ol>
+        <li>选择题目类型、表演规则、轮数和第一位表演者。</li>
+        <li>猜题者先移开视线，只有表演者查看并记住题目。</li>
+        <li>题目隐藏后，开始30秒倒计时。</li>
+        <li>表演者只能使用允许的动作或拟声词，不能直接说答案。</li>
+        <li>猜出核心情境后点击“猜中了”；也可以跳过。</li>
+        <li>每题结束后自动交换角色，最终只显示团队成绩。</li>
+      </ol>
+
+      <p>
+        所有题目都可以坐着完成，不需要大幅移动，也不包含动物模仿或养宠物内容。
+      </p>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./questions.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -27,8 +27,8 @@ window.FAJIA_COMPATIBILITY_BANK = {
     {
       type: "choice",
       label: "同时选择",
-      text: "如果一起养一只小动物，更想养哪一种？",
-      options: ["猫", "狗"]
+      text: "如果一起布置一个小空间，更想选择哪种风格？",
+      options: ["温暖舒适", "简洁清爽"]
     },
     {
       type: "free",
