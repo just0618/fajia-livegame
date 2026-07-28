@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF8AA1" />
+  <meta
+    name="description"
+    content="法嘉别中招挑战：互设隐藏词语或动作，在聊天中诱导对方先中招。"
+  />
+  <title>法嘉别中招挑战</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="background-orb orb-pink" aria-hidden="true"></div>
+  <div class="background-orb orb-gold" aria-hidden="true"></div>
+
+  <header class="game-header">
+    <a class="back-link" href="../../">
+      <span aria-hidden="true">←</span>
+      返回游戏屋
+    </a>
+
+    <div class="mini-brand">
+      <span class="brand-dot brand-dot-pink"></span>
+      法嘉别中招挑战
+      <span class="brand-dot brand-dot-gold"></span>
+    </div>
+
+    <button class="text-button" id="openHelpButton" type="button">
+      玩法说明
+    </button>
+  </header>
+
+  <main class="game-shell">
+    <section class="screen setup-screen" id="setupScreen" aria-labelledby="setupTitle">
+      <div class="setup-intro">
+        <p class="eyebrow">GAME 07 · DON'T GET CAUGHT</p>
+        <h1 id="setupTitle">谁会先掉进<br />对方设下的陷阱？</h1>
+        <p>
+          两个人分别给对方设置一个隐藏词语或动作，再通过聊天和互动进行诱导。
+          谁先说出或完成自己的隐藏目标，谁就中招。
+        </p>
+      </div>
+
+      <div class="rule-callout">
+        <span aria-hidden="true">!</span>
+        <div>
+          <strong>隐藏目标要能够明确判断</strong>
+          <p>不要设置眨眼、呼吸等无法控制的行为，也不要强迫对方完成身体动作。</p>
+        </div>
+      </div>
+
+      <section class="setup-section" aria-labelledby="timeTitle">
+        <div class="section-heading">
+          <span>STEP 01</span>
+          <h2 id="timeTitle">选择挑战时长</h2>
+        </div>
+
+        <div class="choice-grid time-grid">
+          <label class="choice-card compact-card">
+            <input type="radio" name="duration" value="180" />
+            <span class="choice-card-inner">
+              <strong>3分钟</strong>
+              <small>快速挑战</small>
+            </span>
+          </label>
+
+          <label class="choice-card compact-card">
+            <input type="radio" name="duration" value="300" checked />
+            <span class="choice-card-inner">
+              <strong>5分钟</strong>
+              <small>标准模式</small>
+            </span>
+          </label>
+
+          <label class="choice-card compact-card">
+            <input type="radio" name="duration" value="600" />
+            <span class="choice-card-inner">
+              <strong>10分钟</strong>
+              <small>加长挑战</small>
+            </span>
+          </label>
+
+          <label class="choice-card compact-card">
+            <input type="radio" name="duration" value="0" />
+            <span class="choice-card-inner">
+              <strong>不限时</strong>
+              <small>直到有人中招</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="setup-section" aria-labelledby="audienceTitle">
+        <div class="section-heading">
+          <span>STEP 02</span>
+          <h2 id="audienceTitle">选择观众展示方式</h2>
+        </div>
+
+        <div class="audience-settings">
+          <div class="choice-grid audience-grid">
+            <label class="choice-card compact-card">
+              <input type="radio" name="audienceMode" value="ask" checked />
+              <span class="choice-card-inner">
+                <strong>每次设置后询问</strong>
+                <small>可临时选择不展示、正常展示或镜像展示</small>
+              </span>
+            </label>
+
+            <label class="choice-card compact-card">
+              <input type="radio" name="audienceMode" value="off" />
+              <span class="choice-card-inner">
+                <strong>不向观众展示</strong>
+                <small>保存后直接遮住目标并交给下一位</small>
+              </span>
+            </label>
+          </div>
+
+          <div class="mirror-test-row">
+            <div>
+              <strong>不确定直播画面是否镜像？</strong>
+              <small>可先用测试文字对准镜头，由直播间确认哪一种显示正常。</small>
+            </div>
+            <button class="button button-secondary button-small" id="mirrorTestButton" type="button">
+              测试直播镜像
+            </button>
+          </div>
+
+          <p class="small-note">
+            镜像展示只会水平翻转隐藏目标文字，页面按钮和操作提示仍保持正常方向。
+          </p>
+        </div>
+      </section>
+
+      <section class="setup-section" aria-labelledby="punishmentTitle">
+        <div class="section-heading">
+          <span>STEP 03</span>
+          <h2 id="punishmentTitle">选择惩罚范围</h2>
+        </div>
+
+        <div class="punishment-settings">
+          <label class="toggle-row">
+            <input id="includeSpecificCheckbox" type="checkbox" checked />
+            <span class="custom-checkbox" aria-hidden="true">✓</span>
+            <span>
+              <strong>专属方向惩罚</strong>
+              <small>根据中招者，自动使用“小法→小贺”或“小贺→小法”的专属题库。</small>
+            </span>
+          </label>
+
+          <div class="category-grid">
+            <label class="toggle-row">
+              <input id="includeLightCheckbox" type="checkbox" checked />
+              <span class="custom-checkbox" aria-hidden="true">✓</span>
+              <span>
+                <strong>轻松即时</strong>
+                <small>模仿、手势和轻松表达</small>
+              </span>
+            </label>
+
+            <label class="toggle-row">
+              <input id="includeHeartCheckbox" type="checkbox" checked />
+              <span class="custom-checkbox" aria-hidden="true">✓</span>
+              <span>
+                <strong>心动互动</strong>
+                <small>夸奖、回忆与温柔表达</small>
+              </span>
+            </label>
+
+            <label class="toggle-row">
+              <input id="includeDeepCheckbox" type="checkbox" />
+              <span class="custom-checkbox" aria-hidden="true">✓</span>
+              <span>
+                <strong>深度关系</strong>
+                <small>遗憾、吃醋和关系感受</small>
+              </span>
+            </label>
+
+            <label class="toggle-row">
+              <input id="includeAfterCheckbox" type="checkbox" />
+              <span class="custom-checkbox" aria-hidden="true">✓</span>
+              <span>
+                <strong>直播后履约</strong>
+                <small>承诺、做菜或下一次共同完成</small>
+              </span>
+            </label>
+
+            <label class="toggle-row">
+              <input id="includeUltimateCheckbox" type="checkbox" />
+              <span class="custom-checkbox" aria-hidden="true">✓</span>
+              <span>
+                <strong>终极惩罚</strong>
+                <small>更高尺度或可能涉及后续履约</small>
+              </span>
+            </label>
+          </div>
+
+          <p class="small-note">
+            深度、直播后履约和终极惩罚默认关闭。任何惩罚都以双方自愿为前提。
+          </p>
+        </div>
+      </section>
+
+      <section class="risk-rule">
+        <p class="eyebrow">PUNISHMENT CHOICE</p>
+        <h2>中招以后，可以自己选择风险</h2>
+        <div class="risk-grid">
+          <article>
+            <span>稳妥路线</span>
+            <strong>直接接受1项惩罚</strong>
+            <p>不抽事件卡，稳定完成一项。</p>
+          </article>
+          <article>
+            <span>冒险路线</span>
+            <strong>1/3免罚 · 2/3双重惩罚</strong>
+            <p>抽中幸运逃脱则0项，失败则接受2项。</p>
+          </article>
+        </div>
+      </section>
+
+      <button class="button button-primary start-button" id="startSetupButton" type="button">
+        开始设置隐藏目标
+        <span aria-hidden="true">→</span>
+      </button>
+    </section>
+
+    <section class="screen secret-screen" id="secretScreen" hidden aria-labelledby="secretTitle">
+      <div class="secret-panel">
+        <p class="eyebrow">SECRET TARGET</p>
+        <h1 id="secretTitle">小法设置小贺的隐藏目标</h1>
+        <p id="secretDescription">
+          请暂时让另一位移开视线。输入完成后，页面会自动遮住目标。
+        </p>
+
+        <div class="target-type-grid">
+          <label class="choice-card compact-card">
+            <input type="radio" name="targetType" value="word" checked />
+            <span class="choice-card-inner">
+              <strong>指定词语</strong>
+              <small>引导对方说出某句话或词语</small>
+            </span>
+          </label>
+
+          <label class="choice-card compact-card">
+            <input type="radio" name="targetType" value="action" />
+            <span class="choice-card-inner">
+              <strong>指定动作</strong>
+              <small>引导对方完成一个明确动作</small>
+            </span>
+          </label>
+        </div>
+
+        <label class="target-input-label">
+          <span id="targetInputLabel">让对方说出：</span>
+          <textarea
+            id="targetInput"
+            rows="3"
+            maxlength="60"
+            placeholder="例如：让对方说出“真的假的”"
+          ></textarea>
+        </label>
+
+        <div class="secret-actions">
+          <button class="button button-secondary" id="randomTargetButton" type="button">
+            随机给我一个灵感
+          </button>
+          <button class="button button-primary" id="saveTargetButton" type="button">
+            保存并遮住目标
+          </button>
+        </div>
+
+        <p class="small-note">
+          可以参考随机灵感后继续修改。不要直接把完整隐藏目标念给对方听。
+        </p>
+      </div>
+    </section>
+
+    <section class="screen audience-screen" id="audienceScreen" hidden aria-labelledby="audienceScreenTitle">
+      <div class="audience-panel">
+        <div id="audienceChoicePanel">
+          <p class="eyebrow">SHOW THE AUDIENCE?</p>
+          <h1 id="audienceScreenTitle">是否向直播间展示？</h1>
+          <p id="audienceScreenDescription">
+            请先确认另一位玩家已经闭眼、转身或离开屏幕范围。
+          </p>
+
+          <div class="audience-reminder">
+            <strong>请直播间观众暂时不要在弹幕中说出答案或提示目标。</strong>
+          </div>
+
+          <div class="audience-choice-grid">
+            <button class="audience-route-card" id="skipAudienceButton" type="button">
+              <span>暂不展示</span>
+              <strong>直接遮住目标</strong>
+              <small>立即进入设备交接页面</small>
+            </button>
+
+            <button class="audience-route-card normal-route" id="normalAudienceButton" type="button">
+              <span>正常显示</span>
+              <strong>向观众展示正常文字</strong>
+              <small>适合直播输出画面没有左右翻转</small>
+            </button>
+
+            <button class="audience-route-card mirror-route" id="mirrorAudienceButton" type="button">
+              <span>镜像显示</span>
+              <strong>向观众展示镜像文字</strong>
+              <small>适合直播输出画面会左右翻转</small>
+            </button>
+          </div>
+        </div>
+
+        <div class="audience-display-panel" id="audienceDisplayPanel" hidden>
+          <p class="eyebrow">AUDIENCE ONLY</p>
+          <h1>请把屏幕朝向直播镜头</h1>
+          <p>
+            另一位玩家不要偷看；观众看到后也请暂时不要在弹幕中提示。
+          </p>
+
+          <div class="audience-display-stage">
+            <span id="audienceDisplayOwner">小法为小贺设置的隐藏目标</span>
+            <strong class="audience-target-text" id="audienceTargetText"></strong>
+            <small id="audienceDisplayModeLabel">正常文字</small>
+          </div>
+
+          <button class="button button-primary audience-finish-button" id="finishAudienceButton" type="button">
+            展示结束并隐藏
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen pass-screen" id="passScreen" hidden aria-labelledby="passTitle">
+      <div class="pass-panel">
+        <div class="cover-icon" aria-hidden="true">•••</div>
+        <p class="eyebrow">TARGET HIDDEN</p>
+        <h1 id="passTitle">目标已经藏好</h1>
+        <p id="passDescription">请把设备交给小贺，确认小法已经移开视线后继续。</p>
+        <button class="button button-primary" id="continuePassButton" type="button">
+          已经准备好，继续
+        </button>
+      </div>
+    </section>
+
+    <section class="screen challenge-screen" id="challengeScreen" hidden aria-labelledby="challengeTitle">
+      <div class="challenge-toolbar">
+        <button class="text-button" id="restartButton" type="button">重新开始</button>
+        <span class="challenge-status">隐藏目标已锁定</span>
+      </div>
+
+      <div class="timer-card">
+        <p class="eyebrow">CHALLENGE IN PROGRESS</p>
+        <h1 id="challengeTitle">别中招挑战进行中</h1>
+        <strong id="challengeTimer">05:00</strong>
+        <p>
+          可以聊天、提问和铺垫，但不要直接说出对方的完整隐藏目标。
+        </p>
+      </div>
+
+      <div class="caught-grid">
+        <button class="caught-button caught-pink" type="button" data-caught="fa">
+          <span>我发现了</span>
+          <strong>法宣阁中招了</strong>
+        </button>
+        <button class="caught-button caught-gold" type="button" data-caught="he">
+          <span>我发现了</span>
+          <strong>贺嘉述中招了</strong>
+        </button>
+      </div>
+
+      <button class="button button-secondary draw-button" id="endAsDrawButton" type="button">
+        提前结束，本轮平局
+      </button>
+    </section>
+
+    <section class="screen claim-screen" id="claimScreen" hidden aria-labelledby="claimTitle">
+      <div class="claim-panel">
+        <p class="eyebrow">CHECK THE TARGET</p>
+        <h1 id="claimTitle">确认是否真的中招</h1>
+
+        <div class="target-reveal">
+          <span id="claimTargetType">隐藏词语</span>
+          <strong id="claimTargetText"></strong>
+        </div>
+
+        <p>请两个人确认刚才是否已经完整触发这个目标。</p>
+
+        <div class="claim-actions">
+          <button class="button button-secondary" id="rejectClaimButton" type="button">
+            判断错误，继续挑战
+          </button>
+          <button class="button button-primary" id="confirmClaimButton" type="button">
+            确实中招，结束挑战
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen choice-screen" id="punishmentChoiceScreen" hidden aria-labelledby="punishmentChoiceTitle">
+      <div class="choice-panel">
+        <p class="eyebrow">PUNISHMENT DECISION</p>
+        <h1 id="punishmentChoiceTitle">请选择惩罚路线</h1>
+        <p id="loserSummary"></p>
+
+        <div class="punishment-choice-grid">
+          <button class="route-card stable-route" id="stableRouteButton" type="button">
+            <span>稳妥接受</span>
+            <strong>直接抽取1项惩罚</strong>
+            <small>没有额外风险</small>
+          </button>
+
+          <button class="route-card risk-route" id="riskRouteButton" type="button">
+            <span>搏一把</span>
+            <strong>抽取事件卡</strong>
+            <small>1/3免罚；未抽中则接受2项惩罚</small>
+          </button>
+        </div>
+
+        <p class="small-note">
+          选择由中招者决定。事件卡每一轮都会重新洗牌。
+        </p>
+      </div>
+    </section>
+
+    <section class="screen event-screen" id="eventScreen" hidden aria-labelledby="eventTitle">
+      <div class="event-panel">
+        <p class="eyebrow">RISK CARD</p>
+        <h1 id="eventTitle">从6张事件卡中选一张</h1>
+        <p>其中2张是幸运逃脱，另外4张是双重惩罚。</p>
+
+        <div class="event-card-grid" id="eventCardGrid"></div>
+
+        <div class="event-result" id="eventResult" hidden>
+          <span id="eventResultLabel"></span>
+          <strong id="eventResultTitle"></strong>
+          <p id="eventResultDescription"></p>
+          <button class="button button-primary" id="eventContinueButton" type="button"></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen punishment-screen" id="punishmentScreen" hidden aria-labelledby="punishmentResultTitle">
+      <div class="punishment-panel">
+        <p class="eyebrow">PUNISHMENT RESULT</p>
+        <h1 id="punishmentResultTitle">本轮惩罚已经抽出</h1>
+        <p id="punishmentResultSubtitle"></p>
+
+        <div class="punishment-card-list" id="punishmentCardList"></div>
+
+        <p class="voluntary-note">
+          每项最多可以换一次。涉及安全、隐私、身体边界或确实无法完成时，可以直接放弃，不强制执行。
+        </p>
+
+        <button class="button button-primary" id="finishPunishmentButton" type="button">
+          完成本轮
+        </button>
+      </div>
+    </section>
+
+    <section class="screen final-screen" id="finalScreen" hidden aria-labelledby="finalTitle">
+      <div class="final-panel">
+        <div class="final-icon" aria-hidden="true">✓</div>
+        <p class="eyebrow">ROUND COMPLETE</p>
+        <h1 id="finalTitle">本轮挑战完成</h1>
+        <p id="finalSummary"></p>
+
+        <div class="final-targets">
+          <article>
+            <span>小法为小贺设置</span>
+            <strong id="finalTargetHe"></strong>
+          </article>
+          <article>
+            <span>小贺为小法设置</span>
+            <strong id="finalTargetFa"></strong>
+          </article>
+        </div>
+
+        <div class="final-punishments" id="finalPunishments"></div>
+
+        <div class="final-actions">
+          <button class="button button-primary" id="playAgainButton" type="button">
+            再玩一轮
+          </button>
+          <a class="button button-secondary" href="../../">
+            返回游戏屋
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="mirror-test-dialog" id="mirrorTestDialog">
+    <div class="dialog-content">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">MIRROR TEST</p>
+          <h2>测试直播镜像</h2>
+        </div>
+        <button class="dialog-close" id="closeMirrorTestButton" type="button" aria-label="关闭">×</button>
+      </div>
+
+      <p class="mirror-test-copy">
+        将下面文字对准直播镜头，请观众确认哪一种在直播画面里是正常方向。
+      </p>
+
+      <div class="mirror-test-stage">
+        <strong id="mirrorTestSample">法嘉别中招挑战 · 123</strong>
+      </div>
+
+      <div class="mirror-test-actions">
+        <button class="button button-secondary" id="mirrorNormalButton" type="button">
+          正常显示
+        </button>
+        <button class="button button-secondary" id="mirrorFlipButton" type="button">
+          镜像显示
+        </button>
+      </div>
+
+      <p class="small-note">
+        这里只测试画面方向，不会保存选择。正式展示目标时仍可临时决定。
+      </p>
+    </div>
+  </dialog>
+
+  <dialog class="help-dialog" id="helpDialog">
+    <div class="dialog-content">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">HOW TO PLAY</p>
+          <h2>玩法说明</h2>
+        </div>
+        <button class="dialog-close" id="closeHelpButton" type="button" aria-label="关闭">×</button>
+      </div>
+
+      <ol>
+        <li>先选择挑战时间和本轮允许出现的惩罚类型。</li>
+        <li>小法与小贺依次秘密给对方设置一个词语或动作。</li>
+        <li>保存目标后，可以不展示，也可以用正常文字或镜像文字只展示给直播间观众。</li>
+        <li>镜像功能只翻转目标文字；不同直播平台处理方式不同，建议先进行镜像测试。</li>
+        <li>挑战开始后，通过聊天和互动诱导对方触发隐藏目标。</li>
+        <li>发现对方中招时点击对应按钮，再共同确认是否真的触发。</li>
+        <li>时间结束时两个人都没有中招，则本轮平局且不接受惩罚。</li>
+        <li>中招者可以直接接受1项惩罚，也可以抽事件卡搏一把。</li>
+        <li>事件卡有2张幸运逃脱和4张双重惩罚；双重惩罚最多包含1项直播后履约或终极惩罚。</li>
+      </ol>
+
+      <p>
+        本游戏不保存隐藏目标、观众展示方式或惩罚结果。所有动作、问题和履约内容都以双方自愿为前提。
+      </p>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="../../shared/punishments.js"></script>
+  <script src="./targets.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

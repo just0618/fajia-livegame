@@ -922,6 +922,13 @@ main {
     linear-gradient(135deg, var(--gold), var(--pink-soft));
 }
 
+.icon-trap {
+  color: var(--white);
+  background:
+    linear-gradient(135deg, var(--pink-dark), var(--pink));
+  box-shadow: inset 0 -8px 0 rgba(255, 226, 91, 0.28);
+}
+
 .game-card h3 {
   margin: 8px 0 10px;
   font-size: 1.55rem;

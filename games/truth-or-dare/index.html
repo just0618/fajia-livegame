@@ -103,7 +103,7 @@
             <span class="choice-card-inner">
               <span class="choice-icon intimate-icon">♥+</span>
               <strong>高亲密度</strong>
-              <small>更直接的心动、依赖与关系问题</small>
+              <small>可选择心动直球、深度关系与成人话题彩蛋</small>
             </span>
           </label>
 
@@ -123,9 +123,62 @@
             <span class="custom-checkbox" aria-hidden="true">✓</span>
             <span>
               <strong>同时加入高亲密度题目</strong>
-              <small>默认关闭；勾选后，混合题库将由72张扩展为96张。</small>
+              <small id="mixedIntimateCountNote">默认关闭；勾选后可继续选择高亲密度主题。</small>
             </span>
           </label>
+        </div>
+
+        <div class="intimate-theme-options" id="intimateThemeOptions" hidden>
+          <div class="mini-section-heading">
+            <span>高亲密度主题</span>
+            <small>成人话题不会默认加入</small>
+          </div>
+
+          <div class="choice-grid intimate-theme-grid">
+            <label class="choice-card compact-choice-card">
+              <input type="radio" name="intimateTheme" value="straight" />
+              <span class="choice-card-inner">
+                <strong>心动直球</strong>
+                <small>心动、想念、梦境与浪漫瞬间</small>
+              </span>
+            </label>
+
+            <label class="choice-card compact-choice-card">
+              <input type="radio" name="intimateTheme" value="deep" />
+              <span class="choice-card-inner">
+                <strong>深度关系</strong>
+                <small>忠诚、联系、遗憾与安全感</small>
+              </span>
+            </label>
+
+            <label class="choice-card compact-choice-card">
+              <input type="radio" name="intimateTheme" value="mixed" checked />
+              <span class="choice-card-inner">
+                <strong>两类混合</strong>
+                <small>随机抽取上述两类真心话</small>
+              </span>
+            </label>
+          </div>
+
+          <div class="adult-topic-option">
+            <label>
+              <input id="includeAdultCheckbox" type="checkbox" />
+              <span class="custom-checkbox" aria-hidden="true">✓</span>
+              <span>
+                <strong>加入成人话题彩蛋</strong>
+                <small>默认关闭；可能涉及成人亲密偏好，仅在双方都愿意时开启。</small>
+              </span>
+            </label>
+          </div>
+
+          <div class="adult-topic-note" id="adultTopicNote" hidden>
+            <strong>已开启成人话题彩蛋</strong>
+            <p>不知道词语含义、不适合公开或暂时不想回答时，都可以直接换一张，不需要解释。</p>
+          </div>
+
+          <p class="intimate-settings-hint" id="intimateSettingsHint">
+            子主题筛选作用于高亲密度真心话；高亲密度大冒险为两类共用题库。
+          </p>
         </div>
 
         <div class="intimacy-note" id="intimacyNote" hidden>
@@ -170,9 +223,102 @@
         </div>
       </section>
 
+      <section class="choice-section" aria-labelledby="roundCountTitle">
+        <div class="section-label">
+          <span>STEP 03</span>
+          <h2 id="roundCountTitle">选择本场题数</h2>
+        </div>
+
+        <div class="choice-grid choice-grid-rounds">
+          <label class="choice-card compact-choice-card">
+            <input type="radio" name="roundLimit" value="5" />
+            <span class="choice-card-inner">
+              <strong>5题</strong>
+              <small>快速体验</small>
+            </span>
+          </label>
+
+          <label class="choice-card compact-choice-card">
+            <input type="radio" name="roundLimit" value="10" checked />
+            <span class="choice-card-inner">
+              <strong>10题</strong>
+              <small>标准模式</small>
+            </span>
+          </label>
+
+          <label class="choice-card compact-choice-card">
+            <input type="radio" name="roundLimit" value="15" />
+            <span class="choice-card-inner">
+              <strong>15题</strong>
+              <small>加长模式</small>
+            </span>
+          </label>
+
+          <label class="choice-card compact-choice-card">
+            <input type="radio" name="roundLimit" value="all" />
+            <span class="choice-card-inner">
+              <strong>全部可用题目</strong>
+              <small id="allAvailableLabel">当前剩余 0 题</small>
+            </span>
+          </label>
+        </div>
+
+        <p class="selection-note" id="roundAvailabilityNote">
+          本场预计完成10题。
+        </p>
+      </section>
+
+      <section class="choice-section" aria-labelledby="progressTitle">
+        <div class="section-label">
+          <span>STEP 04</span>
+          <h2 id="progressTitle">题库进度</h2>
+        </div>
+
+        <div class="progress-settings">
+          <label class="remember-toggle">
+            <input id="rememberProgressCheckbox" type="checkbox" checked />
+            <span class="custom-checkbox" aria-hidden="true">✓</span>
+            <span>
+              <strong>记住已经展示过的题目，下次继续</strong>
+              <small>
+                只在当前浏览器保存卡片编号，不保存回答内容。
+              </small>
+            </span>
+          </label>
+
+          <div class="saved-progress-summary" id="savedProgressSummary" aria-live="polite">
+            <div>
+              <span>当前范围</span>
+              <strong id="scopeTotalCount">0张</strong>
+            </div>
+            <div>
+              <span>已看过</span>
+              <strong id="scopeSeenCount">0张</strong>
+            </div>
+            <div>
+              <span>剩余</span>
+              <strong id="scopeRemainingCount">0张</strong>
+            </div>
+          </div>
+
+          <p class="storage-note" id="storageNote">
+            同一设备、同一浏览器会继续进度；无痕模式、清除网站数据或更换设备后无法保留。
+          </p>
+
+          <div class="progress-actions">
+            <button class="button button-secondary button-small" id="clearScopeProgressButton" type="button">
+              清除当前范围进度
+            </button>
+            <button class="button button-quiet button-small" id="clearAllProgressButton" type="button">
+              清除全部进度
+            </button>
+          </div>
+        </div>
+      </section>
+
       <section class="start-section" aria-labelledby="starterTitle">
         <div>
-          <p class="eyebrow">READY TO PLAY</p>
+          <p class="eyebrow">STEP 05 · READY TO PLAY</p>
           <h2 id="starterTitle">谁先开始？</h2>
           <p>也可以交给系统随机决定第一位玩家。</p>
         </div>
@@ -198,9 +344,11 @@
         </button>
 
         <div class="turn-counter" aria-live="polite">
-          第 <strong id="turnNumber">1</strong> 轮
+          本场 <strong id="completedCount">0</strong>/<strong id="targetCount">10</strong> 题
         </div>
       </div>
+
+      <span id="turnNumber" hidden>1</span>
 
       <div class="current-player" id="currentPlayer">
         <div class="current-player-photo">
@@ -227,7 +375,7 @@
         </p>
 
         <div class="card-progress" aria-label="当前题库使用情况">
-          <span id="remainingText">本组还有 0 张未出现</span>
+          <span id="remainingText">当前范围还有 0 张未展示</span>
           <div class="progress-track" aria-hidden="true">
             <span id="progressBar"></span>
           </div>
@@ -246,8 +394,47 @@
       </div>
 
       <p class="session-note">
-        同一局中已出现的卡片不会重复；题库用完后会自动重新洗牌。
+        已展示的卡片会立即计入本场记录；开启进度记忆后，下次会继续抽剩余题目。
       </p>
+    </section>
+
+    <section class="result-screen" id="resultScreen" hidden aria-labelledby="resultTitle">
+      <div class="result-panel">
+        <div class="result-icon" aria-hidden="true">✓</div>
+        <p class="eyebrow">SESSION COMPLETE</p>
+        <h1 id="resultTitle">本场真心话大冒险完成</h1>
+        <p id="resultSubtitle"></p>
+
+        <div class="result-metrics">
+          <article>
+            <span>正式完成</span>
+            <strong id="resultCompleted">0题</strong>
+          </article>
+          <article>
+            <span>本场换题</span>
+            <strong id="resultSkipped">0张</strong>
+          </article>
+          <article>
+            <span>累计已看</span>
+            <strong id="resultSeen">0张</strong>
+          </article>
+          <article>
+            <span>当前剩余</span>
+            <strong id="resultRemaining">0张</strong>
+          </article>
+        </div>
+
+        <div class="result-message" id="resultMessage"></div>
+
+        <div class="result-actions">
+          <button class="button button-primary" id="continueSetupButton" type="button">
+            返回设置并继续
+          </button>
+          <a class="button button-secondary" href="../../">
+            返回游戏屋
+          </a>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -264,16 +451,19 @@
       </div>
 
       <ol>
-        <li>先选择轻松、心动、挑战、高亲密度或全部混合。</li>
-        <li>选择全部混合时，可自行决定是否加入高亲密度题目。</li>
-        <li>选择只抽真心话、只抽大冒险或随机模式。</li>
-        <li>决定第一位玩家，系统会为其抽取一张卡。</li>
-        <li>“换一张”会为当前玩家重新抽卡，不会切换玩家。</li>
-        <li>完成后点击“轮到下一位”，系统会自动交换玩家。</li>
+        <li>选择题目尺度、真心话/大冒险模式和本场题数。</li>
+        <li>选择高亲密度后，可继续选择“心动直球”“深度关系”或“两类混合”。</li>
+        <li>成人话题彩蛋默认关闭，主动开启后才可能抽到。</li>
+        <li>“记住进度”开启时，已经展示过的卡片会保存在当前浏览器，下次自动排除。</li>
+        <li>选择“全部可用题目”时，会一直玩到当前范围没有新卡片。</li>
+        <li>随机模式中，一类没有剩余卡片后会自动抽另一类。</li>
+        <li>“换一张”不会切换玩家，也不增加正式完成题数，但该卡会记为已展示。</li>
+        <li>点击“完成，轮到下一位”后，本场完成题数加一并自动交换玩家。</li>
+        <li>当前范围全部完成后不会自动重复，需要主动清除进度或更换范围。</li>
       </ol>
 
       <p>
-        本版本以直播友好为优先，不设置惩罚、积分或强制完成机制。高亲密度题目仅在双方均愿意时回答或完成。
+        本版本以直播友好为优先，不设置惩罚、积分或强制完成机制。高亲密度题目仅在双方均愿意时回答或完成。浏览器只保存已展示卡片的编号，不保存回答。
       </p>
     </div>
   </dialog>
