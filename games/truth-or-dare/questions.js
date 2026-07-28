@@ -479,7 +479,7 @@ window.FAJIA_QUESTION_BANK = {
       {
         "id": "intimate-adult-01",
         "text": "感情中能接受 Side 吗？",
-        "theme": "adult"
+        "theme": "deep"
       }
     ],
     "dare": [

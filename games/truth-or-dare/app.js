@@ -40,7 +40,6 @@
     mode: "random",
     includeIntimate: false,
     intimateTheme: "mixed",
-    includeAdult: false,
     rememberProgress: true,
     requestedLimit: "10",
     targetCount: 10,
@@ -86,8 +85,6 @@
     includeIntimateCheckbox: document.getElementById("includeIntimateCheckbox"),
     mixedIntimateCountNote: document.getElementById("mixedIntimateCountNote"),
     intimateThemeOptions: document.getElementById("intimateThemeOptions"),
-    includeAdultCheckbox: document.getElementById("includeAdultCheckbox"),
-    adultTopicNote: document.getElementById("adultTopicNote"),
     intimateSettingsHint: document.getElementById("intimateSettingsHint"),
     intimacyNote: document.getElementById("intimacyNote"),
     rememberProgressCheckbox: document.getElementById("rememberProgressCheckbox"),
@@ -138,10 +135,6 @@
 
     if (level === "intimate" && type === "truth") {
       cards = cards.filter((card) => {
-        if (card.theme === "adult") {
-          return selection.includeAdult;
-        }
-
         if (selection.intimateTheme === "mixed") {
           return card.theme === "straight" || card.theme === "deep";
         }
@@ -160,14 +153,12 @@
       level === "mixed" && elements.includeIntimateCheckbox.checked;
     const intimateTheme =
       getSelectedValue("intimateTheme") || "mixed";
-    const includeAdult = elements.includeAdultCheckbox.checked;
 
     return {
       level,
       mode,
       includeIntimate,
-      intimateTheme,
-      includeAdult
+      intimateTheme
     };
   }
 
@@ -266,15 +257,13 @@
     elements.mixedIntimacyOption.hidden = selection.level !== "mixed";
     elements.intimateThemeOptions.hidden = !includesIntimate;
     elements.intimacyNote.hidden = !includesIntimate;
-    elements.adultTopicNote.hidden =
-      !includesIntimate || !selection.includeAdult;
 
     if (!includesIntimate) {
       elements.intimateSettingsHint.textContent =
         "子主题筛选作用于高亲密度真心话；高亲密度大冒险为两类共用题库。";
     } else if (!truthSettingsActive) {
       elements.intimateSettingsHint.textContent =
-        "当前选择“只抽大冒险”，真心话子主题与成人彩蛋不会加入本场。";
+        "当前选择“只抽大冒险”，真心话子主题不会加入本场。";
     } else {
       elements.intimateSettingsHint.textContent =
         "子主题筛选作用于高亲密度真心话；高亲密度大冒险为两类共用题库。";
@@ -358,9 +347,6 @@
 
   function currentLevelLabel(card) {
     if (card.level === "intimate") {
-      if (card.theme === "adult") {
-        return "高亲密度 · 成人彩蛋";
-      }
       if (card.theme === "straight") {
         return "高亲密度 · 心动直球";
       }
@@ -463,7 +449,6 @@
     state.mode = selection.mode;
     state.includeIntimate = selection.includeIntimate;
     state.intimateTheme = selection.intimateTheme;
-    state.includeAdult = selection.includeAdult;
     state.rememberProgress = elements.rememberProgressCheckbox.checked;
     state.requestedLimit = getSelectedValue("roundLimit") || "10";
     state.persistedSeen = loadPersistedSeen();
@@ -658,11 +643,6 @@
   });
 
   elements.includeIntimateCheckbox.addEventListener(
-    "change",
-    updateLevelOptions
-  );
-
-  elements.includeAdultCheckbox.addEventListener(
     "change",
     updateLevelOptions
   );
