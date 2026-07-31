@@ -1390,3 +1390,22 @@ a:focus-visible {
     padding: 18px;
   }
 }
+
+
+.card-source {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  margin: 13px 0 0;
+  padding: 6px 11px;
+  border: 1px solid rgba(255, 138, 161, 0.22);
+  border-radius: 999px;
+  color: var(--pink-dark);
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.card-source[hidden] {
+  display: none;
+}

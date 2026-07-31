@@ -68,6 +68,7 @@
     cardNumber: document.getElementById("cardNumber"),
     cardQuestion: document.getElementById("cardQuestion"),
     cardTip: document.getElementById("cardTip"),
+    cardSource: document.getElementById("cardSource"),
     remainingText: document.getElementById("remainingText"),
     progressBar: document.getElementById("progressBar"),
     rememberProgressCheckbox: document.getElementById("rememberProgressCheckbox"),
@@ -296,6 +297,10 @@
     elements.cardQuestion.textContent = card.text;
     elements.cardTip.textContent =
       "不方便、不愿意或不适合公开时，直接换一张即可；无需解释，也不会有惩罚。";
+    elements.cardSource.hidden = !card.source;
+    elements.cardSource.textContent = card.source
+      ? `题目灵感：${card.source}`
+      : "";
 
     updatePlayer();
     updatePlayProgress();
@@ -555,7 +560,7 @@
       elements.helpDialog.showModal();
     } else {
       showToast(
-        "全部119张题已合并；选择游玩模式和本场题数后即可开始，任何题目都可以直接换一张。"
+        "全部167张题已合并；选择游玩模式和本场题数后即可开始，任何题目都可以直接换一张。"
       );
     }
   });

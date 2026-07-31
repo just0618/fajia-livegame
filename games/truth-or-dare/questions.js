@@ -52,6 +52,54 @@ window.FAJIA_QUESTION_BANK = {
       {
         "id": "light-truth-13",
         "text": "平时在家最常待的角落是哪里？最舒服的姿势是什么？"
+      },
+      {
+        "id": "light-squid-01",
+        "text": "如果用一种颜色形容对方，你会选择什么颜色？为什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 10
+      },
+      {
+        "id": "light-squid-02",
+        "text": "你觉得对方像哪一种饮品？为什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 13
+      },
+      {
+        "id": "light-squid-03",
+        "text": "如果两个人互换身份一天，你最想先体验对方生活里的哪件事？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 14
+      },
+      {
+        "id": "light-squid-04",
+        "text": "如果可以和对方一起幼稚一次，你最想一起做什么傻事？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 16
+      },
+      {
+        "id": "light-squid-05",
+        "text": "如果获得一种只能用来向对方耍赖的超能力，你会选择什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 17
+      },
+      {
+        "id": "light-squid-06",
+        "text": "如果可以一起进入一部动画片生活，你会选择哪一部？为什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 22
+      },
+      {
+        "id": "light-squid-07",
+        "text": "两个人最常待在家里的哪个角落？在那里通常会做什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 32
+      },
+      {
+        "id": "light-squid-08",
+        "text": "每天早上醒来，你最想听到对方说的第一句话是什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 49
       }
     ],
     "dare": [
@@ -154,6 +202,135 @@ window.FAJIA_QUESTION_BANK = {
       {
         "id": "heart-truth-12",
         "text": "你认为对方最需要被肯定的一点是什么？"
+      },
+      {
+        "id": "heart-squid-01",
+        "text": "第一次见面时，对方哪个小细节最让你记到现在？",
+        "source": "鱿鱼须oo"
+      },
+      {
+        "id": "heart-squid-02",
+        "text": "回看刚认识的时候和现在，你觉得自己在这段相处里最大的变化是什么？",
+        "source": "鱿鱼须oo"
+      },
+      {
+        "id": "heart-squid-03",
+        "text": "有没有哪个瞬间，让你突然觉得“有对方在真好”？",
+        "source": "鱿鱼须oo"
+      },
+      {
+        "id": "heart-squid-04",
+        "text": "你觉得两个人中谁更像小孩子？为什么？",
+        "source": "鱿鱼须oo"
+      },
+      {
+        "id": "heart-squid-05",
+        "text": "如果两个人一起出演一部电影，你最想选什么类型？为什么？",
+        "source": "鱿鱼须oo"
+      },
+      {
+        "id": "heart-squid-06",
+        "text": "如果两个人一起开一家店，你会取什么名字，店里卖什么？",
+        "source": "鱿鱼须oo"
+      },
+      {
+        "id": "heart-squid-07",
+        "text": "如果生活是一款游戏，你最想为对方设定什么专属技能？",
+        "source": "鱿鱼须oo"
+      },
+      {
+        "id": "heart-squid-08",
+        "text": "有没有一座城市，是你特别想带对方一起去的？为什么？",
+        "source": "鱿鱼须oo"
+      },
+      {
+        "id": "heart-squid-09",
+        "text": "你最想收到对方送的一份什么礼物？",
+        "source": "鱿鱼须oo"
+      },
+      {
+        "id": "heart-squid-10",
+        "text": "你觉得对方最让你心动的一个小习惯是什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 2
+      },
+      {
+        "id": "heart-squid-11",
+        "text": "你最欣赏对方性格里的哪一点？为什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 5
+      },
+      {
+        "id": "heart-squid-12",
+        "text": "对方做什么事时，会让你觉得特别有安全感？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 9
+      },
+      {
+        "id": "heart-squid-13",
+        "text": "想念对方的时候，你通常会做什么？会不会想说些什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 12
+      },
+      {
+        "id": "heart-squid-14",
+        "text": "你觉得对方睡觉时最可爱的样子是什么？愿意的话可以模仿一下。",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 18
+      },
+      {
+        "id": "heart-squid-15",
+        "text": "如果明天就是世界末日，你最想对对方说什么、一起做什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 21
+      },
+      {
+        "id": "heart-squid-16",
+        "text": "此时此刻，你想听到对方说“爱你”吗？为什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 25
+      },
+      {
+        "id": "heart-squid-17",
+        "text": "如果两个人现在的感情像一种天气，会是什么天气？为什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 26
+      },
+      {
+        "id": "heart-squid-18",
+        "text": "你此时此刻最想对对方说什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 28
+      },
+      {
+        "id": "heart-squid-19",
+        "text": "最近有没有一件事，是你特别想和对方一起去做的？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 33
+      },
+      {
+        "id": "heart-squid-20",
+        "text": "你最喜欢对方外形或身体上的哪个部位或小细节？只回答让你觉得舒服的部分即可。",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 36
+      },
+      {
+        "id": "heart-squid-21",
+        "text": "两个人待在家里时，做什么会让你觉得最幸福？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 44
+      },
+      {
+        "id": "heart-squid-22",
+        "text": "目前一起去过的地方中，哪一个让你印象最深？为什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 45
+      },
+      {
+        "id": "heart-squid-23",
+        "text": "此时此刻，你最想听到对方对你说什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 50
       }
     ],
     "dare": [
@@ -256,6 +433,66 @@ window.FAJIA_QUESTION_BANK = {
       {
         "id": "challenge-truth-12",
         "text": "说出一个你希望未来还能继续保持的相处习惯。"
+      },
+      {
+        "id": "challenge-squid-01",
+        "text": "如果两个人遇到一时无法解决的矛盾，你觉得最适合怎样处理？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 15
+      },
+      {
+        "id": "challenge-squid-02",
+        "text": "如果你吃醋了，通常会有什么表现？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 20
+      },
+      {
+        "id": "challenge-squid-03",
+        "text": "你觉得自己对对方的占有欲强吗？愿意的话说说原因。",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 27
+      },
+      {
+        "id": "challenge-squid-04",
+        "text": "在两个人的相处中，你现在还有哪些顾虑？愿意的话说说原因。",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 29
+      },
+      {
+        "id": "challenge-squid-05",
+        "text": "看到对方因为你而吃醋时，你会不会觉得自己被在意？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 30
+      },
+      {
+        "id": "challenge-squid-06",
+        "text": "对方晚归或很久没有消息时，你会不会胡思乱想？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 37
+      },
+      {
+        "id": "challenge-squid-07",
+        "text": "你会不会担心有一天对方被别人抢走？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 40
+      },
+      {
+        "id": "challenge-squid-08",
+        "text": "你觉得对方是一个可以让你完全信任的人吗？为什么？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 41
+      },
+      {
+        "id": "challenge-squid-09",
+        "text": "现在的对方会让你感到安全和安心吗？哪些瞬间最明显？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 42
+      },
+      {
+        "id": "challenge-squid-10",
+        "text": "两个人闹别扭时，对方哪一种反应最容易让你不知道该怎么办？",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 47
       }
     ],
     "dare": [
@@ -480,6 +717,42 @@ window.FAJIA_QUESTION_BANK = {
         "id": "intimate-adult-01",
         "text": "感情中能接受 Side 吗？",
         "theme": "deep"
+      },
+      {
+        "id": "intimate-squid-01",
+        "text": "如果对方生气了，你最希望他用什么方式告诉你？",
+        "source": "鱿鱼须oo"
+      },
+      {
+        "id": "intimate-squid-02",
+        "text": "目前最想和对方一起克服的一件困难是什么？",
+        "source": "鱿鱼须oo"
+      },
+      {
+        "id": "intimate-squid-03",
+        "text": "想象几年后的两个人，你希望那时的相处是什么样子？",
+        "source": "鱿鱼须oo"
+      },
+      {
+        "id": "intimate-squid-04",
+        "text": "你希望两个人每年都保留一个怎样的小仪式？",
+        "source": "鱿鱼须oo"
+      },
+      {
+        "id": "intimate-squid-05",
+        "text": "你觉得两个人之间最治愈的一个小瞬间是什么？",
+        "source": "鱿鱼须oo"
+      },
+      {
+        "id": "intimate-squid-06",
+        "text": "如果对方今天很累，你最想为他做哪一件事？",
+        "source": "鱿鱼须oo"
+      },
+      {
+        "id": "intimate-squid-07",
+        "text": "你有没有想过带对方去见家人？愿意的话说说你的想法。",
+        "source": "鱿鱼须oo",
+        "sourceNumber": 39
       }
     ],
     "dare": [
