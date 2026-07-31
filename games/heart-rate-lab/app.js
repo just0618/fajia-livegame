@@ -15,7 +15,7 @@
     participantMode: "single",
     gameplay: "action",
     actionScale: "mixed",
-    recordMode: "health",
+    recordMode: "live",
     wearer: 0,
     rounds: 5,
     completed: 0,
@@ -1032,7 +1032,7 @@
     state.actionScale = getSelectedValue("actionScale") || "mixed";
     state.recordMode = isDual()
       ? "health"
-      : getSelectedValue("recordMode") || "health";
+      : getSelectedValue("recordMode") || "live";
     state.wearer = Number(getSelectedValue("wearer") || 0);
     state.rounds = Number(getSelectedValue("rounds") || 5);
     state.completed = 0;

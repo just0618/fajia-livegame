@@ -37,10 +37,10 @@
     <section class="setup-screen" id="setupScreen" aria-labelledby="setupTitle">
       <div class="setup-intro">
         <p class="eyebrow">GAME 02 · TRUTH OR DARE</p>
-        <h1 id="setupTitle">今晚，想从哪一张卡开始？</h1>
+        <h1 id="setupTitle">真心话大冒险怎么玩？</h1>
         <p>
-          选择题目尺度和游玩模式。高亲密度题目需要主动选择，游戏开始后，
-          法宣阁与贺嘉述会自动轮流抽卡。
+          先选择只抽真心话、只抽大冒险或随机模式，再选择本场题数和先手玩家。
+          抽到不方便、不愿意回答或不适合公开的内容时，直接点击“换一张”即可。
         </p>
       </div>
 
@@ -64,116 +64,21 @@
         </article>
       </div>
 
-      <section class="choice-section" aria-labelledby="levelTitle">
-        <div class="section-label">
-          <span>STEP 01</span>
-          <h2 id="levelTitle">选择题目尺度</h2>
-        </div>
-
-        <div class="choice-grid choice-grid-level">
-          <label class="choice-card">
-            <input type="radio" name="level" value="light" checked />
-            <span class="choice-card-inner">
-              <span class="choice-icon">☀</span>
-              <strong>轻松模式</strong>
-              <small>热场、日常与快速回答</small>
-            </span>
-          </label>
-
-          <label class="choice-card">
-            <input type="radio" name="level" value="heart" />
-            <span class="choice-card-inner">
-              <span class="choice-icon">♥</span>
-              <strong>心动模式</strong>
-              <small>回忆、印象与真诚表达</small>
-            </span>
-          </label>
-
-          <label class="choice-card">
-            <input type="radio" name="level" value="challenge" />
-            <span class="choice-card-inner">
-              <span class="choice-icon">✦</span>
-              <strong>挑战模式</strong>
-              <small>更有节目效果的互动任务</small>
-            </span>
-          </label>
-
-          <label class="choice-card intimate-choice">
-            <input type="radio" name="level" value="intimate" />
-            <span class="choice-card-inner">
-              <span class="choice-icon intimate-icon">♥+</span>
-              <strong>高亲密度</strong>
-              <small>可选择心动直球、深度关系或两类混合</small>
-            </span>
-          </label>
-
-          <label class="choice-card choice-card-wide mixed-choice">
-            <input type="radio" name="level" value="mixed" />
-            <span class="choice-card-inner">
-              <span class="choice-icon mixed-icon">∞</span>
-              <strong>全部混合</strong>
-              <small>默认随机抽取轻松、心动与挑战题目</small>
-            </span>
-          </label>
-        </div>
-
-        <div class="mixed-intimacy-option" id="mixedIntimacyOption" hidden>
-          <label>
-            <input id="includeIntimateCheckbox" type="checkbox" />
-            <span class="custom-checkbox" aria-hidden="true">✓</span>
-            <span>
-              <strong>同时加入高亲密度题目</strong>
-              <small id="mixedIntimateCountNote">默认关闭；勾选后可继续选择高亲密度主题。</small>
-            </span>
-          </label>
-        </div>
-
-        <div class="intimate-theme-options" id="intimateThemeOptions" hidden>
-          <div class="mini-section-heading">
-            <span>高亲密度主题</span>
-            <small>选择适合本场直播节奏的真心话范围</small>
-          </div>
-
-          <div class="choice-grid intimate-theme-grid">
-            <label class="choice-card compact-choice-card">
-              <input type="radio" name="intimateTheme" value="straight" />
-              <span class="choice-card-inner">
-                <strong>心动直球</strong>
-                <small>心动、想念、梦境与浪漫瞬间</small>
-              </span>
-            </label>
-
-            <label class="choice-card compact-choice-card">
-              <input type="radio" name="intimateTheme" value="deep" />
-              <span class="choice-card-inner">
-                <strong>深度关系</strong>
-                <small>忠诚、联系、遗憾与安全感</small>
-              </span>
-            </label>
-
-            <label class="choice-card compact-choice-card">
-              <input type="radio" name="intimateTheme" value="mixed" checked />
-              <span class="choice-card-inner">
-                <strong>两类混合</strong>
-                <small>随机抽取上述两类真心话</small>
-              </span>
-            </label>
-          </div>
-
-          <p class="intimate-settings-hint" id="intimateSettingsHint">
-            子主题筛选作用于高亲密度真心话；高亲密度大冒险为两类共用题库。
+      <div class="unified-safety-note">
+        <span aria-hidden="true">♥</span>
+        <div>
+          <strong>一切以法法嘉嘉的意愿为主。</strong>
+          <p>
+            本题库混合收录轻松互动、心动话题、关系讨论和较私密的问题。
+            遇到任何不方便、不愿意回答或不适合公开的内容，请直接点击“换一张”；
+            不需要解释，也不会有任何惩罚。
           </p>
         </div>
-
-        <div class="intimacy-note" id="intimacyNote" hidden>
-          <strong>高亲密度题目仅在双方都愿意时进行。</strong>
-          <p>遇到陌生词语、不适合公开或暂时不想回答的问题，都可以直接换一张，不需要解释原因。</p>
-        </div>
-      </section>
+      </div>
 
       <section class="choice-section" aria-labelledby="modeTitle">
         <div class="section-label">
-          <span>STEP 02</span>
+          <span>STEP 01</span>
           <h2 id="modeTitle">选择游玩模式</h2>
         </div>
 
@@ -183,7 +88,7 @@
             <span class="choice-card-inner">
               <span class="mode-tag truth-tag">真</span>
               <strong>只抽真心话</strong>
-              <small>每一轮都是回答题</small>
+              <small>从全部71道真心话中抽取</small>
             </span>
           </label>
 
@@ -192,7 +97,7 @@
             <span class="choice-card-inner">
               <span class="mode-tag dare-tag">冒</span>
               <strong>只抽大冒险</strong>
-              <small>每一轮都是互动任务</small>
+              <small>从全部48道大冒险中抽取</small>
             </span>
           </label>
 
@@ -201,7 +106,7 @@
             <span class="choice-card-inner">
               <span class="mode-tag random-tag">?</span>
               <strong>随机决定</strong>
-              <small>真心话与大冒险随机出现</small>
+              <small>每轮先随机真心话或大冒险</small>
             </span>
           </label>
         </div>
@@ -209,7 +114,7 @@
 
       <section class="choice-section" aria-labelledby="roundCountTitle">
         <div class="section-label">
-          <span>STEP 03</span>
+          <span>STEP 02</span>
           <h2 id="roundCountTitle">选择本场题数</h2>
         </div>
 
@@ -254,7 +159,7 @@
 
       <section class="choice-section" aria-labelledby="progressTitle">
         <div class="section-label">
-          <span>STEP 04</span>
+          <span>STEP 03</span>
           <h2 id="progressTitle">题库进度</h2>
         </div>
 
@@ -272,7 +177,7 @@
 
           <div class="saved-progress-summary" id="savedProgressSummary" aria-live="polite">
             <div>
-              <span>当前范围</span>
+              <span>当前模式</span>
               <strong id="scopeTotalCount">0张</strong>
             </div>
             <div>
@@ -291,7 +196,7 @@
 
           <div class="progress-actions">
             <button class="button button-secondary button-small" id="clearScopeProgressButton" type="button">
-              清除当前范围进度
+              清除当前模式进度
             </button>
             <button class="button button-quiet button-small" id="clearAllProgressButton" type="button">
               清除全部进度
@@ -302,7 +207,7 @@
 
       <section class="start-section" aria-labelledby="starterTitle">
         <div>
-          <p class="eyebrow">STEP 05 · READY TO PLAY</p>
+          <p class="eyebrow">STEP 04 · READY TO PLAY</p>
           <h2 id="starterTitle">谁先开始？</h2>
           <p>也可以交给系统随机决定第一位玩家。</p>
         </div>
@@ -324,7 +229,7 @@
     <section class="play-screen" id="playScreen" hidden aria-labelledby="cardQuestion">
       <div class="play-toolbar">
         <button class="text-button" id="restartButton" type="button">
-          重新选择模式
+          返回设置
         </button>
 
         <div class="turn-counter" aria-live="polite">
@@ -347,7 +252,7 @@
       <article class="question-card" id="questionCard">
         <div class="card-topline">
           <span class="card-type" id="cardType">真心话</span>
-          <span class="card-level" id="cardLevel">轻松模式</span>
+          <span class="card-level" id="cardLevel">统一题库</span>
         </div>
 
         <div class="card-number" id="cardNumber">CARD 01</div>
@@ -355,7 +260,7 @@
         <h1 id="cardQuestion" tabindex="-1"></h1>
 
         <p class="card-tip" id="cardTip">
-          回答完成后，点击下方按钮交给下一位玩家。
+          不方便、不愿意或不适合公开时，直接换一张即可；无需解释，也不会有惩罚。
         </p>
 
         <div class="card-progress" aria-label="当前题库使用情况">
@@ -435,18 +340,18 @@
       </div>
 
       <ol>
-        <li>选择题目尺度、真心话/大冒险模式和本场题数。</li>
-        <li>选择高亲密度后，可继续选择“心动直球”“深度关系”或“两类混合”；所有题目都可以直接换一张。</li>
+        <li>题目分类已经合并，所有119张卡片统一进入完整题库。</li>
+        <li>选择“只抽真心话”“只抽大冒险”或“随机决定”，再选择本场题数。</li>
+        <li>随机模式每轮先以相同概率决定真心话或大冒险；一类抽完后自动使用另一类。</li>
         <li>“记住进度”开启时，已经展示过的卡片会保存在当前浏览器，下次自动排除。</li>
-        <li>选择“全部可用题目”时，会一直玩到当前范围没有新卡片。</li>
-        <li>随机模式中，一类没有剩余卡片后会自动抽另一类。</li>
+        <li>选择“全部可用题目”时，会一直玩到当前模式没有新卡片。</li>
         <li>“换一张”不会切换玩家，也不增加正式完成题数，但该卡会记为已展示。</li>
         <li>点击“完成，轮到下一位”后，本场完成题数加一并自动交换玩家。</li>
-        <li>当前范围全部完成后不会自动重复，需要主动清除进度或更换范围。</li>
       </ol>
 
       <p>
-        本版本以直播友好为优先，不设置惩罚、积分或强制完成机制。高亲密度题目仅在双方均愿意时回答或完成。浏览器只保存已展示卡片的编号，不保存回答。
+        一切以法法嘉嘉的意愿为主。任何不方便、不愿意回答或不适合公开的题目都可以直接换一张，
+        不需要解释，也不会有惩罚。浏览器只保存已展示卡片编号，不保存回答内容。
       </p>
     </div>
   </dialog>

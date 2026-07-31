@@ -2,6 +2,8 @@
   "use strict";
 
   const bank = window.FAJIA_CHARADES_BANK;
+  const STORAGE_KEY = "fajia-livegame.charades.completed.v1";
+  const STORAGE_VERSION = 1;
 
   if (!bank) {
     throw new Error("题库未加载，请确认 questions.js 与 app.js 位于同一文件夹。");
@@ -50,7 +52,9 @@
     solvedSeconds: [],
     remainingSeconds: ROUND_SECONDS,
     timerId: null,
-    timerStartedAt: null
+    timerStartedAt: null,
+    rememberProgress: true,
+    persistedCompleted: new Set()
   };
 
   const elements = {
@@ -101,6 +105,13 @@
     resultTimeout: document.getElementById("resultTimeout"),
     resultAverage: document.getElementById("resultAverage"),
     playAgainButton: document.getElementById("playAgainButton"),
+    rememberProgressCheckbox: document.getElementById("rememberProgressCheckbox"),
+    progressTotalCount: document.getElementById("progressTotalCount"),
+    progressCompletedCount: document.getElementById("progressCompletedCount"),
+    progressRemainingCount: document.getElementById("progressRemainingCount"),
+    progressNote: document.getElementById("progressNote"),
+    clearScopeProgressButton: document.getElementById("clearScopeProgressButton"),
+    clearAllProgressButton: document.getElementById("clearAllProgressButton"),
 
     helpDialog: document.getElementById("helpDialog"),
     openHelpButton: document.getElementById("openHelpButton"),
@@ -136,30 +147,105 @@
     }, 2400);
   }
 
-  function buildPool() {
-    if (state.category === "mixed") {
-      return Object.entries(bank).flatMap(([category, questions]) =>
-        questions.map((text) => ({ text, category }))
-      );
-    }
+  function buildFullPool(category = state.category) {
+    const entries =
+      category === "mixed"
+        ? Object.entries(bank)
+        : [[category, bank[category]]];
 
-    return bank[state.category].map((text) => ({
-      text,
-      category: state.category
-    }));
+    return entries.flatMap(([group, questions]) =>
+      questions.map((text, index) => ({
+        text,
+        category: group,
+        id: `charades-${group}-${String(index + 1).padStart(2, "0")}`
+      }))
+    );
+  }
+
+  function loadPersistedCompleted() {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) return new Set();
+      const parsed = JSON.parse(raw);
+      if (
+        !parsed ||
+        parsed.version !== STORAGE_VERSION ||
+        !Array.isArray(parsed.completed)
+      ) {
+        return new Set();
+      }
+      return new Set(parsed.completed.filter((id) => typeof id === "string"));
+    } catch (error) {
+      return new Set();
+    }
+  }
+
+  function savePersistedCompleted() {
+    if (!state.rememberProgress) return;
+    try {
+      window.localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+          version: STORAGE_VERSION,
+          completed: [...state.persistedCompleted],
+          updatedAt: new Date().toISOString()
+        })
+      );
+    } catch (error) {
+      showToast("浏览器无法保存进度，本场仍可继续。");
+    }
+  }
+
+  function markQuestionCompleted(question) {
+    if (!state.rememberProgress || !question) return;
+    state.persistedCompleted.add(question.id);
+    savePersistedCompleted();
+  }
+
+  function selectedCategory() {
+    return getSelectedValue("category") || "mixed";
+  }
+
+  function updateProgressPreview() {
+    const category = selectedCategory();
+    const fullPool = buildFullPool(category);
+    const persisted = loadPersistedCompleted();
+    const remember = elements.rememberProgressCheckbox.checked;
+    const completed = fullPool.filter((question) =>
+      persisted.has(question.id)
+    ).length;
+    const remaining = remember ? fullPool.length - completed : fullPool.length;
+
+    elements.progressTotalCount.textContent = `${fullPool.length}题`;
+    elements.progressCompletedCount.textContent = remember ? `${completed}题` : "不读取";
+    elements.progressRemainingCount.textContent = `${remaining}题`;
+    elements.progressNote.textContent = remember
+      ? "只有点击“猜对了”的题目会写入进度；换题、跳过和超时题目下次仍可能出现。"
+      : "本场不读取或写入长期进度，但同一局会尽量避免立即重复。";
+    elements.clearScopeProgressButton.disabled = completed === 0;
+    elements.clearAllProgressButton.disabled = persisted.size === 0;
+  }
+
+  function buildPool() {
+    return buildFullPool().filter((question) =>
+      !state.rememberProgress || !state.persistedCompleted.has(question.id)
+    );
   }
 
   function prepareQuestions() {
     const pool = shuffle(buildPool());
 
-    if (pool.length < state.totalRounds) {
-      throw new Error("题库数量不足以完成所选轮数。");
+    if (pool.length === 0) {
+      return false;
     }
 
-    // 保留完整题库作为抽题队列。
+    state.totalRounds = Math.min(state.totalRounds, pool.length);
+
+    // 保留完整的未完成题库作为抽题队列。
     // 跳过的题目会排到队尾，因此不会消耗正式回合，也不会立刻再次出现。
     state.questions = pool;
     state.usedQuestionKeys.clear();
+    return true;
   }
 
   function takeNextQuestion() {
@@ -167,7 +253,7 @@
       // 理论上只会在反复跳过或换题时出现。
       // 重新洗牌保证游戏仍能继续。
       state.questions = shuffle(buildPool());
-      showToast("本分类题目已轮过一遍，现已重新洗牌。");
+      showToast("当前未完成题目已轮过一遍，现已重新洗牌。");
     }
 
     return state.questions.shift();
@@ -307,6 +393,7 @@
 
     state.correct += 1;
     state.solvedSeconds.push(elapsedSeconds);
+    markQuestionCompleted(state.currentQuestion);
     advanceRound();
   }
 
@@ -428,6 +515,8 @@
     state.category = getSelectedValue("category") || "mixed";
     state.rule = getSelectedValue("rule") || "sound";
     state.totalRounds = Number(getSelectedValue("rounds") || 10);
+    state.rememberProgress = elements.rememberProgressCheckbox.checked;
+    state.persistedCompleted = loadPersistedCompleted();
     state.currentRound = 1;
     state.actorIndex =
       starter === "random" ? Math.floor(Math.random() * players.length) : Number(starter);
@@ -437,7 +526,10 @@
     state.solvedSeconds = [];
     state.currentQuestion = null;
 
-    prepareQuestions();
+    if (!prepareQuestions()) {
+      showToast("当前题目范围已经全部猜对，请先清除进度或更换分类。");
+      return;
+    }
 
     elements.setupScreen.hidden = true;
     elements.resultScreen.hidden = true;
@@ -451,7 +543,68 @@
     elements.playScreen.hidden = true;
     elements.resultScreen.hidden = true;
     elements.setupScreen.hidden = false;
+    updateProgressPreview();
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function clearScopeProgress() {
+    const fullPool = buildFullPool(selectedCategory());
+    const ids = new Set(fullPool.map((question) => question.id));
+    const persisted = loadPersistedCompleted();
+    const removed = [...persisted].filter((id) => ids.has(id)).length;
+
+    if (removed === 0) {
+      showToast("当前题目范围没有已完成进度。");
+      return;
+    }
+
+    const confirmed = window.confirm(
+      `确定清除当前范围内${removed}道已完成题目的记录吗？`
+    );
+    if (!confirmed) return;
+
+    ids.forEach((id) => persisted.delete(id));
+    state.persistedCompleted = persisted;
+    try {
+      window.localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+          version: STORAGE_VERSION,
+          completed: [...persisted],
+          updatedAt: new Date().toISOString()
+        })
+      );
+    } catch (error) {
+      showToast("浏览器未能清除进度，请检查网站数据设置。");
+      return;
+    }
+
+    updateProgressPreview();
+    showToast("当前题目范围进度已清除。");
+  }
+
+  function clearAllProgress() {
+    const persisted = loadPersistedCompleted();
+    if (persisted.size === 0) {
+      showToast("目前没有已保存的猜题进度。");
+      return;
+    }
+
+    const confirmed = window.confirm(
+      `确定清除全部${persisted.size}道已完成题目的记录吗？`
+    );
+    if (!confirmed) return;
+
+    try {
+      window.localStorage.removeItem(STORAGE_KEY);
+    } catch (error) {
+      showToast("浏览器未能清除进度，请检查网站数据设置。");
+      return;
+    }
+
+    state.persistedCompleted = new Set();
+    updateProgressPreview();
+    showToast("全部猜题进度已清除。");
   }
 
   document.querySelectorAll("[data-starter]").forEach((button) => {
@@ -469,6 +622,25 @@
   elements.skipButton.addEventListener("click", handleSkip);
   elements.timeoutNextButton.addEventListener("click", advanceRound);
   elements.playAgainButton.addEventListener("click", returnToSetup);
+
+  document.querySelectorAll('input[name="category"]').forEach((input) => {
+    input.addEventListener("change", updateProgressPreview);
+  });
+  document.querySelectorAll('input[name="rounds"]').forEach((input) => {
+    input.addEventListener("change", updateProgressPreview);
+  });
+  elements.rememberProgressCheckbox.addEventListener(
+    "change",
+    updateProgressPreview
+  );
+  elements.clearScopeProgressButton.addEventListener(
+    "click",
+    clearScopeProgress
+  );
+  elements.clearAllProgressButton.addEventListener(
+    "click",
+    clearAllProgress
+  );
 
   elements.openHelpButton.addEventListener("click", () => {
     if (typeof elements.helpDialog.showModal === "function") {
@@ -489,4 +661,5 @@
   });
 
   window.addEventListener("beforeunload", clearTimer);
+  updateProgressPreview();
 })();

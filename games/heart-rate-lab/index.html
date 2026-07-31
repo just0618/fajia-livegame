@@ -36,13 +36,10 @@
     <section class="setup-screen" id="setupScreen" aria-labelledby="setupTitle">
       <div class="setup-intro">
         <p class="eyebrow">GAME 06 · HEART RATE LAB</p>
-        <h1 id="setupTitle">
-          哪一个瞬间，<br />
-          心率变化最大？
-        </h1>
+        <h1 id="setupTitle">法嘉心率实验室怎么玩？</h1>
         <p>
-          可选择一人佩戴设备的单人反应，或两个人同时佩戴设备的双人同步。
-          网页不会直接连接健康 App，所有数值均由玩家自行查看和录入。
+          默认由一人佩戴手表，另一人按照题目完成动作或回答。
+          每轮先记录基础心率，再实时观察并录入手表上出现的最高心率；需要时也可以改为双人同步或健康数据回看。
         </p>
       </div>
 
@@ -153,25 +150,25 @@
         </div>
 
         <div class="choice-grid record-grid">
-          <label class="choice-card recommended-card">
-            <input type="radio" name="recordMode" value="health" checked />
+          <label class="choice-card recommended-card" id="liveRecordChoice">
+            <input type="radio" name="recordMode" value="live" checked />
             <span class="choice-card-inner">
-              <span class="recommend-badge">推荐</span>
-              <strong>健康数据回看</strong>
+              <span class="recommend-badge">单人默认</span>
+              <strong>手表实时观察</strong>
               <small>
-                每道题独占一个完整分钟，休息分钟自动排除；
-                全部完成后再查看对应分钟的最低和最高心率。
+                每轮先输入动作前的基础心率，再进行15秒任务，
+                实时观察手表并记录看到的最高心率。
               </small>
             </span>
           </label>
 
-          <label class="choice-card" id="liveRecordChoice">
-            <input type="radio" name="recordMode" value="live" />
+          <label class="choice-card">
+            <input type="radio" name="recordMode" value="health" />
             <span class="choice-card-inner">
-              <strong>手表实时观察</strong>
+              <strong>健康数据回看</strong>
               <small>
-                先输入动作前心率，再进行15秒任务，
-                手动记录看到的最高心率。
+                每道题独占一个完整分钟；全部完成后，
+                再查询对应分钟的最低和最高心率。
               </small>
             </span>
           </label>
@@ -257,7 +254,7 @@
         <button class="text-button" id="restartButton" type="button">
           重新选择
         </button>
-        <div class="mode-pill" id="modePill">单人反应 · 健康数据回看</div>
+        <div class="mode-pill" id="modePill">单人反应 · 手表实时观察</div>
       </div>
 
       <div class="round-progress">

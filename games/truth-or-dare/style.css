@@ -1342,3 +1342,51 @@ a:focus-visible {
     max-width: calc(100% - 28px);
   }
 }
+
+
+.unified-safety-note {
+  display: flex;
+  margin-top: 34px;
+  padding: 20px 22px;
+  gap: 15px;
+  align-items: flex-start;
+  border: 1px solid rgba(255, 138, 161, 0.24);
+  border-radius: 21px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 240, 244, 0.92),
+      rgba(255, 249, 217, 0.72)
+    );
+  box-shadow: var(--shadow-soft);
+}
+
+.unified-safety-note > span {
+  display: grid;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--white);
+  background: var(--pink);
+  font-weight: 900;
+}
+
+.unified-safety-note strong,
+.unified-safety-note p {
+  display: block;
+  margin: 0;
+}
+
+.unified-safety-note p {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+@media (max-width: 560px) {
+  .unified-safety-note {
+    padding: 18px;
+  }
+}

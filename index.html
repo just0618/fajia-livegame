@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#FF8AA1" />
   <meta
     name="description"
-    content="法嘉直播游戏屋：为两个人准备的直播互动小游戏合集。"
+    content="法嘉直播游戏屋：适合双人直播互动的小游戏合集。"
   />
   <title>法嘉直播游戏屋</title>
   <link rel="stylesheet" href="./style.css" />
@@ -24,7 +24,8 @@
 
     <nav class="top-nav" aria-label="页面导航">
       <a href="#games">全部游戏</a>
-      <a href="#about">关于本站</a>
+      <a href="#more-works">更多作品</a>
+      <a href="#about">关于游戏屋</a>
     </nav>
   </header>
 
@@ -44,29 +45,25 @@
         </h1>
 
         <p class="hero-description">
-          为法嘉准备的双人直播互动小游戏。
-          不需要下载，手机和电脑打开网页就能玩。
+          适合双人直播互动的小游戏合集。
+          打开网页，挑一个就能开始。
         </p>
 
         <div class="hero-actions">
-          <a
-            class="button button-primary"
-            href="https://just0618.github.io/fajia-game/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            进入法嘉致富大富翁
-            <span aria-hidden="true">→</span>
+          <a class="button button-primary" href="#games">
+            查看全部游戏
+            <span aria-hidden="true">↓</span>
           </a>
 
-          <a class="button button-secondary" href="#games">
-            看看全部游戏
-          </a>
+          <button class="button button-secondary" id="randomGameButton" type="button">
+            随机一个游戏
+            <span aria-hidden="true">?</span>
+          </button>
         </div>
 
         <ul class="feature-list" aria-label="网站特点">
-          <li>粉丝自制</li>
-          <li>公开测试版 V1.0</li>
+          <li>7款游戏</li>
+          <li>手机与电脑可用</li>
           <li>持续更新</li>
         </ul>
       </div>
@@ -78,7 +75,7 @@
         <div class="player-card player-card-pink">
           <span class="player-number">01</span>
           <div class="player-avatar">
-            <img src="./assets/players/fa.webp" alt="粉色玩家照片" />
+            <img src="./assets/players/fa.webp" alt="法宣阁照片" />
           </div>
           <strong>法宣阁</strong>
           <span>🧣：法宣阁阿</span>
@@ -91,7 +88,7 @@
         <div class="player-card player-card-gold">
           <span class="player-number">02</span>
           <div class="player-avatar">
-            <img src="./assets/players/he.webp" alt="金色玩家照片" />
+            <img src="./assets/players/he.webp" alt="贺嘉述照片" />
           </div>
           <strong>贺嘉述</strong>
           <span>🧣：贺嘉述</span>
@@ -105,114 +102,20 @@
     <section class="games-section" id="games" aria-labelledby="games-title">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">GAME COLLECTION</p>
-          <h2 id="games-title">选择今天的游戏</h2>
+          <p class="eyebrow">ALL GAMES</p>
+          <h2 id="games-title">全部游戏</h2>
         </div>
         <p>
-          从棋盘游戏到抽卡、默契、动作、心动值、心率实验与隐藏目标挑战，
-          选择一款适合今天直播节奏的双人玩法。
+          一切以法法嘉嘉的意愿为主。遇到任何不方便或不愿意的内容，请直接点击跳过，不会有任何惩罚。
         </p>
       </div>
 
-      <article class="featured-game">
-        <div class="featured-copy">
-          <div class="badge-row">
-            <span class="status-badge status-live">现已上线</span>
-            <span class="game-index">GAME 01</span>
-            <span class="map-series-badge">MAP 01</span>
-          </div>
-
-          <h3>法嘉致富大富翁</h3>
-          <p>
-            沿着64格棋盘轮流前进，完成任务、触发特殊事件，
-            看看谁会先抵达终点。当前开放的是第一张地图，
-            后续新地图会作为同一系列继续加入。
-          </p>
-
-          <ul class="game-meta" aria-label="大富翁游戏信息">
-            <li>
-              <span>玩家</span>
-              <strong>2人</strong>
-            </li>
-            <li>
-              <span>时长</span>
-              <strong>约20分钟</strong>
-            </li>
-            <li>
-              <span>特点</span>
-              <strong>自动存档</strong>
-            </li>
-          </ul>
-
-          <div class="map-version-list" aria-label="大富翁地图版本">
-            <article class="map-version map-version-live">
-              <button
-                class="map-thumbnail-button"
-                type="button"
-                data-open-map-preview
-                aria-label="预览 MAP 01 法嘉致富大富翁棋盘"
-              >
-                <img
-                  src="./assets/maps/map-01-board.webp"
-                  alt="法嘉致富大富翁 MAP 01 棋盘缩略图"
-                />
-                <span class="map-thumbnail-overlay">点击预览地图</span>
-              </button>
-
-              <div class="map-version-copy">
-                <span>MAP 01</span>
-                <strong>当前地图</strong>
-                <a
-                  class="map-enter-link"
-                  href="https://just0618.github.io/fajia-game/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  进入游戏 ↗
-                </a>
-              </div>
-            </article>
-
-            <button
-              class="map-version map-version-coming"
-              type="button"
-              data-coming-soon="更多大富翁地图"
-            >
-              <span>MAP 02+</span>
-              <strong>更多地图</strong>
-              <em>后续更新</em>
-            </button>
-          </div>
-
-          <p class="external-note">
-            点击地图图片可先查看完整棋盘；点击“进入游戏”会打开原大富翁页面，已有链接不会受到影响。
-          </p>
-        </div>
-
-        <div class="board-preview" aria-hidden="true">
-          <div class="board-grid">
-            <span class="square square-pink">起点</span>
-            <span class="square">01</span>
-            <span class="square square-gold">02</span>
-            <span class="square">03</span>
-            <span class="square">08</span>
-            <span class="board-center">
-              <small>64格完整版</small>
-              <strong>法嘉致富</strong>
-              <span>MONOPOLY</span>
-            </span>
-            <span class="square square-pink">04</span>
-            <span class="square">07</span>
-            <span class="square square-gold">06</span>
-            <span class="square">05</span>
-          </div>
-          <span class="piece piece-pink">法</span>
-          <span class="piece piece-gold">贺</span>
-        </div>
-      </article>
-
       <div class="game-grid">
-        <article class="game-card">
+        <article
+          class="game-card"
+          data-random-game
+          data-game-id="truth-or-dare"
+        >
           <div class="card-top">
             <div class="game-icon icon-truth" aria-hidden="true">?</div>
             <span class="status-badge status-live">现已上线</span>
@@ -221,26 +124,26 @@
           <p class="game-index">GAME 02</p>
           <h3>真心话大冒险</h3>
           <p>
-            选择真心话或大冒险，随机抽取专属问题与任务，
-            适合直播中快速开启一轮互动。
+            选择真心话、大冒险或随机模式，再确定本场题数，轮流抽卡。
           </p>
 
           <ul class="card-tags" aria-label="真心话大冒险特点">
+            <li>统一题库</li>
             <li>随机抽卡</li>
-            <li>避免重复</li>
             <li>跨场继续</li>
           </ul>
 
-          <a
-            class="button button-primary"
-            href="./games/truth-or-dare/"
-          >
+          <a class="button button-primary" href="./games/truth-or-dare/">
             开始游戏
             <span aria-hidden="true">→</span>
           </a>
         </article>
 
-        <article class="game-card">
+        <article
+          class="game-card"
+          data-random-game
+          data-game-id="compatibility"
+        >
           <div class="card-top">
             <div class="game-icon icon-match" aria-hidden="true">♥</div>
             <span class="status-badge status-live">现已上线</span>
@@ -249,26 +152,26 @@
           <p class="game-index">GAME 03</p>
           <h3>法嘉默契挑战</h3>
           <p>
-            两个人分别回答同一道问题，再一起揭晓答案，
-            看看今天的默契值能达到多少。
+            每题各自想好答案，3秒后同时说出或指向，再判断这一轮是否默契。
           </p>
 
           <ul class="card-tags" aria-label="法嘉默契挑战特点">
             <li>双人作答</li>
-            <li>答案揭晓</li>
-            <li>默契计分</li>
+            <li>统一题库</li>
+            <li>结果记录</li>
           </ul>
 
-          <a
-            class="button button-primary"
-            href="./games/compatibility/"
-          >
+          <a class="button button-primary" href="./games/compatibility/">
             开始游戏
             <span aria-hidden="true">→</span>
           </a>
         </article>
 
-        <article class="game-card">
+        <article
+          class="game-card"
+          data-random-game
+          data-game-id="charades"
+        >
           <div class="card-top">
             <div class="game-icon icon-action" aria-hidden="true">↗</div>
             <span class="status-badge status-live">现已上线</span>
@@ -277,26 +180,26 @@
           <p class="game-index">GAME 04</p>
           <h3>小动作你比我猜</h3>
           <p>
-            轮流用表情、手势和上半身动作表演，
-            在30秒内猜出题目的核心情境。
+            一人用表情、手势或上半身动作表演，另一人在30秒内猜出核心意思。
           </p>
 
           <ul class="card-tags" aria-label="小动作你比我猜特点">
-            <li>坐着完成</li>
-            <li>轮流表演</li>
-            <li>团队计分</li>
+            <li>60道题</li>
+            <li>倒计时</li>
+            <li>跳过补抽</li>
           </ul>
 
-          <a
-            class="button button-primary"
-            href="./games/charades/"
-          >
+          <a class="button button-primary" href="./games/charades/">
             开始游戏
             <span aria-hidden="true">→</span>
           </a>
         </article>
 
-        <article class="game-card">
+        <article
+          class="game-card"
+          data-random-game
+          data-game-id="heart-rating"
+        >
           <div class="card-top">
             <div class="game-icon icon-heart-rate" aria-hidden="true">10</div>
             <span class="status-badge status-live">现已上线</span>
@@ -305,26 +208,22 @@
           <p class="game-index">GAME 05</p>
           <h3>法嘉心动值挑战</h3>
           <p>
-            为同一个假设行为打出1—10分，
-            可选择镜头同声或秘密揭晓。
+            面对同一个心动场景分别打分，再用同声或秘密模式揭晓答案。
           </p>
 
           <ul class="card-tags" aria-label="法嘉心动值挑战特点">
             <li>60道题</li>
             <li>两种模式</li>
-            <li>跳过补抽</li>
+            <li>秘密揭晓</li>
           </ul>
 
-          <a
-            class="button button-primary"
-            href="./games/heart-rating/"
-          >
+          <a class="button button-primary" href="./games/heart-rating/">
             开始游戏
             <span aria-hidden="true">→</span>
           </a>
         </article>
 
-        <article class="game-card">
+        <article class="game-card" data-game-id="heart-rate-lab">
           <div class="card-top">
             <div class="game-icon icon-heart-lab" aria-hidden="true">♥</div>
             <span class="status-badge status-live">现已上线</span>
@@ -333,25 +232,26 @@
           <p class="game-index">GAME 06</p>
           <h3>法嘉心率实验室</h3>
           <p>
-            支持单人反应与双人同步，记录动作或问答对应的心率变化。
+            默认一人佩戴手表，实时记录动作或问答前后的心率变化。
           </p>
 
           <ul class="card-tags" aria-label="法嘉心率实验室特点">
             <li>需心率设备</li>
-            <li>单人/双人</li>
-            <li>数据回看</li>
+            <li>单人默认</li>
+            <li>结果回看</li>
           </ul>
 
-          <a
-            class="button button-primary"
-            href="./games/heart-rate-lab/"
-          >
+          <a class="button button-primary" href="./games/heart-rate-lab/">
             开始游戏
             <span aria-hidden="true">→</span>
           </a>
         </article>
 
-        <article class="game-card">
+        <article
+          class="game-card"
+          data-random-game
+          data-game-id="dont-get-caught"
+        >
           <div class="card-top">
             <div class="game-icon icon-trap" aria-hidden="true">!</div>
             <span class="status-badge status-live">现已上线</span>
@@ -360,8 +260,7 @@
           <p class="game-index">GAME 07</p>
           <h3>法嘉别中招挑战</h3>
           <p>
-            互相设置隐藏词语或动作，在聊天和互动中诱导对方，
-            谁先中招谁选择惩罚路线。
+            互设一个隐藏词语或动作，在聊天中诱导对方先中招。
           </p>
 
           <ul class="card-tags" aria-label="法嘉别中招挑战特点">
@@ -370,15 +269,80 @@
             <li>风险惩罚</li>
           </ul>
 
-          <a
-            class="button button-primary"
-            href="./games/dont-get-caught/"
-          >
+          <a class="button button-primary" href="./games/dont-get-caught/">
             开始游戏
             <span aria-hidden="true">→</span>
           </a>
         </article>
+
+
+        <article
+          class="game-card game-card-monopoly"
+          data-random-game
+          data-game-id="monopoly"
+        >
+          <div class="card-top">
+            <div class="game-icon icon-board" aria-hidden="true">64</div>
+            <span class="status-badge status-live">现已上线</span>
+          </div>
+
+          <p class="game-index">GAME 01</p>
+          <h3>法嘉致富大富翁</h3>
+          <p>
+            掷骰子沿64格棋盘前进，在任务格和特殊事件里完成一场双人冒险。
+          </p>
+
+          <button
+            class="monopoly-map-preview"
+            type="button"
+            data-open-map-preview
+            aria-label="查看法嘉致富大富翁完整地图"
+          >
+            <img
+              src="./assets/maps/map-01-board.webp"
+              alt="法嘉致富大富翁地图缩略图"
+            />
+            <span>查看完整地图</span>
+          </button>
+
+          <ul class="card-tags" aria-label="法嘉致富大富翁特点">
+            <li>64格棋盘</li>
+            <li>双人互动</li>
+            <li>地图预览</li>
+          </ul>
+
+          <a
+            class="button button-primary"
+            href="https://just0618.github.io/fajia-game/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            开始游戏
+            <span aria-hidden="true">↗</span>
+          </a>
+        </article>      </div>
+
+      <p class="random-pool-note">
+        “随机一个游戏”默认不包含需要心率设备的心率实验室；准备好设备时，可以从列表手动进入。
+      </p>
+    </section>
+
+    <section class="works-section" id="more-works" aria-labelledby="works-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">MORE FAJIA WORKS</p>
+          <h2 id="works-title">更多法嘉作品</h2>
+        </div>
+        <p>
+          这里收录其他老师为法嘉制作的小游戏、视频或互动作品，仅作原作者作品指路。
+        </p>
       </div>
+
+      <div class="works-grid" id="worksGrid"></div>
+
+      <p class="works-footer-note">
+        外部作品的内容与版权归原作者所有。更多作品持续收录中。
+      </p>
     </section>
 
     <section class="about-section" id="about" aria-labelledby="about-title">
@@ -386,10 +350,9 @@
         <p class="eyebrow">ABOUT THE ROOM</p>
         <h2 id="about-title">一间慢慢长大的游戏屋</h2>
         <p>
-          这里会收录适合法嘉直播互动的小游戏。
-          从法嘉致富大富翁，到真心话大冒险、默契挑战、小动作你比我猜、心动值挑战、心率实验室和别中招挑战，
-          每一款都优先考虑直播画面、操作节奏和手机体验。
-          <strong>法嘉直播屋小游戏，未完待续。</strong>
+          这里收录了一些适合法嘉直播时玩的双人小游戏。
+          不需要下载，打开网页就能开始。
+          <strong>更多玩法，慢慢更新中。</strong>
         </p>
       </div>
 
@@ -397,24 +360,24 @@
         <div class="update-item">
           <span>01</span>
           <div>
-            <strong>欢迎提供游戏点子</strong>
-            <p>如果你有适合法嘉直播玩的小游戏脑洞，欢迎留言分享，一起把直播屋慢慢补充完整。</p>
+            <strong>打开就能开始</strong>
+            <p>尽量减少额外准备和复杂说明，把更多时间留给法嘉。</p>
           </div>
         </div>
 
         <div class="update-item">
           <span>02</span>
           <div>
-            <strong>法嘉直播屋未完待续</strong>
-            <p>目前上线的是第一版，后续还会继续加入更多适合直播的小玩法。</p>
+            <strong>为直播场景设计</strong>
+            <p>优先考虑手机操作、画面节奏，以及直播间观众能不能轻松看懂。</p>
           </div>
         </div>
 
         <div class="update-item">
           <span>03</span>
           <div>
-            <strong>也欢迎法法嘉嘉提建议</strong>
-            <p>如果有更适合直播的玩法、题目或互动形式，也欢迎法法嘉嘉有空来看看，给出建议。</p>
+            <strong>更多玩法慢慢加入</strong>
+            <p>也欢迎分享适合法嘉直播时玩的新点子，游戏屋会继续补充。</p>
           </div>
         </div>
       </div>
@@ -426,9 +389,11 @@
       <strong>法嘉直播游戏屋</strong>
       <p>
         非官方粉丝作品，仅供娱乐与交流。<br />
-        页面不会上传登录信息、答题内容或心率数值。真心话大冒险仅在当前浏览器本地保存已展示卡片的编号，可随时清除。
+        页面不会上传登录信息、答题内容、隐藏目标或心率数值；
+        真心话大冒险仅在当前浏览器本地保存已展示卡片编号，可随时清除。
       </p>
     </div>
+
     <p class="footer-colors">
       <span class="color-dot color-dot-pink"></span>
       #FF8AA1
@@ -436,7 +401,6 @@
       #FFE25B
     </p>
   </footer>
-
 
   <dialog class="map-preview-dialog" id="mapPreviewDialog">
     <div class="map-preview-panel">
@@ -486,8 +450,50 @@
     </div>
   </dialog>
 
+  <dialog class="random-game-dialog" id="randomGameDialog">
+    <div class="random-game-panel">
+      <div class="random-game-heading">
+        <div>
+          <p class="eyebrow">RANDOM PICK</p>
+          <h2>今天随机到的是</h2>
+        </div>
+
+        <button
+          class="random-game-close"
+          id="closeRandomGameButton"
+          type="button"
+          aria-label="关闭随机游戏"
+        >
+          ×
+        </button>
+      </div>
+
+      <div class="random-game-result" aria-live="polite">
+        <span id="randomGameIndex">GAME</span>
+        <strong id="randomGameTitle"></strong>
+        <p id="randomGameDescription"></p>
+      </div>
+
+      <p class="random-game-note">
+        心率实验室需要提前准备设备，因此不会进入本次随机池。
+      </p>
+
+      <div class="random-game-actions">
+        <button class="button button-secondary" id="rerollGameButton" type="button">
+          再随机一次
+        </button>
+
+        <a class="button button-primary" id="randomGameLink" href="#">
+          就玩这个
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </dialog>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <script src="./works.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>

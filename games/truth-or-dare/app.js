@@ -22,24 +22,13 @@
     }
   ];
 
-  const levelLabels = {
-    light: "轻松模式",
-    heart: "心动模式",
-    challenge: "挑战模式",
-    intimate: "高亲密度",
-    mixed: "全部混合"
-  };
-
   const typeLabels = {
     truth: "真心话",
     dare: "大冒险"
   };
 
   const state = {
-    level: "light",
     mode: "random",
-    includeIntimate: false,
-    intimateTheme: "mixed",
     rememberProgress: true,
     requestedLimit: "10",
     targetCount: 10,
@@ -81,12 +70,6 @@
     cardTip: document.getElementById("cardTip"),
     remainingText: document.getElementById("remainingText"),
     progressBar: document.getElementById("progressBar"),
-    mixedIntimacyOption: document.getElementById("mixedIntimacyOption"),
-    includeIntimateCheckbox: document.getElementById("includeIntimateCheckbox"),
-    mixedIntimateCountNote: document.getElementById("mixedIntimateCountNote"),
-    intimateThemeOptions: document.getElementById("intimateThemeOptions"),
-    intimateSettingsHint: document.getElementById("intimateSettingsHint"),
-    intimacyNote: document.getElementById("intimacyNote"),
     rememberProgressCheckbox: document.getElementById("rememberProgressCheckbox"),
     allAvailableLabel: document.getElementById("allAvailableLabel"),
     roundAvailabilityNote: document.getElementById("roundAvailabilityNote"),
@@ -126,58 +109,25 @@
     }, 2700);
   }
 
-  function cardsForLevel(level, type, selection) {
-    let cards = bank[level][type].map((card) => ({
-      ...card,
-      level,
-      type
-    }));
-
-    if (level === "intimate" && type === "truth") {
-      cards = cards.filter((card) => {
-        if (selection.intimateTheme === "mixed") {
-          return card.theme === "straight" || card.theme === "deep";
-        }
-
-        return card.theme === selection.intimateTheme;
-      });
-    }
-
-    return cards;
+  function cardsForType(type) {
+    return Object.entries(bank).flatMap(([level, group]) =>
+      group[type].map((card) => ({
+        ...card,
+        level,
+        type
+      }))
+    );
   }
 
   function currentSelection() {
-    const level = getSelectedValue("level") || "light";
-    const mode = getSelectedValue("mode") || "random";
-    const includeIntimate =
-      level === "mixed" && elements.includeIntimateCheckbox.checked;
-    const intimateTheme =
-      getSelectedValue("intimateTheme") || "mixed";
-
     return {
-      level,
-      mode,
-      includeIntimate,
-      intimateTheme
+      mode: getSelectedValue("mode") || "random"
     };
   }
 
   function buildPoolsForSelection(selection) {
-    let levels;
-
-    if (selection.level === "mixed") {
-      levels = ["light", "heart", "challenge"];
-      if (selection.includeIntimate) levels.push("intimate");
-    } else {
-      levels = [selection.level];
-    }
-
-    const truth = levels.flatMap((level) =>
-      cardsForLevel(level, "truth", selection)
-    );
-    const dare = levels.flatMap((level) =>
-      cardsForLevel(level, "dare", selection)
-    );
+    const truth = cardsForType("truth");
+    const dare = cardsForType("dare");
 
     return {
       truth: selection.mode === "dare" ? [] : truth,
@@ -246,32 +196,6 @@
     return items[Math.floor(Math.random() * items.length)];
   }
 
-  function updateLevelOptions() {
-    const selection = currentSelection();
-    const includesIntimate =
-      selection.level === "intimate" ||
-      (selection.level === "mixed" && selection.includeIntimate);
-    const truthSettingsActive =
-      includesIntimate && selection.mode !== "dare";
-
-    elements.mixedIntimacyOption.hidden = selection.level !== "mixed";
-    elements.intimateThemeOptions.hidden = !includesIntimate;
-    elements.intimacyNote.hidden = !includesIntimate;
-
-    if (!includesIntimate) {
-      elements.intimateSettingsHint.textContent =
-        "子主题筛选作用于高亲密度真心话；高亲密度大冒险为两类共用题库。";
-    } else if (!truthSettingsActive) {
-      elements.intimateSettingsHint.textContent =
-        "当前选择“只抽大冒险”，真心话子主题不会加入本场。";
-    } else {
-      elements.intimateSettingsHint.textContent =
-        "子主题筛选作用于高亲密度真心话；高亲密度大冒险为两类共用题库。";
-    }
-
-    updateProgressPreview();
-  }
-
   function updateProgressPreview() {
     const selection = currentSelection();
     const pools = buildPoolsForSelection(selection);
@@ -290,16 +214,6 @@
     elements.scopeRemainingCount.textContent = `${remaining}张`;
     elements.allAvailableLabel.textContent = `当前剩余 ${remaining} 题`;
 
-    if (selection.level === "mixed") {
-      elements.mixedIntimateCountNote.textContent =
-        selection.includeIntimate
-          ? `已加入当前高亲密度设置，本范围共${allCards.length}张。`
-          : `默认关闭；当前基础混合题库共${allCards.length}张。`;
-    } else {
-      elements.mixedIntimateCountNote.textContent =
-        "默认关闭；勾选后可继续选择高亲密度主题。";
-    }
-
     if (!remember) {
       elements.storageNote.textContent =
         "本场不会读取或写入历史进度，但本场内已经展示过的卡片仍不会重复。";
@@ -310,7 +224,7 @@
 
     if (remaining === 0) {
       elements.roundAvailabilityNote.textContent =
-        "当前选择范围已经全部完成，请清除进度或更换题目范围。";
+        "当前模式题库已经全部完成，请清除进度或切换游玩模式。";
     } else if (selectedLimit === "all") {
       elements.roundAvailabilityNote.textContent =
         `本场将玩完当前剩余的 ${remaining} 题。`;
@@ -345,22 +259,8 @@
     return Math.random() < 0.5 ? "truth" : "dare";
   }
 
-  function currentLevelLabel(card) {
-    if (card.level === "intimate") {
-      if (card.theme === "straight") {
-        return "高亲密度 · 心动直球";
-      }
-      if (card.theme === "deep") {
-        return "高亲密度 · 深度关系";
-      }
-      return "高亲密度 · 大冒险";
-    }
-
-    if (state.level === "mixed") {
-      return `${levelLabels[card.level]} · 全部混合`;
-    }
-
-    return levelLabels[state.level];
+  function currentLevelLabel() {
+    return "统一题库";
   }
 
   function markCardSeen(card) {
@@ -387,21 +287,15 @@
     state.cardCount += 1;
     markCardSeen(card);
 
-    const isIntimateCard = card.level === "intimate";
-
     elements.questionCard.classList.toggle("is-dare", type === "dare");
-    elements.questionCard.classList.toggle(
-      "is-intimate",
-      isIntimateCard
-    );
+    elements.questionCard.classList.remove("is-intimate");
     elements.cardType.textContent = typeLabels[type];
-    elements.cardLevel.textContent = currentLevelLabel(card);
+    elements.cardLevel.textContent = currentLevelLabel();
     elements.cardNumber.textContent =
       `CARD ${String(state.cardCount).padStart(2, "0")}`;
     elements.cardQuestion.textContent = card.text;
-    elements.cardTip.textContent = isIntimateCard
-      ? "双方都愿意时再回答或完成；不合适可以直接换一张。"
-      : "回答或完成后，点击下方按钮交给下一位玩家。";
+    elements.cardTip.textContent =
+      "不方便、不愿意或不适合公开时，直接换一张即可；无需解释，也不会有惩罚。";
 
     updatePlayer();
     updatePlayProgress();
@@ -445,10 +339,7 @@
   function beginGame(starter) {
     const selection = currentSelection();
 
-    state.level = selection.level;
     state.mode = selection.mode;
-    state.includeIntimate = selection.includeIntimate;
-    state.intimateTheme = selection.intimateTheme;
     state.rememberProgress = elements.rememberProgressCheckbox.checked;
     state.requestedLimit = getSelectedValue("roundLimit") || "10";
     state.persistedSeen = loadPersistedSeen();
@@ -549,7 +440,7 @@
 
     if (state.endedBecauseExhausted && state.completedCount < state.targetCount) {
       elements.resultSubtitle.textContent =
-        "当前选择范围已经没有未展示卡片，本场提前完成。";
+        "当前模式题库已经没有未展示卡片，本场提前完成。";
     } else {
       elements.resultSubtitle.textContent =
         `本场计划完成${state.targetCount}题，正式完成${state.completedCount}题。`;
@@ -560,7 +451,7 @@
         "本场没有写入历史进度。返回设置后可以重新抽取完整题库。";
     } else if (stats.remaining === 0) {
       elements.resultMessage.textContent =
-        "当前选择范围已经全部完成。下次可以更换题目范围，或清除当前范围进度后重新开始。";
+        "当前模式题库已经全部完成。下次可以切换游玩模式，或清除当前模式进度后重新开始。";
     } else {
       elements.resultMessage.textContent =
         `已保存到当前浏览器，下次将从剩余${stats.remaining}张卡片继续。`;
@@ -573,7 +464,7 @@
     elements.playScreen.hidden = true;
     elements.resultScreen.hidden = true;
     elements.setupScreen.hidden = false;
-    updateLevelOptions();
+    updateProgressPreview();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -590,7 +481,7 @@
     }
 
     const confirmed = window.confirm(
-      `确定清除当前选择范围内的${removed}张已展示记录吗？`
+      `确定清除当前模式内的${removed}张已展示记录吗？`
     );
     if (!confirmed) return;
 
@@ -626,26 +517,13 @@
     showToast("全部真心话大冒险进度已清除。");
   }
 
-  document.querySelectorAll('input[name="level"]').forEach((input) => {
-    input.addEventListener("change", updateLevelOptions);
-  });
-
   document.querySelectorAll('input[name="mode"]').forEach((input) => {
-    input.addEventListener("change", updateLevelOptions);
-  });
-
-  document.querySelectorAll('input[name="intimateTheme"]').forEach((input) => {
     input.addEventListener("change", updateProgressPreview);
   });
 
   document.querySelectorAll('input[name="roundLimit"]').forEach((input) => {
     input.addEventListener("change", updateProgressPreview);
   });
-
-  elements.includeIntimateCheckbox.addEventListener(
-    "change",
-    updateLevelOptions
-  );
 
   elements.rememberProgressCheckbox.addEventListener(
     "change",
@@ -677,7 +555,7 @@
       elements.helpDialog.showModal();
     } else {
       showToast(
-        "可选择本场题数，并在当前浏览器保存已展示卡片编号，下次继续剩余题库。"
+        "全部119张题已合并；选择游玩模式和本场题数后即可开始，任何题目都可以直接换一张。"
       );
     }
   });
@@ -692,5 +570,5 @@
     }
   });
 
-  updateLevelOptions();
+  updateProgressPreview();
 })();

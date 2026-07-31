@@ -37,10 +37,10 @@
     <section class="setup-screen" id="setupScreen" aria-labelledby="setupTitle">
       <div class="setup-intro">
         <p class="eyebrow">GAME 03 · COMPATIBILITY CHALLENGE</p>
-        <h1 id="setupTitle">不用对答案，也能选得一样吗？</h1>
+        <h1 id="setupTitle">法嘉默契挑战怎么玩？</h1>
         <p>
-          每题倒计时结束后，两个人同时回答、同时指向，
-          再记录这一轮是否默契。
+          每题先各自想好答案，点击3秒倒计时后同时说出、选择或指向答案，
+          再由现场判断这一题是“默契”还是“不太默契”；不方便的题目可以直接跳过。
         </p>
       </div>
 
@@ -64,54 +64,9 @@
         </article>
       </div>
 
-      <section class="choice-section" aria-labelledby="themeTitle">
-        <div class="section-label">
-          <span>STEP 01</span>
-          <h2 id="themeTitle">选择题目主题</h2>
-        </div>
-
-        <div class="choice-grid choice-grid-theme">
-          <label class="choice-card">
-            <input type="radio" name="theme" value="light" />
-            <span class="choice-card-inner">
-              <span class="choice-icon">☀</span>
-              <strong>轻松日常</strong>
-              <small>习惯、偏好与日常反应</small>
-            </span>
-          </label>
-
-          <label class="choice-card">
-            <input type="radio" name="theme" value="heart" />
-            <span class="choice-card-inner">
-              <span class="choice-icon">♥</span>
-              <strong>心动回忆</strong>
-              <small>共同经历与彼此印象</small>
-            </span>
-          </label>
-
-          <label class="choice-card">
-            <input type="radio" name="theme" value="challenge" />
-            <span class="choice-card-inner">
-              <span class="choice-icon">✦</span>
-              <strong>默契挑战</strong>
-              <small>观察、理解与相处方式</small>
-            </span>
-          </label>
-
-          <label class="choice-card">
-            <input type="radio" name="theme" value="mixed" checked />
-            <span class="choice-card-inner">
-              <span class="choice-icon">∞</span>
-              <strong>全部混合</strong>
-              <small>三类题目随机出现</small>
-            </span>
-          </label>
-        </div>
-      </section>
-
       <section class="choice-section" aria-labelledby="roundTitle">
         <div class="section-label">
-          <span>STEP 02</span>
+          <span>STEP 01</span>
           <h2 id="roundTitle">选择挑战轮数</h2>
         </div>
 
@@ -142,6 +97,49 @@
         </div>
       </section>
 
+      <section class="choice-section" aria-labelledby="progressTitle">
+        <div class="section-label">
+          <span>STEP 02</span>
+          <h2 id="progressTitle">题库进度</h2>
+        </div>
+
+        <div class="browser-progress-settings">
+          <label class="browser-progress-toggle">
+            <input id="rememberProgressCheckbox" type="checkbox" checked />
+            <span class="custom-checkbox" aria-hidden="true">✓</span>
+            <span>
+              <strong>记住已经完成的题目，下次继续</strong>
+              <small>判断“默契”或“不太默契”后才算完成；跳过的题目不会写入长期进度。</small>
+            </span>
+          </label>
+
+          <div class="browser-progress-summary" aria-live="polite">
+            <div>
+              <span>全部题目</span>
+              <strong id="progressTotalCount">45题</strong>
+            </div>
+            <div>
+              <span>已完成</span>
+              <strong id="progressCompletedCount">0题</strong>
+            </div>
+            <div>
+              <span>未完成</span>
+              <strong id="progressRemainingCount">45题</strong>
+            </div>
+          </div>
+
+          <p class="browser-progress-note" id="progressNote">
+            只在当前浏览器保存题目编号，不保存两个人的具体答案。
+          </p>
+
+          <div class="browser-progress-actions">
+            <button class="button button-secondary" id="clearProgressButton" type="button">
+              清除默契题库进度
+            </button>
+          </div>
+        </div>
+      </section>
+
       <section class="start-panel">
         <div>
           <p class="eyebrow">READY TO PLAY</p>
@@ -159,7 +157,7 @@
     <section class="play-screen" id="playScreen" hidden aria-labelledby="questionText">
       <div class="play-toolbar">
         <button class="text-button" id="restartButton" type="button">
-          重新选择
+          返回设置
         </button>
 
         <div class="score-panel" aria-live="polite">
@@ -171,7 +169,7 @@
       <div class="round-progress">
         <div class="round-copy">
           <span id="roundText">第 1 / 10 题</span>
-          <span id="themeText">全部混合</span>
+          <span id="themeText">统一题库</span>
         </div>
         <div class="progress-track" aria-hidden="true">
           <span id="roundProgressBar"></span>
@@ -221,7 +219,7 @@
       </div>
 
       <p class="session-note">
-        网页不会比较具体答案，由现场操作的人根据两人的表现判断这一题是否默契。
+        网页不会读取或比较具体答案。判断“默契”或“不太默契”后，该题会记为已完成；跳过题目不会写入长期进度。
       </p>
     </section>
 

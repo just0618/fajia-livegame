@@ -25,11 +25,7 @@
     duration: 300,
     settings: {
       specific: true,
-      light: true,
-      heart: true,
-      deep: false,
-      after: false,
-      ultimate: false
+      other: true
     },
     audienceMode: "ask",
     pendingAudience: null,
@@ -121,11 +117,7 @@
     playAgainButton: $("playAgainButton"),
 
     includeSpecificCheckbox: $("includeSpecificCheckbox"),
-    includeLightCheckbox: $("includeLightCheckbox"),
-    includeHeartCheckbox: $("includeHeartCheckbox"),
-    includeDeepCheckbox: $("includeDeepCheckbox"),
-    includeAfterCheckbox: $("includeAfterCheckbox"),
-    includeUltimateCheckbox: $("includeUltimateCheckbox"),
+    includeOtherCheckbox: $("includeOtherCheckbox"),
 
     mirrorTestButton: $("mirrorTestButton"),
     mirrorTestDialog: $("mirrorTestDialog"),
@@ -194,18 +186,12 @@
   function readSettings() {
     return {
       specific: elements.includeSpecificCheckbox.checked,
-      light: elements.includeLightCheckbox.checked,
-      heart: elements.includeHeartCheckbox.checked,
-      deep: elements.includeDeepCheckbox.checked,
-      after: elements.includeAfterCheckbox.checked,
-      ultimate: elements.includeUltimateCheckbox.checked
+      other: elements.includeOtherCheckbox.checked
     };
   }
 
   function hasEnabledCategory(settings) {
-    return ["light", "heart", "deep", "after", "ultimate"].some(
-      (key) => settings[key]
-    );
+    return settings.specific || settings.other;
   }
 
   function resetRound() {
@@ -462,22 +448,15 @@
     renderFinal(message);
   }
 
-  function itemEnabled(item) {
-    if (!state.settings[item.category]) return false;
-    if (item.requiresAfter && !state.settings.after) return false;
-    return true;
-  }
-
   function specificPool() {
     if (!state.settings.specific || !state.loser) return [];
     const key = state.loser === "fa" ? "faLoses" : "heLoses";
-    return punishmentBank.specific[key].filter(itemEnabled);
+    return punishmentBank.specific[key];
   }
 
   function commonPool() {
-    return Object.values(punishmentBank.common)
-      .flat()
-      .filter(itemEnabled);
+    if (!state.settings.other) return [];
+    return Object.values(punishmentBank.common).flat();
   }
 
   function combinedPool() {
@@ -526,8 +505,7 @@
     state.usedPunishmentIds.add(selected.id);
     state.punishments = [{
       item: selected,
-      source: "combined",
-      rerolled: false
+      source: "combined"
     }];
     renderPunishments();
   }
@@ -591,7 +569,7 @@
       elements.eventResultLabel.textContent = "冒险失败";
       elements.eventResultTitle.textContent = "本轮接受双重惩罚";
       elements.eventResultDescription.textContent =
-        "将抽取1项专属方向惩罚和1项通用惩罚；最多出现1项直播后履约或终极惩罚。";
+        "将优先抽取1项专属方向惩罚和1项其他惩罚；任何一项觉得不合适都可以继续更换。";
       elements.eventContinueButton.textContent = "抽取两项惩罚";
     }
   }
@@ -649,8 +627,8 @@
 
     state.usedPunishmentIds.add(second.id);
     state.punishments = [
-      { item: first, source: firstSource, rerolled: false },
-      { item: second, source: secondSource, rerolled: false }
+      { item: first, source: firstSource },
+      { item: second, source: secondSource }
     ];
 
     renderPunishments();
@@ -664,22 +642,27 @@
 
   function rerollPunishment(index) {
     const record = state.punishments[index];
-    if (record.rerolled) return;
-
-    const otherRecords = state.punishments.filter((_, itemIndex) => itemIndex !== index);
+    const otherRecords = state.punishments.filter(
+      (_, itemIndex) => itemIndex !== index
+    );
     const otherHasHeavy = otherRecords.some(({ item }) => isHeavy(item));
-    const otherIds = otherRecords.map(({ item }) => item.id);
+    const excludedIds = new Set([
+      record.item.id,
+      ...otherRecords.map(({ item }) => item.id)
+    ]);
 
-    let replacement = choosePunishment(poolForSource(record.source), {
-      disallowHeavy: otherHasHeavy,
-      excludeIds: otherIds
-    });
-
-    if (!replacement) {
-      replacement = choosePunishment(combinedPool(), {
-        disallowHeavy: otherHasHeavy,
-        excludeIds: otherIds
+    const pickReplacement = (items) => {
+      const candidates = items.filter((item) => {
+        if (excludedIds.has(item.id)) return false;
+        if (otherHasHeavy && isHeavy(item)) return false;
+        return true;
       });
+      return candidates.length ? pick(candidates) : null;
+    };
+
+    let replacement = pickReplacement(poolForSource(record.source));
+    if (!replacement) {
+      replacement = pickReplacement(combinedPool());
     }
 
     if (!replacement) {
@@ -687,11 +670,9 @@
       return;
     }
 
-    state.usedPunishmentIds.add(replacement.id);
     state.punishments[index] = {
       item: replacement,
-      source: record.source,
-      rerolled: true
+      source: record.source
     };
     renderPunishments();
   }
@@ -721,10 +702,7 @@
       const button = document.createElement("button");
       button.type = "button";
       button.className = "button button-secondary";
-      button.textContent = record.rerolled
-        ? "本项已经更换过"
-        : "换一个（仅一次）";
-      button.disabled = record.rerolled;
+      button.textContent = "觉得不合适，换一个";
       button.addEventListener("click", () => rerollPunishment(index));
       article.appendChild(button);
 

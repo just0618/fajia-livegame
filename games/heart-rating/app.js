@@ -2,6 +2,8 @@
   "use strict";
 
   const bank = window.FAJIA_HEART_RATING_BANK;
+  const STORAGE_KEY = "fajia-livegame.heart-rating.completed.v1";
+  const STORAGE_VERSION = 1;
   if (!bank) {
     throw new Error("题库未加载，请确认 questions.js 与 app.js 位于同一文件夹。");
   }
@@ -38,7 +40,9 @@
     secretScores: [null, null],
     selectedSecretScore: null,
     cameraScores: [null, null],
-    countdownTimer: null
+    countdownTimer: null,
+    rememberProgress: true,
+    persistedCompleted: new Set()
   };
 
   const $ = (id) => document.getElementById(id);
@@ -102,6 +106,13 @@
     topBehaviorText: $("topBehaviorText"),
     resultNote: $("resultNote"),
     playAgainButton: $("playAgainButton"),
+    rememberProgressCheckbox: $("rememberProgressCheckbox"),
+    progressTotalCount: $("progressTotalCount"),
+    progressCompletedCount: $("progressCompletedCount"),
+    progressRemainingCount: $("progressRemainingCount"),
+    progressNote: $("progressNote"),
+    clearScopeProgressButton: $("clearScopeProgressButton"),
+    clearAllProgressButton: $("clearAllProgressButton"),
 
     helpDialog: $("helpDialog"),
     openHelpButton: $("openHelpButton"),
@@ -134,31 +145,105 @@
     }, 2500);
   }
 
-  function buildPool() {
-    if (state.category === "mixed") {
-      return Object.entries(bank).flatMap(([category, questions]) =>
-        questions.map((text) => ({ category, text }))
-      );
-    }
+  function buildFullPool(category = state.category) {
+    const entries =
+      category === "mixed"
+        ? Object.entries(bank)
+        : [[category, bank[category]]];
 
-    return bank[state.category].map((text) => ({
-      category: state.category,
-      text
-    }));
+    return entries.flatMap(([group, questions]) =>
+      questions.map((text, index) => ({
+        category: group,
+        text,
+        id: `heart-rating-${group}-${String(index + 1).padStart(2, "0")}`
+      }))
+    );
+  }
+
+  function loadPersistedCompleted() {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) return new Set();
+      const parsed = JSON.parse(raw);
+      if (
+        !parsed ||
+        parsed.version !== STORAGE_VERSION ||
+        !Array.isArray(parsed.completed)
+      ) {
+        return new Set();
+      }
+      return new Set(parsed.completed.filter((id) => typeof id === "string"));
+    } catch (error) {
+      return new Set();
+    }
+  }
+
+  function savePersistedCompleted() {
+    if (!state.rememberProgress) return;
+    try {
+      window.localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+          version: STORAGE_VERSION,
+          completed: [...state.persistedCompleted],
+          updatedAt: new Date().toISOString()
+        })
+      );
+    } catch (error) {
+      showToast("浏览器无法保存进度，本场仍可继续。");
+    }
+  }
+
+  function markQuestionCompleted(question) {
+    if (!state.rememberProgress || !question) return;
+    state.persistedCompleted.add(question.id);
+    savePersistedCompleted();
+  }
+
+  function selectedCategory() {
+    return getSelectedValue("category") || "mixed";
+  }
+
+  function updateProgressPreview() {
+    const category = selectedCategory();
+    const fullPool = buildFullPool(category);
+    const persisted = loadPersistedCompleted();
+    const remember = elements.rememberProgressCheckbox.checked;
+    const completed = fullPool.filter((question) =>
+      persisted.has(question.id)
+    ).length;
+    const remaining = remember ? fullPool.length - completed : fullPool.length;
+
+    elements.progressTotalCount.textContent = `${fullPool.length}题`;
+    elements.progressCompletedCount.textContent = remember ? `${completed}题` : "不读取";
+    elements.progressRemainingCount.textContent = `${remaining}题`;
+    elements.progressNote.textContent = remember
+      ? "完成本题并进入下一题后才写入进度；跳过题目下次仍可能出现。"
+      : "本场不读取或写入长期进度，但同一局会尽量避免立即重复。";
+    elements.clearScopeProgressButton.disabled = completed === 0;
+    elements.clearAllProgressButton.disabled = persisted.size === 0;
+  }
+
+  function buildPool() {
+    return buildFullPool().filter((question) =>
+      !state.rememberProgress || !state.persistedCompleted.has(question.id)
+    );
   }
 
   function prepareQueue() {
     const pool = buildPool();
-    if (pool.length < state.totalRounds) {
-      throw new Error("所选题库数量不足。");
+    if (pool.length === 0) {
+      return false;
     }
+    state.totalRounds = Math.min(state.totalRounds, pool.length);
     state.queue = shuffle(pool);
+    return true;
   }
 
   function takeQuestion() {
     if (state.queue.length === 0) {
       state.queue = shuffle(buildPool());
-      showToast("本分类题目已轮过一遍，现已重新洗牌。");
+      showToast("当前未完成题目已轮过一遍，现已重新洗牌。");
     }
     state.activeQuestion = state.queue.shift();
   }
@@ -408,6 +493,7 @@
   }
 
   function finishFormalRound() {
+    markQuestionCompleted(state.activeQuestion);
     state.completed += 1;
     state.activeQuestion = null;
 
@@ -507,6 +593,8 @@
     state.category = getSelectedValue("category") || "mixed";
     state.mode = getSelectedValue("mode") || "camera";
     state.totalRounds = Number(getSelectedValue("rounds") || 10);
+    state.rememberProgress = elements.rememberProgressCheckbox.checked;
+    state.persistedCompleted = loadPersistedCompleted();
     state.completed = 0;
     state.skipped = 0;
     state.activeQuestion = null;
@@ -519,7 +607,10 @@
     state.firstRater =
       starter === "random" ? Math.floor(Math.random() * 2) : Number(starter);
 
-    prepareQueue();
+    if (!prepareQueue()) {
+      showToast("当前题目范围已经全部完成，请先清除进度或更换分类。");
+      return;
+    }
 
     elements.setupScreen.hidden = true;
     elements.resultScreen.hidden = true;
@@ -532,7 +623,68 @@
     elements.playScreen.hidden = true;
     elements.resultScreen.hidden = true;
     elements.setupScreen.hidden = false;
+    updateProgressPreview();
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function clearScopeProgress() {
+    const fullPool = buildFullPool(selectedCategory());
+    const ids = new Set(fullPool.map((question) => question.id));
+    const persisted = loadPersistedCompleted();
+    const removed = [...persisted].filter((id) => ids.has(id)).length;
+
+    if (removed === 0) {
+      showToast("当前题目范围没有已完成进度。");
+      return;
+    }
+
+    const confirmed = window.confirm(
+      `确定清除当前范围内${removed}道已完成题目的记录吗？`
+    );
+    if (!confirmed) return;
+
+    ids.forEach((id) => persisted.delete(id));
+    state.persistedCompleted = persisted;
+    try {
+      window.localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+          version: STORAGE_VERSION,
+          completed: [...persisted],
+          updatedAt: new Date().toISOString()
+        })
+      );
+    } catch (error) {
+      showToast("浏览器未能清除进度，请检查网站数据设置。");
+      return;
+    }
+
+    updateProgressPreview();
+    showToast("当前题目范围进度已清除。");
+  }
+
+  function clearAllProgress() {
+    const persisted = loadPersistedCompleted();
+    if (persisted.size === 0) {
+      showToast("目前没有已保存的心动值进度。");
+      return;
+    }
+
+    const confirmed = window.confirm(
+      `确定清除全部${persisted.size}道已完成题目的记录吗？`
+    );
+    if (!confirmed) return;
+
+    try {
+      window.localStorage.removeItem(STORAGE_KEY);
+    } catch (error) {
+      showToast("浏览器未能清除进度，请检查网站数据设置。");
+      return;
+    }
+
+    state.persistedCompleted = new Set();
+    updateProgressPreview();
+    showToast("全部心动值题库进度已清除。");
   }
 
   document.querySelectorAll('input[name="mode"]').forEach((input) => {
@@ -556,6 +708,25 @@
   elements.revealNextButton.addEventListener("click", finishFormalRound);
   elements.playAgainButton.addEventListener("click", returnToSetup);
 
+  document.querySelectorAll('input[name="category"]').forEach((input) => {
+    input.addEventListener("change", updateProgressPreview);
+  });
+  document.querySelectorAll('input[name="rounds"]').forEach((input) => {
+    input.addEventListener("change", updateProgressPreview);
+  });
+  elements.rememberProgressCheckbox.addEventListener(
+    "change",
+    updateProgressPreview
+  );
+  elements.clearScopeProgressButton.addEventListener(
+    "click",
+    clearScopeProgress
+  );
+  elements.clearAllProgressButton.addEventListener(
+    "click",
+    clearAllProgress
+  );
+
   elements.openHelpButton.addEventListener("click", () => {
     if (typeof elements.helpDialog.showModal === "function") {
       elements.helpDialog.showModal();
@@ -578,4 +749,5 @@
 
   initializeScoreButtons();
   updateSetupMode();
+  updateProgressPreview();
 })();

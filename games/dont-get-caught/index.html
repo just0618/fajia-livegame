@@ -37,10 +37,10 @@
     <section class="screen setup-screen" id="setupScreen" aria-labelledby="setupTitle">
       <div class="setup-intro">
         <p class="eyebrow">GAME 07 · DON'T GET CAUGHT</p>
-        <h1 id="setupTitle">谁会先掉进<br />对方设下的陷阱？</h1>
+        <h1 id="setupTitle">法嘉别中招挑战怎么玩？</h1>
         <p>
-          两个人分别给对方设置一个隐藏词语或动作，再通过聊天和互动进行诱导。
-          谁先说出或完成自己的隐藏目标，谁就中招。
+          两个人依次秘密给对方设置一个词语或动作，再通过聊天和互动诱导对方触发。
+          谁先中招，谁就选择直接接受1项惩罚，或抽事件卡搏一把。
         </p>
       </div>
 
@@ -141,64 +141,28 @@
         </div>
 
         <div class="punishment-settings">
-          <label class="toggle-row">
-            <input id="includeSpecificCheckbox" type="checkbox" checked />
-            <span class="custom-checkbox" aria-hidden="true">✓</span>
-            <span>
-              <strong>专属方向惩罚</strong>
-              <small>根据中招者，自动使用“小法→小贺”或“小贺→小法”的专属题库。</small>
-            </span>
-          </label>
-
-          <div class="category-grid">
+          <div class="category-grid punishment-simple-grid">
             <label class="toggle-row">
-              <input id="includeLightCheckbox" type="checkbox" checked />
+              <input id="includeSpecificCheckbox" type="checkbox" checked />
               <span class="custom-checkbox" aria-hidden="true">✓</span>
               <span>
-                <strong>轻松即时</strong>
-                <small>模仿、手势和轻松表达</small>
+                <strong>专属方向惩罚</strong>
+                <small>根据中招者，抽取“小法→小贺”或“小贺→小法”的专属内容。</small>
               </span>
             </label>
 
             <label class="toggle-row">
-              <input id="includeHeartCheckbox" type="checkbox" checked />
+              <input id="includeOtherCheckbox" type="checkbox" checked />
               <span class="custom-checkbox" aria-hidden="true">✓</span>
               <span>
-                <strong>心动互动</strong>
-                <small>夸奖、回忆与温柔表达</small>
-              </span>
-            </label>
-
-            <label class="toggle-row">
-              <input id="includeDeepCheckbox" type="checkbox" />
-              <span class="custom-checkbox" aria-hidden="true">✓</span>
-              <span>
-                <strong>深度关系</strong>
-                <small>遗憾、吃醋和关系感受</small>
-              </span>
-            </label>
-
-            <label class="toggle-row">
-              <input id="includeAfterCheckbox" type="checkbox" />
-              <span class="custom-checkbox" aria-hidden="true">✓</span>
-              <span>
-                <strong>直播后履约</strong>
-                <small>承诺、做菜或下一次共同完成</small>
-              </span>
-            </label>
-
-            <label class="toggle-row">
-              <input id="includeUltimateCheckbox" type="checkbox" />
-              <span class="custom-checkbox" aria-hidden="true">✓</span>
-              <span>
-                <strong>终极惩罚</strong>
-                <small>更高尺度或可能涉及后续履约</small>
+                <strong>其他惩罚</strong>
+                <small>双向通用内容，包含轻松互动、关系问题及可能需要之后完成的约定。</small>
               </span>
             </label>
           </div>
 
           <p class="small-note">
-            深度、直播后履约和终极惩罚默认关闭。任何惩罚都以双方自愿为前提。
+            任何惩罚觉得不合适都可以继续换一个，不限制更换次数，也不需要解释原因。
           </p>
         </div>
       </section>
@@ -449,7 +413,7 @@
         <div class="punishment-card-list" id="punishmentCardList"></div>
 
         <p class="voluntary-note">
-          每项最多可以换一次。涉及安全、隐私、身体边界或确实无法完成时，可以直接放弃，不强制执行。
+          任何惩罚觉得不合适都可以继续更换；涉及安全、隐私、身体边界或确实无法完成时，可以直接放弃，不强制执行。
         </p>
 
         <button class="button button-primary" id="finishPunishmentButton" type="button">
@@ -542,7 +506,7 @@
         <li>发现对方中招时点击对应按钮，再共同确认是否真的触发。</li>
         <li>时间结束时两个人都没有中招，则本轮平局且不接受惩罚。</li>
         <li>中招者可以直接接受1项惩罚，也可以抽事件卡搏一把。</li>
-        <li>事件卡有2张幸运逃脱和4张双重惩罚；双重惩罚最多包含1项直播后履约或终极惩罚。</li>
+        <li>事件卡有2张幸运逃脱和4张双重惩罚；抽到的惩罚觉得不合适时可以继续更换。</li>
       </ol>
 
       <p>

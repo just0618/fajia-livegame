@@ -984,3 +984,101 @@ button:focus-visible, a:focus-visible {
   .result-breakdown, .result-actions { grid-template-columns: 1fr; }
   .toast { right: 14px; bottom: 14px; max-width: calc(100% - 28px); }
 }
+
+
+.browser-progress-settings {
+  padding: 22px;
+  border: 1px solid rgba(255, 138, 161, 0.2);
+  border-radius: 23px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: var(--shadow-soft);
+}
+
+.browser-progress-toggle {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.browser-progress-toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.browser-progress-toggle strong,
+.browser-progress-toggle small {
+  display: block;
+}
+
+.browser-progress-toggle small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.browser-progress-toggle input:checked + .custom-checkbox {
+  border-color: var(--pink);
+  color: var(--white);
+  background: var(--pink);
+}
+
+.browser-progress-summary {
+  display: grid;
+  margin-top: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.browser-progress-summary > div {
+  padding: 14px;
+  border: 1px solid rgba(52, 47, 49, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.74);
+  text-align: center;
+}
+
+.browser-progress-summary span,
+.browser-progress-summary strong {
+  display: block;
+}
+
+.browser-progress-summary span {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.browser-progress-summary strong {
+  margin-top: 4px;
+  font-size: 1.05rem;
+}
+
+.browser-progress-note {
+  margin: 13px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.browser-progress-actions {
+  display: flex;
+  margin-top: 14px;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.browser-progress-actions .button {
+  min-height: 42px;
+  padding: 9px 15px;
+  font-size: 0.78rem;
+}
+
+@media (max-width: 560px) {
+  .browser-progress-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .browser-progress-actions .button {
+    width: 100%;
+  }
+}
