@@ -31,5 +31,16 @@ window.FAJIA_EXTERNAL_WORKS = [
     "url": "https://v.douyin.com/KLogVljgvUY/",
     "actionLabel": "前往抖音主页",
     "fallback": "若短链接无法打开，可在抖音搜索：鱿鱼须oo"
+  },
+  {
+    "id": "eggplant-hairclip-douyin",
+    "platform": "抖音",
+    "platformClass": "douyin",
+    "author": "一颗小茄子（小发夹版",
+    "title": "绿色健康大冒险",
+    "description": "老师制作的法嘉绿色健康大冒险内容，适合直播互动时参考和游玩。",
+    "url": "https://v.douyin.com/XpIHbE9m_p0/",
+    "actionLabel": "查看抖音作品",
+    "fallback": "若短链接无法打开，可在抖音搜索：一颗小茄子（小发夹版"
   }
 ];

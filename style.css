@@ -1737,3 +1737,135 @@ main {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* V34 · mobile navigation and homepage guide */
+.room-guide {
+  display: grid;
+  margin-top: 10px;
+  padding: 24px 26px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 20px;
+  align-items: center;
+  border: 1px solid rgba(255, 138, 161, 0.2);
+  border-radius: 25px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 240, 244, 0.9),
+      rgba(255, 249, 217, 0.74)
+    );
+  box-shadow: var(--shadow-soft);
+}
+
+.room-guide-icon {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 18px;
+  color: var(--white);
+  background: var(--pink);
+  font-size: 1.35rem;
+  font-weight: 900;
+}
+
+.room-guide-copy h2 {
+  margin: 0;
+  font-size: clamp(1.6rem, 3.2vw, 2.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.room-guide-copy p:last-child {
+  max-width: 680px;
+  margin: 9px 0 0;
+  color: var(--muted);
+}
+
+.room-guide-actions {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.room-guide-actions .button {
+  min-height: 46px;
+  white-space: nowrap;
+}
+
+@media (max-width: 920px) {
+  .room-guide {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .room-guide-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 680px) {
+  .site-header {
+    display: grid;
+    padding-top: 18px;
+    padding-bottom: 12px;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .brand {
+    justify-self: start;
+  }
+
+  .top-nav {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .top-nav a {
+    display: flex;
+    min-height: 40px;
+    padding: 8px 6px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(52, 47, 49, 0.1);
+    border-radius: 999px;
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.72);
+    font-size: 0.74rem;
+    font-weight: 850;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .top-nav a:hover,
+  .top-nav a:focus-visible {
+    border-color: rgba(255, 138, 161, 0.38);
+    background: var(--pink-soft);
+  }
+
+  .room-guide {
+    margin-top: 0;
+    padding: 21px 19px;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .room-guide-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .room-guide-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .room-guide-actions .button {
+    width: 100%;
+  }
+}
