@@ -61,5 +61,24 @@ window.FAJIA_EXTERNAL_WORKS = [
       }
     ],
     "fallback": "若短链接无法打开，可在抖音搜索：Talia11 yu-(磕cp版"
+  },
+  {
+    "id": "wohenzaoqi-fajia-game-station",
+    "platform": "网站＋抖音",
+    "platformClass": "douyin",
+    "author": "我恨早起",
+    "title": "法嘉双人游戏台",
+    "description": "老师制作的独立法嘉双人互动游戏网站，集合游戏大转盘、真心话、大富翁、Yes or No、接受不了就睁眼和数字炸弹等玩法。",
+    "links": [
+      {
+        "url": "https://82a6e2aebeaf41439e517c95414f5cf3.bj6.agentos-app.net/",
+        "label": "打开法嘉双人游戏台"
+      },
+      {
+        "url": "https://v.douyin.com/NhldPr2Znyc/",
+        "label": "查看抖音说明"
+      }
+    ],
+    "fallback": "若抖音短链接无法打开，可在抖音搜索：我恨早起"
   }
 ];
