@@ -27,19 +27,17 @@
     daily: "日常情境",
     story: "脑洞剧情",
     live: "直播情境",
+    fajia: "法嘉专属",
     mixed: "全部混合"
   };
 
-  const ruleLabels = {
-    silent: "完全无声：只能使用表情、手势和上半身动作。",
-    sound: "允许拟声词：可以发出声音，但不能说出题目中的字。"
-  };
+  const FIXED_RULE =
+    "可以用语言、表情、手势和动作描述，但不能说出题目本身，也不能说出题目中包含的字。";
 
   const ROUND_SECONDS = 30;
 
   const state = {
     category: "mixed",
-    rule: "sound",
     totalRounds: 10,
     currentRound: 1,
     actorIndex: 0,
@@ -296,7 +294,7 @@
     elements.guesserImage.src = guesser.image;
     elements.guesserImage.alt = guesser.name;
     elements.guesserName.textContent = guesser.name;
-    elements.ruleReminder.textContent = ruleLabels[state.rule];
+    elements.ruleReminder.textContent = FIXED_RULE;
 
     elements.roleStage.hidden = false;
     updateHeader();
@@ -358,7 +356,7 @@
     elements.timerActorName.textContent = actor.name;
     elements.timerCategory.textContent =
       categoryLabels[state.currentQuestion.category];
-    elements.timerRuleReminder.textContent = ruleLabels[state.rule];
+    elements.timerRuleReminder.textContent = FIXED_RULE;
     elements.timerDisplay.classList.remove("is-timeout", "is-warning");
     elements.activeTimerActions.hidden = false;
     elements.timeoutActions.hidden = true;
@@ -513,7 +511,6 @@
 
   function startGame(starter) {
     state.category = getSelectedValue("category") || "mixed";
-    state.rule = getSelectedValue("rule") || "sound";
     state.totalRounds = Number(getSelectedValue("rounds") || 10);
     state.rememberProgress = elements.rememberProgressCheckbox.checked;
     state.persistedCompleted = loadPersistedCompleted();

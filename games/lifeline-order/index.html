@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF8AA1" />
+  <title>法嘉命悬一线</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="background-shape shape-pink" aria-hidden="true"></div>
+  <div class="background-shape shape-gold" aria-hidden="true"></div>
+
+  <header class="game-header">
+    <a class="back-link" href="../../">
+      <span aria-hidden="true">←</span>
+      返回游戏屋
+    </a>
+    <div class="mini-brand">
+      <span class="brand-dot brand-dot-pink"></span>
+      法嘉命悬一线
+      <span class="brand-dot brand-dot-gold"></span>
+    </div>
+    <button class="text-button" id="openHelpButton" type="button">玩法说明</button>
+  </header>
+
+  <main class="game-shell">
+    <section class="setup-screen" id="setupScreen">
+      <div class="setup-intro">
+        <p class="eyebrow">GAME 09 · LIFELINE ORDER</p>
+        <h1>法嘉命悬一线怎么玩？</h1>
+        <p>
+          每轮两个人分别担任“描述者”和“排序者”。系统会为A、B、C、D生成4个不同的1—100数字，
+          只有描述者依次查看。描述者围绕同一个主题，为四个数字各说一个具体例子，但不能直接透露数字；
+          排序者听完后，把A、B、C、D按数字从小到大排列。
+        </p>
+      </div>
+
+      <section class="rule-overview" aria-labelledby="ruleOverviewTitle">
+        <div class="section-label">
+          <span>HOW TO PLAY</span>
+          <h2 id="ruleOverviewTitle">一轮游戏分为5步</h2>
+        </div>
+
+        <ol class="rule-step-list">
+          <li>
+            <span>01</span>
+            <div>
+              <strong>分配角色</strong>
+              <p>一人担任描述者，另一人担任排序者。</p>
+            </div>
+          </li>
+          <li>
+            <span>02</span>
+            <div>
+              <strong>排序者避开屏幕</strong>
+              <p>描述者依次查看A、B、C、D对应的4个隐藏数字。</p>
+            </div>
+          </li>
+          <li>
+            <span>03</span>
+            <div>
+              <strong>按同一主题描述</strong>
+              <p>描述者为每个标签说一个具体例子，用例子的程度表达数字大小，但不能说出数字。</p>
+            </div>
+          </li>
+          <li>
+            <span>04</span>
+            <div>
+              <strong>从小到大排序</strong>
+              <p>排序者只根据四个描述，依次点击A、B、C、D完成排列。</p>
+            </div>
+          </li>
+          <li>
+            <span>05</span>
+            <div>
+              <strong>提交并揭晓</strong>
+              <p>系统公布真实数字和正确顺序；排错时可选择抽取一项轻松惩罚。</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="rule-example">
+          <strong>例子</strong>
+          <p>
+            主题是“让人开心的表白台词”，假设A=10、B=85、C=40、D=65。
+            描述者分别为A、B、C、D说一句表白台词；排序者根据开心程度判断，
+            正确顺序应为A → C → D → B。
+          </p>
+        </div>
+      </section>
+
+      <section class="choice-section">
+        <div class="section-label">
+          <span>STEP 01</span>
+          <h2>选择主题</h2>
+        </div>
+        <label class="select-card">
+          <span>本轮描述主题</span>
+          <select id="themeSelect">
+            <option value="random">随机选择一个主题</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="choice-section">
+        <div class="section-label">
+          <span>STEP 02</span>
+          <h2>选择描述者</h2>
+        </div>
+        <div class="choice-grid choice-grid-role">
+          <label class="choice-card">
+            <input type="radio" name="describer" value="0" />
+            <span class="choice-card-inner">
+              <strong>法宣阁描述</strong>
+              <small>贺嘉述负责排序</small>
+            </span>
+          </label>
+          <label class="choice-card">
+            <input type="radio" name="describer" value="1" />
+            <span class="choice-card-inner">
+              <strong>贺嘉述描述</strong>
+              <small>法宣阁负责排序</small>
+            </span>
+          </label>
+          <label class="choice-card">
+            <input type="radio" name="describer" value="random" checked />
+            <span class="choice-card-inner">
+              <strong>随机决定</strong>
+              <small>系统分配两个角色</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="choice-section">
+        <div class="section-label">
+          <span>STEP 03</span>
+          <h2>排序错误后的处理</h2>
+        </div>
+        <label class="toggle-card">
+          <input id="punishmentCheckbox" type="checkbox" checked />
+          <span class="custom-checkbox">✓</span>
+          <span>
+            <strong>抽取1项轻松惩罚</strong>
+            <small>惩罚不合适可以一直换，也可以直接跳过，不强制执行。</small>
+          </span>
+        </label>
+      </section>
+
+      <button class="start-main-button" id="startButton" type="button">
+        开始这一轮
+        <span aria-hidden="true">→</span>
+      </button>
+    </section>
+
+    <section class="game-screen" id="gameScreen" hidden>
+      <div class="role-banner">
+        <div>
+          <span>描述者</span>
+          <strong id="describerName"></strong>
+        </div>
+        <div>
+          <span>排序者</span>
+          <strong id="ordererName"></strong>
+        </div>
+      </div>
+
+      <section class="secret-stage" id="secretStage">
+        <p class="eyebrow">SECRET NUMBER</p>
+        <h1>请排序者暂时不要看屏幕</h1>
+        <div class="theme-box">
+          <span>本轮主题</span>
+          <strong id="secretThemeTitle"></strong>
+          <small id="secretScale"></small>
+        </div>
+
+        <article class="secret-number-card">
+          <span id="secretLabel">A</span>
+          <strong id="secretNumber">?</strong>
+          <p id="secretInstruction">点击后显示数字，再用一个具体事物描述它。</p>
+        </article>
+
+        <div class="stage-actions">
+          <button class="button button-primary" id="revealNumberButton" type="button">
+            显示这个数字
+          </button>
+          <button class="button button-secondary" id="nextSecretButton" type="button" disabled>
+            隐藏并看下一个
+          </button>
+        </div>
+      </section>
+
+      <section class="sort-stage" id="sortStage" hidden>
+        <p class="eyebrow">ORDER THE CLUES</p>
+        <h1>请排序者按数字从小到大排列</h1>
+        <div class="theme-box">
+          <span>本轮主题</span>
+          <strong id="sortThemeTitle"></strong>
+          <small id="sortScale"></small>
+        </div>
+
+        <p class="sort-hint">
+          回想A、B、C、D分别对应的四个描述，然后按你判断的数字大小依次点击。
+          第一个位置代表最小数字，第四个位置代表最大数字。
+        </p>
+
+        <div class="label-buttons" id="labelButtons"></div>
+        <div class="chosen-order" id="chosenOrder" aria-live="polite"></div>
+
+        <div class="stage-actions">
+          <button class="button button-secondary" id="undoButton" type="button" disabled>
+            撤销上一步
+          </button>
+          <button class="button button-secondary" id="resetOrderButton" type="button" disabled>
+            重新排列
+          </button>
+          <button class="button button-primary" id="submitOrderButton" type="button" disabled>
+            提交排序
+          </button>
+        </div>
+      </section>
+
+      <section class="result-stage" id="resultStage" hidden>
+        <p class="eyebrow">RESULT</p>
+        <h1 id="resultTitle">排序结果</h1>
+        <p id="resultCopy"></p>
+
+        <div class="order-result-grid">
+          <div>
+            <span>提交顺序</span>
+            <strong id="submittedOrder"></strong>
+          </div>
+          <div>
+            <span>正确顺序</span>
+            <strong id="correctOrder"></strong>
+          </div>
+        </div>
+
+        <div class="number-reveal-list" id="numberRevealList"></div>
+
+        <div class="punishment-panel" id="punishmentPanel" hidden>
+          <span>排序者的可选惩罚</span>
+          <strong id="punishmentText"></strong>
+          <div class="punishment-actions">
+            <button class="button button-secondary" id="rerollPunishmentButton" type="button">
+              觉得不合适，换一个
+            </button>
+            <button class="text-button centered-text-button" id="skipPunishmentButton" type="button">
+              本轮跳过惩罚
+            </button>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="button button-primary" id="playAgainButton" type="button">
+            再玩一轮
+          </button>
+          <a class="button button-secondary" href="../../">返回游戏屋</a>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <dialog class="help-dialog" id="helpDialog">
+    <div class="dialog-panel">
+      <div class="dialog-heading">
+        <h2>命悬一线规则</h2>
+        <button id="closeHelpButton" type="button" aria-label="关闭">×</button>
+      </div>
+      <ol>
+        <li>先确定描述者和排序者，排序者暂时不要看屏幕。</li>
+        <li>系统随机生成4个不同数字，分别对应A、B、C、D；描述者一次只看一个。</li>
+        <li>描述者围绕同一个主题，为每个标签说一个具体例子，用例子的强弱表达数字大小，不能说出数字。</li>
+        <li>四个描述全部完成后，排序者按“最小到最大”的顺序点击A、B、C、D。</li>
+        <li>提交后公布真实数字和正确顺序；排序错误时可以抽取轻松惩罚，不合适可以换或直接跳过。</li>
+      </ol>
+      <p>
+        例如主题为“喜欢的约会地点”，数字越大代表越喜欢。
+        描述者可以分别说“便利店门口”“电影院”“海边”“一直想去的城市”，
+        排序者再根据喜欢程度判断四个标签的先后。网页不会保存描述内容、排序结果或惩罚执行情况。
+      </p>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="../../shared/punishments.js"></script>
+  <script src="./themes.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

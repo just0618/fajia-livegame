@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF8AA1" />
+  <title>法嘉平衡游戏</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="background-shape shape-pink" aria-hidden="true"></div>
+  <div class="background-shape shape-gold" aria-hidden="true"></div>
+
+  <header class="game-header">
+    <a class="back-link" href="../../">
+      <span aria-hidden="true">←</span>
+      返回游戏屋
+    </a>
+    <div class="mini-brand">
+      <span class="brand-dot brand-dot-pink"></span>
+      法嘉平衡游戏
+      <span class="brand-dot brand-dot-gold"></span>
+    </div>
+    <button class="text-button" id="openHelpButton" type="button">玩法说明</button>
+  </header>
+
+  <main class="game-shell">
+    <section class="setup-screen" id="setupScreen">
+      <div class="setup-intro">
+        <p class="eyebrow">GAME 08 · BALANCE GAME</p>
+        <h1>法嘉平衡游戏怎么玩？</h1>
+        <p>
+          每题从两个选项中各自选择一个，并分别说出自己的理由。
+          答案可以不同，不判断输赢；任何不方便或不愿意聊的题目都可以直接跳过。
+        </p>
+      </div>
+
+      <section class="choice-section">
+        <div class="section-label">
+          <span>STEP 01</span>
+          <h2>选择本场题数</h2>
+        </div>
+        <div class="choice-grid choice-grid-round">
+          <label class="choice-card">
+            <input type="radio" name="rounds" value="5" />
+            <span class="choice-card-inner">
+              <strong>5题</strong>
+              <small>快速聊一局</small>
+            </span>
+          </label>
+          <label class="choice-card">
+            <input type="radio" name="rounds" value="10" checked />
+            <span class="choice-card-inner">
+              <strong>10题</strong>
+              <small>标准模式</small>
+            </span>
+          </label>
+          <label class="choice-card">
+            <input type="radio" name="rounds" value="12" />
+            <span class="choice-card-inner">
+              <strong>全部12题</strong>
+              <small>完整题库</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="start-panel">
+        <div>
+          <p class="eyebrow">STEP 02 · WHO ANSWERS FIRST</p>
+          <h2>谁先说理由？</h2>
+          <p>每完成一题，先回答的人自动轮换。</p>
+        </div>
+        <div class="start-buttons">
+          <button class="start-button start-pink" type="button" data-starter="0">
+            法宣阁先回答
+          </button>
+          <button class="start-button start-gold" type="button" data-starter="1">
+            贺嘉述先回答
+          </button>
+          <button class="start-button start-random" type="button" data-starter="random">
+            随机决定
+          </button>
+        </div>
+      </section>
+    </section>
+
+    <section class="play-screen" id="playScreen" hidden>
+      <div class="round-progress">
+        <div class="round-copy">
+          <span id="roundText">第 1 / 10 题</span>
+          <span id="answererText">法宣阁先回答</span>
+        </div>
+        <div class="progress-track"><span id="progressBar"></span></div>
+      </div>
+
+      <article class="balance-card">
+        <div class="card-header">
+          <span>二选一</span>
+          <span id="cardNumber">CARD 01</span>
+        </div>
+        <div class="balance-options">
+          <div class="balance-option balance-option-pink">
+            <span>A</span>
+            <strong id="leftOption"></strong>
+          </div>
+          <div class="balance-or">OR</div>
+          <div class="balance-option balance-option-gold">
+            <span>B</span>
+            <strong id="rightOption"></strong>
+          </div>
+        </div>
+        <p class="card-tip">
+          两个人分别选择并说明理由。答案不同也没关系，重点是把想法聊出来。
+        </p>
+      </article>
+
+      <div class="play-actions">
+        <button class="button button-primary" id="completeButton" type="button">
+          两个人都回答完了
+        </button>
+        <button class="button button-secondary" id="skipButton" type="button">
+          这题跳过，不计入题数
+        </button>
+        <button class="text-button centered-text-button" id="restartButton" type="button">
+          返回设置
+        </button>
+      </div>
+    </section>
+
+    <section class="result-screen" id="resultScreen" hidden>
+      <div class="result-card">
+        <p class="eyebrow">ROUND COMPLETE</p>
+        <h1>这一轮平衡游戏完成</h1>
+        <div class="result-grid">
+          <div><span>完成题目</span><strong id="resultCompleted">0</strong></div>
+          <div><span>跳过次数</span><strong id="resultSkipped">0</strong></div>
+        </div>
+        <p>答案不需要相同。能听见彼此为什么这样选择，就是这款游戏最重要的部分。</p>
+        <div class="result-actions">
+          <button class="button button-primary" id="playAgainButton" type="button">再玩一局</button>
+          <a class="button button-secondary" href="../../">返回游戏屋</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="help-dialog" id="helpDialog">
+    <div class="dialog-panel">
+      <div class="dialog-heading">
+        <h2>平衡游戏规则</h2>
+        <button id="closeHelpButton" type="button" aria-label="关闭">×</button>
+      </div>
+      <ol>
+        <li>每题包含两个选项，两个人分别选择一个。</li>
+        <li>按本题指定顺序说出选择和理由。</li>
+        <li>完成后先回答的人轮换。</li>
+        <li>跳过不占用本场题数，也不会有任何惩罚。</li>
+      </ol>
+      <p>部分题目尺度较高，一切以双方意愿为主，不适合公开时直接跳过即可。</p>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./questions.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

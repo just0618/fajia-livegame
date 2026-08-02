@@ -1869,3 +1869,41 @@ main {
     width: 100%;
   }
 }
+
+
+/* V35 · GAME 08 / GAME 09 */
+.icon-balance {
+  color: var(--white);
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+  font-size: 0.78rem;
+}
+
+.icon-lifeline {
+  color: var(--ink);
+  background: linear-gradient(135deg, var(--gold), #fff1a2);
+  font-size: 0.82rem;
+}
+
+.game-card-monopoly {
+  grid-column: auto;
+}
+
+@media (min-width: 681px) and (max-width: 920px) {
+  .game-card-monopoly {
+    grid-column: 1 / -1;
+    width: calc((100% - 20px) / 2);
+    justify-self: center;
+  }
+}
+
+
+.work-link-group {
+  display: grid;
+  width: 100%;
+  margin-top: auto;
+  gap: 9px;
+}
+
+.work-link-group .work-link {
+  margin-top: 0;
+}

@@ -39,8 +39,9 @@
         <p class="eyebrow">GAME 04 · MINI CHARADES</p>
         <h1 id="setupTitle">小动作你比我猜怎么玩？</h1>
         <p>
-          一人查看题目并用表情、手势或上半身动作表演，另一人需要在30秒内猜出核心意思。
-          不能直接说出题目中的字；不方便的题目可以跳过，跳过不计入本场题数。
+          一人查看题目，可以用语言、表情、手势和动作进行描述，另一人需要在30秒内猜出核心意思。
+          不能直接说出题目本身，也不能说出题目中包含的字；不方便的题目可以跳过，跳过不计入本场题数。
+          法嘉专属题库收录的是两个人熟悉的关键词和名场面。
         </p>
       </div>
 
@@ -107,39 +108,21 @@
             </span>
           </label>
 
+          <label class="choice-card">
+            <input type="radio" name="category" value="fajia" />
+            <span class="choice-card-inner">
+              <span class="choice-icon">FJ</span>
+              <strong>法嘉专属</strong>
+              <small>熟悉的关键词与名场面</small>
+            </span>
+          </label>
+
           <label class="choice-card choice-card-wide">
             <input type="radio" name="category" value="mixed" checked />
             <span class="choice-card-inner">
               <span class="choice-icon">∞</span>
               <strong>全部混合</strong>
-              <small>四类题目随机出现</small>
-            </span>
-          </label>
-        </div>
-      </section>
-
-      <section class="choice-section" aria-labelledby="ruleTitle">
-        <div class="section-label">
-          <span>STEP 02</span>
-          <h2 id="ruleTitle">选择表演规则</h2>
-        </div>
-
-        <div class="choice-grid rule-grid">
-          <label class="choice-card rule-card">
-            <input type="radio" name="rule" value="silent" />
-            <span class="choice-card-inner">
-              <span class="rule-mark">嘘</span>
-              <strong>完全无声</strong>
-              <small>只能使用表情和动作</small>
-            </span>
-          </label>
-
-          <label class="choice-card rule-card">
-            <input type="radio" name="rule" value="sound" checked />
-            <span class="choice-card-inner">
-              <span class="rule-mark">♪</span>
-              <strong>允许拟声词</strong>
-              <small>可以发出声音，但不能说题目中的字</small>
+              <small>五类题目随机出现</small>
             </span>
           </label>
         </div>
@@ -147,7 +130,7 @@
 
       <section class="choice-section" aria-labelledby="roundTitle">
         <div class="section-label">
-          <span>STEP 03</span>
+          <span>STEP 02</span>
           <h2 id="roundTitle">选择挑战轮数</h2>
         </div>
 
@@ -180,7 +163,7 @@
 
       <section class="choice-section" aria-labelledby="progressTitle">
         <div class="section-label">
-          <span>STEP 04</span>
+          <span>STEP 03</span>
           <h2 id="progressTitle">题库进度</h2>
         </div>
 
@@ -197,7 +180,7 @@
           <div class="browser-progress-summary" aria-live="polite">
             <div>
               <span>当前范围</span>
-              <strong id="progressTotalCount">60题</strong>
+              <strong id="progressTotalCount">72题</strong>
             </div>
             <div>
               <span>已完成</span>
@@ -205,7 +188,7 @@
             </div>
             <div>
               <span>未完成</span>
-              <strong id="progressRemainingCount">60题</strong>
+              <strong id="progressRemainingCount">72题</strong>
             </div>
           </div>
 

@@ -136,12 +136,26 @@
       fallback.className = "work-fallback";
       fallback.textContent = work.fallback;
 
-      const link = document.createElement("a");
-      link.className = "button button-primary work-link";
-      link.href = work.url;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.innerHTML = `${work.actionLabel}<span aria-hidden="true">↗</span>`;
+      const linkGroup = document.createElement("div");
+      linkGroup.className = "work-link-group";
+
+      const links = Array.isArray(work.links)
+        ? work.links
+        : [{
+            url: work.url,
+            label: work.actionLabel
+          }];
+
+      links.forEach((entry, linkIndex) => {
+        const link = document.createElement("a");
+        link.className =
+          `button ${linkIndex === 0 ? "button-primary" : "button-secondary"} work-link`;
+        link.href = entry.url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.innerHTML = `${entry.label}<span aria-hidden="true">↗</span>`;
+        linkGroup.appendChild(link);
+      });
 
       const copyright = document.createElement("p");
       copyright.className = "work-copyright";
@@ -153,7 +167,7 @@
         author,
         description,
         fallback,
-        link,
+        linkGroup,
         copyright
       );
       grid.appendChild(article);

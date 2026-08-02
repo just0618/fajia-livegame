@@ -42,5 +42,24 @@ window.FAJIA_EXTERNAL_WORKS = [
     "url": "https://v.douyin.com/XpIHbE9m_p0/",
     "actionLabel": "查看抖音作品",
     "fallback": "若短链接无法打开，可在抖音搜索：一颗小茄子（小发夹版"
+  },
+  {
+    "id": "talia-wheel-douyin",
+    "platform": "抖音",
+    "platformClass": "douyin",
+    "author": "Talia11 yu-(磕cp版",
+    "title": "法嘉大转盘",
+    "description": "老师制作了两版法嘉真心话大冒险转盘：一版为常规互动内容，另一版内容尺度相对更高，可根据直播场景和双方意愿选择。",
+    "links": [
+      {
+        "url": "https://v.douyin.com/Jk6bwyfBZwI/",
+        "label": "查看真心话大冒险版"
+      },
+      {
+        "url": "https://v.douyin.com/msqpyl1G6ss/",
+        "label": "查看非绿色健康版"
+      }
+    ],
+    "fallback": "若短链接无法打开，可在抖音搜索：Talia11 yu-(磕cp版"
   }
 ];
