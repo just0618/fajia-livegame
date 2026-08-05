@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="theme-color" content="#fff2f4" />
+  <title>法嘉致富大富翁｜64格完整版</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">法嘉直播游戏屋 · GAME 01</p>
+        <h1>法嘉致富大富翁</h1>
+        <p class="subtitle">64格原图文字版 · 双人轮流 · 自动存档</p>
+      </div>
+      <div class="top-actions">
+        <a class="ghost-btn home-link"
+           href="../../"
+           aria-label="返回直播游戏屋"><span class="home-link-icon" aria-hidden="true">🏠</span><span>回到游戏屋</span></a>
+        <button class="ghost-btn" id="settingsBtn">玩家设置</button>
+        <button class="ghost-btn" id="saveLoadBtn">存档与读档</button>
+        <button class="ghost-btn" id="skippedBtn">已跳过 0 格</button>
+        <button class="ghost-btn" id="rulesBtn">游戏规则</button>
+        <button class="danger-btn" id="resetBtn">重新开始</button>
+      </div>
+    </header>
+
+    <section class="status-panel">
+      <article class="player-card" id="playerCard0">
+        <span class="player-dot" id="playerDot0"></span>
+        <div class="player-main">
+          <small>玩家一</small>
+          <strong id="playerName0">法宣阁</strong>
+          <div class="progress-track"><span id="progress0"></span></div>
+        </div>
+        <span class="position-label">第 <b id="playerPos0">0</b>/63 格</span>
+      </article>
+
+      <div class="turn-card">
+        <span>当前回合</span>
+        <strong id="turnText">等待确认先手</strong>
+        <small id="saveText">尚未保存</small>
+      </div>
+
+      <article class="player-card" id="playerCard1">
+        <span class="player-dot" id="playerDot1"></span>
+        <div class="player-main">
+          <small>玩家二</small>
+          <strong id="playerName1">贺嘉述</strong>
+          <div class="progress-track"><span id="progress1"></span></div>
+        </div>
+        <span class="position-label">第 <b id="playerPos1">0</b>/63 格</span>
+      </article>
+    </section>
+
+    <section class="game-layout">
+      <div class="board-card">
+        <div class="board-shell" id="boardShell">
+          <img src="assets/board.jpg" alt="法嘉致富大富翁棋盘" id="boardImage" />
+          <div class="token" id="token0" aria-label="玩家一棋子"><span>法</span></div>
+          <div class="token" id="token1" aria-label="玩家二棋子"><span>贺</span></div>
+        </div>
+        <div class="board-footer">
+          <p>落到格子后，可按规则完成本回合；缺少道具或暂时不方便时，也可以选择跳过此格并重新掷骰子。</p>
+          <a href="task-reference.html" target="_blank">查看64格任务编号表</a>
+        </div>
+      </div>
+
+      <aside class="control-card">
+        <section class="dice-zone">
+          <p id="diceHint">确认先手后即可掷骰子</p>
+          <div class="dice" id="dice" aria-live="polite">⚀</div>
+          <button class="primary-btn" id="rollBtn" disabled>掷骰子</button>
+        </section>
+
+        <section class="current-cell">
+          <span>当前玩家所在格</span>
+          <strong id="cellTitle">等待开局</strong>
+          <p id="cellDescription">请先确认石头剪刀布的获胜者。</p>
+          <div class="requirement-tags" id="requirementTags"></div>
+        </section>
+
+        <section class="log-zone">
+          <div class="section-title">
+            <strong>游戏记录</strong>
+            <button class="text-btn" id="clearLogBtn">清空</button>
+          </div>
+          <ol id="gameLog"></ol>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <div class="modal hidden" id="settingsModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <h2>玩家设置</h2>
+      <p class="modal-subtitle">默认：法宣阁为粉色，贺嘉述为金色。两名玩家不能选择完全相同的颜色。</p>
+      <div class="form-grid">
+        <label>
+          玩家一昵称
+          <input id="nameInput0" maxlength="12" value="法宣阁" />
+        </label>
+        <label>
+          玩家一颜色
+          <input id="colorInput0" type="color" value="#FF8AA1" />
+        </label>
+        <label>
+          玩家二昵称
+          <input id="nameInput1" maxlength="12" value="贺嘉述" />
+        </label>
+        <label>
+          玩家二颜色
+          <input id="colorInput1" type="color" value="#FFE25B" />
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button class="ghost-btn modal-close">取消</button>
+        <button class="primary-btn" id="saveSettingsBtn">保存设置</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="starterModal" role="dialog" aria-modal="true">
+    <div class="modal-card event-card">
+      <span class="event-badge">确认先手</span>
+      <h2>现实中石头剪刀布后，谁赢了？</h2>
+      <p class="event-text starter-note">点击获胜者，由TA掷出本局第一颗骰子。缺少道具或暂时不方便时，可以跳过对应格子。</p>
+      <div class="starter-actions">
+        <button class="starter-btn" id="chooseStarter0">
+          <span class="starter-color" id="starterColor0"></span>
+          <strong id="starterName0">法宣阁</strong>
+        </button>
+        <button class="starter-btn" id="chooseStarter1">
+          <span class="starter-color" id="starterColor1"></span>
+          <strong id="starterName1">贺嘉述</strong>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="saveLoadModal" role="dialog" aria-modal="true">
+    <div class="modal-card wide-modal">
+      <h2>存档与读档</h2>
+      <p class="modal-subtitle">自动存档保存在当前浏览器。换设备时，可复制存档码继续游戏。</p>
+
+      <h3>手动输入位置</h3>
+      <div class="form-grid">
+        <label>
+          玩家一位置（0—63）
+          <input id="loadPos0" type="number" min="0" max="63" value="0" />
+        </label>
+        <label>
+          玩家二位置（0—63）
+          <input id="loadPos1" type="number" min="0" max="63" value="0" />
+        </label>
+        <label class="full-row">
+          下一回合
+          <select id="loadTurn">
+            <option value="0">玩家一</option>
+            <option value="1">玩家二</option>
+          </select>
+        </label>
+      </div>
+      <button class="primary-btn full-btn" id="confirmManualLoadBtn">按照以上位置读档</button>
+
+      <hr />
+      <h3>跨设备存档码</h3>
+      <textarea id="saveCode" class="save-code" placeholder="点击“生成当前存档码”，或粘贴其他设备的存档码"></textarea>
+      <div class="modal-actions">
+        <button class="ghost-btn" id="generateCodeBtn">生成当前存档码</button>
+        <button class="ghost-btn" id="copyCodeBtn">复制存档码</button>
+        <button class="primary-btn" id="importCodeBtn">读取存档码</button>
+      </div>
+      <div class="modal-actions bottom-actions">
+        <button class="ghost-btn modal-close">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="eventModal" role="dialog" aria-modal="true">
+    <div class="modal-card event-card">
+      <span class="event-badge" id="eventBadge">任务</span>
+      <h2 id="eventTitle">当前任务</h2>
+      <p class="event-index" id="eventIndex">第0格</p>
+      <p class="event-text" id="eventText"></p>
+      <div class="requirement-tags centered-tags" id="eventRequirements"></div>
+      <p class="consent-note">缺少道具或暂时不方便时，可以选择跳过此格并重新掷骰子。</p>
+      <div class="modal-actions stacked-mobile">
+        <button class="ghost-btn hidden-action" id="skipAndRerollBtn">本局跳过此格并重掷</button>
+        <button class="primary-btn" id="finishEventBtn">完成本回合</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="skippedModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <h2>本局跳过的格子</h2>
+      <p class="modal-subtitle">再次落到这些格子时，会自动退回本次掷骰前的位置，并由当前玩家重新掷骰子。</p>
+      <div id="skippedList" class="skipped-list"></div>
+      <div class="modal-actions">
+        <button class="ghost-btn" id="restoreAllBtn">恢复全部</button>
+        <button class="primary-btn modal-close">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="rulesModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <h2>游戏规则</h2>
+      <ol class="rules-list">
+        <li>两位玩家先在现实中石头剪刀布，随后在网页中确认先手。</li>
+        <li>轮流掷骰子，棋子按照点数逐格前进；超过终点时直接到达终点。</li>
+        <li>除起点和终点外，普通任务格与特殊格都可以标记为“本局跳过”，随后退回原位置重掷。</li>
+        <li>前进、后退只执行一次，移动后不会连续触发新格效果；若直接抵达终点则获胜。</li>
+        <li>“暂停一回合”在玩家下次行动时自动生效；“再掷一次”不切换玩家。</li>
+        <li>最先到达终点者获得一张万能任务卡，可指定对方完成一项双方都同意的任务。</li>
+      </ol>
+      <p class="consent-box">温馨提示：缺少道具或暂时不方便时，可以跳过对应格子；涉及公开发布的内容时，记得先确认双方都愿意。</p>
+      <div class="modal-actions"><button class="primary-btn modal-close">知道了</button></div>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="winModal" role="dialog" aria-modal="true">
+    <div class="modal-card event-card">
+      <span class="event-badge">终极大奖</span>
+      <h2 id="winnerTitle">恭喜获胜！</h2>
+      <p class="event-text">最先到达终点者获得“万能任务卡”一张，可以指定对方完成一项双方都同意的任务。</p>
+      <div class="modal-actions">
+        <button class="ghost-btn" id="closeWinBtn">留在棋盘</button>
+        <button class="primary-btn" id="playAgainBtn">再来一局</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="board-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

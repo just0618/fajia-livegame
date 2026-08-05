@@ -18,8 +18,8 @@ fajia-livegame/
   - 粉色 `#FF8AA1`
   - 金色 `#FFE25B`
 - 手机、平板和电脑响应式布局
-- 大富翁入口跳转至原独立网站：
-  - https://just0618.github.io/fajia-game/
+- 大富翁已整合为站内游戏：
+  - https://fajia-livegame.top/games/monopoly/
 - 真心话大冒险、默契挑战和小动作你比我猜均已上线
 - 非官方粉丝作品说明
 - 使用用户提供并允许公开展示的两张人物照片
@@ -35,7 +35,7 @@ fajia-livegame/
 7. 发布完成后访问：
 
 ```text
-https://just0618.github.io/fajia-livegame/
+https://fajia-livegame.top/
 ```
 
 ## 后续增加游戏
@@ -733,3 +733,15 @@ games/heart-rate-lab/
   “部分游戏方向与本站相近，但题目、界面与互动方式各有特色。”
 - 卡片仅客观介绍作品包含的游戏内容
 - 不再提及作品之间是否相近或重复，避免形成不必要的比较
+
+
+## V41：大富翁站内整合版
+
+- 以V40游戏屋为基础
+- 将上传的“大富翁 V1.7 GitHub Upload版”完整复制到 `games/monopoly/`
+- 首页和地图预览弹窗均改为站内入口 `./games/monopoly/`
+- 正式地址：`https://fajia-livegame.top/games/monopoly/`
+- 大富翁“回到游戏屋”使用 `../../`
+- 默认玩家统一为法宣阁与贺嘉述
+- 大富翁本地存档键为 `fajia-livegame.monopoly.save.v1`
+- 原独立GitHub大富翁仓库及旧网址不会被本压缩包修改

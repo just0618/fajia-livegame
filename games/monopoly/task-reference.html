@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>64格任务编号表</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Microsoft YaHei","PingFang SC",sans-serif; color:#533f41; background:#fff8f4; }
+    main { width:min(1250px,95vw); margin:0 auto; padding:28px 0 50px; }
+    h1 { margin-bottom:8px; }
+    .note { color:#8d7275; line-height:1.7; }
+    img { width:100%; display:block; border-radius:18px; box-shadow:0 16px 40px rgba(80,50,53,.14); }
+    table { width:100%; margin-top:22px; border-collapse:collapse; background:white; box-shadow:0 16px 40px rgba(80,50,53,.1); }
+    th,td { padding:11px 12px; border:1px solid #ecd4d5; text-align:left; vertical-align:top; line-height:1.55; }
+    th { position:sticky; top:0; background:#ffe8ec; }
+    tr:nth-child(even) { background:#fffaf8; }
+    .tag { display:inline-block; margin:2px; padding:3px 7px; border-radius:999px; background:#fff1b5; font-size:12px; }
+    .special { color:#c44760; font-weight:800; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>法嘉致富大富翁｜64格任务编号表</h1>
+  <p class="note">编号按照棋子实际行走路线排列。任务文字按原图尽量逐字录入；如发现个别模糊文字有误，可以直接修改 <code>board-data.js</code>。</p>
+  <img src="assets/board-numbered.png" alt="带编号棋盘" />
+  <table>
+    <thead><tr><th>编号</th><th>类型</th><th>标题</th><th>内容</th><th>所需道具</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+</main>
+<script src="board-data.js"></script>
+<script>
+  const typeNames = {
+    start: "起点", task: "任务", forward: "前进",
+    backward: "后退", skip: "暂停", rollAgain: "再掷一次", finish: "终点"
+  };
+  const rows = document.getElementById("rows");
+  BOARD_CELLS.forEach(cell => {
+    const tr = document.createElement("tr");
+    const requirements = cell.requirements.length
+      ? cell.requirements.map(item => `<span class="tag">${item}</span>`).join("")
+      : "—";
+    tr.innerHTML = `
+      <td>${cell.id}</td>
+      <td class="${cell.type !== "task" ? "special" : ""}">${typeNames[cell.type] || cell.type}</td>
+      <td>${cell.title}</td>
+      <td>${cell.text.replaceAll("{dice}", "骰子点数")}</td>
+      <td>${requirements}</td>
+    `;
+    rows.appendChild(tr);
+  });
+</script>
+</body>
+</html>

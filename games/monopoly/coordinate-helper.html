@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>棋盘坐标微调工具</title>
+  <style>
+    *{box-sizing:border-box} body{margin:0;font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#513d3f;background:#fff7f2}
+    .page{width:min(1450px,96vw);margin:0 auto;padding:22px 0 40px} h1{margin-bottom:8px}.intro{color:#8b7275;line-height:1.7}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px}.board,.panel{background:white;border:1px solid #e8c6c8;border-radius:18px;padding:12px;box-shadow:0 16px 42px rgba(85,55,58,.12)}
+    .canvas{position:relative;line-height:0;overflow:hidden;border-radius:12px;cursor:crosshair}.canvas img{width:100%;display:block;user-select:none;-webkit-user-drag:none}
+    .marker{position:absolute;width:22px;height:22px;display:grid;place-items:center;transform:translate(-50%,-50%);border-radius:50%;background:#ff4870;color:white;font-size:11px;line-height:1;border:2px solid white;box-shadow:0 4px 10px rgba(61,35,38,.35);pointer-events:none}
+    .panel{align-self:start;position:sticky;top:12px}label{display:grid;gap:6px;margin-bottom:12px;font-weight:700;color:#80676a}input,select,textarea,button{font:inherit;border-radius:10px}
+    input,select,textarea{width:100%;padding:9px 10px;border:1px solid #e4c5c8}textarea{min-height:250px;resize:vertical;font-family:Consolas,monospace}
+    .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}button{border:0;padding:10px 12px;font-weight:800;cursor:pointer;color:white;background:#d85b73}button.secondary{color:#6f5558;background:#f5e6e7}
+    .hint{margin:10px 0;padding:10px;border-radius:10px;background:#fff3e8;color:#8c6a48;line-height:1.55}@media(max-width:950px){.layout{grid-template-columns:1fr}.panel{position:static}}
+  </style>
+</head>
+<body>
+<main class="page">
+  <h1>棋盘坐标微调工具</h1>
+  <p class="intro">按照路线顺序点击格子中心，可重新生成百分比坐标。完整版已经录入64个坐标，此工具用于后续微调。</p>
+  <section class="layout">
+    <div class="board"><div class="canvas" id="canvas"><img src="assets/board.jpg" alt="棋盘" /></div></div>
+    <aside class="panel">
+      <label>下一格编号<input id="nextId" type="number" min="0" value="0" /></label>
+      <label>默认格子类型<select id="cellType"><option value="task">task 普通任务</option><option value="start">start 起点</option><option value="forward">forward 前进</option><option value="backward">backward 后退</option><option value="finish">finish 终点</option></select></label>
+      <div class="hint" id="lastClick">尚未点击棋盘。</div>
+      <div class="actions"><button class="secondary" id="undoBtn">撤销最后一点</button><button class="secondary" id="clearBtn">全部清空</button><button id="copyBtn">复制代码</button><button id="downloadBtn">下载JSON</button></div>
+      <label style="margin-top:14px">生成结果<textarea id="output" readonly></textarea></label>
+    </aside>
+  </section>
+</main>
+<script>
+  const canvas=document.getElementById("canvas"),output=document.getElementById("output"),nextIdInput=document.getElementById("nextId"),cellType=document.getElementById("cellType"),lastClick=document.getElementById("lastClick");
+  let cells=[];
+  function render(){canvas.querySelectorAll(".marker").forEach(n=>n.remove());cells.forEach(cell=>{const m=document.createElement("span");m.className="marker";m.style.left=cell.x+"%";m.style.top=cell.y+"%";m.textContent=cell.id;canvas.appendChild(m)});output.value="const boardCells = "+JSON.stringify(cells,null,2)+";";nextIdInput.value=cells.length?Math.max(...cells.map(c=>c.id))+1:0}
+  canvas.addEventListener("click",e=>{const r=canvas.getBoundingClientRect(),x=Number((((e.clientX-r.left)/r.width)*100).toFixed(2)),y=Number((((e.clientY-r.top)/r.height)*100).toFixed(2)),id=Number(nextIdInput.value);cells.push({id,x,y,type:cellType.value,title:"",text:""});lastClick.textContent=`已记录第${id}格：x=${x}%，y=${y}%。`;render()});
+  document.getElementById("undoBtn").onclick=()=>{const removed=cells.pop();lastClick.textContent=removed?`已撤销第${removed.id}格。`:"没有可以撤销的坐标。";render()};
+  document.getElementById("clearBtn").onclick=()=>{if(confirm("确定清空全部坐标吗？")){cells=[];render()}};
+  document.getElementById("copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(output.value)}catch{output.select();document.execCommand("copy")}lastClick.textContent="代码已复制。"};
+  document.getElementById("downloadBtn").onclick=()=>{const blob=new Blob([JSON.stringify(cells,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="board-cells.json";a.click();URL.revokeObjectURL(url)};
+  render();
+</script>
+</body>
+</html>
