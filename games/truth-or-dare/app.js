@@ -28,6 +28,7 @@
   };
 
   const state = {
+    libraryMode: "live",
     mode: "random",
     rememberProgress: true,
     requestedLimit: "10",
@@ -45,11 +46,16 @@
     persistedSeen: new Set(),
     currentCard: null,
     currentType: "truth",
-    endedBecauseExhausted: false
+    endedBecauseExhausted: false,
+    livePlan: []
   };
 
   const elements = {
     setupScreen: document.getElementById("setupScreen"),
+    libraryModeNote: document.getElementById("libraryModeNote"),
+    truthModeCount: document.getElementById("truthModeCount"),
+    dareModeCount: document.getElementById("dareModeCount"),
+    randomModeCount: document.getElementById("randomModeCount"),
     playScreen: document.getElementById("playScreen"),
     resultScreen: document.getElementById("resultScreen"),
     startButtons: document.querySelectorAll("[data-starter]"),
@@ -122,13 +128,19 @@
 
   function currentSelection() {
     return {
+      libraryMode: getSelectedValue("libraryMode") || "live",
       mode: getSelectedValue("mode") || "random"
     };
   }
 
   function buildPoolsForSelection(selection) {
-    const truth = cardsForType("truth");
-    const dare = cardsForType("dare");
+    const onlyLive = selection.libraryMode === "live";
+    const truth = cardsForType("truth").filter(
+      (card) => !onlyLive || card.liveEnabled !== false
+    );
+    const dare = cardsForType("dare").filter(
+      (card) => !onlyLive || card.liveEnabled !== false
+    );
 
     return {
       truth: selection.mode === "dare" ? [] : truth,
@@ -197,6 +209,50 @@
     return items[Math.floor(Math.random() * items.length)];
   }
 
+  const tierLabels = {
+    warmup: "热场题",
+    relation: "关系题",
+    shy: "轻微害羞",
+    visible: "可见互动",
+    highlight: "高光题"
+  };
+
+  function buildLivePlan(total, mode) {
+    const plans = {
+      random: [
+        "warmup", "warmup", "relation", "relation", "shy",
+        "relation", "visible", "relation", "shy", "highlight"
+      ],
+      truth: [
+        "warmup", "relation", "relation", "shy", "highlight",
+        "warmup", "relation", "shy", "relation", "highlight"
+      ],
+      dare: [
+        "warmup", "visible", "visible", "visible", "warmup",
+        "visible", "visible", "visible", "warmup", "visible"
+      ]
+    };
+    const base = plans[mode] || plans.random;
+    return Array.from({ length: total }, (_, index) => base[index % base.length]);
+  }
+
+  function availableCardsForTier(tier) {
+    return allAvailableCards().filter((card) => card.liveTier === tier);
+  }
+
+  function pickRecommendedCard() {
+    const tier = state.livePlan[state.completedCount] || "relation";
+    const exact = availableCardsForTier(tier);
+    if (exact.length) return shufflePick(exact);
+
+    const fallbackOrder = ["relation", "shy", "visible", "highlight", "warmup"];
+    for (const fallbackTier of fallbackOrder) {
+      const cards = availableCardsForTier(fallbackTier);
+      if (cards.length) return shufflePick(cards);
+    }
+    return shufflePick(allAvailableCards());
+  }
+
   function updateProgressPreview() {
     const selection = currentSelection();
     const pools = buildPoolsForSelection(selection);
@@ -210,10 +266,24 @@
       selectedLimit === "all" ? remaining : Number(selectedLimit);
     const actualTarget = Math.min(requested, remaining);
 
+    const truthCount = pools.truth.length;
+    const dareCount = pools.dare.length;
     elements.scopeTotalCount.textContent = `${allCards.length}张`;
     elements.scopeSeenCount.textContent = remember ? `${seenInScope}张` : "不读取";
     elements.scopeRemainingCount.textContent = `${remaining}张`;
     elements.allAvailableLabel.textContent = `当前剩余 ${remaining} 题`;
+    elements.truthModeCount.textContent = selection.libraryMode === "live"
+      ? "当前推荐池101道真心话"
+      : "完整题库119道真心话";
+    elements.dareModeCount.textContent = selection.libraryMode === "live"
+      ? "当前推荐池43道大冒险"
+      : "完整题库48道大冒险";
+    elements.randomModeCount.textContent = selection.libraryMode === "live"
+      ? "按直播节奏混合抽取144张推荐卡"
+      : "按原方式混合抽取完整167张卡片";
+    elements.libraryModeNote.textContent = selection.libraryMode === "live"
+      ? "当前推荐池共144张：先热场，再逐步进入关系、害羞和高光内容。"
+      : "当前使用完整167张卡片，所有可用题目按原方式随机出现。";
 
     if (!remember) {
       elements.storageNote.textContent =
@@ -274,15 +344,23 @@
   }
 
   function drawCard() {
-    const type = determineType();
+    let card;
+    let type;
 
-    if (!type) {
+    if (state.libraryMode === "live") {
+      card = pickRecommendedCard();
+      type = card ? card.type : null;
+    } else {
+      type = determineType();
+      card = type ? shufflePick(availableCards(type)) : null;
+    }
+
+    if (!type || !card) {
       state.endedBecauseExhausted = true;
       finishSession();
       return;
     }
 
-    const card = shufflePick(availableCards(type));
     state.currentCard = card;
     state.currentType = type;
     state.cardCount += 1;
@@ -291,7 +369,9 @@
     elements.questionCard.classList.toggle("is-dare", type === "dare");
     elements.questionCard.classList.remove("is-intimate");
     elements.cardType.textContent = typeLabels[type];
-    elements.cardLevel.textContent = currentLevelLabel();
+    elements.cardLevel.textContent = state.libraryMode === "live"
+      ? (tierLabels[card.liveTier] || "直播推荐")
+      : "全部题库";
     elements.cardNumber.textContent =
       `CARD ${String(state.cardCount).padStart(2, "0")}`;
     elements.cardQuestion.textContent = card.text;
@@ -344,6 +424,7 @@
   function beginGame(starter) {
     const selection = currentSelection();
 
+    state.libraryMode = selection.libraryMode;
     state.mode = selection.mode;
     state.rememberProgress = elements.rememberProgressCheckbox.checked;
     state.requestedLimit = getSelectedValue("roundLimit") || "10";
@@ -373,6 +454,9 @@
         ? remainingAtStart
         : Number(state.requestedLimit);
     state.targetCount = Math.min(requested, remainingAtStart);
+    state.livePlan = state.libraryMode === "live"
+      ? buildLivePlan(state.targetCount, state.mode)
+      : [];
 
     elements.setupScreen.hidden = true;
     elements.resultScreen.hidden = true;
@@ -522,6 +606,10 @@
     showToast("全部真心话大冒险进度已清除。");
   }
 
+  document.querySelectorAll('input[name="libraryMode"]').forEach((input) => {
+    input.addEventListener("change", updateProgressPreview);
+  });
+
   document.querySelectorAll('input[name="mode"]').forEach((input) => {
     input.addEventListener("change", updateProgressPreview);
   });
@@ -560,7 +648,7 @@
       elements.helpDialog.showModal();
     } else {
       showToast(
-        "全部167张题已合并；选择游玩模式和本场题数后即可开始，任何题目都可以直接换一张。"
+        "默认直播推荐模式会控制整场题目节奏；也可以切换到完整167张题库随机。任何题目都可以直接换一张。"
       );
     }
   });

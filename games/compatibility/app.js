@@ -10,6 +10,7 @@
   }
 
   const state = {
+    questionMode: "live",
     totalRounds: 10,
     currentRound: 1,
     score: 0,
@@ -81,6 +82,35 @@
     }
 
     return copy;
+  }
+
+  function buildRecommendedQuestions(pool, count) {
+    const plan = [
+      "warmup", "warmup", "relation", "relation", "highlight",
+      "relation", "visible", "relation", "highlight", "visible"
+    ];
+    const remaining = [...pool];
+    const selected = [];
+
+    for (let index = 0; index < count; index += 1) {
+      const desiredTier = plan[index % plan.length];
+      let candidates = remaining.filter((question) => question.liveTier === desiredTier);
+
+      if (!candidates.length) {
+        const fallback = ["relation", "visible", "highlight", "warmup"];
+        for (const tier of fallback) {
+          candidates = remaining.filter((question) => question.liveTier === tier);
+          if (candidates.length) break;
+        }
+      }
+
+      if (!candidates.length) break;
+      const picked = candidates[Math.floor(Math.random() * candidates.length)];
+      selected.push(picked);
+      remaining.splice(remaining.findIndex((question) => question.id === picked.id), 1);
+    }
+
+    return selected;
   }
 
   function showToast(message) {
@@ -163,19 +193,19 @@
 
   function prepareQuestions() {
     const allQuestions = buildQuestionPool();
-    const pool = shuffle(
-      allQuestions.filter((question) =>
-        !state.rememberProgress || !state.persistedCompleted.has(question.id)
-      )
+    const available = allQuestions.filter((question) =>
+      !state.rememberProgress || !state.persistedCompleted.has(question.id)
     );
 
-    if (pool.length === 0) {
+    if (available.length === 0) {
       return false;
     }
 
-    state.totalRounds = Math.min(state.totalRounds, pool.length);
-    state.questions = pool.slice(0, state.totalRounds);
-    return true;
+    state.totalRounds = Math.min(state.totalRounds, available.length);
+    state.questions = state.questionMode === "live"
+      ? buildRecommendedQuestions(available, state.totalRounds)
+      : shuffle(available).slice(0, state.totalRounds);
+    return state.questions.length > 0;
   }
 
   function updateScore() {
@@ -188,7 +218,9 @@
 
     elements.roundText.textContent =
       `第 ${state.currentRound} / ${state.totalRounds} 题`;
-    elements.themeText.textContent = "统一题库";
+    elements.themeText.textContent = state.questionMode === "live"
+      ? "直播推荐"
+      : "全部题库随机";
     elements.roundProgressBar.style.width = `${progress}%`;
   }
 
@@ -366,6 +398,7 @@
   }
 
   function startGame() {
+    state.questionMode = getSelectedValue("questionMode") || "live";
     state.totalRounds = Number(getSelectedValue("rounds") || 10);
     state.rememberProgress = elements.rememberProgressCheckbox.checked;
     state.persistedCompleted = loadPersistedCompleted();
@@ -434,6 +467,10 @@
     advanceRound("skip");
   });
 
+  document.querySelectorAll('input[name="questionMode"]').forEach((input) => {
+    input.addEventListener("change", updateProgressPreview);
+  });
+
   document.querySelectorAll('input[name="rounds"]').forEach((input) => {
     input.addEventListener("change", updateProgressPreview);
   });
@@ -447,7 +484,7 @@
     if (typeof elements.helpDialog.showModal === "function") {
       elements.helpDialog.showModal();
     } else {
-      showToast("倒计时结束后同时回答，再手动记录答案是否一致。");
+      showToast("直播推荐模式会按热场、关系、反应差和高光题安排节奏；倒计时后同时回答即可。");
     }
   });
 

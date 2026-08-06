@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF8AA1" />
+  <meta
+    name="description"
+    content="发家致富模拟测试卷（一）：适合法嘉直播时进行的特别答卷。"
+  />
+  <title>发家致富模拟测试卷（一）</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="background-shape shape-pink" aria-hidden="true"></div>
+  <div class="background-shape shape-gold" aria-hidden="true"></div>
+
+  <header class="exam-header">
+    <a class="back-link" href="../../">
+      <span aria-hidden="true">←</span>
+      返回游戏屋
+    </a>
+
+    <div class="mini-brand">
+      <span class="brand-dot brand-dot-pink"></span>
+      本期推荐
+      <span class="brand-dot brand-dot-gold"></span>
+    </div>
+
+    <button class="text-button" id="clearProgressHeaderButton" type="button">
+      清除进度
+    </button>
+  </header>
+
+  <main class="exam-shell">
+    <section class="intro-screen" id="introScreen">
+      <div class="intro-paper">
+        <span class="special-badge">FEATURED PLAY · SPECIAL 01</span>
+        <p class="eyebrow">本期推荐模拟测试卷</p>
+        <h1>发家致富模拟测试卷（一）</h1>
+        <p class="intro-description">
+          一题一页进行，现场口头回答。网页只记录进行位置、跳过题目和Vlog任务完成状态，
+          不保存选择题、Yes or No或简答题的具体答案。
+        </p>
+
+        <div class="exam-structure" aria-label="试卷结构">
+          <div><span>选择题</span><strong>5题</strong></div>
+          <div><span>Yes or No</span><strong>10题</strong></div>
+          <div><span>简答题</span><strong>20题</strong></div>
+          <div><span>Vlog拍摄</span><strong>7项</strong></div>
+        </div>
+
+        <div class="intro-actions">
+          <button class="button button-primary" id="startButton" type="button">
+            开始答卷
+            <span aria-hidden="true">→</span>
+          </button>
+          <a class="button button-secondary" href="../../#games">
+            先看看其他游戏
+          </a>
+        </div>
+
+        <p class="resume-note" id="resumeNote" hidden>
+          检测到这台浏览器中有未完成的答卷进度。
+        </p>
+      </div>
+    </section>
+
+    <section class="quiz-screen" id="quizScreen" hidden>
+      <div class="progress-panel">
+        <div class="progress-copy">
+          <span id="globalProgressText">问答 1 / 35</span>
+          <span id="sectionProgressText">选择题 1 / 5</span>
+        </div>
+        <div class="progress-track">
+          <span id="progressBar"></span>
+        </div>
+      </div>
+
+      <article class="question-card">
+        <div class="question-heading">
+          <div>
+            <p class="eyebrow" id="questionSection">选择题</p>
+            <span class="instruction-pill" id="questionInstruction">有固定选项</span>
+          </div>
+          <span class="question-number" id="questionNumber">01</span>
+        </div>
+
+        <h1 id="questionText" tabindex="-1"></h1>
+
+        <div class="answer-area" id="answerArea"></div>
+
+        <p class="live-answer-tip" id="liveAnswerTip" hidden>
+          请法嘉看到题目后，直接在直播间对观众说出答案。
+        </p>
+
+        <p class="answer-privacy">
+          本题的具体答案不会写入浏览器记录。
+        </p>
+      </article>
+
+      <div class="quiz-actions">
+        <button class="button button-secondary" id="previousButton" type="button">
+          上一题
+        </button>
+        <button class="button button-secondary" id="skipButton" type="button">
+          暂时跳过
+        </button>
+        <button class="button button-primary" id="completeQuestionButton" type="button">
+          两个人都回答完了
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="question-summary-screen" id="questionSummaryScreen" hidden>
+      <article class="summary-card">
+        <p class="eyebrow">QUESTION SECTION COMPLETE</p>
+        <h1>35道问答已进行一遍</h1>
+
+        <div class="summary-grid">
+          <div>
+            <span>回答完毕</span>
+            <strong id="answeredCount">0</strong>
+          </div>
+          <div>
+            <span>暂时跳过</span>
+            <strong id="skippedCount">0</strong>
+          </div>
+        </div>
+
+        <section class="punishment-card" id="punishmentCard" hidden>
+          <p class="eyebrow">原试卷内容</p>
+          <h2>惩罚规则</h2>
+          <p>以上问题有人放弃，要接受惩罚——</p>
+          <strong>给对方看浏览器记录，并给对方吹头发</strong>
+          <div class="safety-inline">
+            游戏屋提示：不方便的内容可以直接跳过，惩罚也可以不执行。
+          </div>
+        </section>
+
+        <div class="summary-actions">
+          <button class="button button-secondary" id="reviewSkippedButton" type="button">
+            回看跳过题
+          </button>
+          <button class="button button-primary" id="enterVlogButton" type="button">
+            进入Vlog必做题
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </article>
+    </section>
+
+    <section class="vlog-screen" id="vlogScreen" hidden>
+      <div class="section-intro">
+        <p class="eyebrow">REQUIRED TASK · VLOG</p>
+        <h1>必做题：Vlog 拍摄</h1>
+        <p>日子还久路还长，可以慢慢做</p>
+      </div>
+
+      <div class="vlog-progress">
+        <span>已完成</span>
+        <strong id="vlogProgressText">0 / 7</strong>
+      </div>
+
+      <div class="vlog-list" id="vlogList"></div>
+
+      <div class="vlog-actions">
+        <button class="button button-secondary" id="backToSummaryButton" type="button">
+          返回问答结果
+        </button>
+        <button class="button button-primary" id="enterOathButton" type="button">
+          进入请发誓
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="oath-screen" id="oathScreen" hidden>
+      <article class="oath-card">
+        <p class="eyebrow">FINAL PART</p>
+        <h1>请发誓</h1>
+        <blockquote id="oathQuote"></blockquote>
+        <button class="button button-primary" id="finishOathButton" type="button">
+          一起读完了
+          <span aria-hidden="true">♥</span>
+        </button>
+      </article>
+    </section>
+
+    <section class="complete-screen" id="completeScreen" hidden>
+      <article class="complete-card">
+        <div class="complete-mark" aria-hidden="true">✓</div>
+        <p class="eyebrow">ANSWER SHEET COMPLETE</p>
+        <h1>模拟测试卷完成</h1>
+        <p>
+          问答、Vlog任务与“请发誓”都可以随时回来继续查看。
+          网页没有保存两个人的具体答案。
+        </p>
+
+        <div class="complete-actions">
+          <button class="button button-secondary" id="reviewVlogButton" type="button">
+            查看Vlog任务
+          </button>
+          <button class="button button-secondary" id="restartExamButton" type="button">
+            重新开始
+          </button>
+          <a class="button button-primary" href="../../">
+            返回游戏屋
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="exam-footer">
+    <strong>创作者：ztzxl</strong>
+    <span>网页互动版本制作：哈哈哈机器</span>
+  </footer>
+
+  <dialog class="confirm-dialog" id="clearDialog">
+    <div class="dialog-panel">
+      <h2>清除答卷进度？</h2>
+      <p>
+        将删除问答位置、跳过记录和Vlog勾选状态，不影响游戏屋中的其他游戏。
+      </p>
+      <div class="dialog-actions">
+        <button class="button button-secondary" id="cancelClearButton" type="button">
+          取消
+        </button>
+        <button class="button button-primary" id="confirmClearButton" type="button">
+          确认清除
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./exam-data.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

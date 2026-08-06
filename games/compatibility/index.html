@@ -39,8 +39,8 @@
         <p class="eyebrow">GAME 03 · COMPATIBILITY CHALLENGE</p>
         <h1 id="setupTitle">法嘉默契挑战怎么玩？</h1>
         <p>
-          每题先各自想好答案，点击3秒倒计时后同时说出、选择或指向答案，
-          再由现场判断这一题是“默契”还是“不太默契”；不方便的题目可以直接跳过。
+          默认使用“直播推荐模式”，让热场题、关系题和高光题有节奏地出现；
+          每题3秒后同时说出、选择或指向答案，再判断这一题是否默契。
         </p>
       </div>
 
@@ -64,9 +64,36 @@
         </article>
       </div>
 
-      <section class="choice-section" aria-labelledby="roundTitle">
+      <section class="choice-section" aria-labelledby="questionModeTitle">
         <div class="section-label">
           <span>STEP 01</span>
+          <h2 id="questionModeTitle">选择抽题方式</h2>
+        </div>
+
+        <div class="choice-grid choice-grid-mode">
+          <label class="choice-card">
+            <input type="radio" name="questionMode" value="live" checked />
+            <span class="choice-card-inner">
+              <span class="choice-icon">LIVE</span>
+              <strong>直播推荐模式</strong>
+              <small>按热场、关系、反应差和高光题安排本局节奏</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="questionMode" value="all" />
+            <span class="choice-card-inner">
+              <span class="choice-icon">ALL</span>
+              <strong>全部题库随机</strong>
+              <small>45题等概率抽取，保留原来的随机体验</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <section class="choice-section" aria-labelledby="roundTitle">
+        <div class="section-label">
+          <span>STEP 02</span>
           <h2 id="roundTitle">选择挑战轮数</h2>
         </div>
 
@@ -99,7 +126,7 @@
 
       <section class="choice-section" aria-labelledby="progressTitle">
         <div class="section-label">
-          <span>STEP 02</span>
+          <span>STEP 03</span>
           <h2 id="progressTitle">题库进度</h2>
         </div>
 
@@ -169,7 +196,7 @@
       <div class="round-progress">
         <div class="round-copy">
           <span id="roundText">第 1 / 10 题</span>
-          <span id="themeText">统一题库</span>
+          <span id="themeText">直播推荐</span>
         </div>
         <div class="progress-track" aria-hidden="true">
           <span id="roundProgressBar"></span>
@@ -286,7 +313,7 @@
       </div>
 
       <ol>
-        <li>选择题目主题和挑战轮数。</li>
+        <li>先选择“直播推荐模式”或“全部题库随机”，再选择挑战轮数。</li>
         <li>看到题目后，两个人先分别在心里想好答案。</li>
         <li>点击倒计时按钮，出现“同时回答”时一起回答或指向。</li>
         <li>根据两人的回答与表现，点击“这题很默契”或“这题不太默契”。</li>
