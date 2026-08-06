@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#FF8AA1" />
   <meta
     name="description"
-    content="法嘉心动值挑战：为假设行为打出1—10分，支持镜头同声和秘密打分。"
+    content="法嘉心动值挑战：两个人倒计时后同时说出1—10分。"
   />
   <title>法嘉心动值挑战</title>
   <link rel="stylesheet" href="./style.css" />
@@ -39,218 +39,41 @@
         <p class="eyebrow">GAME 05 · HEART RATING</p>
         <h1 id="setupTitle">这个小动作，<br />心动值有几分？</h1>
         <p>
-          对同一个假设行为分别打出1—10分。
-          题目只用于评价，不要求现场完成其中的动作。
+          每题倒计时后，两个人同时对镜头说出1—10分；记录分数后，再分别说说为什么这样打分。
         </p>
       </div>
 
       <div class="player-preview" aria-label="参与玩家">
-        <article class="player-chip player-chip-pink">
-          <img src="../../assets/players/fa.webp" alt="法宣阁" />
-          <div>
-            <span>PLAYER 01</span>
-            <strong>法宣阁</strong>
-          </div>
-        </article>
-
+        <article class="player-chip player-chip-pink"><img src="../../assets/players/fa.webp" alt="法宣阁" /><div><span>PLAYER 01</span><strong>法宣阁</strong></div></article>
         <span class="switch-mark" aria-hidden="true">♥</span>
-
-        <article class="player-chip player-chip-gold">
-          <img src="../../assets/players/he.webp" alt="贺嘉述" />
-          <div>
-            <span>PLAYER 02</span>
-            <strong>贺嘉述</strong>
-          </div>
-        </article>
+        <article class="player-chip player-chip-gold"><img src="../../assets/players/he.webp" alt="贺嘉述" /><div><span>PLAYER 02</span><strong>贺嘉述</strong></div></article>
       </div>
 
-      <section class="choice-section" aria-labelledby="categoryTitle">
-        <div class="section-label">
-          <span>STEP 01</span>
-          <h2 id="categoryTitle">选择题目尺度</h2>
-        </div>
-
-        <div class="choice-grid category-grid">
-          <label class="choice-card">
-            <input type="radio" name="category" value="daily" />
-            <span class="choice-card-inner">
-              <span class="choice-icon">01</span>
-              <strong>轻松日常</strong>
-              <small>照顾、分享与记得小事</small>
-            </span>
-          </label>
-
-          <label class="choice-card">
-            <input type="radio" name="category" value="gesture" />
-            <span class="choice-card-inner">
-              <span class="choice-icon">02</span>
-              <strong>心动小动作</strong>
-              <small>自然靠近与轻量肢体互动</small>
-            </span>
-          </label>
-
-          <label class="choice-card">
-            <input type="radio" name="category" value="live" />
-            <span class="choice-card-inner">
-              <span class="choice-icon">03</span>
-              <strong>直播与工作</strong>
-              <small>接话、救场与关注状态</small>
-            </span>
-          </label>
-
-          <label class="choice-card high-choice">
-            <input type="radio" name="category" value="high" />
-            <span class="choice-card-inner">
-              <span class="choice-icon">04</span>
-              <strong>高心动动作</strong>
-              <small>亲密度较高，请按当下情况选择</small>
-            </span>
-          </label>
-
-          <label class="choice-card choice-card-wide">
-            <input type="radio" name="category" value="mixed" checked />
-            <span class="choice-card-inner">
-              <span class="choice-icon">∞</span>
-              <strong>全部混合</strong>
-              <small>四类共60题随机出现</small>
-            </span>
-          </label>
-        </div>
-      </section>
-
-      <section class="choice-section" aria-labelledby="modeTitle">
-        <div class="section-label">
-          <span>STEP 02</span>
-          <h2 id="modeTitle">选择打分方式</h2>
-        </div>
-
-        <div class="choice-grid mode-grid">
-          <label class="choice-card mode-card">
-            <input type="radio" name="mode" value="camera" checked />
-            <span class="choice-card-inner">
-              <span class="mode-mark">3·2·1</span>
-              <strong>镜头同声</strong>
-              <small>网页作为提词器，倒计时后同时对镜头说分数</small>
-            </span>
-          </label>
-
-          <label class="choice-card mode-card">
-            <input type="radio" name="mode" value="secret" />
-            <span class="choice-card-inner">
-              <span class="mode-mark">•••</span>
-              <strong>秘密打分</strong>
-              <small>依次选择并隐藏，最后统一揭晓</small>
-            </span>
-          </label>
-        </div>
-      </section>
-
       <section class="choice-section" aria-labelledby="roundTitle">
-        <div class="section-label">
-          <span>STEP 03</span>
-          <h2 id="roundTitle">选择挑战轮数</h2>
-        </div>
-
+        <div class="section-label"><span>STEP 01</span><h2 id="roundTitle">选择挑战轮数</h2></div>
         <div class="choice-grid round-grid">
-          <label class="choice-card round-card">
-            <input type="radio" name="rounds" value="5" />
-            <span class="choice-card-inner">
-              <strong>5题</strong>
-              <small>快速体验</small>
-            </span>
-          </label>
-
-          <label class="choice-card round-card">
-            <input type="radio" name="rounds" value="10" checked />
-            <span class="choice-card-inner">
-              <strong>10题</strong>
-              <small>标准一局</small>
-            </span>
-          </label>
-
-          <label class="choice-card round-card">
-            <input type="radio" name="rounds" value="15" />
-            <span class="choice-card-inner">
-              <strong>15题</strong>
-              <small>完整挑战</small>
-            </span>
-          </label>
+          <label class="choice-card round-card"><input type="radio" name="rounds" value="5" /><span class="choice-card-inner"><strong>5题</strong><small>快速体验</small></span></label>
+          <label class="choice-card round-card"><input type="radio" name="rounds" value="10" checked /><span class="choice-card-inner"><strong>10题</strong><small>标准一局</small></span></label>
+          <label class="choice-card round-card"><input type="radio" name="rounds" value="15" /><span class="choice-card-inner"><strong>15题</strong><small>完整挑战</small></span></label>
         </div>
       </section>
 
       <section class="choice-section" aria-labelledby="progressTitle">
-        <div class="section-label">
-          <span>STEP 04</span>
-          <h2 id="progressTitle">题库进度</h2>
-        </div>
-
+        <div class="section-label"><span>STEP 02</span><h2 id="progressTitle">题库进度</h2></div>
         <div class="browser-progress-settings">
-          <label class="browser-progress-toggle">
-            <input id="rememberProgressCheckbox" type="checkbox" checked />
-            <span class="custom-checkbox" aria-hidden="true">✓</span>
-            <span>
-              <strong>记住已经完成打分的题目，下次继续</strong>
-              <small>完成本题并进入下一题后才算完成；跳过题目不会写入长期进度。</small>
-            </span>
-          </label>
-
+          <label class="browser-progress-toggle"><input id="rememberProgressCheckbox" type="checkbox" checked /><span class="custom-checkbox" aria-hidden="true">✓</span><span><strong>记住已经完成打分的题目，下次继续</strong><small>完成本题并进入下一题后才算完成；跳过题目不会写入长期进度。</small></span></label>
           <div class="browser-progress-summary" aria-live="polite">
-            <div>
-              <span>当前范围</span>
-              <strong id="progressTotalCount">60题</strong>
-            </div>
-            <div>
-              <span>已完成</span>
-              <strong id="progressCompletedCount">0题</strong>
-            </div>
-            <div>
-              <span>未完成</span>
-              <strong id="progressRemainingCount">60题</strong>
-            </div>
+            <div><span>全部题目</span><strong id="progressTotalCount">60题</strong></div>
+            <div><span>已完成</span><strong id="progressCompletedCount">0题</strong></div>
+            <div><span>未完成</span><strong id="progressRemainingCount">60题</strong></div>
           </div>
-
-          <p class="browser-progress-note" id="progressNote">
-            只保存题目编号，不保存两个人的具体分数。
-          </p>
-
-          <div class="browser-progress-actions">
-            <button class="button button-secondary" id="clearScopeProgressButton" type="button">
-              清除当前范围进度
-            </button>
-            <button class="button button-quiet" id="clearAllProgressButton" type="button">
-              清除全部进度
-            </button>
-          </div>
+          <p class="browser-progress-note" id="progressNote">只保存题目编号，不保存两个人的具体分数。</p>
+          <div class="browser-progress-actions"><button class="button button-secondary" id="clearScopeProgressButton" type="button">清除题库进度</button><button class="button button-quiet" id="clearAllProgressButton" type="button">清除全部进度</button></div>
         </div>
       </section>
 
-      <section class="starter-panel" id="starterPanel" hidden aria-labelledby="starterTitle">
-        <div>
-          <p class="eyebrow">SECRET MODE</p>
-          <h2 id="starterTitle">第一题谁先秘密评分？</h2>
-          <p>之后每个正式回合会自动交换第一位评分者。</p>
-        </div>
-
-        <div class="starter-options">
-          <label>
-            <input type="radio" name="starter" value="0" checked />
-            <span>法宣阁先评分</span>
-          </label>
-          <label>
-            <input type="radio" name="starter" value="1" />
-            <span>贺嘉述先评分</span>
-          </label>
-          <label>
-            <input type="radio" name="starter" value="random" />
-            <span>随机选择</span>
-          </label>
-        </div>
-      </section>
-
-      <button class="button button-primary start-button" id="startButton" type="button">
-        开始心动值挑战
-        <span aria-hidden="true">→</span>
-      </button>
+      <section class="starter-panel" id="starterPanel" hidden aria-hidden="true"></section>
+      <button class="button button-primary start-button" id="startButton" type="button">开始心动值挑战<span aria-hidden="true">→</span></button>
     </section>
 
     <section class="play-screen" id="playScreen" hidden aria-labelledby="questionText">
@@ -259,13 +82,13 @@
           重新选择
         </button>
 
-        <div class="mode-pill" id="modePill">镜头同声</div>
+        <div class="mode-pill" id="modePill">同时打分</div>
       </div>
 
       <div class="round-progress">
         <div class="round-copy">
           <span id="roundText">第 1 / 10 题</span>
-          <span id="categoryText">全部混合</span>
+          <span id="categoryText">本轮题目</span>
         </div>
         <div class="progress-track" aria-hidden="true">
           <span id="roundProgressBar"></span>
@@ -415,6 +238,7 @@
         </div>
 
         <p class="reveal-copy" id="revealCopy"></p>
+        <div class="reveal-guide" id="revealGuide"></div>
 
         <button class="button button-primary next-button" id="revealNextButton" type="button">
           进入下一题
@@ -492,11 +316,8 @@
         <button class="dialog-close" id="closeHelpButton" type="button" aria-label="关闭">×</button>
       </div>
 
-      <h3>镜头同声</h3>
-      <p>网页展示题目并倒计时，两个人同时对着镜头说出1—10分。可以直接进入下一题，也可以补录分数查看统计。</p>
-
-      <h3>秘密打分</h3>
-      <p>两个人依次选择分数，每次锁定后立即隐藏，第二位评分完成后统一揭晓。</p>
+      <h3>同时打分</h3>
+      <p>网页展示题目并倒计时，两个人同时对着镜头说出1—10分；补录分数后会显示分差和本题讨论提示。</p>
 
       <ul>
         <li>1分表示几乎无感，10分表示非常心动。</li>

@@ -39,145 +39,52 @@
         <p class="eyebrow">GAME 03 · COMPATIBILITY CHALLENGE</p>
         <h1 id="setupTitle">法嘉默契挑战怎么玩？</h1>
         <p>
-          默认使用“直播推荐模式”，让热场题、关系题和高光题有节奏地出现；
-          每题3秒后同时说出、选择或指向答案，再判断这一题是否默契。
+          每题倒计时3秒后，两个人同时说出、选择或指向答案，再一起判断这一题是“默契”还是“不太默契”。
         </p>
       </div>
 
       <div class="player-preview" aria-label="参与玩家">
         <article class="player-chip player-chip-pink">
           <img src="../../assets/players/fa.webp" alt="法宣阁" />
-          <div>
-            <span>PLAYER 01</span>
-            <strong>法宣阁</strong>
-          </div>
+          <div><span>PLAYER 01</span><strong>法宣阁</strong></div>
         </article>
-
         <span class="heart-link" aria-hidden="true">♥</span>
-
         <article class="player-chip player-chip-gold">
           <img src="../../assets/players/he.webp" alt="贺嘉述" />
-          <div>
-            <span>PLAYER 02</span>
-            <strong>贺嘉述</strong>
-          </div>
+          <div><span>PLAYER 02</span><strong>贺嘉述</strong></div>
         </article>
       </div>
 
-      <section class="choice-section" aria-labelledby="questionModeTitle">
-        <div class="section-label">
-          <span>STEP 01</span>
-          <h2 id="questionModeTitle">选择抽题方式</h2>
-        </div>
-
-        <div class="choice-grid choice-grid-mode">
-          <label class="choice-card">
-            <input type="radio" name="questionMode" value="live" checked />
-            <span class="choice-card-inner">
-              <span class="choice-icon">LIVE</span>
-              <strong>直播推荐模式</strong>
-              <small>按热场、关系、反应差和高光题安排本局节奏</small>
-            </span>
-          </label>
-
-          <label class="choice-card">
-            <input type="radio" name="questionMode" value="all" />
-            <span class="choice-card-inner">
-              <span class="choice-icon">ALL</span>
-              <strong>全部题库随机</strong>
-              <small>45题等概率抽取，保留原来的随机体验</small>
-            </span>
-          </label>
-        </div>
-      </section>
-
       <section class="choice-section" aria-labelledby="roundTitle">
-        <div class="section-label">
-          <span>STEP 02</span>
-          <h2 id="roundTitle">选择挑战轮数</h2>
-        </div>
-
+        <div class="section-label"><span>STEP 01</span><h2 id="roundTitle">选择挑战轮数</h2></div>
         <div class="choice-grid choice-grid-round">
-          <label class="choice-card round-card">
-            <input type="radio" name="rounds" value="5" />
-            <span class="choice-card-inner">
-              <strong>5题</strong>
-              <small>快速热场</small>
-            </span>
-          </label>
-
-          <label class="choice-card round-card">
-            <input type="radio" name="rounds" value="10" checked />
-            <span class="choice-card-inner">
-              <strong>10题</strong>
-              <small>标准挑战</small>
-            </span>
-          </label>
-
-          <label class="choice-card round-card">
-            <input type="radio" name="rounds" value="15" />
-            <span class="choice-card-inner">
-              <strong>15题</strong>
-              <small>完整默契局</small>
-            </span>
-          </label>
+          <label class="choice-card round-card"><input type="radio" name="rounds" value="5" /><span class="choice-card-inner"><strong>5题</strong><small>快速热场</small></span></label>
+          <label class="choice-card round-card"><input type="radio" name="rounds" value="10" checked /><span class="choice-card-inner"><strong>10题</strong><small>标准挑战</small></span></label>
+          <label class="choice-card round-card"><input type="radio" name="rounds" value="15" /><span class="choice-card-inner"><strong>15题</strong><small>完整默契局</small></span></label>
         </div>
       </section>
 
       <section class="choice-section" aria-labelledby="progressTitle">
-        <div class="section-label">
-          <span>STEP 03</span>
-          <h2 id="progressTitle">题库进度</h2>
-        </div>
-
+        <div class="section-label"><span>STEP 02</span><h2 id="progressTitle">题库进度</h2></div>
         <div class="browser-progress-settings">
           <label class="browser-progress-toggle">
             <input id="rememberProgressCheckbox" type="checkbox" checked />
             <span class="custom-checkbox" aria-hidden="true">✓</span>
-            <span>
-              <strong>记住已经完成的题目，下次继续</strong>
-              <small>判断“默契”或“不太默契”后才算完成；跳过的题目不会写入长期进度。</small>
-            </span>
+            <span><strong>记住已经完成的题目，下次继续</strong><small>判断“默契”或“不太默契”后才算完成；跳过的题目不会写入长期进度。</small></span>
           </label>
-
           <div class="browser-progress-summary" aria-live="polite">
-            <div>
-              <span>全部题目</span>
-              <strong id="progressTotalCount">45题</strong>
-            </div>
-            <div>
-              <span>已完成</span>
-              <strong id="progressCompletedCount">0题</strong>
-            </div>
-            <div>
-              <span>未完成</span>
-              <strong id="progressRemainingCount">45题</strong>
-            </div>
+            <div><span>全部题目</span><strong id="progressTotalCount">45题</strong></div>
+            <div><span>已完成</span><strong id="progressCompletedCount">0题</strong></div>
+            <div><span>未完成</span><strong id="progressRemainingCount">45题</strong></div>
           </div>
-
-          <p class="browser-progress-note" id="progressNote">
-            只在当前浏览器保存题目编号，不保存两个人的具体答案。
-          </p>
-
-          <div class="browser-progress-actions">
-            <button class="button button-secondary" id="clearProgressButton" type="button">
-              清除默契题库进度
-            </button>
-          </div>
+          <p class="browser-progress-note" id="progressNote">只在当前浏览器保存题目编号，不保存两个人的具体答案。</p>
+          <div class="browser-progress-actions"><button class="button button-secondary" id="clearProgressButton" type="button">清除默契题库进度</button></div>
         </div>
       </section>
 
       <section class="start-panel">
-        <div>
-          <p class="eyebrow">READY TO PLAY</p>
-          <h2>准备好了吗？</h2>
-          <p>无需输入答案，倒计时结束后同时说出或指出答案即可。</p>
-        </div>
-
-        <button class="start-button" id="startGameButton" type="button">
-          开始默契挑战
-          <span aria-hidden="true">→</span>
-        </button>
+        <div><p class="eyebrow">STEP 03 · READY TO PLAY</p><h2>准备好了吗？</h2><p>无需输入答案，倒计时结束后同时说出或指出答案即可。</p></div>
+        <button class="start-button" id="startGameButton" type="button">开始默契挑战<span aria-hidden="true">→</span></button>
       </section>
     </section>
 
@@ -196,7 +103,7 @@
       <div class="round-progress">
         <div class="round-copy">
           <span id="roundText">第 1 / 10 题</span>
-          <span id="themeText">直播推荐</span>
+          <span id="themeText">本轮题目</span>
         </div>
         <div class="progress-track" aria-hidden="true">
           <span id="roundProgressBar"></span>
@@ -246,7 +153,7 @@
       </div>
 
       <p class="session-note">
-        网页不会读取或比较具体答案。判断“默契”或“不太默契”后，该题会记为已完成；跳过题目不会写入长期进度。
+        两个人自行判断是否默契；点击结果后才会计入进度，跳过的题目之后仍可能再次出现。
       </p>
     </section>
 
@@ -313,16 +220,26 @@
       </div>
 
       <ol>
-        <li>先选择“直播推荐模式”或“全部题库随机”，再选择挑战轮数。</li>
+        <li>选择5题、10题或15题。</li>
         <li>看到题目后，两个人先分别在心里想好答案。</li>
-        <li>点击倒计时按钮，出现“同时回答”时一起回答或指向。</li>
-        <li>根据两人的回答与表现，点击“这题很默契”或“这题不太默契”。</li>
-        <li>完成全部题目后，系统会计算默契值并生成称号。</li>
+        <li>点击倒计时按钮，出现“同时回答”时一起回答、选择或指向。</li>
+        <li>两个人自行判断本题是“默契”还是“不太默契”。</li>
+        <li>完成全部题目后，网页会计算默契值并生成称号。</li>
       </ol>
 
-      <p>
-        自由回答题不要求两个人说出相同内容。例如互相评价对方时，只要双方都认可、彼此理解或表现出良好默契，就可以记录为“这题很默契”。
-      </p>
+      <section class="rule-example-box" aria-labelledby="ruleExampleTitle">
+        <h3 id="ruleExampleTitle">如何判断是否默契？</h3>
+        <p>不一定要求两个人说出完全相同的词，请根据题目自行判断。</p>
+        <div class="rule-example">
+          <strong>示例一（不会出现在正式题库中）</strong>
+          <p>“同时说出一种最适合夏天喝的饮料。”两个人说出相同答案，通常可以判为“默契”。</p>
+        </div>
+        <div class="rule-example">
+          <strong>示例二（不会出现在正式题库中）</strong>
+          <p>“分别说出对方今天最明显的一个状态。”两个人的答案可以不同；只要彼此认为对方观察准确，也可以判为“默契”。</p>
+        </div>
+        <p class="rule-progress-note">点击“默契”或“不太默契”后，本题才会计入进度；跳过的题目不会计入，之后仍可能再次出现。</p>
+      </section>
     </div>
   </dialog>
 

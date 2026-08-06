@@ -39,220 +39,81 @@
         <p class="eyebrow">GAME 02 · TRUTH OR DARE</p>
         <h1 id="setupTitle">真心话大冒险怎么玩？</h1>
         <p>
-          默认使用“直播推荐模式”，按热场、关系、害羞、动作和高光控制整场节奏；
-          也可以切换到全部题库随机。抽到不方便或不适合公开的内容时，直接点击“换一张”即可。
+          选择题数和第一位玩家后开始。抽到真心话就回答，抽到大冒险就完成任务；任意题目都可以直接换一张。
         </p>
       </div>
 
       <div class="player-preview" aria-label="参与玩家">
         <article class="player-chip player-chip-pink">
           <img src="../../assets/players/fa.webp" alt="法宣阁" />
-          <div>
-            <span>PLAYER 01</span>
-            <strong>法宣阁</strong>
-          </div>
+          <div><span>PLAYER 01</span><strong>法宣阁</strong></div>
         </article>
-
         <span class="versus" aria-hidden="true">♥</span>
-
         <article class="player-chip player-chip-gold">
           <img src="../../assets/players/he.webp" alt="贺嘉述" />
-          <div>
-            <span>PLAYER 02</span>
-            <strong>贺嘉述</strong>
-          </div>
+          <div><span>PLAYER 02</span><strong>贺嘉述</strong></div>
         </article>
       </div>
-
-      <div class="unified-safety-note">
-        <span aria-hidden="true">♥</span>
-        <div>
-          <strong>一切以法法嘉嘉的意愿为主。</strong>
-          <p>
-            本题库混合收录轻松互动、心动话题、关系讨论和较私密的问题。
-            遇到任何不方便、不愿意回答或不适合公开的内容，请直接点击“换一张”；
-            不需要解释，也不会有任何惩罚。
-          </p>
-        </div>
-      </div>
-
-      <section class="choice-section" aria-labelledby="libraryModeTitle">
-        <div class="section-label">
-          <span>STEP 01</span>
-          <h2 id="libraryModeTitle">选择抽题方式</h2>
-        </div>
-
-        <div class="choice-grid choice-grid-library">
-          <label class="choice-card live-library-card">
-            <input type="radio" name="libraryMode" value="live" checked />
-            <span class="choice-card-inner">
-              <span class="mode-tag live-tag">LIVE</span>
-              <strong>直播推荐模式</strong>
-              <small>控制热场、关系、害羞、动作与高光题的出现节奏</small>
-            </span>
-          </label>
-
-          <label class="choice-card">
-            <input type="radio" name="libraryMode" value="all" />
-            <span class="choice-card-inner">
-              <span class="mode-tag all-tag">ALL</span>
-              <strong>全部题库随机</strong>
-              <small>保留完整167张卡片，按原方式等概率抽取</small>
-            </span>
-          </label>
-        </div>
-
-        <p class="selection-note" id="libraryModeNote">
-          当前推荐池共144张：先热场，再逐步进入关系、害羞和高光内容。
-        </p>
-      </section>
-
-      <section class="choice-section" aria-labelledby="modeTitle">
-        <div class="section-label">
-          <span>STEP 02</span>
-          <h2 id="modeTitle">选择游玩模式</h2>
-        </div>
-
-        <div class="choice-grid choice-grid-mode">
-          <label class="choice-card">
-            <input type="radio" name="mode" value="truth" />
-            <span class="choice-card-inner">
-              <span class="mode-tag truth-tag">真</span>
-              <strong>只抽真心话</strong>
-              <small><span id="truthModeCount">当前推荐池101道真心话</span></small>
-            </span>
-          </label>
-
-          <label class="choice-card">
-            <input type="radio" name="mode" value="dare" />
-            <span class="choice-card-inner">
-              <span class="mode-tag dare-tag">冒</span>
-              <strong>只抽大冒险</strong>
-              <small><span id="dareModeCount">当前推荐池43道大冒险</span></small>
-            </span>
-          </label>
-
-          <label class="choice-card">
-            <input type="radio" name="mode" value="random" checked />
-            <span class="choice-card-inner">
-              <span class="mode-tag random-tag">?</span>
-              <strong>随机决定</strong>
-              <small><span id="randomModeCount">按直播节奏混合抽取144张推荐卡</span></small>
-            </span>
-          </label>
-        </div>
-      </section>
 
       <section class="choice-section" aria-labelledby="roundCountTitle">
         <div class="section-label">
-          <span>STEP 03</span>
+          <span>STEP 01</span>
           <h2 id="roundCountTitle">选择本场题数</h2>
         </div>
-
         <div class="choice-grid choice-grid-rounds">
           <label class="choice-card compact-choice-card">
             <input type="radio" name="roundLimit" value="5" />
-            <span class="choice-card-inner">
-              <strong>5题</strong>
-              <small>快速体验</small>
-            </span>
+            <span class="choice-card-inner"><strong>5题</strong><small>快速体验</small></span>
           </label>
-
           <label class="choice-card compact-choice-card">
             <input type="radio" name="roundLimit" value="10" checked />
-            <span class="choice-card-inner">
-              <strong>10题</strong>
-              <small>标准模式</small>
-            </span>
+            <span class="choice-card-inner"><strong>10题</strong><small>标准模式</small></span>
           </label>
-
           <label class="choice-card compact-choice-card">
             <input type="radio" name="roundLimit" value="15" />
-            <span class="choice-card-inner">
-              <strong>15题</strong>
-              <small>加长模式</small>
-            </span>
-          </label>
-
-          <label class="choice-card compact-choice-card">
-            <input type="radio" name="roundLimit" value="all" />
-            <span class="choice-card-inner">
-              <strong>全部可用题目</strong>
-              <small id="allAvailableLabel">当前剩余 0 题</small>
-            </span>
+            <span class="choice-card-inner"><strong>15题</strong><small>加长模式</small></span>
           </label>
         </div>
-
-        <p class="selection-note" id="roundAvailabilityNote">
-          本场预计完成10题。
-        </p>
+        <p class="selection-note" id="roundAvailabilityNote">本场预计完成10题。</p>
       </section>
 
       <section class="choice-section" aria-labelledby="progressTitle">
         <div class="section-label">
-          <span>STEP 04</span>
+          <span>STEP 02</span>
           <h2 id="progressTitle">题库进度</h2>
         </div>
-
         <div class="progress-settings">
           <label class="remember-toggle">
             <input id="rememberProgressCheckbox" type="checkbox" checked />
             <span class="custom-checkbox" aria-hidden="true">✓</span>
             <span>
               <strong>记住已经展示过的题目，下次继续</strong>
-              <small>
-                只在当前浏览器保存卡片编号，不保存回答内容。
-              </small>
+              <small>只在当前浏览器保存卡片编号，不保存回答内容。</small>
             </span>
           </label>
-
           <div class="saved-progress-summary" id="savedProgressSummary" aria-live="polite">
-            <div>
-              <span>当前模式</span>
-              <strong id="scopeTotalCount">0张</strong>
-            </div>
-            <div>
-              <span>已看过</span>
-              <strong id="scopeSeenCount">0张</strong>
-            </div>
-            <div>
-              <span>剩余</span>
-              <strong id="scopeRemainingCount">0张</strong>
-            </div>
+            <div><span>题库总数</span><strong id="scopeTotalCount">144张</strong></div>
+            <div><span>已看过</span><strong id="scopeSeenCount">0张</strong></div>
+            <div><span>剩余</span><strong id="scopeRemainingCount">144张</strong></div>
           </div>
-
-          <p class="storage-note" id="storageNote">
-            同一设备、同一浏览器会继续进度；无痕模式、清除网站数据或更换设备后无法保留。
-          </p>
-
+          <p class="storage-note" id="storageNote">同一设备、同一浏览器会继续进度。</p>
           <div class="progress-actions">
-            <button class="button button-secondary button-small" id="clearScopeProgressButton" type="button">
-              清除当前模式进度
-            </button>
-            <button class="button button-quiet button-small" id="clearAllProgressButton" type="button">
-              清除全部进度
-            </button>
+            <button class="button button-secondary button-small" id="clearScopeProgressButton" type="button">清除题库进度</button>
+            <button class="button button-quiet button-small" id="clearAllProgressButton" type="button">清除全部进度</button>
           </div>
         </div>
       </section>
 
       <section class="start-section" aria-labelledby="starterTitle">
         <div>
-          <p class="eyebrow">STEP 05 · READY TO PLAY</p>
+          <p class="eyebrow">STEP 03 · READY TO PLAY</p>
           <h2 id="starterTitle">谁先开始？</h2>
           <p>也可以交给系统随机决定第一位玩家。</p>
         </div>
-
         <div class="start-buttons">
-          <button class="start-player-button start-pink" type="button" data-starter="0">
-            法宣阁先开始
-          </button>
-          <button class="start-player-button start-gold" type="button" data-starter="1">
-            贺嘉述先开始
-          </button>
-          <button class="start-player-button start-random" type="button" data-starter="random">
-            随机选择
-          </button>
+          <button class="start-player-button start-pink" type="button" data-starter="0">法宣阁先开始</button>
+          <button class="start-player-button start-gold" type="button" data-starter="1">贺嘉述先开始</button>
+          <button class="start-player-button start-random" type="button" data-starter="random">随机选择</button>
         </div>
       </section>
     </section>
@@ -283,7 +144,7 @@
       <article class="question-card" id="questionCard">
         <div class="card-topline">
           <span class="card-type" id="cardType">真心话</span>
-          <span class="card-level" id="cardLevel">直播推荐</span>
+          <span class="card-level" id="cardLevel">本轮题目</span>
         </div>
 
         <div class="card-number" id="cardNumber">CARD 01</div>
@@ -291,7 +152,7 @@
         <h1 id="cardQuestion" tabindex="-1"></h1>
 
         <p class="card-tip" id="cardTip">
-          不方便、不愿意或不适合公开时，直接换一张即可；无需解释，也不会有惩罚。
+          任意题目都可以直接换一张。
         </p>
 
         <p class="card-source" id="cardSource" hidden></p>
@@ -363,29 +224,17 @@
   <dialog class="help-dialog" id="helpDialog">
     <div class="dialog-content">
       <div class="dialog-heading">
-        <div>
-          <p class="eyebrow">HOW TO PLAY</p>
-          <h2>玩法说明</h2>
-        </div>
-        <button class="dialog-close" id="closeHelpButton" type="button" aria-label="关闭">
-          ×
-        </button>
+        <div><p class="eyebrow">HOW TO PLAY</p><h2>玩法说明</h2></div>
+        <button class="dialog-close" id="closeHelpButton" type="button" aria-label="关闭">×</button>
       </div>
-
       <ol>
-        <li>“直播推荐模式”使用144张对标后的推荐卡，并按热场、关系、害羞、动作和高光题安排节奏。</li>
-        <li>“全部题库随机”保留完整167张卡片及原来的随机方式。</li>
-        <li>选择“只抽真心话”“只抽大冒险”或“随机决定”，再选择本场题数。</li>
-        <li>“记住进度”开启时，已经展示过的卡片会保存在当前浏览器，下次自动排除。</li>
-        <li>选择“全部可用题目”时，会一直玩到当前模式没有新卡片。</li>
-        <li>“换一张”不会切换玩家，也不增加正式完成题数，但该卡会记为已展示。</li>
-        <li>点击“完成，轮到下一位”后，本场完成题数加一并自动交换玩家。</li>
+        <li>选择5题、10题或15题，再选择第一位玩家。</li>
+        <li>每轮随机抽取一张真心话或大冒险卡片。</li>
+        <li>“换一张”不会切换玩家，也不会增加正式完成题数，但该卡会记为已展示。</li>
+        <li>点击“完成，轮到下一位”后，正式完成题数加一并自动交换玩家。</li>
+        <li>开启进度记忆后，已经展示过的卡片会保存在当前浏览器。</li>
       </ol>
-
-      <p>
-        一切以法法嘉嘉的意愿为主。任何不方便、不愿意回答或不适合公开的题目都可以直接换一张，
-        不需要解释，也不会有惩罚。浏览器只保存已展示卡片编号，不保存回答内容。
-      </p>
+      <p>任意题目都可以直接换一张。浏览器只保存已展示卡片编号，不保存回答内容。</p>
     </div>
   </dialog>
 

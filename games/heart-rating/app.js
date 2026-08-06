@@ -94,6 +94,7 @@
     heRevealScore: $("heRevealScore"),
     differenceScore: $("differenceScore"),
     revealCopy: $("revealCopy"),
+    revealGuide: $("revealGuide"),
     revealNextButton: $("revealNextButton"),
 
     resultBadge: $("resultBadge"),
@@ -201,7 +202,7 @@
   }
 
   function selectedCategory() {
-    return getSelectedValue("category") || "mixed";
+    return "mixed";
   }
 
   function updateProgressPreview() {
@@ -230,13 +231,32 @@
     );
   }
 
+  function buildRecommendedQueue(pool, count) {
+    const plan = [
+      "daily", "daily", "live", "gesture", "live",
+      "gesture", "high", "daily", "gesture", "high"
+    ];
+    const remaining = [...pool];
+    const selected = [];
+
+    for (let index = 0; index < count; index += 1) {
+      const desired = plan[index % plan.length];
+      let candidates = remaining.filter((question) => question.category === desired);
+      if (!candidates.length) candidates = remaining;
+      if (!candidates.length) break;
+      const picked = candidates[Math.floor(Math.random() * candidates.length)];
+      selected.push(picked);
+      remaining.splice(remaining.findIndex((question) => question.id === picked.id), 1);
+    }
+
+    return [...selected, ...shuffle(remaining)];
+  }
+
   function prepareQueue() {
     const pool = buildPool();
-    if (pool.length === 0) {
-      return false;
-    }
+    if (pool.length === 0) return false;
     state.totalRounds = Math.min(state.totalRounds, pool.length);
-    state.queue = shuffle(pool);
+    state.queue = buildRecommendedQueue(pool, state.totalRounds);
     return true;
   }
 
@@ -302,10 +322,10 @@
   }
 
   function updateHeader() {
-    elements.modePill.textContent = modeLabels[state.mode];
+    elements.modePill.textContent = "同时打分";
     elements.roundText.textContent =
       `第 ${state.completed + 1} / ${state.totalRounds} 题`;
-    elements.categoryText.textContent = categoryLabels[state.category];
+    elements.categoryText.textContent = "本轮题目";
     elements.roundProgressBar.style.width =
       `${(state.completed / state.totalRounds) * 100}%`;
   }
@@ -433,6 +453,36 @@
     return "反差分数很有节目效果，也许理由更精彩。";
   }
 
+  function getRevealGuide(scores) {
+    const [faScore, heScore] = scores;
+    const gap = Math.abs(faScore - heScore);
+    const bothHigh = faScore >= 9 && heScore >= 9;
+    const oneHigh = faScore >= 9 || heScore >= 9;
+
+    if (bothHigh) {
+      return {
+        text: "双方高心动：请各自说出这个情境里最戳自己的具体细节。",
+        high: true
+      };
+    }
+    if (gap >= 2) {
+      return {
+        text: "本题出现明显分差：请两个人分别解释为什么会打出这个分数。",
+        high: false
+      };
+    }
+    if (oneHigh) {
+      return {
+        text: "有人打出9分以上：请说出这个情境中最心动的具体细节。",
+        high: true
+      };
+    }
+    return {
+      text: "分数很接近：可以说说你们想到的是不是同一个画面。",
+      high: false
+    };
+  }
+
   function saveRecord(scores) {
     const [faScore, heScore] = scores;
     state.records.push({
@@ -454,6 +504,9 @@
     elements.heRevealScore.textContent = String(heScore);
     elements.differenceScore.textContent = String(gap);
     elements.revealCopy.textContent = getRevealCopy(gap);
+    const guide = getRevealGuide(scores);
+    elements.revealGuide.textContent = guide.text;
+    elements.revealGuide.classList.toggle("is-high", guide.high);
     elements.revealPanel.hidden = false;
   }
 
@@ -590,8 +643,8 @@
   }
 
   function startGame() {
-    state.category = getSelectedValue("category") || "mixed";
-    state.mode = getSelectedValue("mode") || "camera";
+    state.category = "mixed";
+    state.mode = "camera";
     state.totalRounds = Number(getSelectedValue("rounds") || 10);
     state.rememberProgress = elements.rememberProgressCheckbox.checked;
     state.persistedCompleted = loadPersistedCompleted();
@@ -603,12 +656,10 @@
     state.secretScores = [null, null];
     state.cameraScores = [null, null];
 
-    const starter = getSelectedValue("starter") || "0";
-    state.firstRater =
-      starter === "random" ? Math.floor(Math.random() * 2) : Number(starter);
+    state.firstRater = 0;
 
     if (!prepareQueue()) {
-      showToast("当前题目范围已经全部完成，请先清除进度或更换分类。");
+      showToast("题库已经全部完成，请先清除进度。");
       return;
     }
 
@@ -731,7 +782,7 @@
     if (typeof elements.helpDialog.showModal === "function") {
       elements.helpDialog.showModal();
     } else {
-      showToast("可选择镜头同声或秘密打分；题目只用于评价，不要求现场完成。");
+      showToast("倒计时结束后同时说出1—10分，记录分数后再分别说明理由。");
     }
   });
 

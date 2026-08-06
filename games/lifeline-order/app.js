@@ -7,7 +7,7 @@
   const labels = ["A", "B", "C", "D"];
 
   if (!Array.isArray(themes)) {
-    throw new Error("命悬一线主题库未加载。");
+    throw new Error("百分排序挑战主题库未加载。");
   }
 
   const state = {

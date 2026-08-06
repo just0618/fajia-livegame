@@ -25,7 +25,7 @@
   const categoryLabels = {
     simple: "简单动作",
     daily: "日常情境",
-    story: "脑洞剧情",
+    story: "关系情境",
     live: "直播情境",
     fajia: "法嘉专属",
     mixed: "全部混合"
@@ -201,7 +201,7 @@
   }
 
   function selectedCategory() {
-    return getSelectedValue("category") || "mixed";
+    return "mixed";
   }
 
   function updateProgressPreview() {
@@ -230,18 +230,33 @@
     );
   }
 
-  function prepareQuestions() {
-    const pool = shuffle(buildPool());
+  function buildRecommendedQueue(pool, count) {
+    const plan = [
+      "simple", "daily", "simple", "live", "story",
+      "fajia", "story", "live", "story", "fajia"
+    ];
+    const remaining = [...pool];
+    const selected = [];
 
-    if (pool.length === 0) {
-      return false;
+    for (let index = 0; index < count; index += 1) {
+      const desired = plan[index % plan.length];
+      let candidates = remaining.filter((question) => question.category === desired);
+      if (!candidates.length) candidates = remaining;
+      if (!candidates.length) break;
+      const picked = candidates[Math.floor(Math.random() * candidates.length)];
+      selected.push(picked);
+      remaining.splice(remaining.findIndex((question) => question.id === picked.id), 1);
     }
 
-    state.totalRounds = Math.min(state.totalRounds, pool.length);
+    return [...selected, ...shuffle(remaining)];
+  }
 
-    // 保留完整的未完成题库作为抽题队列。
-    // 跳过的题目会排到队尾，因此不会消耗正式回合，也不会立刻再次出现。
-    state.questions = pool;
+  function prepareQuestions() {
+    const pool = buildPool();
+    if (pool.length === 0) return false;
+
+    state.totalRounds = Math.min(state.totalRounds, pool.length);
+    state.questions = buildRecommendedQueue(pool, state.totalRounds);
     state.usedQuestionKeys.clear();
     return true;
   }
@@ -276,7 +291,7 @@
     elements.scoreText.textContent = `${state.correct} / ${judged}`;
     elements.roundText.textContent =
       `第 ${state.currentRound} / ${state.totalRounds} 题`;
-    elements.categoryText.textContent = categoryLabels[state.category];
+    elements.categoryText.textContent = "本轮题目";
     elements.roundProgressBar.style.width =
       `${((state.currentRound - 1) / state.totalRounds) * 100}%`;
   }
@@ -510,7 +525,7 @@
   }
 
   function startGame(starter) {
-    state.category = getSelectedValue("category") || "mixed";
+    state.category = "mixed";
     state.totalRounds = Number(getSelectedValue("rounds") || 10);
     state.rememberProgress = elements.rememberProgressCheckbox.checked;
     state.persistedCompleted = loadPersistedCompleted();
@@ -524,7 +539,7 @@
     state.currentQuestion = null;
 
     if (!prepareQuestions()) {
-      showToast("当前题目范围已经全部猜对，请先清除进度或更换分类。");
+      showToast("题库已经全部猜对，请先清除进度。");
       return;
     }
 
@@ -643,7 +658,7 @@
     if (typeof elements.helpDialog.showModal === "function") {
       elements.helpDialog.showModal();
     } else {
-      showToast("猜题者先移开视线，表演者记题后隐藏题目，再开始30秒挑战。");
+      showToast("表演者查看并记住题目后开始30秒挑战，猜题者不能偷看。");
     }
   });
 

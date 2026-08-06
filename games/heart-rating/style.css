@@ -1082,3 +1082,19 @@ button:focus-visible, a:focus-visible {
     width: 100%;
   }
 }
+
+
+/* V45 · 直播推荐流程与分差讨论提示 */
+.reveal-guide {
+  max-width: 680px;
+  margin: 16px auto 0;
+  padding: 14px 16px;
+  border-radius: 16px;
+  color: var(--ink);
+  background: var(--pink-soft);
+  font-weight: 800;
+  text-align: center;
+}
+.reveal-guide.is-high {
+  background: linear-gradient(135deg, var(--pink-soft), var(--gold-soft));
+}

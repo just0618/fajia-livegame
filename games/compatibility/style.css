@@ -1243,3 +1243,44 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* V46 · examples outside the official question bank */
+.rule-example-box {
+  margin-top: 22px;
+  padding: 20px;
+  border: 1px solid rgba(255, 138, 161, 0.22);
+  border-radius: 20px;
+  background: rgba(255, 240, 244, 0.62);
+}
+
+.rule-example-box h3 {
+  margin: 0;
+  font-size: 1.18rem;
+}
+
+.rule-example-box > p {
+  color: var(--muted);
+}
+
+.rule-example {
+  margin-top: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.rule-example strong {
+  color: var(--pink-dark);
+  font-size: 0.82rem;
+}
+
+.rule-example p {
+  margin: 5px 0 0;
+  color: var(--ink);
+}
+
+.rule-progress-note {
+  margin-bottom: 0;
+  font-size: 0.82rem;
+}

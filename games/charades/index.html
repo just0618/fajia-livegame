@@ -39,191 +39,45 @@
         <p class="eyebrow">GAME 04 · MINI CHARADES</p>
         <h1 id="setupTitle">小动作你比我猜怎么玩？</h1>
         <p>
-          一人查看题目，可以用语言、表情、手势和动作进行描述，另一人需要在30秒内猜出核心意思。
-          不能直接说出题目本身，也不能说出题目中包含的字；不方便的题目可以跳过，跳过不计入本场题数。
-          法嘉专属题库收录的是两个人熟悉的关键词和名场面。
+          一人查看题目，用语言、表情、手势和动作进行描述，但不能说出题目本身，也不能说出题目中包含的字；另一人在30秒内猜题。
         </p>
       </div>
 
       <div class="player-preview" aria-label="参与玩家">
-        <article class="player-chip player-chip-pink">
-          <img src="../../assets/players/fa.webp" alt="法宣阁" />
-          <div>
-            <span>PLAYER 01</span>
-            <strong>法宣阁</strong>
-          </div>
-        </article>
-
+        <article class="player-chip player-chip-pink"><img src="../../assets/players/fa.webp" alt="法宣阁" /><div><span>PLAYER 01</span><strong>法宣阁</strong></div></article>
         <span class="switch-mark" aria-hidden="true">↔</span>
-
-        <article class="player-chip player-chip-gold">
-          <img src="../../assets/players/he.webp" alt="贺嘉述" />
-          <div>
-            <span>PLAYER 02</span>
-            <strong>贺嘉述</strong>
-          </div>
-        </article>
+        <article class="player-chip player-chip-gold"><img src="../../assets/players/he.webp" alt="贺嘉述" /><div><span>PLAYER 02</span><strong>贺嘉述</strong></div></article>
       </div>
 
-      <section class="choice-section" aria-labelledby="categoryTitle">
-        <div class="section-label">
-          <span>STEP 01</span>
-          <h2 id="categoryTitle">选择题目类型</h2>
-        </div>
-
-        <div class="choice-grid category-grid">
-          <label class="choice-card">
-            <input type="radio" name="category" value="simple" />
-            <span class="choice-card-inner">
-              <span class="choice-icon">01</span>
-              <strong>简单动作</strong>
-              <small>动作明确，适合快速热身</small>
-            </span>
-          </label>
-
-          <label class="choice-card">
-            <input type="radio" name="category" value="daily" />
-            <span class="choice-card-inner">
-              <span class="choice-icon">02</span>
-              <strong>日常情境</strong>
-              <small>表演一个生活中的小状况</small>
-            </span>
-          </label>
-
-          <label class="choice-card">
-            <input type="radio" name="category" value="story" />
-            <span class="choice-card-inner">
-              <span class="choice-icon">03</span>
-              <strong>脑洞剧情</strong>
-              <small>包含连续变化的小故事</small>
-            </span>
-          </label>
-
-          <label class="choice-card">
-            <input type="radio" name="category" value="live" />
-            <span class="choice-card-inner">
-              <span class="choice-icon">04</span>
-              <strong>直播情境</strong>
-              <small>专门为直播设计的场景题</small>
-            </span>
-          </label>
-
-          <label class="choice-card">
-            <input type="radio" name="category" value="fajia" />
-            <span class="choice-card-inner">
-              <span class="choice-icon">FJ</span>
-              <strong>法嘉专属</strong>
-              <small>熟悉的关键词与名场面</small>
-            </span>
-          </label>
-
-          <label class="choice-card choice-card-wide">
-            <input type="radio" name="category" value="mixed" checked />
-            <span class="choice-card-inner">
-              <span class="choice-icon">∞</span>
-              <strong>全部混合</strong>
-              <small>五类题目随机出现</small>
-            </span>
-          </label>
-        </div>
-      </section>
-
       <section class="choice-section" aria-labelledby="roundTitle">
-        <div class="section-label">
-          <span>STEP 02</span>
-          <h2 id="roundTitle">选择挑战轮数</h2>
-        </div>
-
+        <div class="section-label"><span>STEP 01</span><h2 id="roundTitle">选择挑战轮数</h2></div>
         <div class="choice-grid round-grid">
-          <label class="choice-card round-card">
-            <input type="radio" name="rounds" value="5" />
-            <span class="choice-card-inner">
-              <strong>5题</strong>
-              <small>快速热场</small>
-            </span>
-          </label>
-
-          <label class="choice-card round-card">
-            <input type="radio" name="rounds" value="10" checked />
-            <span class="choice-card-inner">
-              <strong>10题</strong>
-              <small>标准挑战</small>
-            </span>
-          </label>
-
-          <label class="choice-card round-card">
-            <input type="radio" name="rounds" value="15" />
-            <span class="choice-card-inner">
-              <strong>15题</strong>
-              <small>完整一局</small>
-            </span>
-          </label>
+          <label class="choice-card round-card"><input type="radio" name="rounds" value="5" /><span class="choice-card-inner"><strong>5题</strong><small>快速热场</small></span></label>
+          <label class="choice-card round-card"><input type="radio" name="rounds" value="10" checked /><span class="choice-card-inner"><strong>10题</strong><small>标准挑战</small></span></label>
+          <label class="choice-card round-card"><input type="radio" name="rounds" value="15" /><span class="choice-card-inner"><strong>15题</strong><small>完整一局</small></span></label>
         </div>
       </section>
 
       <section class="choice-section" aria-labelledby="progressTitle">
-        <div class="section-label">
-          <span>STEP 03</span>
-          <h2 id="progressTitle">题库进度</h2>
-        </div>
-
+        <div class="section-label"><span>STEP 02</span><h2 id="progressTitle">题库进度</h2></div>
         <div class="browser-progress-settings">
-          <label class="browser-progress-toggle">
-            <input id="rememberProgressCheckbox" type="checkbox" checked />
-            <span class="custom-checkbox" aria-hidden="true">✓</span>
-            <span>
-              <strong>记住已经猜对的题目，下次继续</strong>
-              <small>点击“猜对了”后才算完成；换题、跳过和超时不会写入长期进度。</small>
-            </span>
-          </label>
-
+          <label class="browser-progress-toggle"><input id="rememberProgressCheckbox" type="checkbox" checked /><span class="custom-checkbox" aria-hidden="true">✓</span><span><strong>记住已经猜对的题目，下次继续</strong><small>点击“猜对了”后才算完成；换题、跳过和超时不会写入长期进度。</small></span></label>
           <div class="browser-progress-summary" aria-live="polite">
-            <div>
-              <span>当前范围</span>
-              <strong id="progressTotalCount">72题</strong>
-            </div>
-            <div>
-              <span>已完成</span>
-              <strong id="progressCompletedCount">0题</strong>
-            </div>
-            <div>
-              <span>未完成</span>
-              <strong id="progressRemainingCount">72题</strong>
-            </div>
+            <div><span>全部题目</span><strong id="progressTotalCount">72题</strong></div>
+            <div><span>已完成</span><strong id="progressCompletedCount">0题</strong></div>
+            <div><span>未完成</span><strong id="progressRemainingCount">72题</strong></div>
           </div>
-
-          <p class="browser-progress-note" id="progressNote">
-            只在当前浏览器保存题目编号，不保存表演或猜题内容。
-          </p>
-
-          <div class="browser-progress-actions">
-            <button class="button button-secondary" id="clearScopeProgressButton" type="button">
-              清除当前范围进度
-            </button>
-            <button class="button button-quiet" id="clearAllProgressButton" type="button">
-              清除全部进度
-            </button>
-          </div>
+          <p class="browser-progress-note" id="progressNote">只在当前浏览器保存题目编号，不保存表演或猜题内容。</p>
+          <div class="browser-progress-actions"><button class="button button-secondary" id="clearScopeProgressButton" type="button">清除题库进度</button><button class="button button-quiet" id="clearAllProgressButton" type="button">清除全部进度</button></div>
         </div>
       </section>
 
       <section class="start-panel" aria-labelledby="starterTitle">
-        <div>
-          <p class="eyebrow">READY TO PLAY</p>
-          <h2 id="starterTitle">谁先表演？</h2>
-          <p>系统会在每一题后自动交换表演者和猜题者。</p>
-        </div>
-
+        <div><p class="eyebrow">STEP 03 · READY TO PLAY</p><h2 id="starterTitle">谁先表演？</h2><p>系统会在每一题后自动交换表演者和猜题者。</p></div>
         <div class="start-buttons">
-          <button class="start-player-button start-pink" type="button" data-starter="0">
-            法宣阁先表演
-          </button>
-          <button class="start-player-button start-gold" type="button" data-starter="1">
-            贺嘉述先表演
-          </button>
-          <button class="start-player-button start-random" type="button" data-starter="random">
-            随机选择
-          </button>
+          <button class="start-player-button start-pink" type="button" data-starter="0">法宣阁先表演</button>
+          <button class="start-player-button start-gold" type="button" data-starter="1">贺嘉述先表演</button>
+          <button class="start-player-button start-random" type="button" data-starter="random">随机选择</button>
         </div>
       </section>
     </section>
@@ -243,7 +97,7 @@
       <div class="round-progress">
         <div class="round-copy">
           <span id="roundText">第 1 / 10 题</span>
-          <span id="categoryText">全部混合</span>
+          <span id="categoryText">本轮题目</span>
         </div>
         <div class="progress-track" aria-hidden="true">
           <span id="roundProgressBar"></span>
@@ -420,10 +274,10 @@
       </div>
 
       <ol>
-        <li>选择题目类型、表演规则、轮数和第一位表演者。</li>
+        <li>选择挑战轮数和第一位表演者。</li>
         <li>猜题者先移开视线，只有表演者查看并记住题目。</li>
         <li>题目隐藏后，开始30秒倒计时。</li>
-        <li>表演者只能使用允许的动作或拟声词，不能直接说答案。</li>
+        <li>表演者可以使用语言、表情、手势和动作，但不能说出题目本身，也不能说出题目中包含的字。</li>
         <li>猜出核心情境后点击“猜中了”；跳过时本轮题号不变，并由当前表演者补抽一题。</li>
         <li>猜中或倒计时结束后才算完成一个正式回合，并自动交换角色。</li>
         <li>最终只显示团队成绩。</li>

@@ -52,10 +52,6 @@
 
   const elements = {
     setupScreen: document.getElementById("setupScreen"),
-    libraryModeNote: document.getElementById("libraryModeNote"),
-    truthModeCount: document.getElementById("truthModeCount"),
-    dareModeCount: document.getElementById("dareModeCount"),
-    randomModeCount: document.getElementById("randomModeCount"),
     playScreen: document.getElementById("playScreen"),
     resultScreen: document.getElementById("resultScreen"),
     startButtons: document.querySelectorAll("[data-starter]"),
@@ -78,7 +74,6 @@
     remainingText: document.getElementById("remainingText"),
     progressBar: document.getElementById("progressBar"),
     rememberProgressCheckbox: document.getElementById("rememberProgressCheckbox"),
-    allAvailableLabel: document.getElementById("allAvailableLabel"),
     roundAvailabilityNote: document.getElementById("roundAvailabilityNote"),
     scopeTotalCount: document.getElementById("scopeTotalCount"),
     scopeSeenCount: document.getElementById("scopeSeenCount"),
@@ -127,10 +122,7 @@
   }
 
   function currentSelection() {
-    return {
-      libraryMode: getSelectedValue("libraryMode") || "live",
-      mode: getSelectedValue("mode") || "random"
-    };
+    return { libraryMode: "live", mode: "random" };
   }
 
   function buildPoolsForSelection(selection) {
@@ -261,52 +253,18 @@
     const remember = elements.rememberProgressCheckbox.checked;
     const seenInScope = allCards.filter((card) => persisted.has(card.id)).length;
     const remaining = remember ? allCards.length - seenInScope : allCards.length;
-    const selectedLimit = getSelectedValue("roundLimit") || "10";
-    const requested =
-      selectedLimit === "all" ? remaining : Number(selectedLimit);
-    const actualTarget = Math.min(requested, remaining);
+    const selectedLimit = Number(getSelectedValue("roundLimit") || 10);
+    const actualTarget = Math.min(selectedLimit, remaining);
 
-    const truthCount = pools.truth.length;
-    const dareCount = pools.dare.length;
     elements.scopeTotalCount.textContent = `${allCards.length}张`;
     elements.scopeSeenCount.textContent = remember ? `${seenInScope}张` : "不读取";
     elements.scopeRemainingCount.textContent = `${remaining}张`;
-    elements.allAvailableLabel.textContent = `当前剩余 ${remaining} 题`;
-    elements.truthModeCount.textContent = selection.libraryMode === "live"
-      ? "当前推荐池101道真心话"
-      : "完整题库119道真心话";
-    elements.dareModeCount.textContent = selection.libraryMode === "live"
-      ? "当前推荐池43道大冒险"
-      : "完整题库48道大冒险";
-    elements.randomModeCount.textContent = selection.libraryMode === "live"
-      ? "按直播节奏混合抽取144张推荐卡"
-      : "按原方式混合抽取完整167张卡片";
-    elements.libraryModeNote.textContent = selection.libraryMode === "live"
-      ? "当前推荐池共144张：先热场，再逐步进入关系、害羞和高光内容。"
-      : "当前使用完整167张卡片，所有可用题目按原方式随机出现。";
-
-    if (!remember) {
-      elements.storageNote.textContent =
-        "本场不会读取或写入历史进度，但本场内已经展示过的卡片仍不会重复。";
-    } else {
-      elements.storageNote.textContent =
-        "同一设备、同一浏览器会继续进度；无痕模式、清除网站数据或更换设备后无法保留。";
-    }
-
-    if (remaining === 0) {
-      elements.roundAvailabilityNote.textContent =
-        "当前模式题库已经全部完成，请清除进度或切换游玩模式。";
-    } else if (selectedLimit === "all") {
-      elements.roundAvailabilityNote.textContent =
-        `本场将玩完当前剩余的 ${remaining} 题。`;
-    } else if (actualTarget < requested) {
-      elements.roundAvailabilityNote.textContent =
-        `当前只剩 ${remaining} 题，本场将完成全部剩余题目。`;
-    } else {
-      elements.roundAvailabilityNote.textContent =
-        `本场预计完成 ${actualTarget} 题。`;
-    }
-
+    elements.roundAvailabilityNote.textContent = remaining === 0
+      ? "题库已经全部展示，请清除进度后再开始。"
+      : `本场可以完成${actualTarget}题。`;
+    elements.storageNote.textContent = remember
+      ? "同一设备、同一浏览器会继续进度；无痕模式、清除网站数据或更换设备后无法保留。"
+      : "本场不会读取或写入历史进度，但同一局内不会重复展示卡片。";
     elements.clearScopeProgressButton.disabled = seenInScope === 0;
     elements.clearAllProgressButton.disabled = persisted.size === 0;
   }
@@ -369,14 +327,12 @@
     elements.questionCard.classList.toggle("is-dare", type === "dare");
     elements.questionCard.classList.remove("is-intimate");
     elements.cardType.textContent = typeLabels[type];
-    elements.cardLevel.textContent = state.libraryMode === "live"
-      ? (tierLabels[card.liveTier] || "直播推荐")
-      : "全部题库";
+    elements.cardLevel.textContent = "本轮题目";
     elements.cardNumber.textContent =
       `CARD ${String(state.cardCount).padStart(2, "0")}`;
     elements.cardQuestion.textContent = card.text;
     elements.cardTip.textContent =
-      "不方便、不愿意或不适合公开时，直接换一张即可；无需解释，也不会有惩罚。";
+      "任意题目都可以直接换一张。";
     elements.cardSource.hidden = !card.source;
     elements.cardSource.textContent = card.source
       ? `题目灵感：${card.source}`
@@ -424,17 +380,16 @@
   function beginGame(starter) {
     const selection = currentSelection();
 
-    state.libraryMode = selection.libraryMode;
-    state.mode = selection.mode;
+    state.libraryMode = "live";
+    state.mode = "random";
     state.rememberProgress = elements.rememberProgressCheckbox.checked;
     state.requestedLimit = getSelectedValue("roundLimit") || "10";
     state.persistedSeen = loadPersistedSeen();
     state.activePools = buildPoolsForSelection(selection);
     state.sessionSeen = new Set();
-    state.currentPlayerIndex =
-      starter === "random"
-        ? Math.floor(Math.random() * players.length)
-        : Number(starter);
+    state.currentPlayerIndex = starter === "random"
+      ? Math.floor(Math.random() * players.length)
+      : Number(starter);
     state.turn = 1;
     state.cardCount = 0;
     state.completedCount = 0;
@@ -443,25 +398,17 @@
     state.endedBecauseExhausted = false;
 
     const remainingAtStart = allAvailableCards().length;
-
     if (remainingAtStart === 0) {
-      showToast("当前选择范围已经全部完成，请先清除进度或更换范围。");
+      showToast("题库已经全部展示，请先清除进度。");
       return;
     }
 
-    const requested =
-      state.requestedLimit === "all"
-        ? remainingAtStart
-        : Number(state.requestedLimit);
-    state.targetCount = Math.min(requested, remainingAtStart);
-    state.livePlan = state.libraryMode === "live"
-      ? buildLivePlan(state.targetCount, state.mode)
-      : [];
+    state.targetCount = Math.min(Number(state.requestedLimit), remainingAtStart);
+    state.livePlan = buildLivePlan(state.targetCount, "random");
 
     elements.setupScreen.hidden = true;
     elements.resultScreen.hidden = true;
     elements.playScreen.hidden = false;
-
     updatePlayProgress();
     drawCard();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -529,7 +476,7 @@
 
     if (state.endedBecauseExhausted && state.completedCount < state.targetCount) {
       elements.resultSubtitle.textContent =
-        "当前模式题库已经没有未展示卡片，本场提前完成。";
+        "题库已经没有未展示卡片，本场提前完成。";
     } else {
       elements.resultSubtitle.textContent =
         `本场计划完成${state.targetCount}题，正式完成${state.completedCount}题。`;
@@ -537,10 +484,10 @@
 
     if (!state.rememberProgress) {
       elements.resultMessage.textContent =
-        "本场没有写入历史进度。返回设置后可以重新抽取完整题库。";
+        "本场没有写入历史进度，返回设置后可以重新开始。";
     } else if (stats.remaining === 0) {
       elements.resultMessage.textContent =
-        "当前模式题库已经全部完成。下次可以切换游玩模式，或清除当前模式进度后重新开始。";
+        "题库已经全部完成。清除进度后可以重新开始。";
     } else {
       elements.resultMessage.textContent =
         `已保存到当前浏览器，下次将从剩余${stats.remaining}张卡片继续。`;
@@ -648,7 +595,7 @@
       elements.helpDialog.showModal();
     } else {
       showToast(
-        "默认直播推荐模式会控制整场题目节奏；也可以切换到完整167张题库随机。任何题目都可以直接换一张。"
+        "选择题数和第一位玩家后开始；抽到真心话就回答，抽到大冒险就完成任务，任意题目都可以直接换一张。"
       );
     }
   });

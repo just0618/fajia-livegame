@@ -202,9 +202,7 @@
     }
 
     state.totalRounds = Math.min(state.totalRounds, available.length);
-    state.questions = state.questionMode === "live"
-      ? buildRecommendedQuestions(available, state.totalRounds)
-      : shuffle(available).slice(0, state.totalRounds);
+    state.questions = buildRecommendedQuestions(available, state.totalRounds);
     return state.questions.length > 0;
   }
 
@@ -218,9 +216,7 @@
 
     elements.roundText.textContent =
       `第 ${state.currentRound} / ${state.totalRounds} 题`;
-    elements.themeText.textContent = state.questionMode === "live"
-      ? "直播推荐"
-      : "全部题库随机";
+    elements.themeText.textContent = "本轮题目";
     elements.roundProgressBar.style.width = `${progress}%`;
   }
 
@@ -398,7 +394,7 @@
   }
 
   function startGame() {
-    state.questionMode = getSelectedValue("questionMode") || "live";
+    state.questionMode = "live";
     state.totalRounds = Number(getSelectedValue("rounds") || 10);
     state.rememberProgress = elements.rememberProgressCheckbox.checked;
     state.persistedCompleted = loadPersistedCompleted();
@@ -484,7 +480,7 @@
     if (typeof elements.helpDialog.showModal === "function") {
       elements.helpDialog.showModal();
     } else {
-      showToast("直播推荐模式会按热场、关系、反应差和高光题安排节奏；倒计时后同时回答即可。");
+      showToast("倒计时结束后同时回答，再由两个人自行判断是否默契。");
     }
   });
 
