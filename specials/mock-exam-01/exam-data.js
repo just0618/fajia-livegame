@@ -201,7 +201,7 @@ window.FAJIA_MOCK_EXAM = {
   },
   "vlog": {
     "title": "必做题：Vlog 拍摄",
-    "subtitle": "日子还久路还长，可以慢慢做",
+    "subtitle": "日子还久路还长，可以慢慢做。以上 Vlog 任务无需当场完成，看完并知晓后即可进入下一环节。",
     "items": [
       {
         "id": "vlog-01",

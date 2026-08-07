@@ -160,8 +160,8 @@
     if (unseen.length < count) return [];
 
     const plans = {
-      3: ["simple", "story", Math.random() < 0.42 ? "fajia" : "live"],
-      5: ["simple", "story", "daily", "live", "fajia"]
+      3: ["simple", "story", "live"],
+      5: ["simple", "story", "daily", "live", "story"]
     };
 
     const plan = plans[count] || plans[5];
@@ -199,23 +199,13 @@
       return;
     }
 
-    const isFajia = state.current.category === "fajia";
     elements.roundText.textContent =
       `ROUND ${String(state.completed + 1).padStart(2, "0")} / ${String(state.totalRounds).padStart(2, "0")}`;
-
-    if (isFajia) {
-      elements.modePill.textContent = "法嘉彩蛋";
-      elements.questionType.textContent = "法嘉彩蛋 · 同时表达";
-      elements.questionText.textContent = `「${state.current.text}」`;
-      elements.questionHint.textContent =
-        "不要商量。两个人同时用一个动作或短表演表达这个词，看看会不会想到一起。";
-    } else {
-      elements.modePill.textContent = "双向模仿";
-      elements.questionType.textContent = "双向模仿 · 同时表演";
-      elements.questionText.textContent = state.current.text;
-      elements.questionHint.textContent =
-        "两个人都演“自己眼里的对方”。结束后可以说说哪里最像、哪里不像。";
-    }
+    elements.modePill.textContent = "双向模仿";
+    elements.questionType.textContent = "双向模仿 · 同时表演";
+    elements.questionText.textContent = state.current.text;
+    elements.questionHint.textContent =
+      "两个人都演“自己眼里的对方”。结束后可以说说哪里最像、哪里不像。";
 
     resetCountdownUI();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -241,9 +231,7 @@
       state.timer = null;
       elements.countdownNumber.textContent = "GO";
       elements.countdownLabel.textContent =
-        state.current?.category === "fajia"
-          ? "一起演！看看你们对这个词的理解会不会撞上。"
-          : "一起演！看看对方眼里的自己是什么样。";
+        "一起演！看看对方眼里的自己是什么样。";
       elements.countdownButton.hidden = true;
       elements.completeButton.hidden = false;
     }, 1000);
