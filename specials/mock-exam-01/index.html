@@ -9,7 +9,7 @@
     content="法嘉致富模拟测试卷（一）：适合法嘉直播时进行的特别答卷。"
   />
   <title>法嘉致富模拟测试卷（一）</title>
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./style.css?v=58-20260808" />
 </head>
 <body>
   <div class="background-shape shape-pink" aria-hidden="true"></div>
@@ -39,16 +39,40 @@
         <p class="eyebrow">本期推荐模拟测试卷</p>
         <h1>法嘉致富模拟测试卷（一）</h1>
         <p class="intro-description">
-          一题一页进行，现场口头回答。网页只记录进行位置、跳过题目和Vlog任务完成状态，
-          不保存选择题、Yes or No或简答题的具体答案。
+          选择一种答题方式后开始。可以直接在直播间说出答案，也可以两个人分别作答，
+          等两个人都完成后再一起公布。网页只记录答卷进度，不长期保存具体答案。
         </p>
 
         <div class="exam-structure" aria-label="试卷结构">
           <div><span>选择题</span><strong>5题</strong></div>
           <div><span>Yes or No</span><strong>10题</strong></div>
           <div><span>简答题</span><strong>20题</strong></div>
-          <div><span>Vlog拍摄</span><strong>7项</strong></div>
+          <div><span>Vlog拍摄建议</span><strong>7项</strong></div>
+          <div><span>宣誓环节</span><strong>1项</strong></div>
         </div>
+
+        <section class="answer-mode-section" aria-labelledby="answerModeTitle">
+          <p class="eyebrow">ANSWER MODE</p>
+          <h2 id="answerModeTitle">选择答题方式</h2>
+
+          <div class="answer-mode-grid">
+            <label class="answer-mode-card">
+              <input id="answerModeDirect" type="radio" name="answerMode" value="direct" checked />
+              <span class="answer-mode-card-inner">
+                <strong>直接在直播间说出答案</strong>
+                <span>看到题目后直接回答，适合一边答一边聊。</span>
+              </span>
+            </label>
+
+            <label class="answer-mode-card">
+              <input id="answerModeReveal" type="radio" name="answerMode" value="reveal" />
+              <span class="answer-mode-card-inner">
+                <strong>分别作答后公布答案</strong>
+                <span>一人先答并隐藏，另一人再答；两个人都完成后一起公布。</span>
+              </span>
+            </label>
+          </div>
+        </section>
 
         <div class="intro-actions">
           <button class="button button-primary" id="startButton" type="button">
@@ -88,13 +112,18 @@
 
         <h1 id="questionText" tabindex="-1"></h1>
 
+        <div class="blind-stage-banner" id="blindStageBanner" hidden>
+          <strong id="blindStageTitle">本题先答：法宣阁</strong>
+          <span id="blindStageText">答完后点击“锁定并隐藏”，再交给另一人。</span>
+        </div>
+
         <div class="answer-area" id="answerArea"></div>
 
-        <p class="live-answer-tip" id="liveAnswerTip" hidden>
-          请法嘉看到题目后，直接在直播间对观众说出答案。
+        <p class="live-answer-tip" id="liveAnswerTip">
+          两个人直接在直播间说出答案。
         </p>
 
-        <p class="answer-privacy">
+        <p class="answer-privacy" id="answerPrivacy">
           本题的具体答案不会写入浏览器记录。
         </p>
       </article>
@@ -155,7 +184,7 @@
       <div class="section-intro">
         <p class="eyebrow">REQUIRED TASK · VLOG</p>
         <h1>必做题：Vlog 拍摄</h1>
-        <p>日子还久路还长，可以慢慢做</p>
+        <p id="vlogSubtitle">日子还久路还长，可以慢慢做。以上 Vlog 任务无需当场完成，看完并知晓后即可进入下一环节。</p>
       </div>
 
       <div class="vlog-progress">
@@ -238,7 +267,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="./exam-data.js"></script>
-  <script src="./app.js"></script>
+  <script src="./exam-data.js?v=58-20260808"></script>
+  <script src="./app.js?v=58-20260808"></script>
 </body>
 </html>

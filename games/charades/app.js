@@ -3,7 +3,7 @@
 
   const bank = window.FAJIA_CHARADES_BANK;
   const STORAGE_KEY = "fajia-livegame.dual-imitation.completed.v1";
-  const STORAGE_VERSION = 1;
+  const STORAGE_VERSION = 2;
 
   if (!bank) {
     throw new Error("题库未加载，请确认 questions.js 与 app.js 位于同一文件夹。");
@@ -127,13 +127,10 @@
   }
 
   const LOW_FREQUENCY_IDS = new Set([
-    "dual-imitation-fajia-06",
-    "dual-imitation-fajia-07",
-    "dual-imitation-fajia-09",
     "dual-imitation-live-06",
     "dual-imitation-simple-01",
     "dual-imitation-simple-06",
-    "dual-imitation-simple-07",
+    "dual-imitation-simple-07"
   ]);
 
   function pickOne(items) {

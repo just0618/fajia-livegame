@@ -23,6 +23,7 @@
   const defaultState = () => ({
     phase: "intro",
     questionIndex: 0,
+    answerMode: "direct",
     completedQuestionIds: [],
     skippedQuestionIds: [],
     vlogCompletedIds: [],
@@ -31,6 +32,7 @@
 
   let state = loadState();
   let toastTimer;
+  let hiddenAnswerSession = null;
 
   const elements = {
     introScreen: document.getElementById("introScreen"),
@@ -41,6 +43,8 @@
     completeScreen: document.getElementById("completeScreen"),
     startButton: document.getElementById("startButton"),
     resumeNote: document.getElementById("resumeNote"),
+    answerModeDirect: document.getElementById("answerModeDirect"),
+    answerModeReveal: document.getElementById("answerModeReveal"),
     globalProgressText: document.getElementById("globalProgressText"),
     sectionProgressText: document.getElementById("sectionProgressText"),
     progressBar: document.getElementById("progressBar"),
@@ -48,8 +52,12 @@
     questionInstruction: document.getElementById("questionInstruction"),
     questionNumber: document.getElementById("questionNumber"),
     questionText: document.getElementById("questionText"),
+    blindStageBanner: document.getElementById("blindStageBanner"),
+    blindStageTitle: document.getElementById("blindStageTitle"),
+    blindStageText: document.getElementById("blindStageText"),
     answerArea: document.getElementById("answerArea"),
     liveAnswerTip: document.getElementById("liveAnswerTip"),
+    answerPrivacy: document.getElementById("answerPrivacy"),
     previousButton: document.getElementById("previousButton"),
     skipButton: document.getElementById("skipButton"),
     completeQuestionButton: document.getElementById("completeQuestionButton"),
@@ -58,6 +66,7 @@
     punishmentCard: document.getElementById("punishmentCard"),
     reviewSkippedButton: document.getElementById("reviewSkippedButton"),
     enterVlogButton: document.getElementById("enterVlogButton"),
+    vlogSubtitle: document.getElementById("vlogSubtitle"),
     vlogProgressText: document.getElementById("vlogProgressText"),
     vlogList: document.getElementById("vlogList"),
     backToSummaryButton: document.getElementById("backToSummaryButton"),
@@ -90,6 +99,8 @@
     normalized.questionIndex = Number.isInteger(candidate.questionIndex)
       ? Math.min(Math.max(candidate.questionIndex, 0), questions.length - 1)
       : 0;
+    normalized.answerMode =
+      candidate.answerMode === "reveal" ? "reveal" : "direct";
 
     for (const key of [
       "completedQuestionIds",
@@ -122,6 +133,10 @@
     }
   }
 
+  function clearHiddenAnswerSession() {
+    hiddenAnswerSession = null;
+  }
+
   function clearStoredState() {
     try {
       window.localStorage.removeItem(STORAGE_KEY);
@@ -129,6 +144,7 @@
       // The in-memory reset below still works.
     }
     state = defaultState();
+    clearHiddenAnswerSession();
     render();
     showToast("答卷进度已清除。");
   }
@@ -167,6 +183,7 @@
 
   function setPhase(phase) {
     state.phase = phase;
+    clearHiddenAnswerSession();
     saveState();
     render();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -182,6 +199,12 @@
     return [...set];
   }
 
+  function selectedAnswerMode() {
+    return document.querySelector('input[name="answerMode"]:checked')?.value === "reveal"
+      ? "reveal"
+      : "direct";
+  }
+
   function renderIntro() {
     showOnly(elements.introScreen);
     const resume = hasProgress();
@@ -189,25 +212,41 @@
     elements.startButton.firstChild.textContent = resume
       ? "继续答卷 "
       : "开始答卷 ";
+
+    elements.answerModeDirect.checked = state.answerMode !== "reveal";
+    elements.answerModeReveal.checked = state.answerMode === "reveal";
   }
 
-  function renderAnswerArea(question) {
+  function createOptionButton(option, singleSelect) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "option-button";
+    button.setAttribute("aria-pressed", "false");
+    button.dataset.answerValue = option;
+    button.textContent = option;
+
+    button.addEventListener("click", () => {
+      if (singleSelect) {
+        elements.answerArea.querySelectorAll(".option-button").forEach((item) => {
+          item.setAttribute("aria-pressed", String(item === button));
+        });
+      } else {
+        button.setAttribute(
+          "aria-pressed",
+          button.getAttribute("aria-pressed") === "true" ? "false" : "true"
+        );
+      }
+    });
+
+    return button;
+  }
+
+  function renderDirectAnswerArea(question) {
     elements.answerArea.innerHTML = "";
 
     if (Array.isArray(question.options)) {
       question.options.forEach((option) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "option-button";
-        button.setAttribute("aria-pressed", "false");
-        button.textContent = option;
-        button.addEventListener("click", () => {
-          button.setAttribute(
-            "aria-pressed",
-            button.getAttribute("aria-pressed") === "true" ? "false" : "true"
-          );
-        });
-        elements.answerArea.appendChild(button);
+        elements.answerArea.appendChild(createOptionButton(option, false));
       });
       return;
     }
@@ -221,6 +260,7 @@
         button.type = "button";
         button.className = "yes-no-button";
         button.setAttribute("aria-pressed", "false");
+        button.dataset.answerValue = label;
         button.textContent = label;
         button.addEventListener("click", () => {
           grid.querySelectorAll("button").forEach((item) => {
@@ -240,6 +280,176 @@
     elements.answerArea.appendChild(prompt);
   }
 
+  function respondentOrder(questionIndex) {
+    return questionIndex % 2 === 0
+      ? ["法宣阁", "贺嘉述"]
+      : ["贺嘉述", "法宣阁"];
+  }
+
+  function ensureHiddenAnswerSession(question) {
+    if (
+      hiddenAnswerSession &&
+      hiddenAnswerSession.questionId === question.id
+    ) {
+      return;
+    }
+
+    hiddenAnswerSession = {
+      questionId: question.id,
+      respondents: respondentOrder(state.questionIndex),
+      stage: 0,
+      answers: {}
+    };
+  }
+
+  function currentRespondent() {
+    if (!hiddenAnswerSession) return "";
+    return hiddenAnswerSession.respondents[Math.min(hiddenAnswerSession.stage, 1)];
+  }
+
+  function renderRevealInput(question) {
+    elements.answerArea.innerHTML = "";
+    const person = currentRespondent();
+
+    if (Array.isArray(question.options)) {
+      question.options.forEach((option) => {
+        elements.answerArea.appendChild(createOptionButton(option, true));
+      });
+
+      if (question.options.some((option) => option.includes("其他"))) {
+        const detail = document.createElement("input");
+        detail.type = "text";
+        detail.className = "other-answer-input";
+        detail.id = "otherAnswerInput";
+        detail.placeholder = `${person}如果选择“其他”，可以在这里补充`;
+        detail.autocomplete = "off";
+        elements.answerArea.appendChild(detail);
+      }
+      return;
+    }
+
+    if (question.sectionId === "yes-no") {
+      const grid = document.createElement("div");
+      grid.className = "yes-no-grid";
+
+      ["是 / 会", "否 / 不会"].forEach((label) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "yes-no-button";
+        button.setAttribute("aria-pressed", "false");
+        button.dataset.answerValue = label;
+        button.textContent = label;
+        button.addEventListener("click", () => {
+          grid.querySelectorAll("button").forEach((item) => {
+            item.setAttribute("aria-pressed", String(item === button));
+          });
+        });
+        grid.appendChild(button);
+      });
+
+      elements.answerArea.appendChild(grid);
+      return;
+    }
+
+    const textarea = document.createElement("textarea");
+    textarea.className = "blind-short-answer";
+    textarea.id = "blindShortAnswer";
+    textarea.rows = 5;
+    textarea.placeholder = `${person}在这里输入答案；锁定后会立即隐藏。`;
+    textarea.autocomplete = "off";
+    elements.answerArea.appendChild(textarea);
+  }
+
+  function captureRevealAnswer(question) {
+    if (Array.isArray(question.options)) {
+      const selected = elements.answerArea.querySelector(
+        '.option-button[aria-pressed="true"]'
+      );
+      if (!selected) return "";
+
+      let value = selected.dataset.answerValue || selected.textContent.trim();
+      const detail = elements.answerArea.querySelector("#otherAnswerInput");
+      if (detail && detail.value.trim() && value.includes("其他")) {
+        value += `：${detail.value.trim()}`;
+      }
+      return value;
+    }
+
+    if (question.sectionId === "yes-no") {
+      const selected = elements.answerArea.querySelector(
+        '.yes-no-button[aria-pressed="true"]'
+      );
+      return selected
+        ? selected.dataset.answerValue || selected.textContent.trim()
+        : "";
+    }
+
+    return elements.answerArea.querySelector("#blindShortAnswer")?.value.trim() || "";
+  }
+
+  function renderRevealResult() {
+    elements.answerArea.innerHTML = "";
+
+    const reveal = document.createElement("div");
+    reveal.className = "answer-reveal-grid";
+
+    ["法宣阁", "贺嘉述"].forEach((person) => {
+      const card = document.createElement("article");
+      card.className = `answer-reveal-card ${
+        person === "法宣阁" ? "answer-reveal-fa" : "answer-reveal-he"
+      }`;
+
+      const label = document.createElement("span");
+      label.textContent = person;
+
+      const answer = document.createElement("strong");
+      answer.textContent = hiddenAnswerSession.answers[person] || "—";
+
+      card.append(label, answer);
+      reveal.appendChild(card);
+    });
+
+    elements.answerArea.appendChild(reveal);
+  }
+
+  function renderRevealMode(question) {
+    ensureHiddenAnswerSession(question);
+    elements.blindStageBanner.hidden = false;
+    elements.liveAnswerTip.hidden = true;
+    elements.answerPrivacy.textContent =
+      "本题答案只在当前页面临时保留到揭晓，不写入浏览器记录；刷新页面后会清除。";
+
+    if (hiddenAnswerSession.stage < 2) {
+      const person = currentRespondent();
+      const other = hiddenAnswerSession.respondents[hiddenAnswerSession.stage === 0 ? 1 : 0];
+
+      elements.blindStageTitle.textContent =
+        hiddenAnswerSession.stage === 0
+          ? `本题先答：${person}`
+          : `${person}作答`;
+      elements.blindStageText.textContent =
+        hiddenAnswerSession.stage === 0
+          ? `答完后点击“锁定并隐藏”，再交给${other}。`
+          : `${hiddenAnswerSession.respondents[0]}的答案已经隐藏。答完后一起公布。`;
+
+      renderRevealInput(question);
+
+      elements.completeQuestionButton.firstChild.textContent =
+        hiddenAnswerSession.stage === 0
+          ? "锁定并隐藏 "
+          : "锁定并公布答案 ";
+      elements.previousButton.disabled =
+        state.questionIndex === 0 || hiddenAnswerSession.stage > 0;
+      return;
+    }
+
+    elements.blindStageTitle.textContent = "两个人都答完了";
+    elements.blindStageText.textContent = "现在一起看答案。";
+    renderRevealResult();
+    elements.completeQuestionButton.firstChild.textContent = "看下一题 ";
+    elements.previousButton.disabled = state.questionIndex === 0;
+  }
+
   function renderQuiz() {
     showOnly(elements.quizScreen);
     const question = questions[state.questionIndex];
@@ -255,17 +465,43 @@
     elements.questionNumber.textContent =
       String(state.questionIndex + 1).padStart(2, "0");
     elements.questionText.textContent = question.text;
-    elements.previousButton.disabled = state.questionIndex === 0;
-    elements.liveAnswerTip.hidden = question.sectionId !== "choice";
 
-    renderAnswerArea(question);
+    if (state.answerMode === "reveal") {
+      renderRevealMode(question);
+    } else {
+      clearHiddenAnswerSession();
+      elements.blindStageBanner.hidden = true;
+      elements.liveAnswerTip.hidden = false;
+      elements.liveAnswerTip.textContent = "两个人直接在直播间说出答案。";
+      elements.answerPrivacy.textContent =
+        "本题的具体答案不会写入浏览器记录。";
+      elements.previousButton.disabled = state.questionIndex === 0;
+      elements.completeQuestionButton.firstChild.textContent =
+        "两个人都回答完了 ";
+      renderDirectAnswerArea(question);
+    }
 
     window.requestAnimationFrame(() => {
       elements.questionText.focus({ preventScroll: true });
     });
   }
 
+  function markCurrentQuestionCompleted() {
+    const question = questions[state.questionIndex];
+    state.completedQuestionIds = replaceId(
+      state.completedQuestionIds,
+      question.id,
+      true
+    );
+    state.skippedQuestionIds = replaceId(
+      state.skippedQuestionIds,
+      question.id,
+      false
+    );
+  }
+
   function advanceAfterQuestion() {
+    clearHiddenAnswerSession();
     if (state.questionIndex >= questions.length - 1) {
       state.phase = "summary";
     } else {
@@ -278,16 +514,31 @@
 
   function completeCurrentQuestion() {
     const question = questions[state.questionIndex];
-    state.completedQuestionIds = replaceId(
-      state.completedQuestionIds,
-      question.id,
-      true
-    );
-    state.skippedQuestionIds = replaceId(
-      state.skippedQuestionIds,
-      question.id,
-      false
-    );
+
+    if (state.answerMode !== "reveal") {
+      markCurrentQuestionCompleted();
+      advanceAfterQuestion();
+      return;
+    }
+
+    ensureHiddenAnswerSession(question);
+
+    if (hiddenAnswerSession.stage < 2) {
+      const answer = captureRevealAnswer(question);
+      if (!answer) {
+        showToast("先完成当前答案，再继续。");
+        return;
+      }
+
+      const person = currentRespondent();
+      hiddenAnswerSession.answers[person] = answer;
+      hiddenAnswerSession.stage += 1;
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    markCurrentQuestionCompleted();
     advanceAfterQuestion();
   }
 
@@ -330,6 +581,7 @@
 
     state.questionIndex = index;
     state.phase = "quiz";
+    clearHiddenAnswerSession();
     saveState();
     render();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -337,6 +589,7 @@
 
   function renderVlog() {
     showOnly(elements.vlogScreen);
+    elements.vlogSubtitle.textContent = exam.vlog.subtitle;
     elements.vlogList.innerHTML = "";
 
     exam.vlog.items.forEach((item, index) => {
@@ -453,12 +706,16 @@
   }
 
   elements.startButton.addEventListener("click", () => {
+    state.answerMode = selectedAnswerMode();
+
     if (!hasProgress()) {
       state.phase = "quiz";
       state.questionIndex = 0;
     } else if (state.phase === "intro") {
       state.phase = "quiz";
     }
+
+    clearHiddenAnswerSession();
     saveState();
     render();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -467,6 +724,7 @@
   elements.previousButton.addEventListener("click", () => {
     if (state.questionIndex === 0) return;
     state.questionIndex -= 1;
+    clearHiddenAnswerSession();
     saveState();
     renderQuiz();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -486,7 +744,7 @@
 
   elements.restartExamButton.addEventListener("click", () => {
     state = defaultState();
-    state.phase = "quiz";
+    clearHiddenAnswerSession();
     saveState();
     render();
     window.scrollTo({ top: 0, behavior: "smooth" });
