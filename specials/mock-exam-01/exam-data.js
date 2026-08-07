@@ -1,5 +1,5 @@
 window.FAJIA_MOCK_EXAM = {
-  "title": "发家致富模拟测试卷（一）",
+  "title": "法嘉致富模拟测试卷（一）",
   "sections": [
     {
       "id": "choice",
