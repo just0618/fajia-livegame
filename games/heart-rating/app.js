@@ -2,8 +2,8 @@
   "use strict";
 
   const bank = window.FAJIA_HEART_RATING_BANK;
-  const STORAGE_KEY = "fajia-livegame.heart-rating.completed.v1";
-  const STORAGE_VERSION = 1;
+  const STORAGE_KEY = "fajia-livegame.heart-rating.completed.v2";
+  const STORAGE_VERSION = 2;
   if (!bank) {
     throw new Error("题库未加载，请确认 questions.js 与 app.js 位于同一文件夹。");
   }
@@ -14,15 +14,23 @@
   ];
 
   const categoryLabels = {
-    daily: "轻松日常",
+    daily: "日常照顾",
     gesture: "心动小动作",
-    live: "直播与工作",
-    high: "高心动动作",
-    mixed: "全部混合"
+    live: "相处互动",
+    high: "高心动情境",
+    mixed: "全部题目"
   };
 
+  const LOW_FREQUENCY_HIGH_IDS = new Set([
+    "heart-rating-high-01",
+    "heart-rating-high-02",
+    "heart-rating-high-05",
+    "heart-rating-high-09",
+    "heart-rating-high-14"
+  ]);
+
   const modeLabels = {
-    camera: "镜头同声",
+    camera: "同时说分",
     secret: "秘密打分"
   };
 
@@ -231,11 +239,33 @@
     );
   }
 
-  function buildRecommendedQueue(pool, count) {
-    const plan = [
-      "daily", "daily", "live", "gesture", "live",
-      "gesture", "high", "daily", "gesture", "high"
+  function pickHeartRatingQuestion(candidates) {
+    const lowFrequency = candidates.filter(
+      (question) => LOW_FREQUENCY_HIGH_IDS.has(question.id)
+    );
+    const preferred = candidates.filter(
+      (question) => !LOW_FREQUENCY_HIGH_IDS.has(question.id)
+    );
+
+    if (lowFrequency.length && Math.random() < 0.20) {
+      return lowFrequency[Math.floor(Math.random() * lowFrequency.length)];
+    }
+
+    const source = preferred.length ? preferred : lowFrequency;
+    return source[Math.floor(Math.random() * source.length)];
+  }
+
+  function recommendedPlan(count) {
+    const pattern = [
+      "daily", "live", "gesture", "daily", "high",
+      "gesture", "live", "daily", "gesture", "high",
+      "daily", "live", "gesture", "daily", "high"
     ];
+    return pattern.slice(0, count);
+  }
+
+  function buildRecommendedQueue(pool, count) {
+    const plan = recommendedPlan(count);
     const remaining = [...pool];
     const selected = [];
 
@@ -244,9 +274,13 @@
       let candidates = remaining.filter((question) => question.category === desired);
       if (!candidates.length) candidates = remaining;
       if (!candidates.length) break;
-      const picked = candidates[Math.floor(Math.random() * candidates.length)];
+
+      const picked = pickHeartRatingQuestion(candidates);
       selected.push(picked);
-      remaining.splice(remaining.findIndex((question) => question.id === picked.id), 1);
+      remaining.splice(
+        remaining.findIndex((question) => question.id === picked.id),
+        1
+      );
     }
 
     return [...selected, ...shuffle(remaining)];
@@ -564,9 +598,9 @@
   function resultCopy(records) {
     if (records.length === 0) {
       return {
-        badge: "镜头同声提词器完成",
+        badge: "同声打分完成",
         description:
-          "这一局专注于直播现场的即时反应，没有记录分数，也不会留下任何答题数据。"
+          "这一局专注于两个人的即时反应，没有记录分数，也不会留下任何答题数据。"
       };
     }
 
@@ -631,7 +665,7 @@
 
     if (state.mode === "camera" && records.length < state.completed) {
       elements.resultNote.textContent =
-        `镜头同声模式中有${state.completed - records.length}题选择了不记录分数。`;
+        `同时说分过程中有${state.completed - records.length}题选择了不记录分数。`;
     } else {
       elements.resultNote.textContent =
         state.skipped > 0

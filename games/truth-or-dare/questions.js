@@ -117,7 +117,7 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 14,
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "保留"
+        "liveAction": "降频"
       },
       {
         "id": "light-squid-04",
@@ -130,12 +130,12 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "light-squid-05",
-        "text": "如果只能用一种方式向对方耍赖，你最可能怎么做？",
+        "text": "说一个自己在对方面前会比平时更爱耍赖或更幼稚的时刻，由对方确认像不像。",
         "source": "鱿鱼须oo",
         "sourceNumber": 17,
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "改写"
+        "liveAction": "改写保留"
       },
       {
         "id": "light-squid-06",
@@ -162,7 +162,7 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 49,
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "保留"
+        "liveAction": "降频"
       }
     ],
     "dare": [
@@ -189,10 +189,10 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "light-dare-04",
-        "text": "用三个连续的夸奖形容对方，中间不能停顿。",
+        "text": "说一个别人不一定注意到、但你很欣赏对方的地方。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "改写保留"
       },
       {
         "id": "light-dare-05",
@@ -217,10 +217,10 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "light-dare-08",
-        "text": "用一句广告词推销对方今天的造型。",
+        "text": "用一句自己的话形容对方今天最有辨识度的地方。",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "替换"
       },
       {
         "id": "light-dare-09",
@@ -238,10 +238,10 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "light-dare-11",
-        "text": "给对方取一个只在这一轮有效的临时昵称。",
+        "text": "给对方取一个只在这一轮有效、且和他今天状态有关的临时称呼，并说为什么。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "改写保留"
       },
       {
         "id": "light-dare-12",
@@ -404,11 +404,11 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "heart-squid-09",
-        "text": "如果对方现在突然送你一份礼物，你最希望它和哪一段共同回忆有关？",
+        "text": "哪一段共同回忆最想留下一件纪念物？为什么？",
         "source": "鱿鱼须oo",
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "改写"
+        "liveAction": "改写保留"
       },
       {
         "id": "heart-squid-10",
@@ -457,21 +457,21 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "heart-squid-15",
-        "text": "如果今晚只剩一个小时可以单独相处，你最想对对方说什么、一起做什么？",
+        "text": "如果今天能有一个小时完全不被打扰地一起待着，最想怎么过？",
         "source": "鱿鱼须oo",
         "sourceNumber": 21,
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "改写"
+        "liveAction": "改写保留"
       },
       {
         "id": "heart-squid-16",
-        "text": "此时此刻，你想听到对方说“爱你”吗？为什么？",
+        "text": "最近有哪一句对方说过的话，让你觉得特别安心或受用？",
         "source": "鱿鱼须oo",
         "sourceNumber": 25,
         "liveEnabled": true,
         "liveTier": "shy",
-        "liveAction": "保留"
+        "liveAction": "替换"
       },
       {
         "id": "heart-squid-17",
@@ -488,8 +488,8 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "sourceNumber": 28,
         "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有高光"
       },
       {
         "id": "heart-squid-19",
@@ -506,8 +506,8 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "sourceNumber": 36,
         "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有高光"
       },
       {
         "id": "heart-squid-21",
@@ -589,10 +589,10 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "heart-dare-08",
-        "text": "为对方送上一段十五秒的即兴获奖感言。",
+        "text": "说一件最近真心替对方高兴的事，并告诉他为什么。",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "替换"
       },
       {
         "id": "heart-dare-09",
@@ -603,10 +603,10 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "heart-dare-10",
-        "text": "给对方一个不超过五个字的专属祝福。",
+        "text": "说一句最近最想肯定对方的话，不能用万能祝福。",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "替换"
       },
       {
         "id": "heart-dare-11",
@@ -734,8 +734,8 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "sourceNumber": 27,
         "liveEnabled": true,
-        "liveTier": "shy",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有深度"
       },
       {
         "id": "challenge-squid-04",
@@ -743,8 +743,8 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "sourceNumber": 29,
         "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有深度"
       },
       {
         "id": "challenge-squid-05",
@@ -761,17 +761,17 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "sourceNumber": 37,
         "liveEnabled": true,
-        "liveTier": "shy",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有深度"
       },
       {
         "id": "challenge-squid-07",
-        "text": "你会不会担心有一天对方被别人抢走？",
+        "text": "有没有一种情况会让你明显意识到“原来自己很在意对方”？",
         "source": "鱿鱼须oo",
         "sourceNumber": 40,
         "liveEnabled": true,
         "liveTier": "shy",
-        "liveAction": "保留"
+        "liveAction": "替换"
       },
       {
         "id": "challenge-squid-08",
@@ -779,8 +779,8 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "sourceNumber": 41,
         "liveEnabled": true,
-        "liveTier": "shy",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有深度"
       },
       {
         "id": "challenge-squid-09",
@@ -788,8 +788,8 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "sourceNumber": 42,
         "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有深度"
       },
       {
         "id": "challenge-squid-10",
@@ -797,8 +797,8 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "sourceNumber": 47,
         "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有深度"
       }
     ],
     "dare": [
@@ -832,10 +832,10 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "challenge-dare-05",
-        "text": "让对方随机指定一个词，你需要立刻用它夸对方。",
+        "text": "由对方随口指定一段共同经历，你用一句话说出为什么记得它。",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "替换"
       },
       {
         "id": "challenge-dare-06",
@@ -849,14 +849,14 @@ window.FAJIA_QUESTION_BANK = {
         "text": "用十秒钟完成一段双人同步动作，允许现场商量一次。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "降频"
       },
       {
         "id": "challenge-dare-08",
-        "text": "由对方为你选择一种表情，并保持十秒钟。",
+        "text": "模仿对方一个你很熟悉的小表情，由本人评分。",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "替换"
       },
       {
         "id": "challenge-dare-09",
@@ -874,10 +874,10 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "challenge-dare-11",
-        "text": "分别用一句话回答：如果今天的直播只能留下一个片段，会选哪段？",
+        "text": "分别用一句话回答：如果今天和对方相处只能记住一个瞬间，会选哪一个？",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "改写保留"
       },
       {
         "id": "challenge-dare-12",
@@ -896,7 +896,7 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "straight",
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "改写"
+        "liveAction": "稀有高光"
       },
       {
         "id": "intimate-truth-02",
@@ -912,7 +912,7 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "straight",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "降频"
       },
       {
         "id": "intimate-truth-04",
@@ -927,8 +927,8 @@ window.FAJIA_QUESTION_BANK = {
         "text": "对方哪一种“欺负”你的方式，你其实并不讨厌？",
         "theme": "straight",
         "liveEnabled": true,
-        "liveTier": "shy",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有高光"
       },
       {
         "id": "intimate-truth-06",
@@ -999,16 +999,16 @@ window.FAJIA_QUESTION_BANK = {
         "text": "第一次意识到自己心动以后，有没有先向别人提起过？当时是怎么说的？不需要透露对方是谁。",
         "theme": "straight",
         "liveEnabled": true,
-        "liveTier": "shy",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有深度"
       },
       {
         "id": "intimate-straight-03",
         "text": "有没有为了靠近对方，故意找过一个看起来很自然的借口？",
         "theme": "straight",
         "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有高光"
       },
       {
         "id": "intimate-straight-04",
@@ -1023,8 +1023,8 @@ window.FAJIA_QUESTION_BANK = {
         "text": "有没有一件想和对方做很久、却一直不好意思开口的事情？",
         "theme": "straight",
         "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有高光"
       },
       {
         "id": "intimate-straight-06",
@@ -1036,11 +1036,11 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "intimate-straight-07",
-        "text": "如果今晚的梦可以由自己设计，最想和对方经历怎样的剧情？",
+        "text": "最近有没有一件很想和对方一起做、但一直没碰上合适机会的事？",
         "theme": "straight",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "替换"
       },
       {
         "id": "intimate-straight-08",
@@ -1055,56 +1055,56 @@ window.FAJIA_QUESTION_BANK = {
         "text": "两个人之间最浪漫的一个瞬间，你会选择哪一个？",
         "theme": "straight",
         "liveEnabled": true,
-        "liveTier": "shy",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有高光"
       },
       {
         "id": "intimate-straight-10",
         "text": "半夜突然惊醒的时候，会不会希望对方陪在身边？你希望他怎么陪？",
         "theme": "straight",
         "liveEnabled": true,
-        "liveTier": "shy",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有高光"
       },
       {
         "id": "intimate-straight-11",
-        "text": "两个人之间有没有哪个瞬间，让你突然意识到：“我好像真的完蛋了”？",
+        "text": "有没有哪个瞬间，让你很明确地意识到自己真的很在意对方？",
         "theme": "straight",
         "liveEnabled": true,
         "liveTier": "shy",
-        "liveAction": "保留"
+        "liveAction": "改写保留"
       },
       {
         "id": "intimate-deep-01",
         "text": "在两个人过去的相处中，有没有一件事情至今仍让你感到遗憾？",
         "theme": "deep",
         "liveEnabled": true,
-        "liveTier": "shy",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有深度"
       },
       {
         "id": "intimate-deep-02",
-        "text": "有没有一件一直想告诉对方、但还没找到合适时机的小事？",
+        "text": "有没有一件当时没来得及说、现在已经可以轻松讲的小事？",
         "theme": "deep",
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "改写"
+        "liveAction": "改写保留"
       },
       {
         "id": "intimate-deep-03",
         "text": "你心中的“忠诚”和“专一”分别意味着什么？哪些行为是明确的边界？",
         "theme": "deep",
         "liveEnabled": true,
-        "liveTier": "shy",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有深度"
       },
       {
         "id": "intimate-deep-04",
         "text": "最长能接受多久不联系对方？超过多久会开始感到不安？",
         "theme": "deep",
         "liveEnabled": true,
-        "liveTier": "shy",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有深度"
       },
       {
         "id": "intimate-deep-05",
@@ -1128,7 +1128,7 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "deep",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "降频"
       },
       {
         "id": "intimate-deep-08",
@@ -1143,8 +1143,8 @@ window.FAJIA_QUESTION_BANK = {
         "text": "你觉得两个人之间还有哪一种不安全感，可以通过沟通变得更安心？",
         "theme": "deep",
         "liveEnabled": true,
-        "liveTier": "shy",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有深度"
       },
       {
         "id": "intimate-deep-10",
@@ -1159,8 +1159,8 @@ window.FAJIA_QUESTION_BANK = {
         "text": "感情中能接受 Side 吗？",
         "theme": "deep",
         "liveEnabled": true,
-        "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveTier": "highlight",
+        "liveAction": "稀有深度"
       },
       {
         "id": "intimate-squid-01",
@@ -1184,7 +1184,7 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "降频"
       },
       {
         "id": "intimate-squid-04",
@@ -1192,7 +1192,7 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "降频"
       },
       {
         "id": "intimate-squid-05",
@@ -1239,19 +1239,19 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "intimate-dare-03",
-        "text": "靠近对方耳边，说一句只针对他的夸奖。",
+        "text": "靠近对方耳边，说一句只有放在他身上才成立的夸奖。",
         "theme": "common",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "改写保留"
       },
       {
         "id": "intimate-dare-04",
-        "text": "牵住对方的手，保持到下一题开始。",
+        "text": "牵住对方的手，保持10秒。",
         "theme": "common",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "改写保留"
       },
       {
         "id": "intimate-dare-05",
@@ -1271,11 +1271,11 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "intimate-dare-07",
-        "text": "用一句话邀请对方去一次理想约会。",
+        "text": "说一个自己真的想和对方一起去的地方或做的事，并现场邀请一次。",
         "theme": "common",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "改写保留"
       },
       {
         "id": "intimate-dare-08",
@@ -1290,32 +1290,32 @@ window.FAJIA_QUESTION_BANK = {
         "text": "看着对方，说出他现在最让你心动的一点。",
         "theme": "common",
         "liveEnabled": true,
-        "liveTier": "visible",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有高光"
       },
       {
         "id": "intimate-dare-10",
         "text": "主动张开手，向对方要一个拥抱。",
         "theme": "common",
         "liveEnabled": true,
-        "liveTier": "visible",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有高光"
       },
       {
         "id": "intimate-dare-11",
-        "text": "让对方指定一个亲昵称呼，并在接下来三轮使用。",
+        "text": "让对方选一个最想听你叫的称呼，你现场自然叫一次。",
         "theme": "common",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "替换"
       },
       {
         "id": "intimate-dare-12",
         "text": "对视十五秒，然后分别说出刚才最先想到的一个词。",
         "theme": "common",
         "liveEnabled": true,
-        "liveTier": "visible",
-        "liveAction": "保留"
+        "liveTier": "highlight",
+        "liveAction": "稀有高光"
       }
     ]
   }

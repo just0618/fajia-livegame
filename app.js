@@ -174,7 +174,7 @@
     });
   }
 
-  randomGameButton.addEventListener("click", openRandomGame);
+  if (randomGameButton) randomGameButton.addEventListener("click", openRandomGame);
   rerollGameButton.addEventListener("click", randomizeGame);
   closeRandomGameButton.addEventListener("click", closeRandomGame);
 

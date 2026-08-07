@@ -6,9 +6,9 @@
   <meta name="theme-color" content="#FF8AA1" />
   <meta
     name="description"
-    content="法嘉小动作你比我猜：适合双人直播的坐姿动作猜题游戏。"
+    content="法嘉双向模仿挑战：两个人同时模仿对方的小习惯和相处反应，看看彼此眼里的自己是什么样。"
   />
-  <title>法嘉小动作你比我猜</title>
+  <title>法嘉双向模仿挑战</title>
   <link rel="stylesheet" href="./style.css" />
 </head>
 
@@ -24,7 +24,7 @@
 
     <div class="mini-brand">
       <span class="brand-dot brand-dot-pink"></span>
-      法嘉小动作你比我猜
+      法嘉双向模仿挑战
       <span class="brand-dot brand-dot-gold"></span>
     </div>
 
@@ -36,227 +36,124 @@
   <main class="game-shell">
     <section class="setup-screen" id="setupScreen" aria-labelledby="setupTitle">
       <div class="setup-intro">
-        <p class="eyebrow">GAME 04 · MINI CHARADES</p>
-        <h1 id="setupTitle">小动作你比我猜怎么玩？</h1>
+        <p class="eyebrow">GAME 04 · DOUBLE IMITATION</p>
+        <h1 id="setupTitle">法嘉双向模仿挑战</h1>
         <p>
-          一人查看题目，用语言、表情、手势和动作进行描述，但不能说出题目本身，也不能说出题目中包含的字；另一人在30秒内猜题。
+          抽到情境后，两个人都模仿“自己眼里的对方”；抽到法嘉彩蛋时，
+          则不商量，同时用一个动作或短表演表达同一个词。
         </p>
       </div>
 
+      <section class="game-flow-card" aria-labelledby="flowTitle">
+        <p class="eyebrow">HOW TO PLAY</p>
+        <h2 id="flowTitle">玩法流程</h2>
+        <div class="game-flow-grid">
+          <article><span>01</span><strong>抽一张题</strong><p>普通题一起模仿对方；彩蛋题一起表达同一个法嘉词。</p></article>
+          <article><span>02</span><strong>准备3秒</strong><p>先别商量，也不要提前解释自己准备怎么演。</p></article>
+          <article><span>03</span><strong>同时表演</strong><p>倒计时结束后一起开始，看看对方眼里的自己是什么样。</p></article>
+          <article><span>04</span><strong>对照一下</strong><p>可以说说哪里最像、哪里不像，再进入下一题。</p></article>
+        </div>
+      </section>
+
       <div class="player-preview" aria-label="参与玩家">
-        <article class="player-chip player-chip-pink"><img src="../../assets/players/fa.webp" alt="法宣阁" /><div><span>PLAYER 01</span><strong>法宣阁</strong></div></article>
+        <div class="player-chip player-chip-pink">
+          <img src="../../assets/players/fa.webp" alt="法宣阁" />
+          <div><span>PLAYER A</span><strong>法宣阁</strong></div>
+        </div>
         <span class="switch-mark" aria-hidden="true">↔</span>
-        <article class="player-chip player-chip-gold"><img src="../../assets/players/he.webp" alt="贺嘉述" /><div><span>PLAYER 02</span><strong>贺嘉述</strong></div></article>
+        <div class="player-chip player-chip-gold">
+          <img src="../../assets/players/he.webp" alt="贺嘉述" />
+          <div><span>PLAYER B</span><strong>贺嘉述</strong></div>
+        </div>
       </div>
 
       <section class="choice-section" aria-labelledby="roundTitle">
-        <div class="section-label"><span>STEP 01</span><h2 id="roundTitle">选择挑战轮数</h2></div>
-        <div class="choice-grid round-grid">
-          <label class="choice-card round-card"><input type="radio" name="rounds" value="5" /><span class="choice-card-inner"><strong>5题</strong><small>快速热场</small></span></label>
-          <label class="choice-card round-card"><input type="radio" name="rounds" value="10" checked /><span class="choice-card-inner"><strong>10题</strong><small>标准挑战</small></span></label>
-          <label class="choice-card round-card"><input type="radio" name="rounds" value="15" /><span class="choice-card-inner"><strong>15题</strong><small>完整一局</small></span></label>
+        <div class="section-label">
+          <span>STEP 01</span>
+          <h2 id="roundTitle">选择挑战轮数</h2>
+        </div>
+        <div class="choice-grid dual-round-grid">
+          <label class="choice-card">
+            <input type="radio" name="rounds" value="3" />
+            <span class="choice-card-inner"><strong>3轮</strong></span>
+          </label>
+          <label class="choice-card">
+            <input type="radio" name="rounds" value="5" checked />
+            <span class="choice-card-inner"><strong>5轮</strong></span>
+          </label>
         </div>
       </section>
 
-      <section class="choice-section" aria-labelledby="progressTitle">
-        <div class="section-label"><span>STEP 02</span><h2 id="progressTitle">题库进度</h2></div>
-        <div class="browser-progress-settings">
-          <label class="browser-progress-toggle"><input id="rememberProgressCheckbox" type="checkbox" checked /><span class="custom-checkbox" aria-hidden="true">✓</span><span><strong>记住已经猜对的题目，下次继续</strong><small>点击“猜对了”后才算完成；换题、跳过和超时不会写入长期进度。</small></span></label>
-          <div class="browser-progress-summary" aria-live="polite">
-            <div><span>全部题目</span><strong id="progressTotalCount">72题</strong></div>
-            <div><span>已完成</span><strong id="progressCompletedCount">0题</strong></div>
-            <div><span>未完成</span><strong id="progressRemainingCount">72题</strong></div>
-          </div>
-          <p class="browser-progress-note" id="progressNote">只在当前浏览器保存题目编号，不保存表演或猜题内容。</p>
-          <div class="browser-progress-actions"><button class="button button-secondary" id="clearScopeProgressButton" type="button">清除题库进度</button><button class="button button-quiet" id="clearAllProgressButton" type="button">清除全部进度</button></div>
+      <section class="progress-panel" aria-labelledby="progressTitle">
+        <div>
+          <span class="eyebrow">QUESTION PROGRESS</span>
+          <h2 id="progressTitle">题库进度</h2>
+          <p id="progressText">正在读取题库进度…</p>
+        </div>
+        <div class="progress-controls">
+          <label class="remember-toggle">
+            <input id="rememberProgressCheckbox" type="checkbox" checked />
+            <span>记住已完成题目</span>
+          </label>
+          <button class="button button-secondary" id="clearProgressButton" type="button">
+            清除题库进度
+          </button>
         </div>
       </section>
 
-      <section class="start-panel" aria-labelledby="starterTitle">
-        <div><p class="eyebrow">STEP 03 · READY TO PLAY</p><h2 id="starterTitle">谁先表演？</h2><p>系统会在每一题后自动交换表演者和猜题者。</p></div>
-        <div class="start-buttons">
-          <button class="start-player-button start-pink" type="button" data-starter="0">法宣阁先表演</button>
-          <button class="start-player-button start-gold" type="button" data-starter="1">贺嘉述先表演</button>
-          <button class="start-player-button start-random" type="button" data-starter="random">随机选择</button>
-        </div>
-      </section>
+      <button class="button button-primary start-button" id="startButton" type="button">
+        开始挑战
+        <span aria-hidden="true">→</span>
+      </button>
     </section>
 
-    <section class="play-screen" id="playScreen" hidden aria-labelledby="roleTitle">
-      <div class="play-toolbar">
-        <button class="text-button" id="restartButton" type="button">
-          重新选择
-        </button>
-
-        <div class="score-panel" aria-live="polite">
-          <span>团队得分</span>
-          <strong id="scoreText">0 / 0</strong>
+    <section class="play-screen" id="playScreen" hidden>
+      <div class="play-topline">
+        <div>
+          <p class="eyebrow" id="roundText">ROUND 01 / 05</p>
+          <h1>同时演给对方看</h1>
         </div>
+        <span class="mode-pill" id="modePill">双向模仿</span>
       </div>
 
-      <div class="round-progress">
-        <div class="round-copy">
-          <span id="roundText">第 1 / 10 题</span>
-          <span id="categoryText">本轮题目</span>
-        </div>
-        <div class="progress-track" aria-hidden="true">
-          <span id="roundProgressBar"></span>
-        </div>
+      <article class="dual-imitation-card" id="questionCard">
+        <p class="question-type" id="questionType">双向模仿</p>
+        <h2 id="questionText">题目加载中…</h2>
+        <p class="question-hint" id="questionHint">
+          两个人都模仿自己眼里的对方。
+        </p>
+      </article>
+
+      <section class="dual-countdown-panel" aria-live="polite">
+        <span class="countdown-number" id="countdownNumber">3</span>
+        <p id="countdownLabel">准备好后开始3秒倒计时。</p>
+      </section>
+
+      <div class="play-actions">
+        <button class="button button-primary" id="countdownButton" type="button">
+          准备3秒
+        </button>
+        <button class="button button-primary" id="completeButton" type="button" hidden>
+          完成这一题
+        </button>
+        <button class="button button-secondary" id="skipButton" type="button">
+          换一题
+        </button>
       </div>
-
-      <section class="role-card" id="roleStage">
-        <p class="eyebrow">NEXT ROUND</p>
-        <h1 id="roleTitle">请猜题者暂时不要看屏幕</h1>
-
-        <div class="role-players">
-          <article class="role-person role-person-actor" id="actorCard">
-            <img id="actorImage" src="" alt="" />
-            <span>本题表演者</span>
-            <strong id="actorName"></strong>
-          </article>
-
-          <span class="role-arrow" aria-hidden="true">→</span>
-
-          <article class="role-person role-person-guesser" id="guesserCard">
-            <img id="guesserImage" src="" alt="" />
-            <span>本题猜题者</span>
-            <strong id="guesserName"></strong>
-          </article>
-        </div>
-
-        <p class="role-note" id="ruleReminder"></p>
-
-        <button class="button button-primary role-button" id="revealButton" type="button">
-          猜题者已移开视线，查看题目
-        </button>
-      </section>
-
-      <section class="prompt-card" id="promptStage" hidden aria-labelledby="promptText">
-        <div class="card-header">
-          <span class="category-badge" id="promptCategory">简单动作</span>
-          <span class="question-number" id="questionNumber">CARD 01</span>
-        </div>
-
-        <p class="only-actor">仅表演者查看</p>
-        <h1 id="promptText" tabindex="-1"></h1>
-
-        <p class="prompt-note">
-          不要求猜题者逐字复述，猜出核心情境即可。
-        </p>
-
-        <div class="prompt-actions">
-          <button class="button button-secondary" id="changeQuestionButton" type="button">
-            换一题
-          </button>
-          <button class="button button-primary" id="memorizedButton" type="button">
-            我记住了，隐藏题目
-          </button>
-        </div>
-      </section>
-
-      <section class="ready-card" id="readyStage" hidden aria-labelledby="readyTitle">
-        <p class="eyebrow">GET READY</p>
-        <h1 id="readyTitle">把屏幕交还给猜题者</h1>
-        <p>
-          题目已经隐藏。双方准备好后，点击按钮开始30秒倒计时。
-        </p>
-
-        <button class="button button-primary ready-button" id="startTimerButton" type="button">
-          开始30秒倒计时
-        </button>
-      </section>
-
-      <section class="timer-card" id="timerStage" hidden aria-labelledby="timerTitle">
-        <div class="timer-top">
-          <div>
-            <p class="eyebrow">ACT &amp; GUESS</p>
-            <h1 id="timerTitle">
-              <span id="timerActorName"></span>正在表演
-            </h1>
-          </div>
-          <span class="category-badge" id="timerCategory">简单动作</span>
-        </div>
-
-        <div class="timer-display" id="timerDisplay" aria-live="assertive">
-          30
-        </div>
-
-        <p class="timer-reminder" id="timerRuleReminder"></p>
-
-        <div class="timer-actions" id="activeTimerActions">
-          <button class="button button-success" id="correctButton" type="button">
-            猜中了
-            <small>团队 +1</small>
-          </button>
-
-          <button class="button button-skip" id="skipButton" type="button">
-            跳过并补抽
-          </button>
-        </div>
-
-        <div class="timeout-actions" id="timeoutActions" hidden>
-          <p>时间到，本题未完成。</p>
-          <button class="button button-primary" id="timeoutNextButton" type="button">
-            进入下一题
-          </button>
-        </div>
-      </section>
-
-      <p class="session-note">
-        已完成的题目不会重复；跳过不占用所选题数，当前表演者会补抽一题。
-      </p>
     </section>
 
-    <section class="result-screen" id="resultScreen" hidden aria-labelledby="resultTitle">
+    <section class="result-screen" id="resultScreen" hidden>
       <div class="result-card">
-        <div class="result-photos" aria-hidden="true">
-          <img class="result-photo result-photo-pink" src="../../assets/players/fa.webp" alt="" />
-          <span>↔</span>
-          <img class="result-photo result-photo-gold" src="../../assets/players/he.webp" alt="" />
+        <p class="eyebrow">ROUND COMPLETE</p>
+        <h1>这一局完成啦</h1>
+        <p>不用计分，看看这一局有没有发现“原来你眼里的我是这样”。</p>
+        <div class="result-stats">
+          <div><span>完成</span><strong id="resultCompleted">0轮</strong></div>
+          <div><span>换题</span><strong id="resultSkipped">0张</strong></div>
         </div>
-
-        <p class="eyebrow">CHALLENGE COMPLETE</p>
-        <h1 id="resultTitle">本轮小动作挑战完成</h1>
-
-        <div class="result-score">
-          <strong id="resultScore">0</strong>
-          <span id="resultFraction">共完成0题</span>
-        </div>
-
-        <div class="result-title-box">
-          <span>今日团队称号</span>
-          <strong id="resultBadge">正在计算</strong>
-        </div>
-
-        <p class="result-description" id="resultDescription"></p>
-
-        <div class="result-breakdown">
-          <div>
-            <span>成功猜中</span>
-            <strong id="resultCorrect">0</strong>
-          </div>
-          <div>
-            <span>主动跳过</span>
-            <strong id="resultSkipped">0</strong>
-          </div>
-          <div>
-            <span>时间结束</span>
-            <strong id="resultTimeout">0</strong>
-          </div>
-          <div>
-            <span>平均猜中用时</span>
-            <strong id="resultAverage">—</strong>
-          </div>
-        </div>
-
-        <div class="result-actions">
-          <button class="button button-primary" id="playAgainButton" type="button">
-            再玩一局
-          </button>
-          <a class="button button-secondary" href="../../">
-            返回游戏屋
-          </a>
-        </div>
+        <button class="button button-primary" id="playAgainButton" type="button">
+          再来一局
+        </button>
       </div>
     </section>
   </main>
@@ -268,24 +165,16 @@
           <p class="eyebrow">HOW TO PLAY</p>
           <h2>玩法说明</h2>
         </div>
-        <button class="dialog-close" id="closeHelpButton" type="button" aria-label="关闭">
-          ×
-        </button>
+        <button class="dialog-close" id="closeHelpButton" type="button" aria-label="关闭">×</button>
       </div>
-
       <ol>
-        <li>选择挑战轮数和第一位表演者。</li>
-        <li>猜题者先移开视线，只有表演者查看并记住题目。</li>
-        <li>题目隐藏后，开始30秒倒计时。</li>
-        <li>表演者可以使用语言、表情、手势和动作，但不能说出题目本身，也不能说出题目中包含的字。</li>
-        <li>猜出核心情境后点击“猜中了”；跳过时本轮题号不变，并由当前表演者补抽一题。</li>
-        <li>猜中或倒计时结束后才算完成一个正式回合，并自动交换角色。</li>
-        <li>最终只显示团队成绩。</li>
+        <li>选择3轮或5轮后开始。</li>
+        <li>普通题：两个人同时模仿“自己眼里的对方”。</li>
+        <li>法嘉彩蛋：两个人不商量，同时用一个动作或短表演表达同一个词。</li>
+        <li>点击“准备3秒”后一起表演；结束后可以简单聊聊哪里最像。</li>
+        <li>不方便的题直接换一张，换掉的题不会计入完成进度。</li>
       </ol>
-
-      <p>
-        所有题目都可以坐着完成，不需要大幅移动，也不包含动物模仿或养宠物内容。
-      </p>
+      <p>重点不是演得像不像标准答案，而是看看彼此平时到底观察到了什么。</p>
     </div>
   </dialog>
 

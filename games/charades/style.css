@@ -1323,3 +1323,243 @@ a:focus-visible {
     width: 100%;
   }
 }
+
+
+/* V47 · charades flow */
+.game-flow-card {
+  margin: 24px 0; padding: 22px;
+  border: 1px solid var(--line); border-radius: 22px;
+  background: rgba(255, 255, 255, 0.78);
+}
+.game-flow-card h2 { margin: 0; }
+.game-flow-grid {
+  display: grid; margin-top: 16px;
+  grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px;
+}
+.game-flow-grid article {
+  padding: 15px; border-radius: 17px; background: var(--pink-soft);
+}
+.game-flow-grid article > span {
+  color: var(--pink-dark); font-size: 0.72rem; font-weight: 900;
+}
+.game-flow-grid strong, .game-flow-grid p { display: block; }
+.game-flow-grid strong { margin-top: 4px; }
+.game-flow-grid p { margin: 6px 0 0; color: var(--muted); font-size: 0.82rem; }
+@media (max-width: 760px) {
+  .game-flow-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  .game-flow-grid { grid-template-columns: 1fr; }
+}
+
+
+/* V49 · 法嘉双向模仿挑战 */
+.dual-round-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.progress-panel {
+  display: flex;
+  margin-top: 34px;
+  padding: 20px 22px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: var(--shadow-soft);
+}
+
+.progress-panel h2,
+.progress-panel p {
+  margin: 0;
+}
+
+.progress-panel p {
+  margin-top: 6px;
+  color: var(--muted);
+}
+
+.progress-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.remember-toggle {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 750;
+}
+
+.play-screen {
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+.play-topline {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.play-topline h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1;
+}
+
+.mode-pill {
+  flex: 0 0 auto;
+  padding: 8px 13px;
+  border-radius: 999px;
+  color: var(--pink-dark);
+  background: var(--pink-soft);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.dual-imitation-card {
+  margin-top: 28px;
+  padding: clamp(26px, 6vw, 54px);
+  border: 1px solid rgba(255, 138, 161, 0.2);
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.question-type {
+  margin: 0;
+  color: var(--pink-dark);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.dual-imitation-card h2 {
+  max-width: 720px;
+  margin: 18px auto 0;
+  font-size: clamp(1.55rem, 4vw, 2.55rem);
+  line-height: 1.42;
+}
+
+.question-hint {
+  max-width: 620px;
+  margin: 20px auto 0;
+  color: var(--muted);
+}
+
+.dual-countdown-panel {
+  display: grid;
+  min-height: 170px;
+  margin-top: 20px;
+  place-items: center;
+  align-content: center;
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 240, 244, 0.92), rgba(255, 249, 217, 0.94));
+  text-align: center;
+}
+
+.countdown-number {
+  font-size: clamp(3.4rem, 10vw, 6.4rem);
+  font-weight: 950;
+  line-height: 1;
+}
+
+.dual-countdown-panel p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.play-actions {
+  display: flex;
+  margin-top: 18px;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.result-card {
+  max-width: 680px;
+  margin: 40px auto;
+  padding: 40px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.result-card h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 7vw, 4rem);
+}
+
+.result-card > p {
+  color: var(--muted);
+}
+
+.result-stats {
+  display: grid;
+  margin: 28px 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.result-stats div {
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--pink-soft);
+}
+
+.result-stats span,
+.result-stats strong {
+  display: block;
+}
+
+.result-stats span {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.result-stats strong {
+  margin-top: 4px;
+  font-size: 1.45rem;
+}
+
+@media (max-width: 700px) {
+  .progress-panel,
+  .play-topline {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .progress-controls {
+    justify-content: flex-start;
+  }
+
+  .mode-pill {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  .dual-round-grid,
+  .result-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .dual-imitation-card {
+    border-radius: 22px;
+  }
+}

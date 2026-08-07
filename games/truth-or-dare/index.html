@@ -39,7 +39,7 @@
         <p class="eyebrow">GAME 02 · TRUTH OR DARE</p>
         <h1 id="setupTitle">真心话大冒险怎么玩？</h1>
         <p>
-          选择题数和第一位玩家后开始。抽到真心话就回答，抽到大冒险就完成任务；任意题目都可以直接换一张。
+          先选择真心话、大冒险或混合，再选择题数和第一位玩家。抽到真心话就回答，抽到大冒险就完成任务；任意题目都可以直接换一张。
         </p>
       </div>
 
@@ -55,9 +55,30 @@
         </article>
       </div>
 
-      <section class="choice-section" aria-labelledby="roundCountTitle">
+      <section class="choice-section" aria-labelledby="typeModeTitle">
         <div class="section-label">
           <span>STEP 01</span>
+          <h2 id="typeModeTitle">选择题目类型</h2>
+        </div>
+        <div class="choice-grid choice-grid-rounds">
+          <label class="choice-card compact-choice-card">
+            <input type="radio" name="mode" value="truth" checked />
+            <span class="choice-card-inner"><strong>真心话</strong><small>默认</small></span>
+          </label>
+          <label class="choice-card compact-choice-card">
+            <input type="radio" name="mode" value="dare" />
+            <span class="choice-card-inner"><strong>大冒险</strong><small>只抽任务</small></span>
+          </label>
+          <label class="choice-card compact-choice-card">
+            <input type="radio" name="mode" value="random" />
+            <span class="choice-card-inner"><strong>混合</strong><small>真心话＋大冒险</small></span>
+          </label>
+        </div>
+      </section>
+
+      <section class="choice-section" aria-labelledby="roundCountTitle">
+        <div class="section-label">
+          <span>STEP 02</span>
           <h2 id="roundCountTitle">选择本场题数</h2>
         </div>
         <div class="choice-grid choice-grid-rounds">
@@ -79,7 +100,7 @@
 
       <section class="choice-section" aria-labelledby="progressTitle">
         <div class="section-label">
-          <span>STEP 02</span>
+          <span>STEP 03</span>
           <h2 id="progressTitle">题库进度</h2>
         </div>
         <div class="progress-settings">
@@ -106,7 +127,7 @@
 
       <section class="start-section" aria-labelledby="starterTitle">
         <div>
-          <p class="eyebrow">STEP 03 · READY TO PLAY</p>
+          <p class="eyebrow">STEP 04 · READY TO PLAY</p>
           <h2 id="starterTitle">谁先开始？</h2>
           <p>也可以交给系统随机决定第一位玩家。</p>
         </div>
@@ -229,7 +250,8 @@
       </div>
       <ol>
         <li>选择5题、10题或15题，再选择第一位玩家。</li>
-        <li>每轮随机抽取一张真心话或大冒险卡片。</li>
+        <li>先选择真心话、大冒险或混合；默认选择真心话。</li>
+        <li>每轮从所选范围内抽取一张卡片。</li>
         <li>“换一张”不会切换玩家，也不会增加正式完成题数，但该卡会记为已展示。</li>
         <li>点击“完成，轮到下一位”后，正式完成题数加一并自动交换玩家。</li>
         <li>开启进度记忆后，已经展示过的卡片会保存在当前浏览器。</li>

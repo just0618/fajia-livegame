@@ -29,7 +29,7 @@
 
   const state = {
     libraryMode: "live",
-    mode: "random",
+    mode: "truth",
     rememberProgress: true,
     requestedLimit: "10",
     targetCount: 10,
@@ -122,7 +122,10 @@
   }
 
   function currentSelection() {
-    return { libraryMode: "live", mode: "random" };
+    return {
+      libraryMode: "live",
+      mode: getSelectedValue("mode") || "truth"
+    };
   }
 
   function buildPoolsForSelection(selection) {
@@ -198,7 +201,32 @@
   }
 
   function shufflePick(items) {
-    return items[Math.floor(Math.random() * items.length)];
+    if (!items.length) return null;
+
+    const rare = items.filter(
+      (card) => card.liveAction === "稀有高光" || card.liveAction === "稀有深度"
+    );
+    const down = items.filter((card) => card.liveAction === "降频");
+    const regular = items.filter(
+      (card) =>
+        card.liveAction !== "降频" &&
+        card.liveAction !== "稀有高光" &&
+        card.liveAction !== "稀有深度"
+    );
+
+    if (rare.length && Math.random() < 0.18) {
+      return rare[Math.floor(Math.random() * rare.length)];
+    }
+
+    if (down.length && Math.random() < 0.22) {
+      return down[Math.floor(Math.random() * down.length)];
+    }
+
+    const source = regular.length
+      ? regular
+      : (down.length ? down : rare);
+
+    return source[Math.floor(Math.random() * source.length)];
   }
 
   const tierLabels = {
@@ -381,7 +409,7 @@
     const selection = currentSelection();
 
     state.libraryMode = "live";
-    state.mode = "random";
+    state.mode = selection.mode;
     state.rememberProgress = elements.rememberProgressCheckbox.checked;
     state.requestedLimit = getSelectedValue("roundLimit") || "10";
     state.persistedSeen = loadPersistedSeen();
@@ -404,7 +432,7 @@
     }
 
     state.targetCount = Math.min(Number(state.requestedLimit), remainingAtStart);
-    state.livePlan = buildLivePlan(state.targetCount, "random");
+    state.livePlan = buildLivePlan(state.targetCount, state.mode);
 
     elements.setupScreen.hidden = true;
     elements.resultScreen.hidden = true;
@@ -595,7 +623,7 @@
       elements.helpDialog.showModal();
     } else {
       showToast(
-        "选择题数和第一位玩家后开始；抽到真心话就回答，抽到大冒险就完成任务，任意题目都可以直接换一张。"
+        "先选择真心话、大冒险或混合（默认真心话），再选择题数和第一位玩家；任意题目都可以直接换一张。"
       );
     }
   });

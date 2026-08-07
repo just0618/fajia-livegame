@@ -9,7 +9,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "highlight",
-      "liveAction": "改写"
+      "liveAction": "保留"
     },
     {
       "type": "choice",
@@ -44,13 +44,13 @@ window.FAJIA_COMPATIBILITY_BANK = {
     {
       "type": "choice",
       "label": "同时选择",
-      "text": "发现对方情绪不太对时，更想先主动抱一下，还是先问“怎么了”？",
+      "text": "发现对方情绪不太对时，更想先问“怎么了”，还是先安静陪一会儿？",
       "options": [
-        "先主动抱一下",
-        "先问“怎么了”"
+        "先问“怎么了”",
+        "先安静陪一会儿"
       ],
       "liveTier": "highlight",
-      "liveAction": "替换"
+      "liveAction": "改写保留"
     },
     {
       "type": "free",
@@ -58,7 +58,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "同时说出对方最近一个让你觉得心动的小动作。",
       "options": [],
       "liveTier": "highlight",
-      "liveAction": "替换"
+      "liveAction": "稀有高光"
     },
     {
       "type": "who",
@@ -80,7 +80,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "先主动哄一下"
       ],
       "liveTier": "highlight",
-      "liveAction": "替换"
+      "liveAction": "保留"
     },
     {
       "type": "free",
@@ -93,13 +93,13 @@ window.FAJIA_COMPATIBILITY_BANK = {
     {
       "type": "who",
       "label": "同时指向",
-      "text": "两个人中，谁更可能半夜醒来后先想到对方？",
+      "text": "两个人中，谁更可能遇到一件事后第一时间想到要告诉对方？",
       "options": [
         "法宣阁",
         "贺嘉述"
       ],
       "liveTier": "highlight",
-      "liveAction": "改写"
+      "liveAction": "替换"
     },
     {
       "type": "choice",
@@ -110,7 +110,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "先认真聊天"
       ],
       "liveTier": "highlight",
-      "liveAction": "替换"
+      "liveAction": "保留"
     },
     {
       "type": "free",
@@ -129,7 +129,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "靠在一起安静休息"
       ],
       "liveTier": "highlight",
-      "liveAction": "改写"
+      "liveAction": "保留"
     },
     {
       "type": "who",
@@ -215,10 +215,10 @@ window.FAJIA_COMPATIBILITY_BANK = {
     {
       "type": "free",
       "label": "同时回答",
-      "text": "同时说出一句最想送给对方的简短祝福。",
+      "text": "同时说出一句最近最想肯定对方的话。",
       "options": [],
       "liveTier": "warmup",
-      "liveAction": "降频"
+      "liveAction": "替换"
     },
     {
       "type": "who",
@@ -259,7 +259,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "highlight",
-      "liveAction": "替换"
+      "liveAction": "保留"
     },
     {
       "type": "choice",
@@ -289,7 +289,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "每天有一个拥抱"
       ],
       "liveTier": "highlight",
-      "liveAction": "替换"
+      "liveAction": "保留"
     },
     {
       "type": "who",
@@ -392,7 +392,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "私人日常"
       ],
       "liveTier": "visible",
-      "liveAction": "保留"
+      "liveAction": "降频"
     },
     {
       "type": "who",
@@ -429,8 +429,8 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "label": "同时回答",
       "text": "分别说出一个你认为对方最希望被理解的地方。",
       "options": [],
-      "liveTier": "relation",
-      "liveAction": "保留"
+      "liveTier": "highlight",
+      "liveAction": "稀有深度"
     },
     {
       "type": "choice",
@@ -441,7 +441,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "立刻一起讨论"
       ],
       "liveTier": "visible",
-      "liveAction": "保留"
+      "liveAction": "降频"
     },
     {
       "type": "who",

@@ -1284,3 +1284,34 @@ a:focus-visible {
   margin-bottom: 0;
   font-size: 0.82rem;
 }
+
+
+/* V47 · compatibility examples on the setup page */
+.inline-compatibility-guide {
+  margin: 22px 0 26px;
+  padding: 20px;
+  border: 1px solid rgba(255, 138, 161, 0.22);
+  border-radius: 20px;
+  background: rgba(255, 240, 244, 0.62);
+}
+.inline-compatibility-guide h2 { margin: 0; font-size: 1.18rem; }
+.inline-compatibility-guide > p { margin: 7px 0 0; color: var(--muted); }
+.inline-example-grid {
+  display: grid;
+  margin-top: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.inline-example-grid article {
+  padding: 14px 15px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.82);
+}
+.inline-example-grid strong { color: var(--pink-dark); font-size: 0.82rem; }
+.inline-example-grid p { margin: 5px 0 0; color: var(--ink); font-size: 0.88rem; }
+.inline-compatibility-guide small {
+  display: block; margin-top: 10px; color: var(--muted);
+}
+@media (max-width: 620px) {
+  .inline-example-grid { grid-template-columns: 1fr; }
+}

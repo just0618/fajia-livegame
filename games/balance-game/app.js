@@ -74,9 +74,39 @@
       `CARD ${String(state.completed + 1).padStart(2, "0")}`;
   }
 
+  const RARE_RELATION_IDS = new Set([
+    "balance-04",
+    "balance-05",
+    "balance-08",
+    "balance-11"
+  ]);
+
+  function buildBalancedQueue(rounds) {
+    const regular = shuffle(
+      bank.filter((question) => !RARE_RELATION_IDS.has(question.id))
+    );
+    const rare = shuffle(
+      bank.filter((question) => RARE_RELATION_IDS.has(question.id))
+    );
+
+    if (rounds >= bank.length) {
+      return shuffle([...regular, ...rare]);
+    }
+
+    const rareCount = rounds <= 5 ? 1 : 2;
+    const selected = [
+      ...regular.slice(0, Math.max(0, rounds - rareCount)),
+      ...rare.slice(0, rareCount)
+    ];
+
+    const used = new Set(selected.map((question) => question.id));
+    const remainder = bank.filter((question) => !used.has(question.id));
+    return [...shuffle(selected), ...shuffle(remainder)];
+  }
+
   function drawQuestion() {
     if (state.queue.length === 0) {
-      state.queue = shuffle(bank);
+      state.queue = buildBalancedQueue(state.totalRounds);
     }
     state.current = state.queue.shift();
     elements.leftOption.textContent = state.current.left;
@@ -100,7 +130,7 @@
     state.skipped = 0;
     state.answerer =
       starter === "random" ? Math.floor(Math.random() * 2) : Number(starter);
-    state.queue = shuffle(bank);
+    state.queue = buildBalancedQueue(state.totalRounds);
     state.current = null;
 
     elements.setupScreen.hidden = true;

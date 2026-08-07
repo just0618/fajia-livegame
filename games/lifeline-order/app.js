@@ -92,9 +92,21 @@
     }));
   }
 
+  const RARE_THEME_IDS = new Set(["heart-flutter", "jealous"]);
+
+  function pickRandomTheme() {
+    const rare = themes.filter((theme) => RARE_THEME_IDS.has(theme.id));
+    const regular = themes.filter((theme) => !RARE_THEME_IDS.has(theme.id));
+
+    if (rare.length && Math.random() < 0.15) {
+      return pick(rare);
+    }
+    return pick(regular.length ? regular : rare);
+  }
+
   function chooseTheme() {
     const value = elements.themeSelect.value;
-    if (value === "random") return pick(themes);
+    if (value === "random") return pickRandomTheme();
     return themes.find((theme) => theme.id === value) || themes[0];
   }
 

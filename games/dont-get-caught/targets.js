@@ -14,11 +14,11 @@ window.FAJIA_TRAP_TARGETS = {
     },
     {
       "id": "word-04",
-      "text": "让对方说出“等一下”"
+      "text": "让对方说出“我陪你”"
     },
     {
       "id": "word-05",
-      "text": "让对方说出“我不知道”"
+      "text": "让对方说出“你怎么了”"
     },
     {
       "id": "word-06",
@@ -34,11 +34,11 @@ window.FAJIA_TRAP_TARGETS = {
     },
     {
       "id": "word-09",
-      "text": "让对方说出“没关系”"
+      "text": "让对方说出“你还记得吗”"
     },
     {
       "id": "word-10",
-      "text": "让对方说出“下次”"
+      "text": "让对方说出“下次一起”"
     },
     {
       "id": "word-11",
@@ -54,7 +54,7 @@ window.FAJIA_TRAP_TARGETS = {
     },
     {
       "id": "word-14",
-      "text": "让对方说出“你说呢”"
+      "text": "让对方说出“那你呢”"
     },
     {
       "id": "word-15",
@@ -64,27 +64,27 @@ window.FAJIA_TRAP_TARGETS = {
   "actions": [
     {
       "id": "action-01",
-      "text": "让对方摸一下头发"
+      "text": "让对方帮你整理一下头发"
     },
     {
       "id": "action-02",
-      "text": "让对方整理一下衣领"
+      "text": "让对方帮你整理一下衣领"
     },
     {
       "id": "action-03",
-      "text": "让对方喝一口水"
+      "text": "让对方主动把一样东西递给你"
     },
     {
       "id": "action-04",
-      "text": "让对方对镜头挥一下手"
+      "text": "让对方主动叫你一次名字"
     },
     {
       "id": "action-05",
-      "text": "让对方比一个心"
+      "text": "让对方和你一起比一个心"
     },
     {
       "id": "action-06",
-      "text": "让对方托一下下巴"
+      "text": "让对方看着你超过3秒"
     },
     {
       "id": "action-07",
@@ -92,19 +92,19 @@ window.FAJIA_TRAP_TARGETS = {
     },
     {
       "id": "action-08",
-      "text": "让对方伸一个懒腰"
+      "text": "让对方主动坐近你一点"
     },
     {
       "id": "action-09",
-      "text": "让对方调整一下坐姿"
+      "text": "让对方主动问你一句“怎么了”"
     },
     {
       "id": "action-10",
-      "text": "让对方摸一下自己的脸"
+      "text": "让对方轻轻碰一下你的手或手背"
     },
     {
       "id": "action-11",
-      "text": "让对方看向镜头并笑一下"
+      "text": "让对方看向你并笑一下"
     },
     {
       "id": "action-12",
@@ -112,15 +112,15 @@ window.FAJIA_TRAP_TARGETS = {
     },
     {
       "id": "action-13",
-      "text": "让对方双手抱臂"
+      "text": "让对方主动夸你一句"
     },
     {
       "id": "action-14",
-      "text": "让对方拍一下手"
+      "text": "让对方轻轻拍一下你的肩膀"
     },
     {
       "id": "action-15",
-      "text": "让对方做一个可爱的表情"
+      "text": "让对方做一个只有你很熟悉的表情"
     }
   ]
 };

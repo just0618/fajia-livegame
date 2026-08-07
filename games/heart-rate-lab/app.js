@@ -11,6 +11,8 @@
     { name: "贺嘉述", image: "../../assets/players/he.webp" }
   ];
 
+  const LOW_FREQUENCY_HIGH_ACTION_INDEXES = new Set([4, 5, 6, 7, 11]);
+
   const state = {
     participantMode: "single",
     gameplay: "action",
@@ -180,57 +182,65 @@
   }
 
   function isDual() {
-    return state.participantMode === "dual";
+    return false;
   }
 
   function currentSetupIsDual() {
-    return (getSelectedValue("participantMode") || "single") === "dual";
+    return false;
   }
 
   function updateSetupOptions() {
-    const dual = currentSetupIsDual();
-    const gameplay = getSelectedValue("gameplay") || "action";
-    const action = gameplay === "action";
+    elements.equipmentCopy.textContent =
+      "一块可测量心率的手表或手环，以及配套手机。";
+    elements.actionModeTitle.textContent = "动作心率实验";
+    elements.actionModeDescription.textContent =
+      "另一位完成不同互动，看看哪一种最容易让心率变化。";
+    elements.questionModeTitle.textContent = "对视问答实验";
+    elements.questionModeDescription.textContent =
+      "佩戴者提问，对方在互动状态下回答。";
+    elements.actionScaleSection.hidden = true;
+    elements.dualBankNote.hidden = true;
+    elements.recordModeSection.hidden = true;
+    elements.liveRecordChoice.hidden = false;
+    elements.dualRecordNote.hidden = true;
+    elements.wearerSection.hidden = false;
+    elements.wearerStep.textContent = "STEP 02";
+    elements.roundStep.textContent = "STEP 03";
+  }
 
-    elements.equipmentCopy.textContent = dual
-      ? "两块可测量心率的手表或手环，以及各自配套的手机。"
-      : "一块可测量心率的手表或手环，以及配套手机。";
+  function mappedActions(source, prefix) {
+    return source.map((item, index) => ({
+      type: "action",
+      text: item.text,
+      duration: item.duration,
+      sourceId: `${prefix}-${String(index + 1).padStart(2, "0")}`,
+      sourceIndex: index
+    }));
+  }
 
-    elements.actionModeTitle.textContent = dual
-      ? "双人共同动作"
-      : "动作心率实验";
-    elements.actionModeDescription.textContent = dual
-      ? "两个人共同完成同一个互动，同时记录双方心率。"
-      : "另一位完成不同小动作，寻找心率最高或波动最大的动作。";
+  function preferredHighActions() {
+    const high = mappedActions(bank.actionHigh, "high");
+    const regular = high.filter(
+      (item) => !LOW_FREQUENCY_HIGH_ACTION_INDEXES.has(item.sourceIndex)
+    );
+    const lowFrequency = high.filter(
+      (item) => LOW_FREQUENCY_HIGH_ACTION_INDEXES.has(item.sourceIndex)
+    );
 
-    elements.questionModeTitle.textContent = dual
-      ? "双人共同问答"
-      : "对视问答实验";
-    elements.questionModeDescription.textContent = dual
-      ? "两个人依次回答同一道问题，记录这一共同问答分钟。"
-      : "佩戴者提问，对方在对视和牵手状态下回答。";
+    const queue = [];
+    const regularDeck = shuffle(regular);
+    const lowDeck = shuffle(lowFrequency);
 
-    elements.actionScaleSection.hidden = !action || dual;
-    elements.dualBankNote.hidden = !dual || !action;
-    elements.liveRecordChoice.hidden = dual;
-    elements.dualRecordNote.hidden = !dual;
-    elements.wearerSection.hidden = dual;
-
-    if (dual) {
-      setSelectedValue("recordMode", "health");
+    while (regularDeck.length || lowDeck.length) {
+      if (lowDeck.length && Math.random() < 0.20) {
+        queue.push(lowDeck.shift());
+      } else if (regularDeck.length) {
+        queue.push(regularDeck.shift());
+      } else {
+        queue.push(lowDeck.shift());
+      }
     }
-
-    elements.recordModeStep.textContent =
-      action && !dual ? "STEP 04" : "STEP 03";
-    elements.wearerStep.textContent =
-      action && !dual ? "STEP 05" : "STEP 04";
-    elements.roundStep.textContent = dual
-      ? action
-        ? "STEP 04"
-        : "STEP 04"
-      : action
-        ? "STEP 06"
-        : "STEP 05";
+    return queue;
   }
 
   function buildQueue() {
@@ -256,22 +266,32 @@
       );
     }
 
-    let source = [];
     if (state.actionScale === "light") {
-      source = bank.actionLight;
-    } else if (state.actionScale === "high") {
-      source = bank.actionHigh;
-    } else {
-      source = [...bank.actionLight, ...bank.actionHigh];
+      return shuffle(mappedActions(bank.actionLight, "light"));
     }
 
-    return shuffle(
-      source.map((item) => ({
-        type: "action",
-        text: item.text,
-        duration: item.duration
-      }))
-    );
+    if (state.actionScale === "high") {
+      return preferredHighActions();
+    }
+
+    const light = shuffle(mappedActions(bank.actionLight, "light"));
+    const high = preferredHighActions();
+    const highCount = state.rounds >= 5 ? 2 : 1;
+    const lightCount = Math.max(1, state.rounds - highCount);
+    const selectedLight = light.slice(0, lightCount);
+    const selectedHigh = high.slice(0, highCount);
+    const plan =
+      state.rounds >= 5
+        ? [selectedLight[0], selectedLight[1], selectedHigh[0], selectedLight[2], selectedHigh[1]]
+        : [selectedLight[0], selectedLight[1], selectedHigh[0]];
+
+    const usedIds = new Set(plan.filter(Boolean).map((item) => item.sourceId));
+    const remainder = [
+      ...light.filter((item) => !usedIds.has(item.sourceId)),
+      ...high.filter((item) => !usedIds.has(item.sourceId))
+    ];
+
+    return [...plan.filter(Boolean), ...shuffle(remainder)];
   }
 
   function takeTask() {
@@ -333,11 +353,7 @@
   }
 
   function updateTopProgress() {
-    const participantLabel = isDual() ? "双人同步" : "单人反应";
-    const recordLabel =
-      state.recordMode === "health" ? "健康数据回看" : "手表实时观察";
-
-    elements.modePill.textContent = `${participantLabel} · ${recordLabel}`;
+    elements.modePill.textContent = "一人佩戴 · 实时观察";
     elements.roundCounter.textContent =
       `第 ${state.completed + 1} / ${state.rounds} 轮`;
     elements.wearerLabel.textContent = isDual()
@@ -1026,13 +1042,10 @@
   function startGame() {
     clearTimers();
 
-    state.participantMode =
-      getSelectedValue("participantMode") || "single";
+    state.participantMode = "single";
     state.gameplay = getSelectedValue("gameplay") || "action";
-    state.actionScale = getSelectedValue("actionScale") || "mixed";
-    state.recordMode = isDual()
-      ? "health"
-      : getSelectedValue("recordMode") || "live";
+    state.actionScale = "mixed";
+    state.recordMode = "live";
     state.wearer = Number(getSelectedValue("wearer") || 0);
     state.rounds = Number(getSelectedValue("rounds") || 5);
     state.completed = 0;
@@ -1103,7 +1116,7 @@
       elements.helpDialog.showModal();
     } else {
       showToast(
-        "支持单人反应和双人同步；休息分钟无需关闭心率测量。"
+        "一人佩戴手环；每轮先记录初始心率，再完成任务并录入最高心率。"
       );
     }
   });

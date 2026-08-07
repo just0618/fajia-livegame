@@ -105,7 +105,32 @@
       }
 
       if (!candidates.length) break;
-      const picked = candidates[Math.floor(Math.random() * candidates.length)];
+
+      const rare = candidates.filter(
+        (question) =>
+          question.liveAction === "稀有高光" ||
+          question.liveAction === "稀有深度"
+      );
+      const down = candidates.filter(
+        (question) => question.liveAction === "降频"
+      );
+      const regular = candidates.filter(
+        (question) =>
+          question.liveAction !== "降频" &&
+          question.liveAction !== "稀有高光" &&
+          question.liveAction !== "稀有深度"
+      );
+
+      let source = regular;
+      if (rare.length && Math.random() < 0.18) {
+        source = rare;
+      } else if (down.length && Math.random() < 0.22) {
+        source = down;
+      } else if (!source.length) {
+        source = down.length ? down : rare;
+      }
+
+      const picked = source[Math.floor(Math.random() * source.length)];
       selected.push(picked);
       remaining.splice(remaining.findIndex((question) => question.id === picked.id), 1);
     }

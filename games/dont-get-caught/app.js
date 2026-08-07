@@ -21,6 +21,21 @@
     ultimate: "终极惩罚"
   };
 
+  const LOW_FREQUENCY_TARGET_IDS = new Set([
+    "word-01",
+    "word-02",
+    "word-03",
+    "word-08",
+    "word-13"
+  ]);
+
+  const LOW_FREQUENCY_PUNISHMENT_IDS = new Set([
+    "he-specific-13",
+    "fa-specific-06",
+    "common-after-02",
+    "common-deep-01"
+  ]);
+
   const state = {
     duration: 300,
     settings: {
@@ -183,6 +198,30 @@
     return items[Math.floor(Math.random() * items.length)];
   }
 
+  function pickTarget(items) {
+    const regular = items.filter((item) => !LOW_FREQUENCY_TARGET_IDS.has(item.id));
+    const lowFrequency = items.filter((item) => LOW_FREQUENCY_TARGET_IDS.has(item.id));
+
+    if (lowFrequency.length && Math.random() < 0.15) {
+      return pick(lowFrequency);
+    }
+    return pick(regular.length ? regular : lowFrequency);
+  }
+
+  function pickPunishment(items) {
+    const regular = items.filter(
+      (item) => !LOW_FREQUENCY_PUNISHMENT_IDS.has(item.id)
+    );
+    const lowFrequency = items.filter(
+      (item) => LOW_FREQUENCY_PUNISHMENT_IDS.has(item.id)
+    );
+
+    if (lowFrequency.length && Math.random() < 0.15) {
+      return pick(lowFrequency);
+    }
+    return pick(regular.length ? regular : lowFrequency);
+  }
+
   function readSettings() {
     return {
       specific: elements.includeSpecificCheckbox.checked,
@@ -256,7 +295,7 @@
   function randomTarget() {
     const type = getSelectedValue("targetType") || "word";
     const pool = type === "word" ? targetBank.words : targetBank.actions;
-    elements.targetInput.value = pick(pool).text;
+    elements.targetInput.value = pickTarget(pool).text;
   }
 
   function preparePassAfterTarget(setter) {
@@ -480,7 +519,7 @@
       return true;
     });
 
-    return candidates.length ? pick(candidates) : null;
+    return candidates.length ? pickPunishment(candidates) : null;
   }
 
   function punishmentSourceLabel(source) {
@@ -657,7 +696,7 @@
         if (otherHasHeavy && isHeavy(item)) return false;
         return true;
       });
-      return candidates.length ? pick(candidates) : null;
+      return candidates.length ? pickPunishment(candidates) : null;
     };
 
     let replacement = pickReplacement(poolForSource(record.source));
