@@ -126,8 +126,29 @@
       `题库共 ${total} 题，已完成 ${completed} 题；换掉的题不会计入。`;
   }
 
+  const LOW_FREQUENCY_IDS = new Set([
+    "dual-imitation-fajia-06",
+    "dual-imitation-fajia-07",
+    "dual-imitation-fajia-09",
+    "dual-imitation-live-06",
+    "dual-imitation-simple-01",
+    "dual-imitation-simple-06",
+    "dual-imitation-simple-07",
+  ]);
+
   function pickOne(items) {
     return items[Math.floor(Math.random() * items.length)];
+  }
+
+  function pickForCategory(items) {
+    const lowFrequency = items.filter((item) => LOW_FREQUENCY_IDS.has(item.id));
+    const regular = items.filter((item) => !LOW_FREQUENCY_IDS.has(item.id));
+
+    if (lowFrequency.length && Math.random() < 0.15) {
+      return pickOne(lowFrequency);
+    }
+
+    return pickOne(regular.length ? regular : lowFrequency);
   }
 
   function buildQueue(count) {
@@ -152,7 +173,7 @@
       if (!candidates.length) candidates = remaining;
       if (!candidates.length) return;
 
-      const picked = pickOne(candidates);
+      const picked = pickForCategory(candidates);
       selected.push(picked);
       const index = remaining.findIndex((item) => item.id === picked.id);
       if (index >= 0) remaining.splice(index, 1);

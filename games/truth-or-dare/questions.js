@@ -88,9 +88,9 @@ window.FAJIA_QUESTION_BANK = {
       {
         "id": "light-truth-13",
         "text": "平时在家最常待的角落是哪里？最舒服的姿势是什么？",
-        "liveEnabled": true,
-        "liveTier": "warmup",
-        "liveAction": "保留"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "light-squid-01",
@@ -151,9 +151,9 @@ window.FAJIA_QUESTION_BANK = {
         "text": "两个人最常待在家里的哪个角落？在那里通常会做什么？",
         "source": "鱿鱼须oo",
         "sourceNumber": 32,
-        "liveEnabled": false,
-        "liveTier": "excluded",
-        "liveAction": "删除"
+        "liveEnabled": true,
+        "liveTier": "relation",
+        "liveAction": "保留"
       },
       {
         "id": "light-squid-08",
@@ -176,9 +176,9 @@ window.FAJIA_QUESTION_BANK = {
       {
         "id": "light-dare-02",
         "text": "用播音腔介绍对方，持续十五秒。",
-        "liveEnabled": true,
-        "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "用户删除"
       },
       {
         "id": "light-dare-03",
@@ -198,15 +198,15 @@ window.FAJIA_QUESTION_BANK = {
         "id": "light-dare-05",
         "text": "模仿对方说一句他最常说的话。",
         "liveEnabled": true,
-        "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveTier": "visible",
+        "liveAction": "保留"
       },
       {
         "id": "light-dare-06",
         "text": "为对方临时设计一个五秒钟的专属出场动作。",
-        "liveEnabled": true,
-        "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "用户删除"
       },
       {
         "id": "light-dare-07",
@@ -217,10 +217,10 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "light-dare-08",
-        "text": "用一句自己的话形容对方今天最有辨识度的地方。",
+        "text": "两个人用手背碰一下对方手背，先猜谁的手更凉，再一起揭晓。",
         "liveEnabled": true,
-        "liveTier": "warmup",
-        "liveAction": "替换"
+        "liveTier": "visible",
+        "liveAction": "保留"
       },
       {
         "id": "light-dare-09",
@@ -328,8 +328,8 @@ window.FAJIA_QUESTION_BANK = {
         "id": "heart-truth-11",
         "text": "如果可以保存一个共同经历的画面，你会选择哪一个？",
         "liveEnabled": true,
-        "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveTier": "relation",
+        "liveAction": "保留"
       },
       {
         "id": "heart-truth-12",
@@ -358,9 +358,9 @@ window.FAJIA_QUESTION_BANK = {
         "id": "heart-squid-03",
         "text": "有没有哪个瞬间，让你突然觉得“有对方在真好”？",
         "source": "鱿鱼须oo",
-        "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "heart-squid-04",
@@ -532,9 +532,9 @@ window.FAJIA_QUESTION_BANK = {
         "text": "此时此刻，你最想听到对方对你说什么？",
         "source": "鱿鱼须oo",
         "sourceNumber": 50,
-        "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       }
     ],
     "dare": [
@@ -554,24 +554,24 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "heart-dare-03",
-        "text": "给对方一句只针对今天状态的夸奖。",
+        "text": "如果手边有护手霜，帮对方涂到吸收；没有的话，按摩对方一只手15秒。",
         "liveEnabled": true,
-        "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveTier": "visible",
+        "liveAction": "保留"
       },
       {
         "id": "heart-dare-04",
-        "text": "两个人各自写下一个共同回忆关键词，然后同时展示。",
+        "text": "两个人各自写下一个共同回忆关键词，然后同时展示给对方和观众；不方便写的话，也可以同时说出来。",
         "liveEnabled": true,
         "liveTier": "visible",
         "liveAction": "保留"
       },
       {
         "id": "heart-dare-05",
-        "text": "用一句话描述“和对方一起工作或相处”的感觉。",
+        "text": "用一句话描述“和对方一起相处”的感觉。",
         "liveEnabled": true,
-        "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveTier": "visible",
+        "liveAction": "保留"
       },
       {
         "id": "heart-dare-06",
@@ -582,10 +582,10 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "heart-dare-07",
-        "text": "分别说出对方一个外在优点和一个内在优点。",
+        "text": "手掌贴手掌保持10秒；结束后两个人同时说刚才最先注意到对方的一个反应。",
         "liveEnabled": true,
-        "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveTier": "visible",
+        "liveAction": "保留"
       },
       {
         "id": "heart-dare-08",
@@ -603,10 +603,10 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "heart-dare-10",
-        "text": "说一句最近最想肯定对方的话，不能用万能祝福。",
+        "text": "面对面坐近一点，两个人的膝盖碰在一起保持10秒。",
         "liveEnabled": true,
-        "liveTier": "warmup",
-        "liveAction": "替换"
+        "liveTier": "visible",
+        "liveAction": "保留"
       },
       {
         "id": "heart-dare-11",
@@ -826,9 +826,9 @@ window.FAJIA_QUESTION_BANK = {
       {
         "id": "challenge-dare-04",
         "text": "互换座位，并用对方的语气完成一句自我介绍。",
-        "liveEnabled": true,
-        "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "用户删除"
       },
       {
         "id": "challenge-dare-05",
@@ -846,10 +846,10 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "challenge-dare-07",
-        "text": "用十秒钟完成一段双人同步动作，允许现场商量一次。",
+        "text": "一个人在对方手背上用指尖画一个简单图形，让对方猜；猜完交换一次。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "降频"
+        "liveAction": "保留"
       },
       {
         "id": "challenge-dare-08",
@@ -958,9 +958,9 @@ window.FAJIA_QUESTION_BANK = {
         "id": "intimate-truth-09",
         "text": "最想和对方培养哪一个共同爱好？",
         "theme": "deep",
-        "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-truth-10",
@@ -982,9 +982,9 @@ window.FAJIA_QUESTION_BANK = {
         "id": "intimate-truth-12",
         "text": "如果有一天可以和对方单独相处一整天，你最想怎样度过？",
         "theme": "straight",
-        "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "用户删除"
       },
       {
         "id": "intimate-straight-01",
@@ -1006,33 +1006,33 @@ window.FAJIA_QUESTION_BANK = {
         "id": "intimate-straight-03",
         "text": "有没有为了靠近对方，故意找过一个看起来很自然的借口？",
         "theme": "straight",
-        "liveEnabled": true,
-        "liveTier": "highlight",
-        "liveAction": "稀有高光"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-straight-04",
         "text": "有没有在深夜想起对方或两个人之间的某个小互动，然后一个人偷偷笑过？是哪一次？",
         "theme": "straight",
-        "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-straight-05",
         "text": "有没有一件想和对方做很久、却一直不好意思开口的事情？",
         "theme": "straight",
-        "liveEnabled": true,
-        "liveTier": "highlight",
-        "liveAction": "稀有高光"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-straight-06",
         "text": "有没有梦到过对方？愿意的话，说说印象最深的一段。",
         "theme": "straight",
-        "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-straight-07",
@@ -1054,33 +1054,33 @@ window.FAJIA_QUESTION_BANK = {
         "id": "intimate-straight-09",
         "text": "两个人之间最浪漫的一个瞬间，你会选择哪一个？",
         "theme": "straight",
-        "liveEnabled": true,
-        "liveTier": "highlight",
-        "liveAction": "稀有高光"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-straight-10",
         "text": "半夜突然惊醒的时候，会不会希望对方陪在身边？你希望他怎么陪？",
         "theme": "straight",
-        "liveEnabled": true,
-        "liveTier": "highlight",
-        "liveAction": "稀有高光"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-straight-11",
         "text": "有没有哪个瞬间，让你很明确地意识到自己真的很在意对方？",
         "theme": "straight",
-        "liveEnabled": true,
-        "liveTier": "shy",
-        "liveAction": "改写保留"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-deep-01",
         "text": "在两个人过去的相处中，有没有一件事情至今仍让你感到遗憾？",
         "theme": "deep",
-        "liveEnabled": true,
-        "liveTier": "highlight",
-        "liveAction": "稀有深度"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-deep-02",
@@ -1094,73 +1094,73 @@ window.FAJIA_QUESTION_BANK = {
         "id": "intimate-deep-03",
         "text": "你心中的“忠诚”和“专一”分别意味着什么？哪些行为是明确的边界？",
         "theme": "deep",
-        "liveEnabled": true,
-        "liveTier": "highlight",
-        "liveAction": "稀有深度"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-deep-04",
         "text": "最长能接受多久不联系对方？超过多久会开始感到不安？",
         "theme": "deep",
-        "liveEnabled": true,
-        "liveTier": "highlight",
-        "liveAction": "稀有深度"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-deep-05",
         "text": "你通常在什么时候会特别需要对方？",
         "theme": "deep",
-        "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-deep-06",
         "text": "你希望对方想你的时候，用什么方式让你知道？",
         "theme": "deep",
-        "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-deep-07",
         "text": "你心中理想而健康的爱情是什么样子？",
         "theme": "deep",
-        "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "降频"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-deep-08",
         "text": "有没有一个希望对方慢慢调整的小习惯？你会怎么温和地提醒他？",
         "theme": "deep",
-        "liveEnabled": true,
-        "liveTier": "relation",
-        "liveAction": "保留"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-deep-09",
         "text": "你觉得两个人之间还有哪一种不安全感，可以通过沟通变得更安心？",
         "theme": "deep",
-        "liveEnabled": true,
-        "liveTier": "highlight",
-        "liveAction": "稀有深度"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-deep-10",
         "text": "如果未来共同布置一个空间，最想先添置什么家具或物品？",
         "theme": "deep",
-        "liveEnabled": true,
-        "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-adult-01",
         "text": "感情中能接受 Side 吗？",
         "theme": "deep",
-        "liveEnabled": true,
-        "liveTier": "highlight",
-        "liveAction": "稀有深度"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "模拟卷去重"
       },
       {
         "id": "intimate-squid-01",
@@ -1281,9 +1281,9 @@ window.FAJIA_QUESTION_BANK = {
         "id": "intimate-dare-08",
         "text": "用合照姿势靠近对方，保持五秒。",
         "theme": "common",
-        "liveEnabled": true,
-        "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveEnabled": false,
+        "liveTier": "excluded",
+        "liveAction": "用户删除"
       },
       {
         "id": "intimate-dare-09",
@@ -1295,11 +1295,11 @@ window.FAJIA_QUESTION_BANK = {
       },
       {
         "id": "intimate-dare-10",
-        "text": "主动张开手，向对方要一个拥抱。",
+        "text": "由对方选择谁靠谁的肩膀，保持15秒。",
         "theme": "common",
         "liveEnabled": true,
-        "liveTier": "highlight",
-        "liveAction": "稀有高光"
+        "liveTier": "intimate",
+        "liveAction": "保留"
       },
       {
         "id": "intimate-dare-11",

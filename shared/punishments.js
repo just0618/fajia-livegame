@@ -27,7 +27,7 @@ window.FAJIA_PUNISHMENT_BANK = {
       },
       {
         "id": "he-specific-05",
-        "text": "让小法指定一个他觉得你最可爱的表情或小动作，你现场做一次。",
+        "text": "让小法从“牵手10秒 / 靠肩10秒 / 帮他整理头发”里选一个，你完成一次。",
         "category": "light",
         "requiresAfter": false
       },
@@ -227,7 +227,7 @@ window.FAJIA_PUNISHMENT_BANK = {
       },
       {
         "id": "fa-specific-18",
-        "text": "学小贺的语气调侃他一句，由小贺判断像不像。",
+        "text": "让小贺从“牵手10秒 / 靠肩10秒 / 帮他整理头发”里选一个，你完成一次。",
         "category": "light",
         "requiresAfter": false
       },
@@ -255,7 +255,7 @@ window.FAJIA_PUNISHMENT_BANK = {
       },
       {
         "id": "common-light-03",
-        "text": "模仿对方的经典口头禅，由本人判断像不像。",
+        "text": "让对方把手伸出来，中招者用手指在他掌心写一个字，让对方猜。",
         "category": "light",
         "requiresAfter": false
       },
@@ -291,7 +291,7 @@ window.FAJIA_PUNISHMENT_BANK = {
       },
       {
         "id": "common-light-09",
-        "text": "说一首最容易让你想到对方的歌，并说为什么会想到他。",
+        "text": "握住对方的一只手10秒，猜猜现在是谁的手更热。",
         "category": "light",
         "requiresAfter": false
       },
@@ -309,7 +309,7 @@ window.FAJIA_PUNISHMENT_BANK = {
       },
       {
         "id": "common-light-12",
-        "text": "模仿对方的标志性小动作，由本人现场打分像不像。",
+        "text": "两个人用小拇指勾住10秒。",
         "category": "light",
         "requiresAfter": false
       }
@@ -329,7 +329,7 @@ window.FAJIA_PUNISHMENT_BANK = {
       },
       {
         "id": "common-heart-03",
-        "text": "如果今天睡前只能给对方留一句话，你会说什么？",
+        "text": "两个人肩膀靠在一起15秒；结束后，各说一个刚才最先注意到的对方反应。",
         "category": "heart",
         "requiresAfter": false
       },
