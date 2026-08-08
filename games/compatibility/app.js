@@ -324,7 +324,7 @@
       window.clearInterval(timer);
       elements.countdownStage.classList.remove("is-running");
       elements.countdownStage.classList.add("is-answer");
-      elements.countdownValue.textContent = "同时回答！";
+      elements.countdownValue.textContent = "请回答";
       elements.questionInstruction.textContent =
         "根据两个人刚才的回答与表现，记录这一轮是否默契。";
       elements.countdownActions.hidden = true;
@@ -505,7 +505,7 @@
     if (typeof elements.helpDialog.showModal === "function") {
       elements.helpDialog.showModal();
     } else {
-      showToast("倒计时结束后同时回答，再由两个人自行判断是否默契。");
+      showToast("倒计时结束后请回答，再由两个人自行判断是否默契。");
     }
   });
 
