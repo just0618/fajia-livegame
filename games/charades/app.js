@@ -202,7 +202,7 @@
     elements.questionType.textContent = "双向模仿 · 同时表演";
     elements.questionText.textContent = state.current.text;
     elements.questionHint.textContent =
-      "两个人都演“自己眼里的对方”。结束后可以说说哪里最像、哪里不像。";
+      "两个人都演“自己眼里的对方”。默认同时开始，也可以根据题目轮流表演；结束后可以说说哪里最像、哪里不像。";
 
     resetCountdownUI();
     window.scrollTo({ top: 0, behavior: "smooth" });
