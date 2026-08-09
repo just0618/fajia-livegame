@@ -1208,28 +1208,9 @@ games/heart-rate-lab/
 - 维护用对照表：TRUTH_NUMBER_MAP.md。
 
 
-## V63：中性题号播报与匿名功能统计
+## V64：应对跳过但不读题的对策
 
-- 真心话大冒险当前公开卡片使用中性 K 代号。
-- 点击「换一张」时只播报 K 代号，不播报题型或题目正文。
-- 页面加入腾讯云前端监控接入基础，用于页面访问与游戏操作统计。
-- 公开说明：本站使用腾讯云前端监控统计页面访问与游戏操作情况，用于功能维护与题库优化；不记录答题内容及用户输入信息。
-- 不上报答题内容或用户输入。
-- 腾讯云应用 ID 位于 `shared/rum-config.js`；ID 为空时不会初始化监控，也不会发送数据。
-
-
-## V64：腾讯云 RUM 正式接通
-
-腾讯云 Web 接入信息已写入：
-- appId：16zRztlPrWnVldR9j3
-- hostUrl：https://rumt-zh.com
-- reportApiSpeed：true
-- reportAssetSpeed：true
-- spa：true
-
-未设置 uin，因为游戏屋没有登录体系，也不需要人为绑定访问者身份。
-
-V63 已存在的自定义事件现在会在部署后正式上报：
+你猜
 - name：skip_question
 - ext1：K 编号
 - ext2：truth_or_dare
