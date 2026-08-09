@@ -466,7 +466,7 @@
   }
 
   function speakSkippedCardCode(card) {
-    if (!card || !card.publicCode) return;
+    if (!card) return;
     if (
       !("speechSynthesis" in window) ||
       typeof window.SpeechSynthesisUtterance !== "function"
@@ -475,7 +475,9 @@
     }
 
     try {
-      const spokenNumber = Number(card.publicCode.slice(1));
+      const code = window.FAJIA_CONTENT_CODE ? window.FAJIA_CONTENT_CODE(card.id) : "";
+      if (!code) return;
+      const spokenNumber = Number(code.slice(1));
       const utterance = new window.SpeechSynthesisUtterance(
         `K${spokenNumber}`
       );
@@ -490,14 +492,14 @@
   }
 
   function reportSkippedCard(card, readStatus) {
-    if (!card || !card.publicCode) return;
+    if (!card) return;
     if (!window.FAJIA_RUM || typeof window.FAJIA_RUM.reportEvent !== "function") {
       return;
     }
 
     window.FAJIA_RUM.reportEvent(
       "skip_question",
-      card.publicCode,
+      (window.FAJIA_CONTENT_CODE ? window.FAJIA_CONTENT_CODE(card.id) : ""),
       "truth_or_dare",
       `${card.type || "unknown"}_${readStatus}`
     );

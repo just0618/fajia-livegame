@@ -679,8 +679,17 @@
     return combinedPool();
   }
 
-  function rerollPunishment(index) {
+  async function rerollPunishment(index) {
     const record = state.punishments[index];
+    if (!record) return;
+
+    const code = window.FAJIA_CONTENT_CODE
+      ? window.FAJIA_CONTENT_CODE(`punishment-${record.item.id}`)
+      : "";
+    const ok = window.FAJIA_SKIP
+      ? await window.FAJIA_SKIP.confirm({ code, game: "dont_get_caught", itemType: "punishment", noun: "这条惩罚" })
+      : true;
+    if (!ok) return;
     const otherRecords = state.punishments.filter(
       (_, itemIndex) => itemIndex !== index
     );

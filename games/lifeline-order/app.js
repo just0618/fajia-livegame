@@ -290,10 +290,25 @@
     renderOrder();
   });
   elements.submitOrderButton.addEventListener("click", submitOrder);
-  elements.rerollPunishmentButton.addEventListener("click", drawPunishment);
+  async function confirmCurrentPunishmentSkip(onConfirmed) {
+    if (!state.currentPunishment) { onConfirmed(); return; }
+    const code = window.FAJIA_CONTENT_CODE
+      ? window.FAJIA_CONTENT_CODE(`punishment-${state.currentPunishment.id}`)
+      : "";
+    const ok = window.FAJIA_SKIP
+      ? await window.FAJIA_SKIP.confirm({ code, game: "lifeline_order", itemType: "punishment", noun: "这条惩罚" })
+      : true;
+    if (ok) onConfirmed();
+  }
+
+  elements.rerollPunishmentButton.addEventListener("click", () => {
+    confirmCurrentPunishmentSkip(drawPunishment);
+  });
   elements.skipPunishmentButton.addEventListener("click", () => {
-    elements.punishmentPanel.hidden = true;
-    showToast("本轮已跳过惩罚。");
+    confirmCurrentPunishmentSkip(() => {
+      elements.punishmentPanel.hidden = true;
+      showToast("本轮已跳过惩罚。");
+    });
   });
   elements.playAgainButton.addEventListener("click", returnToSetup);
 

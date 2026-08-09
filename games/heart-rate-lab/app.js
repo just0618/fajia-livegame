@@ -258,10 +258,11 @@
 
     if (state.gameplay === "question") {
       return shuffle(
-        bank.questions.map((text) => ({
+        bank.questions.map((text, index) => ({
           type: "question",
           text,
-          duration: 25
+          duration: 25,
+          sourceId: `question-${String(index + 1).padStart(2, "0")}`
         }))
       );
     }
@@ -302,7 +303,7 @@
     state.currentTask = state.queue.shift();
   }
 
-  function skipTask() {
+  function performSkipTask() {
     if (state.currentTask) {
       state.queue.push(state.currentTask);
     }
@@ -310,6 +311,16 @@
     state.skipped += 1;
     showToast("本题已跳过，不占用正式轮数。");
     renderRoundReady();
+  }
+
+  async function skipTask() {
+    if (!state.currentTask) return;
+    const key = state.currentTask.sourceId ? `heart-rate-${state.currentTask.sourceId}` : "";
+    const code = window.FAJIA_CONTENT_CODE ? window.FAJIA_CONTENT_CODE(key) : "";
+    const ok = window.FAJIA_SKIP
+      ? await window.FAJIA_SKIP.confirm({ code, game: "heart_rate_lab", itemType: state.currentTask.type || "task", noun: "这个任务" })
+      : true;
+    if (ok) performSkipTask();
   }
 
   function wearerName() {

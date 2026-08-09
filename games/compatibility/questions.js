@@ -9,8 +9,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "highlight",
-      "liveAction": "保留",
-      "publicCode": "K121"
+      "liveAction": "保留"
     },
     {
       "type": "choice",
@@ -21,8 +20,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "出门走走"
       ],
       "liveTier": "warmup",
-      "liveAction": "降频",
-      "publicCode": "K122"
+      "liveAction": "降频"
     },
     {
       "type": "free",
@@ -30,8 +28,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "同时说出一项最适合两个人一起吃的夜宵。",
       "options": [],
       "liveTier": "warmup",
-      "liveAction": "降频",
-      "publicCode": "K123"
+      "liveAction": "降频"
     },
     {
       "type": "who",
@@ -42,8 +39,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "highlight",
-      "liveAction": "改写",
-      "publicCode": "K124"
+      "liveAction": "改写"
     },
     {
       "type": "choice",
@@ -54,8 +50,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "先安静陪一会儿"
       ],
       "liveTier": "highlight",
-      "liveAction": "改写保留",
-      "publicCode": "K125"
+      "liveAction": "改写保留"
     },
     {
       "type": "free",
@@ -63,8 +58,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "同时说出对方最近一个让你觉得心动的小动作。",
       "options": [],
       "liveTier": "highlight",
-      "liveAction": "稀有高光",
-      "publicCode": "K126"
+      "liveAction": "稀有高光"
     },
     {
       "type": "who",
@@ -75,8 +69,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "warmup",
-      "liveAction": "降频",
-      "publicCode": "K127"
+      "liveAction": "降频"
     },
     {
       "type": "choice",
@@ -87,8 +80,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "先主动哄一下"
       ],
       "liveTier": "highlight",
-      "liveAction": "保留",
-      "publicCode": "K128"
+      "liveAction": "保留"
     },
     {
       "type": "free",
@@ -96,8 +88,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "同时说出对方最常使用的一个语气词。",
       "options": [],
       "liveTier": "warmup",
-      "liveAction": "保留",
-      "publicCode": "K129"
+      "liveAction": "保留"
     },
     {
       "type": "who",
@@ -108,8 +99,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "highlight",
-      "liveAction": "替换",
-      "publicCode": "K130"
+      "liveAction": "替换"
     },
     {
       "type": "choice",
@@ -120,8 +110,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "先认真聊天"
       ],
       "liveTier": "highlight",
-      "liveAction": "保留",
-      "publicCode": "K131"
+      "liveAction": "保留"
     },
     {
       "type": "free",
@@ -129,8 +118,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "同时说出对方最容易害羞的一个瞬间。",
       "options": [],
       "liveTier": "highlight",
-      "liveAction": "改写",
-      "publicCode": "K132"
+      "liveAction": "改写"
     },
     {
       "type": "choice",
@@ -141,8 +129,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "靠在一起安静休息"
       ],
       "liveTier": "highlight",
-      "liveAction": "保留",
-      "publicCode": "K133"
+      "liveAction": "保留"
     },
     {
       "type": "who",
@@ -153,8 +140,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "visible",
-      "liveAction": "保留",
-      "publicCode": "K134"
+      "liveAction": "保留"
     },
     {
       "type": "free",
@@ -162,8 +148,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "同时说出一件最想和对方完成、但还没有做过的事情。",
       "options": [],
       "liveTier": "highlight",
-      "liveAction": "改写",
-      "publicCode": "K135"
+      "liveAction": "改写"
     }
   ],
   "heart": [
@@ -173,8 +158,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "同时说出一个最想再次回到的共同经历。",
       "options": [],
       "liveTier": "relation",
-      "liveAction": "保留",
-      "publicCode": "K136"
+      "liveAction": "保留"
     },
     {
       "type": "who",
@@ -185,8 +169,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "visible",
-      "liveAction": "保留",
-      "publicCode": "K137"
+      "liveAction": "保留"
     },
     {
       "type": "choice",
@@ -197,8 +180,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "视频"
       ],
       "liveTier": "warmup",
-      "liveAction": "降频",
-      "publicCode": "K138"
+      "liveAction": "降频"
     },
     {
       "type": "free",
@@ -206,8 +188,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "同时说出对方身上一个值得被肯定的优点。",
       "options": [],
       "liveTier": "relation",
-      "liveAction": "保留",
-      "publicCode": "K139"
+      "liveAction": "保留"
     },
     {
       "type": "who",
@@ -218,8 +199,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "visible",
-      "liveAction": "保留",
-      "publicCode": "K140"
+      "liveAction": "保留"
     },
     {
       "type": "choice",
@@ -230,8 +210,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "结果完美"
       ],
       "liveTier": "visible",
-      "liveAction": "保留",
-      "publicCode": "K141"
+      "liveAction": "保留"
     },
     {
       "type": "free",
@@ -239,8 +218,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "同时说出一句最近最想肯定对方的话。",
       "options": [],
       "liveTier": "warmup",
-      "liveAction": "替换",
-      "publicCode": "K142"
+      "liveAction": "替换"
     },
     {
       "type": "who",
@@ -251,8 +229,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "visible",
-      "liveAction": "保留",
-      "publicCode": "K143"
+      "liveAction": "保留"
     },
     {
       "type": "choice",
@@ -263,8 +240,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "一件物品"
       ],
       "liveTier": "warmup",
-      "liveAction": "降频",
-      "publicCode": "K144"
+      "liveAction": "降频"
     },
     {
       "type": "free",
@@ -272,8 +248,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "同时说出一个最能体现两个人默契的瞬间。",
       "options": [],
       "liveTier": "relation",
-      "liveAction": "保留",
-      "publicCode": "K145"
+      "liveAction": "保留"
     },
     {
       "type": "who",
@@ -284,8 +259,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "highlight",
-      "liveAction": "保留",
-      "publicCode": "K146"
+      "liveAction": "保留"
     },
     {
       "type": "choice",
@@ -296,8 +270,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "合作创作"
       ],
       "liveTier": "warmup",
-      "liveAction": "降频",
-      "publicCode": "K147"
+      "liveAction": "降频"
     },
     {
       "type": "free",
@@ -305,8 +278,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "分别说出对方最近一个让你觉得很可爱的瞬间。",
       "options": [],
       "liveTier": "relation",
-      "liveAction": "保留",
-      "publicCode": "K148"
+      "liveAction": "保留"
     },
     {
       "type": "choice",
@@ -317,8 +289,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "每天有一个拥抱"
       ],
       "liveTier": "highlight",
-      "liveAction": "保留",
-      "publicCode": "K149"
+      "liveAction": "保留"
     },
     {
       "type": "who",
@@ -329,8 +300,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "visible",
-      "liveAction": "保留",
-      "publicCode": "K150"
+      "liveAction": "保留"
     }
   ],
   "challenge": [
@@ -343,8 +313,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "visible",
-      "liveAction": "保留",
-      "publicCode": "K151"
+      "liveAction": "保留"
     },
     {
       "type": "free",
@@ -352,8 +321,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "同时说出一个对方自己可能没有意识到的习惯。",
       "options": [],
       "liveTier": "relation",
-      "liveAction": "保留",
-      "publicCode": "K152"
+      "liveAction": "保留"
     },
     {
       "type": "choice",
@@ -364,8 +332,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "一起大笑"
       ],
       "liveTier": "warmup",
-      "liveAction": "降频",
-      "publicCode": "K153"
+      "liveAction": "降频"
     },
     {
       "type": "who",
@@ -376,8 +343,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "visible",
-      "liveAction": "保留",
-      "publicCode": "K154"
+      "liveAction": "保留"
     },
     {
       "type": "free",
@@ -385,8 +351,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "同时说出一个最希望两个人继续保持的相处习惯。",
       "options": [],
       "liveTier": "relation",
-      "liveAction": "保留",
-      "publicCode": "K155"
+      "liveAction": "保留"
     },
     {
       "type": "choice",
@@ -397,8 +362,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "主动逗开心"
       ],
       "liveTier": "visible",
-      "liveAction": "保留",
-      "publicCode": "K156"
+      "liveAction": "保留"
     },
     {
       "type": "who",
@@ -409,8 +373,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "visible",
-      "liveAction": "保留",
-      "publicCode": "K157"
+      "liveAction": "保留"
     },
     {
       "type": "free",
@@ -418,8 +381,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "同时说出一个只有对方才能很好配合你的事情。",
       "options": [],
       "liveTier": "relation",
-      "liveAction": "保留",
-      "publicCode": "K158"
+      "liveAction": "保留"
     },
     {
       "type": "choice",
@@ -430,8 +392,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "私人日常"
       ],
       "liveTier": "visible",
-      "liveAction": "降频",
-      "publicCode": "K159"
+      "liveAction": "降频"
     },
     {
       "type": "who",
@@ -442,8 +403,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "visible",
-      "liveAction": "保留",
-      "publicCode": "K160"
+      "liveAction": "保留"
     },
     {
       "type": "free",
@@ -451,8 +411,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "同时给两个人现在的默契打分（0—100）；分差超过10分时，分别说出一个加分项和一个扣分项。",
       "options": [],
       "liveTier": "highlight",
-      "liveAction": "改写",
-      "publicCode": "K161"
+      "liveAction": "改写"
     },
     {
       "type": "choice",
@@ -463,8 +422,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "两人边做边商量"
       ],
       "liveTier": "visible",
-      "liveAction": "保留",
-      "publicCode": "K162"
+      "liveAction": "保留"
     },
     {
       "type": "free",
@@ -472,8 +430,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
       "text": "分别说出一个你认为对方最希望被理解的地方。",
       "options": [],
       "liveTier": "highlight",
-      "liveAction": "稀有深度",
-      "publicCode": "K163"
+      "liveAction": "稀有深度"
     },
     {
       "type": "choice",
@@ -484,8 +441,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "立刻一起讨论"
       ],
       "liveTier": "visible",
-      "liveAction": "降频",
-      "publicCode": "K164"
+      "liveAction": "降频"
     },
     {
       "type": "who",
@@ -496,8 +452,7 @@ window.FAJIA_COMPATIBILITY_BANK = {
         "贺嘉述"
       ],
       "liveTier": "visible",
-      "liveAction": "保留",
-      "publicCode": "K165"
+      "liveAction": "保留"
     }
   ]
 };

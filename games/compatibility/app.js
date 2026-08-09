@@ -340,7 +340,7 @@
   }
 
   function speakSkippedCardCode(question) {
-    if (!question || !question.publicCode) return;
+    if (!question) return;
     if (
       !("speechSynthesis" in window) ||
       typeof window.SpeechSynthesisUtterance !== "function"
@@ -349,7 +349,9 @@
     }
 
     try {
-      const spokenNumber = Number(question.publicCode.slice(1));
+      const code = window.FAJIA_CONTENT_CODE ? window.FAJIA_CONTENT_CODE(question.id) : "";
+      if (!code) return;
+      const spokenNumber = Number(code.slice(1));
       const utterance = new window.SpeechSynthesisUtterance(`K${spokenNumber}`);
       utterance.lang = "zh-CN";
       utterance.rate = 0.95;
@@ -362,14 +364,14 @@
   }
 
   function reportSkippedQuestion(question, readStatus) {
-    if (!question || !question.publicCode) return;
+    if (!question) return;
     if (!window.FAJIA_RUM || typeof window.FAJIA_RUM.reportEvent !== "function") {
       return;
     }
 
     window.FAJIA_RUM.reportEvent(
       "skip_question",
-      question.publicCode,
+      (window.FAJIA_CONTENT_CODE ? window.FAJIA_CONTENT_CODE(question.id) : ""),
       "compatibility",
       `compatibility_${readStatus}`
     );

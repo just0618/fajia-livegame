@@ -468,7 +468,7 @@
     }, 900);
   }
 
-  function skipQuestion() {
+  function performSkipQuestion() {
     clearCountdown();
     state.skipped += 1;
     if (state.activeQuestion) {
@@ -477,6 +477,15 @@
     state.activeQuestion = null;
     showToast("本题已跳过，不占用所选题数。");
     renderRound();
+  }
+
+  async function skipQuestion() {
+    if (!state.activeQuestion) return;
+    const code = window.FAJIA_CONTENT_CODE ? window.FAJIA_CONTENT_CODE(state.activeQuestion.id) : "";
+    const ok = window.FAJIA_SKIP
+      ? await window.FAJIA_SKIP.confirm({ code, game: "heart_rating", itemType: "question", noun: "这道题" })
+      : true;
+    if (ok) performSkipQuestion();
   }
 
   function getRevealCopy(gap) {

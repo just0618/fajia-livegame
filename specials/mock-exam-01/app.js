@@ -542,7 +542,7 @@
     advanceAfterQuestion();
   }
 
-  function skipCurrentQuestion() {
+  function performSkipCurrentQuestion() {
     const question = questions[state.questionIndex];
     state.skippedQuestionIds = replaceId(
       state.skippedQuestionIds,
@@ -555,6 +555,16 @@
       false
     );
     advanceAfterQuestion();
+  }
+
+  async function skipCurrentQuestion() {
+    const question = questions[state.questionIndex];
+    if (!question) return;
+    const code = window.FAJIA_CONTENT_CODE ? window.FAJIA_CONTENT_CODE(`mock-exam-${question.id}`) : "";
+    const ok = window.FAJIA_SKIP
+      ? await window.FAJIA_SKIP.confirm({ code, game: "mock_exam", itemType: "question", noun: "这道题" })
+      : true;
+    if (ok) performSkipCurrentQuestion();
   }
 
   function renderSummary() {

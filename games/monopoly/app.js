@@ -539,9 +539,13 @@ async function skipCurrentCellAndReroll() {
 
   const player = state.players[lastMove.playerIndex];
 
-  if (!confirm(`确认本局跳过第${cell.id}格“${cell.title}”吗？棋子会退回本次掷骰前的位置，并由${player.name}重新掷骰。`)) {
-    return;
-  }
+  const code = window.FAJIA_CONTENT_CODE
+    ? window.FAJIA_CONTENT_CODE(`monopoly-cell-${cell.id}`)
+    : "";
+  const ok = window.FAJIA_SKIP
+    ? await window.FAJIA_SKIP.confirm({ code, game: "monopoly", itemType: "task", noun: "这个任务" })
+    : confirm(`确认本局跳过第${cell.id}格“${cell.title}”吗？`);
+  if (!ok) return;
 
   if (!state.disabledCells.includes(cell.id)) {
     state.disabledCells.push(cell.id);

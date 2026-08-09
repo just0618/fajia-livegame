@@ -151,13 +151,22 @@
     drawQuestion();
   }
 
-  function skipQuestion() {
+  function performSkipQuestion() {
     state.skipped += 1;
     if (state.current) {
       state.queue.push(state.current);
     }
     showToast("本题已跳过，不占用本场题数。");
     drawQuestion();
+  }
+
+  async function skipQuestion() {
+    if (!state.current) return;
+    const code = window.FAJIA_CONTENT_CODE ? window.FAJIA_CONTENT_CODE(state.current.id) : "";
+    const ok = window.FAJIA_SKIP
+      ? await window.FAJIA_SKIP.confirm({ code, game: "balance", itemType: "question", noun: "这道题" })
+      : true;
+    if (ok) performSkipQuestion();
   }
 
   function returnToSetup() {
