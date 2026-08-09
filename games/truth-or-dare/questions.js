@@ -1316,6 +1316,13 @@ window.FAJIA_QUESTION_BANK = {
         "liveEnabled": true,
         "liveTier": "highlight",
         "liveAction": "稀有高光"
+      },
+      {
+        "id": "intimate-dare-13",
+        "text": "让对方用口红在自己脸 / 脖子 / 身体任意部位（三选一）留下印记。",
+        "liveEnabled": true,
+        "liveTier": "intimate",
+        "liveAction": "稀有高光"
       }
     ]
   }
