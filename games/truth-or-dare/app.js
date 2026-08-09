@@ -462,7 +462,47 @@
     drawCard();
   }
 
+  function speakSkippedCardCode(card) {
+    if (!card || !card.publicCode) return;
+    if (
+      !("speechSynthesis" in window) ||
+      typeof window.SpeechSynthesisUtterance !== "function"
+    ) {
+      return;
+    }
+
+    try {
+      const spokenNumber = Number(card.publicCode.slice(1));
+      const utterance = new window.SpeechSynthesisUtterance(
+        `K${spokenNumber}`
+      );
+      utterance.lang = "zh-CN";
+      utterance.rate = 0.95;
+      utterance.pitch = 1;
+      utterance.volume = 1;
+      window.speechSynthesis.speak(utterance);
+    } catch (error) {
+      // 语音不可用时不影响正常换题。
+    }
+  }
+
+  function reportSkippedCard(card) {
+    if (!card || !card.publicCode) return;
+    if (!window.FAJIA_RUM || typeof window.FAJIA_RUM.reportEvent !== "function") {
+      return;
+    }
+
+    window.FAJIA_RUM.reportEvent(
+      "skip_question",
+      card.publicCode,
+      "truth_or_dare",
+      card.type || ""
+    );
+  }
+
   function drawAgain() {
+    speakSkippedCardCode(state.currentCard);
+    reportSkippedCard(state.currentCard);
     state.skippedCount += 1;
 
     if (allAvailableCards().length === 0) {

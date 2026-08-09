@@ -6,21 +6,27 @@ window.FAJIA_QUESTION_BANK = {
         "text": "用三个词形容对方现在给你的感觉。",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T001",
+        "publicCode": "K001"
       },
       {
         "id": "light-truth-02",
         "text": "你觉得对方最容易被什么事情逗笑？",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T002",
+        "publicCode": "K002"
       },
       {
         "id": "light-truth-03",
         "text": "对方最常说的一句话或口头禅是什么？",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T003",
+        "publicCode": "K003"
       },
       {
         "id": "light-truth-04",
@@ -41,7 +47,9 @@ window.FAJIA_QUESTION_BANK = {
         "text": "说出一个你认为对方很擅长、但他自己未必会主动提起的事情。",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T004",
+        "publicCode": "K004"
       },
       {
         "id": "light-truth-07",
@@ -55,7 +63,9 @@ window.FAJIA_QUESTION_BANK = {
         "text": "如果给对方设计一个专属表情包，它会是什么样子？",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T005",
+        "publicCode": "K005"
       },
       {
         "id": "light-truth-09",
@@ -69,7 +79,9 @@ window.FAJIA_QUESTION_BANK = {
         "text": "最近一次被对方逗笑，是因为什么？",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T006",
+        "publicCode": "K006"
       },
       {
         "id": "light-truth-11",
@@ -83,7 +95,9 @@ window.FAJIA_QUESTION_BANK = {
         "text": "你觉得对方在陌生人面前和熟人面前最大的区别是什么？",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T007",
+        "publicCode": "K007"
       },
       {
         "id": "light-truth-13",
@@ -99,7 +113,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 10,
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T008",
+        "publicCode": "K008"
       },
       {
         "id": "light-squid-02",
@@ -117,7 +133,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 14,
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T009",
+        "publicCode": "K009"
       },
       {
         "id": "light-squid-04",
@@ -126,7 +144,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 16,
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T010",
+        "publicCode": "K010"
       },
       {
         "id": "light-squid-05",
@@ -135,7 +155,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 17,
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "改写保留"
+        "liveAction": "改写保留",
+        "truthNo": "T011",
+        "publicCode": "K011"
       },
       {
         "id": "light-squid-06",
@@ -153,7 +175,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 32,
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T012",
+        "publicCode": "K012"
       },
       {
         "id": "light-squid-08",
@@ -162,7 +186,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 49,
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T013",
+        "publicCode": "K013"
       }
     ],
     "dare": [
@@ -171,7 +197,8 @@ window.FAJIA_QUESTION_BANK = {
         "text": "模仿对方最常见的一个表情，请对方打分。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K081"
       },
       {
         "id": "light-dare-02",
@@ -192,14 +219,16 @@ window.FAJIA_QUESTION_BANK = {
         "text": "说一个别人不一定注意到、但你很欣赏对方的地方。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "改写保留"
+        "liveAction": "改写保留",
+        "publicCode": "K082"
       },
       {
         "id": "light-dare-05",
         "text": "模仿对方说一句他最常说的话。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K083"
       },
       {
         "id": "light-dare-06",
@@ -220,28 +249,32 @@ window.FAJIA_QUESTION_BANK = {
         "text": "两个人用手背碰一下对方手背，先猜谁的手更凉，再一起揭晓。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K084"
       },
       {
         "id": "light-dare-09",
         "text": "闭眼听对方说一句话，再复述他的语气。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K085"
       },
       {
         "id": "light-dare-10",
         "text": "只用一个表情和一个手势表达你对当前局面的感受。",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "publicCode": "K086"
       },
       {
         "id": "light-dare-11",
         "text": "给对方取一个只在这一轮有效、且和他今天状态有关的临时称呼，并说为什么。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "改写保留"
+        "liveAction": "改写保留",
+        "publicCode": "K087"
       },
       {
         "id": "light-dare-12",
@@ -259,21 +292,27 @@ window.FAJIA_QUESTION_BANK = {
         "text": "第一次见到对方时，你最真实的第一印象是什么？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T014",
+        "publicCode": "K014"
       },
       {
         "id": "heart-truth-02",
         "text": "什么时候你发现自己对对方的认识和最初不一样了？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T015",
+        "publicCode": "K015"
       },
       {
         "id": "heart-truth-03",
         "text": "对方做过哪一件小事，让你记到了现在？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T016",
+        "publicCode": "K016"
       },
       {
         "id": "heart-truth-04",
@@ -287,14 +326,18 @@ window.FAJIA_QUESTION_BANK = {
         "text": "如果要感谢对方一件事情，你最想感谢什么？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T017",
+        "publicCode": "K017"
       },
       {
         "id": "heart-truth-06",
         "text": "你觉得两个人相处时，最有默契的一个瞬间是什么？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T018",
+        "publicCode": "K018"
       },
       {
         "id": "heart-truth-07",
@@ -315,28 +358,36 @@ window.FAJIA_QUESTION_BANK = {
         "text": "对方有没有一句话曾经让你印象很深？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T019",
+        "publicCode": "K019"
       },
       {
         "id": "heart-truth-10",
         "text": "你觉得自己从对方身上学到了什么？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T020",
+        "publicCode": "K020"
       },
       {
         "id": "heart-truth-11",
         "text": "如果可以保存一个共同经历的画面，你会选择哪一个？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T021",
+        "publicCode": "K021"
       },
       {
         "id": "heart-truth-12",
         "text": "你认为对方最需要被肯定的一点是什么？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T022",
+        "publicCode": "K022"
       },
       {
         "id": "heart-squid-01",
@@ -344,7 +395,9 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T023",
+        "publicCode": "K023"
       },
       {
         "id": "heart-squid-02",
@@ -352,7 +405,9 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T024",
+        "publicCode": "K024"
       },
       {
         "id": "heart-squid-03",
@@ -368,7 +423,9 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T025",
+        "publicCode": "K025"
       },
       {
         "id": "heart-squid-05",
@@ -392,7 +449,9 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T026",
+        "publicCode": "K026"
       },
       {
         "id": "heart-squid-08",
@@ -400,7 +459,9 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T027",
+        "publicCode": "K027"
       },
       {
         "id": "heart-squid-09",
@@ -408,7 +469,9 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "改写保留"
+        "liveAction": "改写保留",
+        "truthNo": "T028",
+        "publicCode": "K028"
       },
       {
         "id": "heart-squid-10",
@@ -417,7 +480,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 2,
         "liveEnabled": true,
         "liveTier": "shy",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T029",
+        "publicCode": "K029"
       },
       {
         "id": "heart-squid-11",
@@ -426,7 +491,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 5,
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T030",
+        "publicCode": "K030"
       },
       {
         "id": "heart-squid-12",
@@ -435,7 +502,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 9,
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T031",
+        "publicCode": "K031"
       },
       {
         "id": "heart-squid-13",
@@ -444,7 +513,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 12,
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T032",
+        "publicCode": "K032"
       },
       {
         "id": "heart-squid-14",
@@ -453,7 +524,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 18,
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T033",
+        "publicCode": "K033"
       },
       {
         "id": "heart-squid-15",
@@ -462,7 +535,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 21,
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "改写保留"
+        "liveAction": "改写保留",
+        "truthNo": "T034",
+        "publicCode": "K034"
       },
       {
         "id": "heart-squid-16",
@@ -471,7 +546,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 25,
         "liveEnabled": true,
         "liveTier": "shy",
-        "liveAction": "替换"
+        "liveAction": "替换",
+        "truthNo": "T035",
+        "publicCode": "K035"
       },
       {
         "id": "heart-squid-17",
@@ -480,7 +557,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 26,
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T036",
+        "publicCode": "K036"
       },
       {
         "id": "heart-squid-18",
@@ -489,7 +568,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 28,
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "稀有高光"
+        "liveAction": "稀有高光",
+        "truthNo": "T037",
+        "publicCode": "K037"
       },
       {
         "id": "heart-squid-19",
@@ -498,7 +579,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 33,
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T038",
+        "publicCode": "K038"
       },
       {
         "id": "heart-squid-20",
@@ -507,7 +590,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 36,
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "稀有高光"
+        "liveAction": "稀有高光",
+        "truthNo": "T039",
+        "publicCode": "K039"
       },
       {
         "id": "heart-squid-21",
@@ -516,7 +601,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 44,
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T040",
+        "publicCode": "K040"
       },
       {
         "id": "heart-squid-22",
@@ -525,7 +612,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 45,
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T041",
+        "publicCode": "K041"
       },
       {
         "id": "heart-squid-23",
@@ -543,35 +632,40 @@ window.FAJIA_QUESTION_BANK = {
         "text": "看着对方，认真说出一个你很欣赏他的理由。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K088"
       },
       {
         "id": "heart-dare-02",
         "text": "和对方对视十秒，中途不能看镜头。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K089"
       },
       {
         "id": "heart-dare-03",
         "text": "如果手边有护手霜，帮对方涂到吸收；没有的话，按摩对方一只手15秒。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K090"
       },
       {
         "id": "heart-dare-04",
         "text": "两个人各自写下一个共同回忆关键词，然后同时展示给对方和观众；不方便写的话，也可以同时说出来。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K091"
       },
       {
         "id": "heart-dare-05",
         "text": "用一句话描述“和对方一起相处”的感觉。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K092"
       },
       {
         "id": "heart-dare-06",
@@ -585,42 +679,48 @@ window.FAJIA_QUESTION_BANK = {
         "text": "手掌贴手掌保持10秒；结束后两个人同时说刚才最先注意到对方的一个反应。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K093"
       },
       {
         "id": "heart-dare-08",
         "text": "说一件最近真心替对方高兴的事，并告诉他为什么。",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "替换"
+        "liveAction": "替换",
+        "publicCode": "K094"
       },
       {
         "id": "heart-dare-09",
         "text": "两个人同时说出最想一起再去一次的地方。",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "publicCode": "K095"
       },
       {
         "id": "heart-dare-10",
         "text": "面对面坐近一点，两个人的膝盖碰在一起保持10秒。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K096"
       },
       {
         "id": "heart-dare-11",
         "text": "选择一首你觉得适合对方的歌，并说明原因。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K097"
       },
       {
         "id": "heart-dare-12",
         "text": "互相说出一个对方可能没有意识到的优点。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K098"
       }
     ]
   },
@@ -631,42 +731,54 @@ window.FAJIA_QUESTION_BANK = {
         "text": "两个人意见不同时，你觉得谁更可能先主动缓和气氛？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T042",
+        "publicCode": "K042"
       },
       {
         "id": "challenge-truth-02",
         "text": "对方做什么事情时，你最容易拿他没办法？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T043",
+        "publicCode": "K043"
       },
       {
         "id": "challenge-truth-03",
         "text": "说出一个你曾经误解对方、后来才发现不是那样的瞬间。",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T044",
+        "publicCode": "K044"
       },
       {
         "id": "challenge-truth-04",
         "text": "如果对方突然一天不回消息，你第一反应会是什么？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T045",
+        "publicCode": "K045"
       },
       {
         "id": "challenge-truth-05",
         "text": "你觉得对方最能看穿你的哪一种情绪？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T046",
+        "publicCode": "K046"
       },
       {
         "id": "challenge-truth-06",
         "text": "在两个人的相处里，你认为自己最需要改进什么？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T047",
+        "publicCode": "K047"
       },
       {
         "id": "challenge-truth-07",
@@ -680,35 +792,45 @@ window.FAJIA_QUESTION_BANK = {
         "text": "有哪件事你觉得只有对方能和你配合得很好？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T048",
+        "publicCode": "K048"
       },
       {
         "id": "challenge-truth-09",
         "text": "你最不希望对方误会你的一件事情是什么？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T049",
+        "publicCode": "K049"
       },
       {
         "id": "challenge-truth-10",
         "text": "如果要给两个人的默契打分，你会打几分？扣分项是什么？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T050",
+        "publicCode": "K050"
       },
       {
         "id": "challenge-truth-11",
         "text": "当对方情绪不好时，你通常会怎么判断和回应？",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T051",
+        "publicCode": "K051"
       },
       {
         "id": "challenge-truth-12",
         "text": "说出一个你希望未来还能继续保持的相处习惯。",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T052",
+        "publicCode": "K052"
       },
       {
         "id": "challenge-squid-01",
@@ -717,7 +839,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 15,
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T053",
+        "publicCode": "K053"
       },
       {
         "id": "challenge-squid-02",
@@ -726,7 +850,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 20,
         "liveEnabled": true,
         "liveTier": "shy",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T054",
+        "publicCode": "K054"
       },
       {
         "id": "challenge-squid-03",
@@ -735,7 +861,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 27,
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "稀有深度"
+        "liveAction": "稀有深度",
+        "truthNo": "T055",
+        "publicCode": "K055"
       },
       {
         "id": "challenge-squid-04",
@@ -744,7 +872,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 29,
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "稀有深度"
+        "liveAction": "稀有深度",
+        "truthNo": "T056",
+        "publicCode": "K056"
       },
       {
         "id": "challenge-squid-05",
@@ -753,7 +883,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 30,
         "liveEnabled": true,
         "liveTier": "shy",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T057",
+        "publicCode": "K057"
       },
       {
         "id": "challenge-squid-06",
@@ -762,7 +894,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 37,
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "稀有深度"
+        "liveAction": "稀有深度",
+        "truthNo": "T058",
+        "publicCode": "K058"
       },
       {
         "id": "challenge-squid-07",
@@ -771,7 +905,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 40,
         "liveEnabled": true,
         "liveTier": "shy",
-        "liveAction": "替换"
+        "liveAction": "替换",
+        "truthNo": "T059",
+        "publicCode": "K059"
       },
       {
         "id": "challenge-squid-08",
@@ -780,7 +916,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 41,
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "稀有深度"
+        "liveAction": "稀有深度",
+        "truthNo": "T060",
+        "publicCode": "K060"
       },
       {
         "id": "challenge-squid-09",
@@ -789,7 +927,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 42,
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "稀有深度"
+        "liveAction": "稀有深度",
+        "truthNo": "T061",
+        "publicCode": "K061"
       },
       {
         "id": "challenge-squid-10",
@@ -798,7 +938,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 47,
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "稀有深度"
+        "liveAction": "稀有深度",
+        "truthNo": "T062",
+        "publicCode": "K062"
       }
     ],
     "dare": [
@@ -807,21 +949,24 @@ window.FAJIA_QUESTION_BANK = {
         "text": "对视十五秒，先笑的人要认真夸对方一句。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K099"
       },
       {
         "id": "challenge-dare-02",
         "text": "两个人同时回答“谁更了解谁”，不能商量。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K100"
       },
       {
         "id": "challenge-dare-03",
         "text": "模仿对方生气、开心或害羞时的一种状态，由对方猜。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K101"
       },
       {
         "id": "challenge-dare-04",
@@ -835,7 +980,8 @@ window.FAJIA_QUESTION_BANK = {
         "text": "由对方随口指定一段共同经历，你用一句话说出为什么记得它。",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "替换"
+        "liveAction": "替换",
+        "publicCode": "K102"
       },
       {
         "id": "challenge-dare-06",
@@ -849,42 +995,48 @@ window.FAJIA_QUESTION_BANK = {
         "text": "一个人在对方手背上用指尖画一个简单图形，让对方猜；猜完交换一次。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K103"
       },
       {
         "id": "challenge-dare-08",
         "text": "模仿对方一个你很熟悉的小表情，由本人评分。",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "替换"
+        "liveAction": "替换",
+        "publicCode": "K104"
       },
       {
         "id": "challenge-dare-09",
         "text": "两个人同时说出对方最明显的一个习惯。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K105"
       },
       {
         "id": "challenge-dare-10",
         "text": "在不说名字的情况下，用三条线索介绍对方。",
         "liveEnabled": true,
         "liveTier": "warmup",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "publicCode": "K106"
       },
       {
         "id": "challenge-dare-11",
         "text": "分别用一句话回答：如果今天和对方相处只能记住一个瞬间，会选哪一个？",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "改写保留"
+        "liveAction": "改写保留",
+        "publicCode": "K107"
       },
       {
         "id": "challenge-dare-12",
         "text": "共同完成一句话：一个人说上半句，另一个人立刻接下半句。",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K108"
       }
     ]
   },
@@ -896,7 +1048,9 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "straight",
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "稀有高光"
+        "liveAction": "稀有高光",
+        "truthNo": "T063",
+        "publicCode": "K063"
       },
       {
         "id": "intimate-truth-02",
@@ -904,7 +1058,9 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "straight",
         "liveEnabled": true,
         "liveTier": "shy",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T064",
+        "publicCode": "K064"
       },
       {
         "id": "intimate-truth-03",
@@ -912,7 +1068,9 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "straight",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T065",
+        "publicCode": "K065"
       },
       {
         "id": "intimate-truth-04",
@@ -920,7 +1078,9 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "straight",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T066",
+        "publicCode": "K066"
       },
       {
         "id": "intimate-truth-05",
@@ -928,7 +1088,9 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "straight",
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "稀有高光"
+        "liveAction": "稀有高光",
+        "truthNo": "T067",
+        "publicCode": "K067"
       },
       {
         "id": "intimate-truth-06",
@@ -936,7 +1098,9 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "straight",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T068",
+        "publicCode": "K068"
       },
       {
         "id": "intimate-truth-07",
@@ -968,7 +1132,9 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "straight",
         "liveEnabled": true,
         "liveTier": "shy",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T069",
+        "publicCode": "K069"
       },
       {
         "id": "intimate-truth-11",
@@ -992,7 +1158,9 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "straight",
         "liveEnabled": true,
         "liveTier": "shy",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T070",
+        "publicCode": "K070"
       },
       {
         "id": "intimate-straight-02",
@@ -1000,7 +1168,9 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "straight",
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "稀有深度"
+        "liveAction": "稀有深度",
+        "truthNo": "T071",
+        "publicCode": "K071"
       },
       {
         "id": "intimate-straight-03",
@@ -1040,7 +1210,9 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "straight",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "替换"
+        "liveAction": "替换",
+        "truthNo": "T072",
+        "publicCode": "K072"
       },
       {
         "id": "intimate-straight-08",
@@ -1088,7 +1260,9 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "deep",
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "改写保留"
+        "liveAction": "改写保留",
+        "truthNo": "T073",
+        "publicCode": "K073"
       },
       {
         "id": "intimate-deep-03",
@@ -1168,7 +1342,9 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T074",
+        "publicCode": "K074"
       },
       {
         "id": "intimate-squid-02",
@@ -1176,7 +1352,9 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T075",
+        "publicCode": "K075"
       },
       {
         "id": "intimate-squid-03",
@@ -1184,7 +1362,9 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T076",
+        "publicCode": "K076"
       },
       {
         "id": "intimate-squid-04",
@@ -1192,7 +1372,9 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "降频"
+        "liveAction": "降频",
+        "truthNo": "T077",
+        "publicCode": "K077"
       },
       {
         "id": "intimate-squid-05",
@@ -1200,7 +1382,9 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T078",
+        "publicCode": "K078"
       },
       {
         "id": "intimate-squid-06",
@@ -1208,7 +1392,9 @@ window.FAJIA_QUESTION_BANK = {
         "source": "鱿鱼须oo",
         "liveEnabled": true,
         "liveTier": "relation",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "truthNo": "T079",
+        "publicCode": "K079"
       },
       {
         "id": "intimate-squid-07",
@@ -1217,7 +1403,9 @@ window.FAJIA_QUESTION_BANK = {
         "sourceNumber": 39,
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "改写"
+        "liveAction": "改写",
+        "truthNo": "T080",
+        "publicCode": "K080"
       }
     ],
     "dare": [
@@ -1227,7 +1415,8 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "common",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K109"
       },
       {
         "id": "intimate-dare-02",
@@ -1235,7 +1424,8 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "common",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K110"
       },
       {
         "id": "intimate-dare-03",
@@ -1243,7 +1433,8 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "common",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "改写保留"
+        "liveAction": "改写保留",
+        "publicCode": "K111"
       },
       {
         "id": "intimate-dare-04",
@@ -1251,7 +1442,8 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "common",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "改写保留"
+        "liveAction": "改写保留",
+        "publicCode": "K112"
       },
       {
         "id": "intimate-dare-05",
@@ -1259,7 +1451,8 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "common",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K113"
       },
       {
         "id": "intimate-dare-06",
@@ -1267,7 +1460,8 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "common",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K114"
       },
       {
         "id": "intimate-dare-07",
@@ -1275,7 +1469,8 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "common",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "改写保留"
+        "liveAction": "改写保留",
+        "publicCode": "K115"
       },
       {
         "id": "intimate-dare-08",
@@ -1291,7 +1486,8 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "common",
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "稀有高光"
+        "liveAction": "稀有高光",
+        "publicCode": "K116"
       },
       {
         "id": "intimate-dare-10",
@@ -1299,7 +1495,8 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "common",
         "liveEnabled": true,
         "liveTier": "intimate",
-        "liveAction": "保留"
+        "liveAction": "保留",
+        "publicCode": "K117"
       },
       {
         "id": "intimate-dare-11",
@@ -1307,7 +1504,8 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "common",
         "liveEnabled": true,
         "liveTier": "visible",
-        "liveAction": "替换"
+        "liveAction": "替换",
+        "publicCode": "K118"
       },
       {
         "id": "intimate-dare-12",
@@ -1315,14 +1513,16 @@ window.FAJIA_QUESTION_BANK = {
         "theme": "common",
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "稀有高光"
+        "liveAction": "稀有高光",
+        "publicCode": "K119"
       },
       {
         "id": "intimate-dare-13",
         "text": "让对方用口红在自己脸 / 脖子 / 身体任意部位（三选一）留下印记。",
         "liveEnabled": true,
         "liveTier": "intimate",
-        "liveAction": "稀有高光"
+        "liveAction": "稀有高光",
+        "publicCode": "K120"
       }
     ]
   }
