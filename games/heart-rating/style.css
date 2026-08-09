@@ -1098,3 +1098,18 @@ button:focus-visible, a:focus-visible {
 .reveal-guide.is-high {
   background: linear-gradient(135deg, var(--pink-soft), var(--gold-soft));
 }
+
+
+/* V65 · clarify 0–10 rating range */
+.scale-note {
+  position: relative;
+  z-index: 1;
+  margin: 12px 0 0;
+  padding: 10px 14px;
+  border-radius: 13px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  line-height: 1.65;
+  text-align: center;
+}

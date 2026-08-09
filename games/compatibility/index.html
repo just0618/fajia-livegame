@@ -9,7 +9,7 @@
     content="法嘉默契挑战：适合双人直播的同步回答小游戏。"
   />
   <title>法嘉默契挑战</title>
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./style.css?v=65-20260810" />
   <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.min.js?max_age=3600"></script>
   <script src="../../shared/rum-config.js?v=64-20260810"></script>
   <script src="../../shared/rum.js?v=64-20260810"></script>
@@ -167,8 +167,11 @@
           <small>继续下一题</small>
         </button>
 
-        <button class="skip-button" id="skipButton" type="button">
-          这题跳过，不计分
+      </div>
+
+      <div class="persistent-skip-actions">
+        <button class="skip-button persistent-skip-button" id="skipButton" type="button">
+          跳过这题
         </button>
       </div>
 
@@ -227,6 +230,19 @@
     </section>
   </main>
 
+
+  <dialog class="help-dialog skip-read-dialog" id="skipReadDialog">
+    <div class="dialog-content skip-read-content">
+      <p class="eyebrow">BEFORE SKIPPING</p>
+      <h2>别忘了给直播间的观众读这道题</h2>
+      <p class="skip-read-copy">如果已经读给观众听，直接选择“读了”；如果没有读，网页会在跳题时只播报这道题的 K 代号。</p>
+      <div class="skip-read-actions">
+        <button class="button button-primary" id="skipReadDoneButton" type="button">读了</button>
+        <button class="button button-secondary" id="skipUnreadButton" type="button">没读</button>
+      </div>
+    </div>
+  </dialog>
+
   <dialog class="help-dialog" id="helpDialog">
     <div class="dialog-content">
       <div class="dialog-heading">
@@ -256,7 +272,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="./questions.js"></script>
-  <script src="./app.js?v=60-20260808"></script>
+  <script src="./questions.js?v=65-20260810"></script>
+  <script src="./app.js?v=65-20260810"></script>
 </body>
 </html>

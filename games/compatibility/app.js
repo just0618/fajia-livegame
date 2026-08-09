@@ -63,6 +63,9 @@
     helpDialog: document.getElementById("helpDialog"),
     openHelpButton: document.getElementById("openHelpButton"),
     closeHelpButton: document.getElementById("closeHelpButton"),
+    skipReadDialog: document.getElementById("skipReadDialog"),
+    skipReadDoneButton: document.getElementById("skipReadDoneButton"),
+    skipUnreadButton: document.getElementById("skipUnreadButton"),
     toast: document.getElementById("toast")
   };
 
@@ -299,6 +302,7 @@
     elements.countdownActions.hidden = false;
     elements.judgeActions.hidden = true;
     elements.countdownButton.disabled = false;
+    elements.skipButton.disabled = false;
   }
 
   function runCountdown() {
@@ -308,6 +312,7 @@
 
     state.countdownRunning = true;
     elements.countdownButton.disabled = true;
+    elements.skipButton.disabled = true;
     elements.countdownStage.classList.add("is-running");
     elements.countdownValue.textContent = "3";
 
@@ -329,8 +334,75 @@
         "根据两个人刚才的回答与表现，记录这一轮是否默契。";
       elements.countdownActions.hidden = true;
       elements.judgeActions.hidden = false;
+      elements.skipButton.disabled = false;
       state.countdownRunning = false;
     }, 850);
+  }
+
+  function speakSkippedCardCode(question) {
+    if (!question || !question.publicCode) return;
+    if (
+      !("speechSynthesis" in window) ||
+      typeof window.SpeechSynthesisUtterance !== "function"
+    ) {
+      return;
+    }
+
+    try {
+      const spokenNumber = Number(question.publicCode.slice(1));
+      const utterance = new window.SpeechSynthesisUtterance(`K${spokenNumber}`);
+      utterance.lang = "zh-CN";
+      utterance.rate = 0.95;
+      utterance.pitch = 1;
+      utterance.volume = 1;
+      window.speechSynthesis.speak(utterance);
+    } catch (error) {
+      // 语音不可用时不影响正常跳题。
+    }
+  }
+
+  function reportSkippedQuestion(question, readStatus) {
+    if (!question || !question.publicCode) return;
+    if (!window.FAJIA_RUM || typeof window.FAJIA_RUM.reportEvent !== "function") {
+      return;
+    }
+
+    window.FAJIA_RUM.reportEvent(
+      "skip_question",
+      question.publicCode,
+      "compatibility",
+      `compatibility_${readStatus}`
+    );
+  }
+
+  function finishCompatibilitySkip(readStatus) {
+    const question = state.questions[state.currentRound - 1];
+    if (!question) return;
+
+    if (readStatus === "unread") {
+      speakSkippedCardCode(question);
+    }
+    reportSkippedQuestion(question, readStatus);
+    showToast("本题已跳过，不计入默契百分比，也不会写入长期进度。");
+    advanceRound("skip");
+  }
+
+  function requestCompatibilitySkip() {
+    const question = state.questions[state.currentRound - 1];
+    if (!question || state.countdownRunning) return;
+
+    if (
+      elements.skipReadDialog &&
+      typeof elements.skipReadDialog.showModal === "function"
+    ) {
+      elements.skipReadDialog.showModal();
+      return;
+    }
+
+    const hasRead = window.confirm(
+      "别忘了给直播间的观众读这道题。\n\n已经读过了吗？\n确定 = 读了；取消 = 没读"
+    );
+    finishCompatibilitySkip(hasRead ? "read" : "unread");
   }
 
   function advanceRound(result) {
@@ -483,9 +555,22 @@
     "click",
     () => advanceRound("different")
   );
-  elements.skipButton.addEventListener("click", () => {
-    showToast("本题已跳过，不计入默契百分比，也不会写入长期进度。");
-    advanceRound("skip");
+  elements.skipButton.addEventListener("click", requestCompatibilitySkip);
+
+  elements.skipReadDoneButton.addEventListener("click", () => {
+    elements.skipReadDialog.close();
+    finishCompatibilitySkip("read");
+  });
+
+  elements.skipUnreadButton.addEventListener("click", () => {
+    elements.skipReadDialog.close();
+    finishCompatibilitySkip("unread");
+  });
+
+  elements.skipReadDialog.addEventListener("click", (event) => {
+    if (event.target === elements.skipReadDialog) {
+      elements.skipReadDialog.close();
+    }
   });
 
   document.querySelectorAll('input[name="questionMode"]').forEach((input) => {

@@ -91,6 +91,9 @@
     helpDialog: document.getElementById("helpDialog"),
     openHelpButton: document.getElementById("openHelpButton"),
     closeHelpButton: document.getElementById("closeHelpButton"),
+    skipReadDialog: document.getElementById("skipReadDialog"),
+    skipReadDoneButton: document.getElementById("skipReadDoneButton"),
+    skipUnreadButton: document.getElementById("skipUnreadButton"),
     toast: document.getElementById("toast")
   };
 
@@ -486,7 +489,7 @@
     }
   }
 
-  function reportSkippedCard(card) {
+  function reportSkippedCard(card, readStatus) {
     if (!card || !card.publicCode) return;
     if (!window.FAJIA_RUM || typeof window.FAJIA_RUM.reportEvent !== "function") {
       return;
@@ -496,13 +499,18 @@
       "skip_question",
       card.publicCode,
       "truth_or_dare",
-      card.type || ""
+      `${card.type || "unknown"}_${readStatus}`
     );
   }
 
-  function drawAgain() {
-    speakSkippedCardCode(state.currentCard);
-    reportSkippedCard(state.currentCard);
+  function finishSkip(readStatus) {
+    const card = state.currentCard;
+    if (!card) return;
+
+    if (readStatus === "unread") {
+      speakSkippedCardCode(card);
+    }
+    reportSkippedCard(card, readStatus);
     state.skippedCount += 1;
 
     if (allAvailableCards().length === 0) {
@@ -512,6 +520,23 @@
     }
 
     drawCard();
+  }
+
+  function requestSkip() {
+    if (!state.currentCard) return;
+
+    if (
+      elements.skipReadDialog &&
+      typeof elements.skipReadDialog.showModal === "function"
+    ) {
+      elements.skipReadDialog.showModal();
+      return;
+    }
+
+    const hasRead = window.confirm(
+      "别忘了给直播间的观众读这道题。\n\n已经读过了吗？\n确定 = 读了；取消 = 没读"
+    );
+    finishSkip(hasRead ? "read" : "unread");
   }
 
   function scopeStats() {
@@ -653,8 +678,25 @@
     });
   });
 
-  elements.drawAgainButton.addEventListener("click", drawAgain);
+  elements.drawAgainButton.addEventListener("click", requestSkip);
   elements.completeTurnButton.addEventListener("click", completeTurn);
+
+  elements.skipReadDoneButton.addEventListener("click", () => {
+    elements.skipReadDialog.close();
+    finishSkip("read");
+  });
+
+  elements.skipUnreadButton.addEventListener("click", () => {
+    elements.skipReadDialog.close();
+    finishSkip("unread");
+  });
+
+  elements.skipReadDialog.addEventListener("click", (event) => {
+    if (event.target === elements.skipReadDialog) {
+      elements.skipReadDialog.close();
+    }
+  });
+
   elements.restartButton.addEventListener("click", returnToSetup);
   elements.continueSetupButton.addEventListener("click", returnToSetup);
 

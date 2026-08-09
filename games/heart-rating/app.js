@@ -311,7 +311,7 @@
 
   function createScoreButtons(container, onSelect) {
     container.innerHTML = "";
-    for (let score = 1; score <= 10; score += 1) {
+    for (let score = 0; score <= 10; score += 1) {
       const button = document.createElement("button");
       button.className = "score-button";
       button.type = "button";
@@ -388,7 +388,7 @@
     elements.cameraAfter.hidden = true;
     elements.recordPanel.hidden = true;
     elements.countdownText.textContent = "3";
-    elements.countdownHint.textContent = "准备同时说出1—10分";
+    elements.countdownHint.textContent = "准备同时说出0—10分";
     state.cameraScores = [null, null];
     elements.confirmCameraRecordButton.disabled = true;
     document.querySelectorAll("[data-score-group]").forEach(clearSelectedButtons);
@@ -446,7 +446,7 @@
 
     let count = 3;
     elements.countdownText.textContent = String(count);
-    elements.countdownHint.textContent = "准备同时说出1—10分";
+    elements.countdownHint.textContent = "准备同时说出0—10分";
 
     clearCountdown();
     state.countdownTimer = setInterval(() => {
@@ -459,7 +459,7 @@
 
       clearCountdown();
       elements.countdownText.textContent = "说！";
-      elements.countdownHint.textContent = "同时说出1—10分";
+      elements.countdownHint.textContent = "同时说出0—10分";
 
       setTimeout(() => {
         elements.countdownPanel.hidden = true;
@@ -816,7 +816,7 @@
     if (typeof elements.helpDialog.showModal === "function") {
       elements.helpDialog.showModal();
     } else {
-      showToast("倒计时结束后同时说出1—10分，记录分数后再分别说明理由。");
+      showToast("倒计时结束后同时说出0—10分，记录分数后再分别说明理由。");
     }
   });
 

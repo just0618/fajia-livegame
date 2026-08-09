@@ -6,10 +6,10 @@
   <meta name="theme-color" content="#FF8AA1" />
   <meta
     name="description"
-    content="法嘉心动值挑战：两个人倒计时后同时说出1—10分。"
+    content="法嘉心动值挑战：两个人倒计时后同时说出0—10分。"
   />
   <title>法嘉心动值挑战</title>
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./style.css?v=65-20260810" />
   <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.min.js?max_age=3600"></script>
   <script src="../../shared/rum-config.js?v=64-20260810"></script>
   <script src="../../shared/rum.js?v=64-20260810"></script>
@@ -42,7 +42,7 @@
         <p class="eyebrow">GAME 05 · HEART RATING</p>
         <h1 id="setupTitle">这个小动作，<br />心动值有几分？</h1>
         <p>
-          每题倒计时后，两个人同时说出1—10分；记录分数后，再分别说说为什么这样打分。
+          每题倒计时后，两个人同时说出0—10分；记录分数后，再分别说说为什么这样打分。
         </p>
       </div>
 
@@ -113,6 +113,10 @@
           <span><strong>10分</strong> 非常心动</span>
         </div>
 
+        <p class="scale-note">
+          请依据上述标准，在 0—10 分之间自由给出任意整数；1分、5分、10分只是参考锚点，并非只有这三个选项。
+        </p>
+
         <p class="boundary-note">
           只需要评价这个假设行为，不要求现场完成。
         </p>
@@ -133,13 +137,13 @@
 
         <div class="countdown-panel" id="countdownPanel" hidden aria-live="assertive">
           <strong id="countdownText">3</strong>
-          <span id="countdownHint">准备同时说出1—10分</span>
+          <span id="countdownHint">准备同时说出0—10分</span>
         </div>
 
         <div class="camera-after" id="cameraAfter" hidden>
           <div class="speak-callout">
             <span>NOW</span>
-            <strong>同时说出1—10分！</strong>
+            <strong>同时说出0—10分！</strong>
           </div>
 
           <div class="stage-actions camera-after-actions">
@@ -193,7 +197,7 @@
           </div>
 
           <h2 id="secretPrompt">请另一位暂时不要看屏幕</h2>
-          <p>选择1—10分后锁定，分数会立即隐藏。</p>
+          <p>选择0—10分后锁定，分数会立即隐藏。</p>
 
           <div class="score-buttons secret-score-buttons" id="secretScoreButtons" aria-label="秘密评分"></div>
 
@@ -320,7 +324,7 @@
       </div>
 
       <h3>同时打分</h3>
-      <p>网页展示题目并倒计时，两个人同时说出1—10分；补录分数后会显示分差和本题讨论提示。</p>
+      <p>网页展示题目并倒计时，两个人同时说出0—10分；补录分数后会显示分差和本题讨论提示。</p>
 
       <ul>
         <li>1分表示几乎无感，10分表示非常心动。</li>
@@ -334,6 +338,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="./questions.js"></script>
-  <script src="./app.js"></script>
+  <script src="./app.js?v=65-20260810"></script>
 </body>
 </html>

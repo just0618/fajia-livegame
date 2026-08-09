@@ -1445,3 +1445,36 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* V65 · skip read-status dialog */
+.skip-read-content {
+  text-align: center;
+}
+
+.skip-read-content h2 {
+  margin: 7px auto 0;
+  max-width: 430px;
+  font-size: clamp(1.55rem, 5vw, 2.1rem);
+  line-height: 1.25;
+}
+
+.skip-read-copy {
+  max-width: 460px;
+  margin: 16px auto 0 !important;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.skip-read-actions {
+  display: grid;
+  margin-top: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px;
+}
+
+@media (max-width: 520px) {
+  .skip-read-actions {
+    grid-template-columns: 1fr;
+  }
+}
