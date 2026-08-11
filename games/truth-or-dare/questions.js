@@ -9,8 +9,8 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "降频"
       },
       {
-        "id": "light-truth-02",
-        "text": "你觉得对方最容易被什么事情逗笑？",
+        "id": "v68-truth-01",
+        "text": "如果突然多出半天空闲，你第一反应会很自然地把对方放进什么安排里？",
         "liveEnabled": true,
         "liveTier": "warmup",
         "liveAction": "降频"
@@ -37,8 +37,8 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "删除"
       },
       {
-        "id": "light-truth-06",
-        "text": "说出一个你认为对方很擅长、但他自己未必会主动提起的事情。",
+        "id": "v68-truth-05",
+        "text": "两个人一起吃东西的时候，有没有已经形成什么默认习惯，比如谁会吃什么、谁会把什么留给谁？",
         "liveEnabled": true,
         "liveTier": "warmup",
         "liveAction": "保留"
@@ -129,13 +129,11 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "降频"
       },
       {
-        "id": "light-squid-05",
-        "text": "说一个自己在对方面前会比平时更爱耍赖或更幼稚的时刻，由对方确认像不像。",
-        "source": "鱿鱼须oo",
-        "sourceNumber": 17,
+        "id": "v68-truth-24",
+        "text": "你们之间有没有一句听起来特别普通的话，但对方一说，你就知道他真正想表达的其实是什么？",
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "改写保留"
+        "liveAction": "保留"
       },
       {
         "id": "light-squid-06",
@@ -147,10 +145,8 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "删除"
       },
       {
-        "id": "light-squid-07",
-        "text": "两个人最常待在家里的哪个角落？在那里通常会做什么？",
-        "source": "鱿鱼须oo",
-        "sourceNumber": 32,
+        "id": "v68-truth-06",
+        "text": "做计划的时候，有哪一类事情你现在已经会下意识把对方一起考虑进去？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "保留"
@@ -255,15 +251,15 @@ window.FAJIA_QUESTION_BANK = {
   "heart": {
     "truth": [
       {
-        "id": "heart-truth-01",
-        "text": "第一次见到对方时，你最真实的第一印象是什么？",
+        "id": "v68-truth-07",
+        "text": "有没有一件很小的事，如果当天没跟对方说一声，反而会觉得像少了一个步骤？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "保留"
       },
       {
-        "id": "heart-truth-02",
-        "text": "什么时候你发现自己对对方的认识和最初不一样了？",
+        "id": "v68-truth-08",
+        "text": "你们现在有没有一种不需要特意约定，却总会自然发生的固定习惯？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "保留"
@@ -290,8 +286,8 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "保留"
       },
       {
-        "id": "heart-truth-06",
-        "text": "你觉得两个人相处时，最有默契的一个瞬间是什么？",
+        "id": "v68-truth-09",
+        "text": "两个人一起出门或者一起做事时，有没有已经形成一种“不用商量也知道谁负责什么”的分工？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "保留"
@@ -325,15 +321,15 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "保留"
       },
       {
-        "id": "heart-truth-11",
-        "text": "如果可以保存一个共同经历的画面，你会选择哪一个？",
+        "id": "v68-truth-10",
+        "text": "有没有什么东西、吃的或者位置，你现在已经会很自然地给对方留一份？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "保留"
       },
       {
-        "id": "heart-truth-12",
-        "text": "你认为对方最需要被肯定的一点是什么？",
+        "id": "v68-truth-11",
+        "text": "有没有一个时间点或者场景，你已经会很自然地默认“这个时候对方会在”？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "保留"
@@ -347,9 +343,8 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "保留"
       },
       {
-        "id": "heart-squid-02",
-        "text": "回看刚认识的时候和现在，你觉得自己在这段相处里最大的变化是什么？",
-        "source": "鱿鱼须oo",
+        "id": "v68-truth-12",
+        "text": "最近有没有哪一次，你突然意识到自己已经很习惯“日常里有这个人参与”？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "保留"
@@ -387,28 +382,25 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "删除"
       },
       {
-        "id": "heart-squid-07",
-        "text": "如果生活是一款游戏，你最想为对方设定什么专属技能？",
-        "source": "鱿鱼须oo",
+        "id": "v68-truth-02",
+        "text": "对方最近最容易丢三落四或者忘记的，是哪一类小东西？",
         "liveEnabled": true,
         "liveTier": "warmup",
         "liveAction": "降频"
       },
       {
-        "id": "heart-squid-08",
-        "text": "有没有一座城市，是你特别想带对方一起去的？为什么？",
-        "source": "鱿鱼须oo",
+        "id": "v68-truth-03",
+        "text": "对方什么时候最容易进入“现在最好先别打扰我”的状态？你通常怎么看出来？",
         "liveEnabled": true,
         "liveTier": "warmup",
         "liveAction": "降频"
       },
       {
-        "id": "heart-squid-09",
-        "text": "哪一段共同回忆最想留下一件纪念物？为什么？",
-        "source": "鱿鱼须oo",
+        "id": "v68-truth-25",
+        "text": "有没有一个特别普通的瞬间，让你突然觉得“现在这样就很好”？",
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "改写保留"
+        "liveAction": "保留"
       },
       {
         "id": "heart-squid-10",
@@ -438,10 +430,8 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "保留"
       },
       {
-        "id": "heart-squid-13",
-        "text": "想念对方的时候，你通常会做什么？会不会想说些什么？",
-        "source": "鱿鱼须oo",
-        "sourceNumber": 12,
+        "id": "v68-truth-13",
+        "text": "你们之间有没有一个从来没有认真约定过，却一直默契遵守的“小规矩”？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "保留"
@@ -456,22 +446,18 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "保留"
       },
       {
-        "id": "heart-squid-15",
-        "text": "如果今天能有一个小时完全不被打扰地一起待着，最想怎么过？",
-        "source": "鱿鱼须oo",
-        "sourceNumber": 21,
+        "id": "v68-truth-26",
+        "text": "有没有一种心动，是刚认识的时候反而没有，相处久了以后才慢慢出现的？",
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "改写保留"
+        "liveAction": "保留"
       },
       {
-        "id": "heart-squid-16",
-        "text": "最近有哪一句对方说过的话，让你觉得特别安心或受用？",
-        "source": "鱿鱼须oo",
-        "sourceNumber": 25,
+        "id": "v68-truth-23",
+        "text": "最近对方有没有哪一个反应，让你突然觉得“他现在是真的越来越懂我了”？",
         "liveEnabled": true,
         "liveTier": "shy",
-        "liveAction": "替换"
+        "liveAction": "保留"
       },
       {
         "id": "heart-squid-17",
@@ -492,10 +478,8 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "稀有高光"
       },
       {
-        "id": "heart-squid-19",
-        "text": "最近有没有一件事，是你特别想和对方一起去做的？",
-        "source": "鱿鱼须oo",
-        "sourceNumber": 33,
+        "id": "v68-truth-14",
+        "text": "你现在最容易从对方哪个小动作，看出来他今天状态好不好？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "保留"
@@ -510,19 +494,15 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "稀有高光"
       },
       {
-        "id": "heart-squid-21",
-        "text": "两个人待在家里时，做什么会让你觉得最幸福？",
-        "source": "鱿鱼须oo",
-        "sourceNumber": 44,
+        "id": "v68-truth-15",
+        "text": "对方已经很累、但还在硬撑的时候，最容易露出什么小破绽？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "保留"
       },
       {
-        "id": "heart-squid-22",
-        "text": "目前一起去过的地方中，哪一个让你印象最深？为什么？",
-        "source": "鱿鱼须oo",
-        "sourceNumber": 45,
+        "id": "v68-truth-04",
+        "text": "现在最经常需要你提醒对方的一件小事是什么？",
         "liveEnabled": true,
         "liveTier": "warmup",
         "liveAction": "降频"
@@ -627,8 +607,8 @@ window.FAJIA_QUESTION_BANK = {
   "challenge": {
     "truth": [
       {
-        "id": "challenge-truth-01",
-        "text": "两个人意见不同时，你觉得谁更可能先主动缓和气氛？",
+        "id": "v68-truth-16",
+        "text": "对方状态不好的时候，你现在已经知道哪一种安慰最有效、哪一种反而没什么用了吗？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "保留"
@@ -655,15 +635,15 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "保留"
       },
       {
-        "id": "challenge-truth-05",
-        "text": "你觉得对方最能看穿你的哪一种情绪？",
+        "id": "v68-truth-17",
+        "text": "有没有一件事情，以前两个人很容易因为节奏不一样卡住，现在已经越来越会配合了？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "保留"
       },
       {
-        "id": "challenge-truth-06",
-        "text": "在两个人的相处里，你认为自己最需要改进什么？",
+        "id": "v68-truth-18",
+        "text": "你现在怎么判断：什么时候对方更需要你陪着，什么时候更适合先给他一点自己的空间？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "保留"
@@ -697,8 +677,8 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "保留"
       },
       {
-        "id": "challenge-truth-11",
-        "text": "当对方情绪不好时，你通常会怎么判断和回应？",
+        "id": "v68-truth-19",
+        "text": "有没有一种相处方式，是你后来慢慢学会“这样做他会更舒服”的？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "保留"
@@ -1179,17 +1159,15 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "保留"
       },
       {
-        "id": "intimate-squid-03",
-        "text": "想象几年后的两个人，你希望那时的相处是什么样子？",
-        "source": "鱿鱼须oo",
+        "id": "v68-truth-21",
+        "text": "现在有什么事情，你已经习惯先问一下对方的意见，而不是自己直接决定？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "降频"
       },
       {
-        "id": "intimate-squid-04",
-        "text": "你希望两个人每年都保留一个怎样的小仪式？",
-        "source": "鱿鱼须oo",
+        "id": "v68-truth-22",
+        "text": "有没有什么事情，以前你习惯自己处理，现在第一反应会变成想找对方一起？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "降频"
@@ -1203,21 +1181,18 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "保留"
       },
       {
-        "id": "intimate-squid-06",
-        "text": "如果对方今天很累，你最想为他做哪一件事？",
-        "source": "鱿鱼须oo",
+        "id": "v68-truth-20",
+        "text": "最近有没有一次，让你发现对方现在已经很会照顾你的某个习惯或者情绪了？是什么？",
         "liveEnabled": true,
         "liveTier": "relation",
         "liveAction": "保留"
       },
       {
-        "id": "intimate-squid-07",
-        "text": "有没有想过带对方去一个对你很重要的地方？为什么是那里？",
-        "source": "鱿鱼须oo",
-        "sourceNumber": 39,
+        "id": "v68-truth-27",
+        "text": "如果现在两个人的相处只能留下一个很小、很日常的细节，你最舍不得失去哪一个？",
         "liveEnabled": true,
         "liveTier": "highlight",
-        "liveAction": "改写"
+        "liveAction": "保留"
       }
     ],
     "dare": [
