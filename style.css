@@ -2201,3 +2201,17 @@ main {
     width: 100%;
   }
 }
+
+
+/* V69 · GAME 10 / GAME 11 */
+.icon-guess-word {
+  color: var(--white);
+  background: linear-gradient(135deg, var(--pink), #c96c91);
+  box-shadow: inset 0 -8px 0 rgba(255, 226, 91, 0.2);
+}
+
+.icon-quick-answer {
+  color: var(--gold-dark);
+  background: linear-gradient(135deg, var(--gold), #fff4a8);
+  font-size: 1.05rem;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF8AA1" />
+  <title>法嘉你问我猜</title>
+  <link rel="stylesheet" href="./style.css?v=69-20260812" />
+  <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.min.js?max_age=3600"></script>
+  <script src="../../shared/rum-config.js?v=64-20260810"></script>
+  <script src="../../shared/rum.js?v=64-20260810"></script>
+  <script src="../../shared/content-codes.js?v=69-20260812"></script>
+</head>
+<body>
+  <div class="background-shape shape-pink" aria-hidden="true"></div>
+  <div class="background-shape shape-gold" aria-hidden="true"></div>
+  <header class="game-header">
+    <a class="back-link" href="../../"><span aria-hidden="true">←</span>返回游戏屋</a>
+    <div class="mini-brand"><span class="brand-dot brand-dot-pink"></span>法嘉你问我猜<span class="brand-dot brand-dot-gold"></span></div>
+    <button class="text-button" id="openHelpButton" type="button">玩法说明</button>
+  </header>
+
+  <main class="game-shell">
+    <section id="setupScreen">
+      <div class="setup-intro">
+        <p class="eyebrow">GAME 10 · ASK & GUESS</p>
+        <h1>法嘉你问我猜</h1>
+        <p>一人看秘密词，另一人通过自由提问来猜。真正好玩的不是答案本身，而是为了猜到它一路问出了什么。</p>
+      </div>
+
+      <section class="rules-card">
+        <div><span>01</span><strong>猜词者移开视线</strong><small>回答者先看秘密词。</small></div>
+        <div><span>02</span><strong>隐藏词语后开始</strong><small>倒计时结束即可自由提问。</small></div>
+        <div><span>03</span><strong>口头自然回答</strong><small>可以说“有 / 没有 / 可能 / 看情况”等，但别直接说答案。</small></div>
+        <div><span>04</span><strong>猜到就立即结束</strong><small>不用等时间走完；每题自动交换猜词者。</small></div>
+      </section>
+
+      <section class="choice-section">
+        <div class="section-label"><span>STEP 01</span><h2>本场玩几题？</h2></div>
+        <div class="choice-grid two-columns">
+          <label class="choice-card"><input type="radio" name="rounds" value="3" checked /><span class="choice-card-inner"><strong>3题</strong><small>快速玩一轮</small></span></label>
+          <label class="choice-card"><input type="radio" name="rounds" value="5" /><span class="choice-card-inner"><strong>5题</strong><small>多聊一会儿</small></span></label>
+        </div>
+      </section>
+
+      <section class="choice-section">
+        <div class="section-label"><span>STEP 02</span><h2>每题多长时间？</h2></div>
+        <div class="choice-grid two-columns">
+          <label class="choice-card"><input type="radio" name="seconds" value="45" checked /><span class="choice-card-inner"><strong>45秒</strong><small>推荐 · 节奏更紧</small></span></label>
+          <label class="choice-card"><input type="radio" name="seconds" value="60" /><span class="choice-card-inner"><strong>60秒</strong><small>轻松慢慢猜</small></span></label>
+        </div>
+      </section>
+
+      <section class="start-panel">
+        <div><p class="eyebrow">STEP 03 · FIRST GUESSER</p><h2>第一题谁来猜？</h2><p>之后每完成一题，猜词者自动交换。</p></div>
+        <div class="start-buttons">
+          <button class="start-button start-pink" data-starter="0" type="button">法宣阁先猜</button>
+          <button class="start-button start-gold" data-starter="1" type="button">贺嘉述先猜</button>
+          <button class="start-button start-random" data-starter="random" type="button">随机决定</button>
+        </div>
+      </section>
+    </section>
+
+    <section id="playScreen" hidden>
+      <div class="round-progress">
+        <div class="round-copy"><span id="roundText">第 1 / 3 题</span><span id="roleText">法宣阁猜 · 贺嘉述看词</span></div>
+        <div class="progress-track"><span id="progressBar"></span></div>
+      </div>
+
+      <article class="secret-card">
+        <p class="eyebrow" id="phaseEyebrow">SECRET WORD</p>
+        <h1 id="phaseTitle">请猜词者移开视线</h1>
+        <p class="phase-copy" id="phaseCopy">确认看不到屏幕后，再由回答者查看本题词语。</p>
+
+        <div class="secret-word" id="secretWord" hidden></div>
+        <div class="prep-count" id="prepCount" hidden>3</div>
+        <div class="timer-ring" id="timerRing" hidden><strong id="timerValue">45</strong><span>秒</span></div>
+
+        <div class="primary-actions" id="revealActions">
+          <button class="button button-primary" id="revealButton" type="button">查看本题词语</button>
+        </div>
+
+        <div class="primary-actions" id="hideActions" hidden>
+          <button class="button button-primary" id="hideStartButton" type="button">记住了，隐藏并开始</button>
+          <button class="button button-secondary" id="skipRevealButton" type="button">换一个词</button>
+        </div>
+
+        <div class="primary-actions" id="guessingActions" hidden>
+          <button class="button button-primary" id="guessedButton" type="button">猜中了</button>
+          <button class="button button-secondary" id="giveUpButton" type="button">揭晓答案</button>
+          <button class="text-button danger-text" id="skipActiveButton" type="button">跳过这个词</button>
+        </div>
+
+        <div class="primary-actions" id="answerActions" hidden>
+          <button class="button button-primary" id="nextButton" type="button">下一题</button>
+        </div>
+      </article>
+
+      <button class="text-button centered-text-button" id="backSetupButton" type="button">结束本轮并返回设置</button>
+    </section>
+
+    <section id="resultScreen" hidden>
+      <div class="result-card">
+        <p class="eyebrow">ROUND COMPLETE</p>
+        <h1>这一轮猜词完成</h1>
+        <div class="result-grid"><div><span>完成词语</span><strong id="resultCompleted">0</strong></div><div><span>换词次数</span><strong id="resultSkipped">0</strong></div></div>
+        <p>不计个人输赢。真正值得留下的是猜词过程中那些自然冒出来的问题和反应。</p>
+        <div class="result-actions"><button class="button button-primary" id="playAgainButton" type="button">再玩一局</button><a class="button button-secondary" href="../../">返回游戏屋</a></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="help-dialog" id="helpDialog">
+    <div class="dialog-panel">
+      <div class="dialog-heading"><h2>你问我猜规则</h2><button id="closeHelpButton" type="button" aria-label="关闭">×</button></div>
+      <ol>
+        <li>一人作为猜词者并移开视线，另一人查看秘密词。</li>
+        <li>隐藏词语后开始45秒或60秒计时。</li>
+        <li>猜词者可以自由提问；回答者口头自然回答，但不要直接说出答案或答案中的字。</li>
+        <li>猜词者可以随时直接猜；猜中、揭晓或时间到都算完成本题，然后交换角色。</li>
+        <li>不方便的词可以直接更换，不占本场题数。</li>
+      </ol>
+    </div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./words.js?v=69-20260812"></script>
+  <script src="./app.js?v=69-20260812"></script>
+</body>
+</html>
