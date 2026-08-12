@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#FF8AA1" />
   <title>法嘉快问快答</title>
-  <link rel="stylesheet" href="./style.css?v=69-20260812" />
+  <link rel="stylesheet" href="./style.css?v=70-20260813" />
   <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.min.js?max_age=3600"></script>
   <script src="../../shared/rum-config.js?v=64-20260810"></script>
   <script src="../../shared/rum.js?v=64-20260810"></script>
@@ -16,12 +16,12 @@
   <header class="game-header"><a class="back-link" href="../../"><span aria-hidden="true">←</span>返回游戏屋</a><div class="mini-brand"><span class="brand-dot brand-dot-pink"></span>法嘉快问快答<span class="brand-dot brand-dot-gold"></span></div><button class="text-button" id="openHelpButton" type="button">玩法说明</button></header>
   <main class="game-shell">
     <section id="setupScreen">
-      <div class="setup-intro"><p class="eyebrow">GAME 11 · QUICK ANSWER</p><h1>法嘉快问快答</h1><p>网页掌握节奏：自动读题、短时间回答、马上进入下一题。下一道题不会提前出现。</p></div>
+      <div class="setup-intro"><p class="eyebrow">GAME 11 · QUICK ANSWER</p><h1>法嘉快问快答</h1><p>网页掌握节奏：自动播放报题音频、短时间回答、马上进入下一题。下一道题不会提前出现。</p></div>
       <section class="rhythm-card"><strong>听题</strong><span>→</span><strong>第一反应</strong><span>→</span><strong>倒计时结束</strong><span>→</span><strong>下一题自动开始</strong></section>
 
       <section class="choice-section"><div class="section-label"><span>STEP 01</span><h2>本轮多少题？</h2></div><div class="choice-grid two-columns"><label class="choice-card"><input type="radio" name="rounds" value="10" checked /><span class="choice-card-inner"><strong>10题</strong><small>标准连答</small></span></label><label class="choice-card"><input type="radio" name="rounds" value="15" /><span class="choice-card-inner"><strong>15题</strong><small>完整长局</small></span></label></div></section>
 
-      <section class="choice-section"><div class="section-label"><span>STEP 02</span><h2>听完题后几秒回答？</h2></div><div class="choice-grid three-columns"><label class="choice-card"><input type="radio" name="seconds" value="2" /><span class="choice-card-inner"><strong>2秒</strong><small>极速</small></span></label><label class="choice-card"><input type="radio" name="seconds" value="3" checked /><span class="choice-card-inner"><strong>3秒</strong><small>推荐</small></span></label><label class="choice-card"><input type="radio" name="seconds" value="5" /><span class="choice-card-inner"><strong>5秒</strong><small>轻松</small></span></label></div><button class="voice-test" id="voiceTestButton" type="button">🔊 试听系统报题声音</button></section>
+      <section class="choice-section"><div class="section-label"><span>STEP 02</span><h2>听完题后几秒回答？</h2></div><div class="choice-grid three-columns"><label class="choice-card"><input type="radio" name="seconds" value="2" /><span class="choice-card-inner"><strong>2秒</strong><small>极速</small></span></label><label class="choice-card"><input type="radio" name="seconds" value="3" checked /><span class="choice-card-inner"><strong>3秒</strong><small>推荐</small></span></label><label class="choice-card"><input type="radio" name="seconds" value="5" /><span class="choice-card-inner"><strong>5秒</strong><small>轻松</small></span></label></div><button class="voice-test" id="voiceTestButton" type="button">🔊 试听报题声音</button></section>
 
       <section class="progress-note"><div><strong>90道题</strong><span id="historyText">正在读取本机题目进度…</span></div><button class="text-button" id="clearHistoryButton" type="button">清除已出现记录</button></section>
 
@@ -35,7 +35,7 @@
         <div class="ready-count" id="readyCount">3</div>
         <h1 class="question-text" id="questionText" hidden>请听题</h1>
         <div class="answer-clock" id="answerClock" hidden><strong id="answerSeconds">3</strong><span>秒内回答</span></div>
-        <p class="phase-copy" id="phaseCopy">准备好后，网页会连续自动读题。</p>
+        <p class="phase-copy" id="phaseCopy">准备好后，网页会连续自动播放报题音频。</p>
         <div class="play-controls">
           <button class="button button-primary" id="pauseButton" type="button" disabled>暂停</button>
           <button class="button button-secondary" id="skipButton" type="button" disabled>跳过</button>
@@ -49,8 +49,8 @@
     </section>
   </main>
 
-  <dialog class="help-dialog" id="helpDialog"><div class="dialog-panel"><div class="dialog-heading"><h2>快问快答规则</h2><button id="closeHelpButton" type="button" aria-label="关闭">×</button></div><ol><li>先指定本轮回答者和10题 / 15题。</li><li>网页自动读出当前问题；下一题不会提前显示。</li><li>语音读完后开始2秒、3秒或5秒回答倒计时，时间一到自动进入下一题。</li><li>一轮中会混入少量更容易产生第一反应的问题，但不会提前标记。</li><li>任何问题都可以跳过；跳过后立即进入下一题。</li><li>本游戏不提供“上一题”，也不会保存回答内容。</li></ol></div></dialog>
+  <dialog class="help-dialog" id="helpDialog"><div class="dialog-panel"><div class="dialog-heading"><h2>快问快答规则</h2><button id="closeHelpButton" type="button" aria-label="关闭">×</button></div><ol><li>先指定本轮回答者和10题 / 15题。</li><li>网页自动播放当前问题的报题音频；下一题不会提前显示。</li><li>语音读完后开始2秒、3秒或5秒回答倒计时，时间一到自动进入下一题。</li><li>一轮中会混入少量更容易产生第一反应的问题，但不会提前标记。</li><li>任何问题都可以跳过；跳过后立即进入下一题。</li><li>本游戏不提供“上一题”，也不会保存回答内容。</li></ol></div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="./questions.js?v=69-20260812"></script><script src="./app.js?v=69-20260812"></script>
+  <script src="./questions.js?v=70-20260813"></script><script src="./app.js?v=70-20260813"></script>
 </body>
 </html>
