@@ -790,3 +790,15 @@ footer strong {
     width: 100%;
   }
 }
+
+
+/* V78 · 原始网站开发者平台信息 */
+.developer-credit em {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-style: normal;
+  font-size: .72rem;
+  line-height: 1.45;
+  word-break: break-all;
+}
