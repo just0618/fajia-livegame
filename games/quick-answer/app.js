@@ -6,7 +6,7 @@
     : [];
   const players = ["法宣阁", "贺嘉述"];
   const STORAGE_KEY = "fajia-livegame.quick-answer.seen.v1";
-  const AUDIO_VERSION = "70-20260813";
+  const AUDIO_VERSION = "71-20260813";
 
   if (bank.length !== 90) {
     throw new Error("快问快答题库未正确加载。");
@@ -33,8 +33,17 @@
     remaining: 3,
     pausedFrom: "",
     seen: new Set(),
-    voiceMode: "",
-    audioUnlocked: false,
+
+    audioContext: null,
+    audioBuffers: new Map(),
+    audioSource: null,
+    playbackSerial: 0,
+    currentQuestion: null,
+    currentAudioEnd: null,
+    currentReplay: false,
+    userPaused: false,
+    interruptionPending: false,
+    recovering: false,
     fallbackNotified: false,
   };
 
@@ -53,6 +62,7 @@
     seconds: $("answerSeconds"),
     copy: $("phaseCopy"),
     pause: $("pauseButton"),
+    replay: $("replayButton"),
     skip: $("skipButton"),
     finish: $("finishButton"),
     resultAnswerer: $("resultAnswerer"),
@@ -68,14 +78,6 @@
     closeHelp: $("closeHelpButton"),
     toast: $("toast"),
   };
-
-  const audioPlayer = new Audio();
-  audioPlayer.preload = "auto";
-  audioPlayer.playsInline = true;
-
-  const preloadPlayer = new Audio();
-  preloadPlayer.preload = "auto";
-  preloadPlayer.playsInline = true;
 
   let toastTimer;
 
@@ -100,7 +102,7 @@
     el.toast.classList.add("is-visible");
     toastTimer = setTimeout(
       () => el.toast.classList.remove("is-visible"),
-      2200
+      2400
     );
   }
 
@@ -240,7 +242,38 @@
     return state.seconds === 2 ? 1.25 : state.seconds === 5 ? 1.0 : 1.12;
   }
 
-  function speakFallback(text, onEnd) {
+  function createAudioContext() {
+    if (state.audioContext) return state.audioContext;
+
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return null;
+
+    try {
+      state.audioContext = new AudioCtx();
+      state.audioContext.onstatechange = handleAudioContextStateChange;
+      return state.audioContext;
+    } catch {
+      return null;
+    }
+  }
+
+  function ensureAudioContextRunning() {
+    const ctx = createAudioContext();
+    if (!ctx) return Promise.resolve(null);
+
+    if (ctx.state === "running") return Promise.resolve(ctx);
+
+    try {
+      const promise = ctx.resume();
+      if (promise && typeof promise.then === "function") {
+        return promise.then(() => ctx).catch(() => ctx);
+      }
+    } catch {}
+
+    return Promise.resolve(ctx);
+  }
+
+  function speechFallback(text, onEnd) {
     if (
       !("speechSynthesis" in window) ||
       typeof window.SpeechSynthesisUtterance !== "function"
@@ -264,119 +297,251 @@
     }
   }
 
-  function stopVoice() {
-    audioPlayer.onended = null;
-    audioPlayer.onerror = null;
-    try {
-      audioPlayer.pause();
-      audioPlayer.currentTime = 0;
-    } catch {}
-    window.speechSynthesis?.cancel?.();
-    state.voiceMode = "";
-  }
+  function stopBufferSource() {
+    state.playbackSerial += 1;
 
-  function unlockAudio(question) {
-    if (!question || state.audioUnlocked) return;
-
-    const src = audioPath(question);
-    if (!src) return;
-
-    try {
-      audioPlayer.src = src;
-      audioPlayer.muted = true;
-      audioPlayer.volume = 0;
-      audioPlayer.currentTime = 0;
-
-      const promise = audioPlayer.play();
-      if (promise && typeof promise.then === "function") {
-        promise
-          .then(() => {
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0;
-            audioPlayer.muted = false;
-            audioPlayer.volume = 1;
-            state.audioUnlocked = true;
-          })
-          .catch(() => {
-            audioPlayer.muted = false;
-            audioPlayer.volume = 1;
-          });
-      }
-    } catch {
-      audioPlayer.muted = false;
-      audioPlayer.volume = 1;
+    if (state.audioSource) {
+      try {
+        state.audioSource.onended = null;
+        state.audioSource.stop(0);
+      } catch {}
+      try {
+        state.audioSource.disconnect();
+      } catch {}
+      state.audioSource = null;
     }
   }
 
-  function preloadNextAudio() {
-    const next = state.queue[state.index + 1];
-    if (!next) return;
-
-    const src = audioPath(next);
-    if (!src) return;
-
-    try {
-      preloadPlayer.src = src;
-      preloadPlayer.load();
-    } catch {}
+  function stopVoice() {
+    stopBufferSource();
+    window.speechSynthesis?.cancel?.();
+    state.currentQuestion = null;
+    state.currentAudioEnd = null;
+    state.currentReplay = false;
+    state.interruptionPending = false;
   }
 
-  function playQuestionAudio(question, onEnd) {
-    stopVoice();
-
+  async function fetchDecodedAudio(question) {
+    const ctx = createAudioContext();
     const src = audioPath(question);
-    if (!src) {
-      state.voiceMode = "speech";
-      speakFallback(question.text, onEnd);
+
+    if (!ctx || !src) return null;
+
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      const controller =
+        typeof AbortController === "function" ? new AbortController() : null;
+      const timeout = controller
+        ? setTimeout(() => controller.abort(), 8000)
+        : null;
+
+      try {
+        const response = await fetch(src, {
+          cache: attempt === 0 ? "force-cache" : "reload",
+          signal: controller?.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const bytes = await response.arrayBuffer();
+        const buffer = await ctx.decodeAudioData(bytes.slice(0));
+
+        if (timeout) clearTimeout(timeout);
+        return buffer;
+      } catch {
+        if (timeout) clearTimeout(timeout);
+        if (attempt < 2) {
+          await new Promise((resolve) => setTimeout(resolve, 180));
+        }
+      }
+    }
+
+    return null;
+  }
+
+  async function preloadRoundAudio() {
+    state.audioBuffers = new Map();
+
+    el.play.hidden = false;
+    el.result.hidden = true;
+    el.phase.textContent = "PREPARE";
+    el.ready.hidden = true;
+    el.question.hidden = false;
+    el.question.textContent = "正在准备本轮音频";
+    el.question.classList.add("is-listening");
+    el.clock.hidden = true;
+    el.pause.disabled = true;
+    el.replay.disabled = true;
+    el.skip.disabled = true;
+    el.copy.textContent = `正在准备 0 / ${state.total}，准备完成后再开始。`;
+    document.querySelector(".quick-card")?.classList.add("is-preparing");
+
+    await ensureAudioContextRunning();
+
+    let nextIndex = 0;
+    let completed = 0;
+    const failed = [];
+
+    async function worker() {
+      while (nextIndex < state.queue.length) {
+        const index = nextIndex++;
+        const question = state.queue[index];
+        const buffer = await fetchDecodedAudio(question);
+
+        if (buffer) {
+          state.audioBuffers.set(question.id, buffer);
+        } else {
+          failed.push(question.id);
+        }
+
+        completed += 1;
+        el.copy.textContent =
+          `正在准备 ${completed} / ${state.total}，准备完成后再开始。`;
+      }
+    }
+
+    const workers = [];
+    const concurrency = Math.min(4, state.queue.length);
+    for (let i = 0; i < concurrency; i += 1) {
+      workers.push(worker());
+    }
+
+    await Promise.all(workers);
+    document.querySelector(".quick-card")?.classList.remove("is-preparing");
+
+    if (failed.length) {
+      showToast(
+        `有 ${failed.length} 条固定音频没有缓存成功，遇到时会自动使用系统语音。`
+      );
+    }
+
+    return failed;
+  }
+
+  function playPreparedAudio(question, onEnd, { replay = false } = {}) {
+    state.currentQuestion = question;
+    state.currentAudioEnd = onEnd;
+    state.currentReplay = replay;
+    state.userPaused = false;
+    state.interruptionPending = false;
+
+    const ctx = state.audioContext;
+    const buffer = state.audioBuffers.get(question.id);
+
+    if (ctx && buffer && ctx.state === "running") {
+      stopBufferSource();
+
+      const serial = ++state.playbackSerial;
+      const source = ctx.createBufferSource();
+      source.buffer = buffer;
+      source.connect(ctx.destination);
+      state.audioSource = source;
+
+      source.onended = () => {
+        if (
+          serial !== state.playbackSerial ||
+          state.userPaused ||
+          state.interruptionPending
+        ) {
+          return;
+        }
+
+        state.audioSource = null;
+        onEnd();
+      };
+
+      try {
+        source.start(0);
+        return;
+      } catch {}
+    }
+
+    if (ctx && buffer && ctx.state !== "running") {
+      state.interruptionPending = true;
+      recoverInterruptedAudio();
       return;
     }
 
-    let finished = false;
-    let fallbackStarted = false;
+    if (!state.fallbackNotified) {
+      state.fallbackNotified = true;
+      showToast("个别固定报题音频无法播放时，会自动使用系统语音。");
+    }
 
-    const finish = () => {
-      if (finished) return;
-      finished = true;
-      audioPlayer.onended = null;
-      audioPlayer.onerror = null;
-      onEnd();
-    };
+    speechFallback(question.text, onEnd);
+  }
 
-    const fallback = () => {
-      if (finished || fallbackStarted) return;
-      fallbackStarted = true;
+  async function recoverInterruptedAudio() {
+    if (
+      state.recovering ||
+      !state.interruptionPending ||
+      state.userPaused ||
+      state.phase !== "speaking" ||
+      !state.currentQuestion ||
+      !state.currentAudioEnd
+    ) {
+      return;
+    }
 
-      try {
-        audioPlayer.pause();
-        audioPlayer.currentTime = 0;
-      } catch {}
+    state.recovering = true;
+    stopBufferSource();
 
-      if (!state.fallbackNotified) {
-        state.fallbackNotified = true;
-        showToast("固定报题音频未能播放，已自动切换系统语音。");
-      }
+    const ctx = await ensureAudioContextRunning();
 
-      state.voiceMode = "speech";
-      speakFallback(question.text, finish);
-    };
+    if (
+      ctx &&
+      ctx.state === "running" &&
+      state.phase === "speaking" &&
+      !state.userPaused
+    ) {
+      const question = state.currentQuestion;
+      const onEnd = state.currentAudioEnd;
+      const replay = state.currentReplay;
 
-    try {
-      state.voiceMode = "audio";
-      audioPlayer.src = src;
-      audioPlayer.muted = false;
-      audioPlayer.volume = 1;
-      audioPlayer.currentTime = 0;
-      audioPlayer.onended = finish;
-      audioPlayer.onerror = fallback;
+      state.interruptionPending = false;
+      state.recovering = false;
 
-      const promise = audioPlayer.play();
-      if (promise && typeof promise.catch === "function") {
-        promise.catch(fallback);
-      }
+      el.copy.textContent =
+        "刚才的报题可能被系统声音打断，正在从头重新播放本题。";
 
-      preloadNextAudio();
-    } catch {
-      fallback();
+      setTimeout(() => {
+        if (state.phase === "speaking" && !state.userPaused) {
+          playPreparedAudio(question, onEnd, { replay });
+        }
+      }, 120);
+      return;
+    }
+
+    state.recovering = false;
+  }
+
+  function handleAudioContextStateChange() {
+    const ctx = state.audioContext;
+    if (!ctx) return;
+
+    if (
+      state.phase === "speaking" &&
+      !state.userPaused &&
+      ctx.state !== "running"
+    ) {
+      state.interruptionPending = true;
+      clearSafety();
+    }
+
+    if (
+      state.phase === "speaking" &&
+      !state.userPaused &&
+      state.interruptionPending &&
+      ctx.state === "running"
+    ) {
+      recoverInterruptedAudio();
+    }
+  }
+
+  function clearSafety() {
+    if (state.safety) {
+      clearTimeout(state.safety);
+      state.safety = null;
     }
   }
 
@@ -385,10 +550,7 @@
       clearInterval(state.timer);
       state.timer = null;
     }
-    if (state.safety) {
-      clearTimeout(state.safety);
-      state.safety = null;
-    }
+    clearSafety();
   }
 
   function updateProgress() {
@@ -397,12 +559,25 @@
     el.progress.style.width = `${(state.index / state.total) * 100}%`;
   }
 
+  function showListeningPlaceholder() {
+    el.question.hidden = false;
+    el.question.textContent = "请听题";
+    el.question.classList.add("is-listening");
+  }
+
+  function showQuestionText(question) {
+    el.question.hidden = false;
+    el.question.textContent = question.text;
+    el.question.classList.remove("is-listening");
+  }
+
   function startReady() {
     state.phase = "ready";
     el.ready.hidden = false;
     el.question.hidden = true;
     el.clock.hidden = true;
     el.pause.disabled = true;
+    el.replay.disabled = true;
     el.skip.disabled = true;
     el.phase.textContent = "READY";
     el.copy.textContent =
@@ -413,6 +588,7 @@
 
     state.timer = setInterval(() => {
       n -= 1;
+
       if (n <= 0) {
         clearInterval(state.timer);
         state.timer = null;
@@ -431,49 +607,71 @@
     }
 
     clearTimers();
+
     const q = state.queue[state.index];
     markSeen(q);
     updateProgress();
 
     state.phase = "speaking";
+    state.currentReplay = false;
+
     el.phase.textContent = "LISTEN";
-    el.question.hidden = false;
-    el.question.textContent = q.text;
+    showListeningPlaceholder();
     el.clock.hidden = true;
-    el.copy.textContent =
-      "正在播放报题音频；播完以后才开始回答倒计时。";
+    el.copy.textContent = "请听题。";
     el.pause.disabled = false;
     el.pause.textContent = "暂停";
+    el.replay.disabled = true;
     el.skip.disabled = true;
 
-    let done = false;
-    const finishSpeech = () => {
-      if (done || state.phase !== "speaking") return;
-      done = true;
-      clearTimeout(state.safety);
-      state.safety = null;
+    let finished = false;
+
+    const finishAudio = () => {
+      if (finished || state.phase !== "speaking") return;
+      finished = true;
+      clearSafety();
       beginAnswer();
     };
 
-    playQuestionAudio(q, finishSpeech);
+    // Buffer is already decoded and in memory: start immediately.
+    playPreparedAudio(q, finishAudio);
+
+    const buffer = state.audioBuffers.get(q.id);
+    const safeMs = buffer
+      ? Math.max(5500, (buffer.duration + 2.0) * 1000)
+      : 9000;
 
     state.safety = setTimeout(() => {
-      if (state.phase === "speaking") {
-        stopVoice();
-        finishSpeech();
+      if (
+        state.phase === "speaking" &&
+        !state.userPaused &&
+        !state.interruptionPending
+      ) {
+        stopBufferSource();
+        finishAudio();
       }
-    }, 12000);
+    }, safeMs);
   }
 
   function beginAnswer() {
+    const q = state.queue[state.index];
+
     state.phase = "answer";
     state.remaining = state.seconds;
+    state.currentQuestion = null;
+    state.currentAudioEnd = null;
+    state.currentReplay = false;
+
+    showQuestionText(q);
     el.phase.textContent = "ANSWER";
     el.clock.hidden = false;
     el.seconds.textContent = state.remaining;
     el.copy.textContent =
-      "第一反应直接说出来。时间到后自动进入下一题。";
+      "第一反应直接说出来。倒计时结束后下一题会立刻开口。";
+    el.pause.disabled = false;
+    el.replay.disabled = false;
     el.skip.disabled = false;
+
     runAnswerTimer();
   }
 
@@ -487,14 +685,16 @@
       if (state.remaining <= 0) {
         clearInterval(state.timer);
         state.timer = null;
-        setTimeout(advance, 220);
+        advance();
       }
     }, 1000);
   }
 
   function advance() {
     clearTimers();
-    stopVoice();
+    stopBufferSource();
+    window.speechSynthesis?.cancel?.();
+
     state.index += 1;
 
     if (state.index >= state.total) {
@@ -502,6 +702,7 @@
       return;
     }
 
+    // No artificial delay: next question starts immediately.
     playCurrent();
   }
 
@@ -532,21 +733,71 @@
     advance();
   }
 
-  function togglePause() {
+  function replayCurrent() {
+    if (state.phase !== "answer") return;
+
+    clearTimers();
+
+    const q = state.queue[state.index];
+    state.phase = "speaking";
+    state.currentReplay = true;
+
+    el.phase.textContent = "REPLAY";
+    showQuestionText(q);
+    el.clock.hidden = true;
+    el.copy.textContent =
+      "正在重新播放本题；播完后重新开始完整回答倒计时。";
+    el.pause.disabled = false;
+    el.pause.textContent = "暂停";
+    el.replay.disabled = true;
+    el.skip.disabled = true;
+
+    let finished = false;
+
+    const finishReplay = () => {
+      if (finished || state.phase !== "speaking") return;
+      finished = true;
+      clearSafety();
+      beginAnswer();
+    };
+
+    playPreparedAudio(q, finishReplay, { replay: true });
+
+    const buffer = state.audioBuffers.get(q.id);
+    const safeMs = buffer
+      ? Math.max(5500, (buffer.duration + 2.0) * 1000)
+      : 9000;
+
+    state.safety = setTimeout(() => {
+      if (
+        state.phase === "speaking" &&
+        !state.userPaused &&
+        !state.interruptionPending
+      ) {
+        stopBufferSource();
+        finishReplay();
+      }
+    }, safeMs);
+  }
+
+  async function togglePause() {
     if (state.phase === "speaking") {
       state.pausedFrom = "speaking";
       state.phase = "paused";
-      clearTimeout(state.safety);
-      state.safety = null;
+      state.userPaused = true;
+      clearSafety();
 
-      if (state.voiceMode === "audio") {
-        audioPlayer.pause();
+      if (state.audioContext && state.audioContext.state === "running") {
+        try {
+          await state.audioContext.suspend();
+        } catch {}
       } else {
         window.speechSynthesis?.pause?.();
       }
 
       el.pause.textContent = "继续";
       el.copy.textContent = "已暂停。";
+      el.replay.disabled = true;
       el.skip.disabled = true;
       return;
     }
@@ -554,6 +805,7 @@
     if (state.phase === "answer") {
       state.pausedFrom = "answer";
       state.phase = "paused";
+      state.userPaused = true;
 
       if (state.timer) {
         clearInterval(state.timer);
@@ -562,43 +814,48 @@
 
       el.pause.textContent = "继续";
       el.copy.textContent = "已暂停。";
+      el.replay.disabled = true;
       el.skip.disabled = true;
       return;
     }
 
     if (state.phase === "paused") {
       const from = state.pausedFrom;
+      state.userPaused = false;
       state.phase = from;
       el.pause.textContent = "暂停";
 
       if (from === "speaking") {
-        el.copy.textContent =
-          "正在播放报题音频；播完以后才开始回答倒计时。";
-
-        if (state.voiceMode === "audio") {
-          const promise = audioPlayer.play();
-          if (promise && typeof promise.catch === "function") {
-            promise.catch(() => {
-              const q = state.queue[state.index];
-              state.voiceMode = "speech";
-              speakFallback(q.text, () => {
-                if (state.phase === "speaking") beginAnswer();
-              });
-            });
-          }
+        if (state.audioContext) {
+          try {
+            await state.audioContext.resume();
+          } catch {}
         } else {
           window.speechSynthesis?.resume?.();
         }
 
-        state.safety = setTimeout(() => {
-          if (state.phase === "speaking") {
-            stopVoice();
-            beginAnswer();
-          }
-        }, 12000);
+        el.copy.textContent = state.currentReplay
+          ? "正在重新播放本题；播完后重新开始完整回答倒计时。"
+          : "请听题。";
+
+        const q = state.currentQuestion;
+        const buffer = q ? state.audioBuffers.get(q.id) : null;
+
+        if (buffer) {
+          state.safety = setTimeout(() => {
+            if (
+              state.phase === "speaking" &&
+              !state.userPaused &&
+              !state.interruptionPending
+            ) {
+              recoverInterruptedAudio();
+            }
+          }, Math.max(5500, (buffer.duration + 2.0) * 1000));
+        }
       } else {
         el.copy.textContent =
-          "第一反应直接说出来。时间到后自动进入下一题。";
+          "第一反应直接说出来。倒计时结束后下一题会立刻开口。";
+        el.replay.disabled = false;
         el.skip.disabled = false;
         runAnswerTimer();
       }
@@ -609,6 +866,7 @@
     clearTimers();
     stopVoice();
     state.phase = "done";
+
     el.play.hidden = true;
     el.result.hidden = false;
     el.resultAnswerer.textContent =
@@ -618,7 +876,7 @@
     el.swap.textContent = `换${players[1 - state.answerer]}再来一轮`;
   }
 
-  function start(answerer) {
+  async function prepareAndStart(answerer) {
     state.total = radio("rounds", 10);
     state.seconds = radio("seconds", 3);
     state.answerer =
@@ -628,30 +886,43 @@
     state.queue = buildQueue(state.total);
     state.index = 0;
     state.skipped = 0;
-    state.phase = "idle";
+    state.phase = "preparing";
+    state.fallbackNotified = false;
 
-    unlockAudio(state.queue[0]);
+    // Important on iPhone: request AudioContext permission directly
+    // from the start-button user gesture, before any async fetch work.
+    await ensureAudioContextRunning();
 
     el.setup.hidden = true;
     el.result.hidden = true;
     el.play.hidden = false;
     updateProgress();
-    startReady();
     window.scrollTo({ top: 0, behavior: "smooth" });
+
+    await preloadRoundAudio();
+
+    if (state.phase !== "preparing") return;
+    startReady();
   }
 
-  function swapAndStart() {
+  async function swapAndStart() {
     const next = 1 - state.answerer;
     state.queue = buildQueue(state.total);
     state.answerer = next;
     state.index = 0;
     state.skipped = 0;
+    state.phase = "preparing";
+    state.fallbackNotified = false;
 
-    unlockAudio(state.queue[0]);
+    await ensureAudioContextRunning();
 
     el.result.hidden = true;
     el.play.hidden = false;
     updateProgress();
+
+    await preloadRoundAudio();
+
+    if (state.phase !== "preparing") return;
     startReady();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -660,15 +931,36 @@
     clearTimers();
     stopVoice();
     state.phase = "idle";
+
     el.play.hidden = true;
     el.result.hidden = true;
     el.setup.hidden = false;
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function testVoice() {
+  async function testVoice() {
     const sample = bank[60] || bank[0];
-    playQuestionAudio(sample, () => {});
+
+    await ensureAudioContextRunning();
+    let buffer = state.audioBuffers.get(sample.id);
+
+    if (!buffer) {
+      buffer = await fetchDecodedAudio(sample);
+      if (buffer) state.audioBuffers.set(sample.id, buffer);
+    }
+
+    playPreparedAudio(sample, () => {});
+  }
+
+  function maybeRecoverFromSystemInterruption() {
+    if (
+      document.visibilityState === "visible" &&
+      state.phase === "speaking" &&
+      state.interruptionPending &&
+      !state.userPaused
+    ) {
+      recoverInterruptedAudio();
+    }
   }
 
   document
@@ -676,16 +968,19 @@
     .forEach((button) =>
       button.addEventListener(
         "click",
-        () => start(button.dataset.answerer)
+        () => prepareAndStart(button.dataset.answerer)
       )
     );
 
   el.voiceTest.addEventListener("click", testVoice);
   el.pause.addEventListener("click", togglePause);
+  el.replay.addEventListener("click", replayCurrent);
   el.skip.addEventListener("click", skip);
+
   el.finish.addEventListener("click", () => {
     if (window.confirm("结束当前这一轮吗？")) showResults();
   });
+
   el.swap.addEventListener("click", swapAndStart);
   el.again.addEventListener("click", toSetup);
 
@@ -705,15 +1000,20 @@
       el.help.showModal();
     } else {
       showToast(
-        "网页自动播放报题音频，回答时间结束后立即进入下一题。"
+        "整轮音频会先准备好；听完题才显示文字，倒计时结束后立即播放下一题。"
       );
     }
   });
 
   el.closeHelp.addEventListener("click", () => el.help.close());
+
   el.help.addEventListener("click", (event) => {
     if (event.target === el.help) el.help.close();
   });
+
+  document.addEventListener("visibilitychange", maybeRecoverFromSystemInterruption);
+  window.addEventListener("focus", maybeRecoverFromSystemInterruption);
+  window.addEventListener("pageshow", maybeRecoverFromSystemInterruption);
 
   loadSeen();
 })();
