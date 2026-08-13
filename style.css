@@ -2215,3 +2215,176 @@ main {
   background: linear-gradient(135deg, var(--gold), #fff4a8);
   font-size: 1.05rem;
 }
+
+
+/* V74 · 小发夹共创专区 */
+.cocreate-section {
+  margin-top: 28px;
+  padding: clamp(28px, 4vw, 48px);
+  border: 1px solid rgba(46, 39, 48, .10);
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 92% 10%, rgba(255,226,91,.19), transparent 26%),
+    rgba(255,255,255,.78);
+}
+
+.cocreate-card {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: .78fr 1.22fr;
+  gap: clamp(24px, 5vw, 60px);
+  align-items: center;
+  padding: clamp(24px, 4vw, 42px);
+  border-radius: 28px;
+  background: linear-gradient(135deg, #fff2f5, #fffbea);
+  border: 1px solid rgba(46,39,48,.08);
+  overflow: hidden;
+}
+
+.cocreate-visual {
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+}
+
+.cocreate-seed,
+.cocreate-crown {
+  flex: 0 0 auto;
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 19px;
+  background: #fff;
+  border: 1px solid rgba(46,39,48,.10);
+  font-weight: 950;
+  box-shadow: 0 12px 30px rgba(46,39,48,.08);
+}
+
+.cocreate-crown {
+  background: #FFE25B;
+}
+
+.cocreate-line {
+  width: clamp(20px, 4vw, 52px);
+  height: 2px;
+  background: linear-gradient(90deg, #FF8AA1, #FFE25B);
+  border-radius: 99px;
+}
+
+.cocreate-topline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.status-preview {
+  background: #fff1b7;
+  color: #715c00;
+}
+
+.cocreate-credit {
+  color: var(--muted, #746a70);
+  font-size: .82rem;
+  font-weight: 750;
+}
+
+.cocreate-copy h3 {
+  margin: 14px 0 0;
+  font-size: clamp(1.9rem, 4vw, 3.15rem);
+  letter-spacing: -.04em;
+}
+
+.cocreate-copy > p {
+  color: var(--muted, #746a70);
+  line-height: 1.75;
+}
+
+.cocreate-note {
+  margin: 18px 0 0;
+  color: var(--muted, #746a70);
+  font-size: .82rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 760px) {
+  .cocreate-section {
+    padding: 22px 16px;
+    border-radius: 26px;
+  }
+
+  .cocreate-card {
+    grid-template-columns: 1fr;
+    padding: 20px 16px;
+  }
+
+  .cocreate-visual {
+    min-height: 150px;
+  }
+
+  .cocreate-seed,
+  .cocreate-crown {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+  }
+}
+
+
+/* V77 · 已授权的小发夹共创正式放在本期推荐下方 */
+.featured-cocreate {
+  margin-top: 18px;
+  background:
+    radial-gradient(circle at 92% 22%, rgba(255,226,91,.18), transparent 25%),
+    linear-gradient(135deg, rgba(255,244,247,.96), rgba(255,252,231,.96));
+}
+
+.cocreate-bracket-paper {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 18px;
+}
+
+.cocreate-paper-bracket {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cocreate-paper-bracket span,
+.cocreate-paper-bracket strong {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 13px;
+  background: #fff;
+  border: 1px solid rgba(46,39,48,.10);
+  font-size: .82rem;
+  font-weight: 950;
+}
+
+.cocreate-paper-bracket strong {
+  background: #FFE25B;
+}
+
+.cocreate-paper-bracket i {
+  height: 2px;
+  flex: 1 1 14px;
+  background: linear-gradient(90deg, #FF8AA1, #FFE25B);
+  border-radius: 99px;
+}
+
+@media (max-width: 760px) {
+  .featured-cocreate {
+    margin-top: 14px;
+  }
+}
