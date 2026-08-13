@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF8AA1" />
+  <meta
+    name="description"
+    content="法嘉糖点极限二选一：64个糖点一路二选一，选到最后的冠军。"
+  />
+  <title>法嘉糖点极限二选一｜小发夹共创</title>
+  <link rel="stylesheet" href="./style.css?v=77-20260814" />
+  <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.min.js?max_age=3600"></script>
+  <script src="../../shared/rum-config.js?v=64-20260810"></script>
+  <script src="../../shared/rum.js?v=64-20260810"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../../">
+      <span class="brand-mark">FJ</span>
+      <span>法嘉直播游戏屋</span>
+    </a>
+    <a class="back-link" href="../../#cocreate">← 返回共创专区</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">CO-CREATED · 小发夹共创</p>
+        <h1>法嘉糖点<br /><span>极限二选一</span></h1>
+        <p class="hero-description">
+          64个糖点，两两对决。没有标准答案，只留下此刻最舍不得淘汰的那个。
+        </p>
+
+        <div class="credit-row">
+          <span><small>原始表格</small><strong>十九</strong></span>
+          <span><small>原始网站开发</small><strong>厌倦猜忌__</strong></span>
+        </div>
+      </div>
+
+      <div class="hero-bracket" aria-hidden="true">
+        <div class="mini-round"><span>64</span><i></i><span>32</span></div>
+        <div class="mini-round"><span>32</span><i></i><span>16</span></div>
+        <div class="mini-round"><span>16</span><i></i><span>8</span></div>
+        <div class="mini-round"><span>8</span><i></i><span>4</span></div>
+        <div class="mini-round"><span>4</span><i></i><span>2</span></div>
+        <div class="mini-round mini-round-final"><span>2</span><i></i><span>1</span></div>
+      </div>
+    </section>
+
+    <section class="setup-card setup-card-simple" id="setupCard">
+      <label class="name-field name-field-simple">
+        <span>填表人（选填）</span>
+        <input
+          id="playerName"
+          type="text"
+          maxlength="24"
+          autocomplete="off"
+          aria-label="填表人（选填）"
+        />
+      </label>
+
+      <div class="setup-actions setup-actions-simple">
+        <button class="button primary" id="startButton" type="button">开始64进32 →</button>
+        <button class="text-button" id="resumeButton" type="button" hidden>继续上次进度</button>
+      </div>
+    </section>
+
+    <section class="game-card" id="gameCard" hidden>
+      <div class="round-head">
+        <div>
+          <p class="eyebrow" id="roundEyebrow">ROUND 01</p>
+          <h2 id="roundTitle">第一轮 · 海选64进32</h2>
+        </div>
+        <div class="round-progress">
+          <strong id="roundProgress">0 / 32</strong>
+          <span>本轮已完成</span>
+        </div>
+      </div>
+
+      <div class="progress-track"><span id="progressBar"></span></div>
+
+      <p class="match-label">发夹 · 当前对阵</p>
+
+      <div class="matchup">
+        <button class="option-card option-a" id="optionA" type="button">
+          <span class="option-label">OPTION A</span>
+          <strong id="optionAText">—</strong>
+          <small>点我晋级</small>
+        </button>
+
+        <div class="versus" aria-hidden="true">
+          <span>VS</span>
+        </div>
+
+        <button class="option-card option-b" id="optionB" type="button">
+          <span class="option-label">OPTION B</span>
+          <strong id="optionBText">—</strong>
+          <small>点我晋级</small>
+        </button>
+      </div>
+
+      <div class="game-actions">
+        <button class="button primary" id="chooseA" type="button">✓ 选A晋级</button>
+        <button class="button primary gold" id="chooseB" type="button">✓ 选B晋级</button>
+        <button class="button secondary" id="skipButton" type="button">⏭ 这组晚点再选</button>
+      </div>
+
+      <p class="skip-note">“晚点再选”只会把当前这一组移到本轮最后，不会随机淘汰任何糖点。</p>
+    </section>
+
+    <section class="champion-card" id="championCard" hidden>
+      <p class="eyebrow">CHAMPION</p>
+      <div class="trophy" aria-hidden="true">🏆</div>
+      <h2>你的本届糖点冠军是</h2>
+      <strong id="championText">—</strong>
+      <p id="championSubtitle">从64个糖点一路选到了最后。</p>
+
+      <div class="champion-actions">
+        <button class="button primary" id="exportButtonFinal" type="button">📄 导出我的晋级榜单</button>
+        <button class="button secondary" id="resetButtonFinal" type="button">重新选一次</button>
+      </div>
+    </section>
+
+    <section class="journey-card" id="journey">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">BRACKET JOURNEY</p>
+          <h2>🏆 晋级之路</h2>
+        </div>
+        <p>横向滑动可以回看每一轮留下来的糖点。</p>
+      </div>
+
+      <div class="round-columns" id="roundColumns"></div>
+
+      <div class="journey-actions">
+        <button class="button secondary" id="exportButton" type="button">📄 导出榜单</button>
+        <button class="button ghost" id="resetButton" type="button">🔄 全部重置</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>法嘉直播游戏屋 · 小发夹共创</strong>
+    <p>
+      非官方粉丝作品，仅供娱乐与交流。选择结果与填表人仅保存在当前浏览器；
+      导出榜单时由浏览器在本地生成文件。
+    </p>
+    <p class="adapt-credit">游戏屋整合与长期访问适配：哈哈哈机器</p>
+    <p data-rum-disclosure>
+      本站使用腾讯云前端监控统计页面访问与游戏操作情况，用于功能维护与题库优化；不记录答题内容及用户输入信息。
+    </p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./items.js?v=77-20260814"></script>
+  <script src="./app.js?v=77-20260814"></script>
+</body>
+</html>
