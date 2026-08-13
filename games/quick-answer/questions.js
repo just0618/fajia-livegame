@@ -206,12 +206,12 @@ window.FAJIA_QUICK_ANSWER_QUESTIONS = [
   },
   {
     "id": "quick-answer-042",
-    "text": "谁更爱拍照？",
+    "text": "谁更容易偷偷给对方拍照？",
     "type": "observe"
   },
   {
     "id": "quick-answer-043",
-    "text": "谁更会做计划？",
+    "text": "谁更容易临时改变两个人原本的计划？",
     "type": "observe"
   },
   {
@@ -256,12 +256,12 @@ window.FAJIA_QUICK_ANSWER_QUESTIONS = [
   },
   {
     "id": "quick-answer-052",
-    "text": "谁更会照顾人？",
-    "type": "observe"
+    "text": "杀青以后，有没有特别想主动联系对方？",
+    "type": "relation"
   },
   {
     "id": "quick-answer-053",
-    "text": "谁更黏人？",
+    "text": "谁更容易先忍不住去找对方？",
     "type": "observe"
   },
   {
@@ -271,7 +271,7 @@ window.FAJIA_QUICK_ANSWER_QUESTIONS = [
   },
   {
     "id": "quick-answer-055",
-    "text": "谁更容易想很多？",
+    "text": "谁更容易把对方随口说过的话记很久？",
     "type": "observe"
   },
   {
@@ -286,12 +286,12 @@ window.FAJIA_QUICK_ANSWER_QUESTIONS = [
   },
   {
     "id": "quick-answer-058",
-    "text": "谁更容易猜到对方现在想吃什么？",
-    "type": "observe"
+    "text": "察觉到自己心动以后，当时更想主动出击，还是等对方来追？",
+    "type": "relation"
   },
   {
     "id": "quick-answer-059",
-    "text": "谁更容易被对方逗笑？",
+    "text": "谁更容易因为对方一个小动作就心软？",
     "type": "observe"
   },
   {
@@ -312,12 +312,12 @@ window.FAJIA_QUICK_ANSWER_QUESTIONS = [
   {
     "id": "quick-answer-063",
     "text": "对方最常穿什么颜色？",
-    "type": "relation"
+    "type": "observe"
   },
   {
     "id": "quick-answer-064",
     "text": "对方最常喝什么？",
-    "type": "relation"
+    "type": "observe"
   },
   {
     "id": "quick-answer-065",
@@ -326,7 +326,7 @@ window.FAJIA_QUICK_ANSWER_QUESTIONS = [
   },
   {
     "id": "quick-answer-066",
-    "text": "对方最容易被什么事情逗笑？",
+    "text": "对方哪一种撒娇方式最让你没办法？",
     "type": "relation"
   },
   {
@@ -341,7 +341,7 @@ window.FAJIA_QUICK_ANSWER_QUESTIONS = [
   },
   {
     "id": "quick-answer-069",
-    "text": "如果现在一起吃夜宵，第一反应想吃什么？",
+    "text": "对方突然说“想你了”，你第一反应会回什么？",
     "type": "relation"
   },
   {
@@ -356,7 +356,7 @@ window.FAJIA_QUICK_ANSWER_QUESTIONS = [
   },
   {
     "id": "quick-answer-072",
-    "text": "两个人待在家，更喜欢聊天还是各做各的？",
+    "text": "如果对方突然说“过来”，你第一反应是靠过去还是先问干嘛？",
     "type": "relation"
   },
   {
@@ -376,12 +376,12 @@ window.FAJIA_QUICK_ANSWER_QUESTIONS = [
   },
   {
     "id": "quick-answer-076",
-    "text": "如果现在一起看东西，电影还是综艺？",
+    "text": "对方叫你全名还是昵称，更容易让你立刻回头？",
     "type": "relation"
   },
   {
     "id": "quick-answer-077",
-    "text": "临时多出一天，更想一起宅着还是出去？",
+    "text": "对方突然伸手，你第一反应是牵上去还是问他要什么？",
     "type": "relation"
   },
   {
@@ -416,7 +416,7 @@ window.FAJIA_QUICK_ANSWER_QUESTIONS = [
   },
   {
     "id": "quick-answer-084",
-    "text": "最近一次突然觉得对方很好看，是什么时候？",
+    "text": "对方哪一个瞬间最让你觉得“有点犯规”？",
     "type": "light"
   },
   {
@@ -431,7 +431,7 @@ window.FAJIA_QUICK_ANSWER_QUESTIONS = [
   },
   {
     "id": "quick-answer-087",
-    "text": "如果现在只能选一个，牵手还是搂腰？",
+    "text": "如果现在直播立刻结束，只剩你们两个，你最想做什么事？",
     "type": "strong"
   },
   {

@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#FF8AA1" />
   <title>法嘉快问快答</title>
-  <link rel="stylesheet" href="./style.css?v=71-20260813" />
+  <link rel="stylesheet" href="./style.css?v=72-20260813" />
   <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.min.js?max_age=3600"></script>
   <script src="../../shared/rum-config.js?v=64-20260810"></script>
   <script src="../../shared/rum.js?v=64-20260810"></script>
-  <script src="../../shared/content-codes.js?v=69-20260812"></script>
+  <script src="../../shared/content-codes.js?v=72-20260813"></script>
 </head>
 <body>
   <div class="background-shape shape-pink" aria-hidden="true"></div><div class="background-shape shape-gold" aria-hidden="true"></div>
@@ -21,7 +21,7 @@
 
       <section class="choice-section"><div class="section-label"><span>STEP 01</span><h2>本轮多少题？</h2></div><div class="choice-grid two-columns"><label class="choice-card"><input type="radio" name="rounds" value="10" checked /><span class="choice-card-inner"><strong>10题</strong><small>标准连答</small></span></label><label class="choice-card"><input type="radio" name="rounds" value="15" /><span class="choice-card-inner"><strong>15题</strong><small>完整长局</small></span></label></div></section>
 
-      <section class="choice-section"><div class="section-label"><span>STEP 02</span><h2>听完题后几秒回答？</h2></div><div class="choice-grid three-columns"><label class="choice-card"><input type="radio" name="seconds" value="2" /><span class="choice-card-inner"><strong>2秒</strong><small>极速</small></span></label><label class="choice-card"><input type="radio" name="seconds" value="3" checked /><span class="choice-card-inner"><strong>3秒</strong><small>推荐</small></span></label><label class="choice-card"><input type="radio" name="seconds" value="5" /><span class="choice-card-inner"><strong>5秒</strong><small>轻松</small></span></label></div><button class="voice-test" id="voiceTestButton" type="button">🔊 试听报题声音</button></section>
+      <section class="choice-section"><div class="section-label"><span>STEP 02</span><h2>听完题后几秒回答？</h2></div><div class="choice-grid three-columns"><label class="choice-card"><input type="radio" name="seconds" value="2" /><span class="choice-card-inner"><strong>2秒</strong><small>极速</small></span></label><label class="choice-card"><input type="radio" name="seconds" value="3" checked /><span class="choice-card-inner"><strong>3秒</strong><small>推荐</small></span></label><label class="choice-card"><input type="radio" name="seconds" value="5" /><span class="choice-card-inner"><strong>5秒</strong><small>轻松</small></span></label></div><button class="voice-test" id="voiceTestButton" type="button">🔊 试听报题声音</button><p class="audio-reminder">🔔 开始前请确认手机未处于静音状态，并适当调高媒体音量。</p></section>
 
       <section class="progress-note"><div><strong>90道题</strong><span id="historyText">正在读取本机题目进度…</span></div><button class="text-button" id="clearHistoryButton" type="button">清除已出现记录</button></section>
 
@@ -52,6 +52,6 @@
 
   <dialog class="help-dialog" id="helpDialog"><div class="dialog-panel"><div class="dialog-heading"><h2>快问快答规则</h2><button id="closeHelpButton" type="button" aria-label="关闭">×</button></div><ol><li>先指定本轮回答者和10题 / 15题。</li><li>开始一轮后会先准备本轮音频；报题时只显示“请听题”，音频读完后才显示题目文字。</li><li>音频读完后开始2秒、3秒或5秒回答倒计时，时间一到立即进入下一题并开始报题。</li><li>一轮中会混入少量更容易产生第一反应的问题，但不会提前标记。</li><li>任何问题都可以跳过；如果刚才被通知或其他声音打断，也可以点击“重播本题”。</li><li>本游戏不提供“上一题”，也不会保存回答内容。</li></ol></div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="./questions.js?v=71-20260813"></script><script src="./app.js?v=71-20260813"></script>
+  <script src="./questions.js?v=72-20260813"></script><script src="./app.js?v=72-20260813"></script>
 </body>
 </html>

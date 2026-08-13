@@ -6,7 +6,7 @@
     : [];
   const players = ["法宣阁", "贺嘉述"];
   const STORAGE_KEY = "fajia-livegame.quick-answer.seen.v1";
-  const AUDIO_VERSION = "71-20260813";
+  const AUDIO_VERSION = "72-20260813";
 
   if (bank.length !== 90) {
     throw new Error("快问快答题库未正确加载。");
@@ -148,65 +148,180 @@
   }
 
   function buildTypeLayout(n) {
-    const types = new Array(n).fill("");
-    let assaults = [];
-
-    if (n === 10) {
-      const p1 = randomInt(4, 6) - 1;
-      const p2 = randomInt(8, 10) - 1;
-      assaults = [p1, p2];
-      types[p1] = "light";
-      types[p2] = Math.random() < 0.65 ? "strong" : "light";
-    } else {
-      const p1 = randomInt(4, 6) - 1;
-      const p2 = randomInt(8, 11) - 1;
-      const p3 = randomInt(13, 15) - 1;
-      assaults = [p1, p2, p3];
-      types[p1] = "light";
-      const strongPos = Math.random() < 0.5 ? p2 : p3;
-      types[p2] = strongPos === p2 ? "strong" : "light";
-      types[p3] = strongPos === p3 ? "strong" : "light";
-    }
-
-    assaults.forEach((p) => {
-      if (p + 1 < n && !types[p + 1]) {
-        types[p + 1] = "normal";
-      }
-    });
-
-    assaults.forEach((p) => {
-      if (types[p] === "strong" && p - 1 >= 0 && !types[p - 1]) {
-        types[p - 1] = Math.random() < 0.5 ? "normal" : "observe";
-      }
-    });
-
     const target = n === 10
       ? { normal: 3, observe: 2, relation: 3 }
       : { normal: 4, observe: 4, relation: 4 };
 
-    const current = {
-      normal: types.filter((x) => x === "normal").length,
-      observe: types.filter((x) => x === "observe").length,
-      relation: types.filter((x) => x === "relation").length,
-    };
+    for (let attempt = 0; attempt < 600; attempt += 1) {
+      const types = new Array(n).fill("");
+      let lightPositions = [];
+      let strongPosition = -1;
 
-    let filler = [];
-    ["normal", "observe", "relation"].forEach((type) => {
-      for (let i = current[type]; i < target[type]; i += 1) {
-        filler.push(type);
+      if (n === 10) {
+        const light = randomInt(4, 6) - 1;
+        const strong = randomInt(8, 10) - 1;
+
+        lightPositions = [light];
+        strongPosition = strong;
+        types[light] = "light";
+        types[strong] = "strong";
+      } else {
+        const p1 = randomInt(4, 6) - 1;
+        const p2 = randomInt(8, 11) - 1;
+        const p3 = randomInt(13, 15) - 1;
+
+        strongPosition = Math.random() < 0.5 ? p2 : p3;
+        lightPositions = [p1, strongPosition === p2 ? p3 : p2];
+
+        types[p1] = "light";
+        types[p2] = strongPosition === p2 ? "strong" : "light";
+        types[p3] = strongPosition === p3 ? "strong" : "light";
       }
-    });
 
-    filler = shuffle(filler);
+      // 开场前三题固定一题普通、一题观察、一题关系，但顺序每轮打乱。
+      const opening = shuffle(["normal", "observe", "relation"]);
+      types[0] = opening[0];
+      types[1] = opening[1];
+      types[2] = opening[2];
 
-    for (let i = 0; i < n; i += 1) {
-      if (!types[i]) {
-        types[i] =
-          filler.shift() || ["normal", "observe", "relation"][i % 3];
+      const remaining = {
+        normal: target.normal - 1,
+        observe: target.observe - 1,
+        relation: target.relation - 1,
+      };
+
+      if (
+        remaining.normal < 0 ||
+        remaining.observe < 0 ||
+        remaining.relation < 0
+      ) {
+        continue;
       }
+
+      const surprisePositions = [...lightPositions, strongPosition].sort(
+        (a, b) => a - b
+      );
+
+      let valid = true;
+
+      // 每个突袭后如果还有下一题，固定回到普通题降温。
+      for (const p of surprisePositions) {
+        const next = p + 1;
+        if (next >= n) continue;
+
+        if (types[next] && types[next] !== "normal") {
+          valid = false;
+          break;
+        }
+
+        if (!types[next]) {
+          if (remaining.normal <= 0) {
+            valid = false;
+            break;
+          }
+          types[next] = "normal";
+          remaining.normal -= 1;
+        }
+      }
+
+      if (!valid) continue;
+
+      // 强突袭前一题不放关系题，避免连续升温。
+      const beforeStrong = strongPosition - 1;
+      if (beforeStrong >= 0) {
+        if (types[beforeStrong] === "relation") {
+          continue;
+        }
+
+        if (!types[beforeStrong]) {
+          const candidates = [];
+          if (remaining.observe > 0) candidates.push("observe");
+          if (remaining.normal > 0) candidates.push("normal");
+
+          if (!candidates.length) continue;
+
+          const chosen = candidates[
+            Math.floor(Math.random() * candidates.length)
+          ];
+          types[beforeStrong] = chosen;
+          remaining[chosen] -= 1;
+        }
+      }
+
+      const filler = [];
+      ["normal", "observe", "relation"].forEach((type) => {
+        for (let i = 0; i < remaining[type]; i += 1) {
+          filler.push(type);
+        }
+      });
+
+      const emptyCount = types.filter((x) => !x).length;
+      if (filler.length !== emptyCount) continue;
+
+      const shuffledFiller = shuffle(filler);
+      let cursor = 0;
+
+      for (let i = 0; i < n; i += 1) {
+        if (!types[i]) {
+          types[i] = shuffledFiller[cursor++];
+        }
+      }
+
+      const counts = {
+        normal: types.filter((x) => x === "normal").length,
+        observe: types.filter((x) => x === "observe").length,
+        relation: types.filter((x) => x === "relation").length,
+        light: types.filter((x) => x === "light").length,
+        strong: types.filter((x) => x === "strong").length,
+      };
+
+      const correctCounts = n === 10
+        ? (
+          counts.normal === 3 &&
+          counts.observe === 2 &&
+          counts.relation === 3 &&
+          counts.light === 1 &&
+          counts.strong === 1
+        )
+        : (
+          counts.normal === 4 &&
+          counts.observe === 4 &&
+          counts.relation === 4 &&
+          counts.light === 2 &&
+          counts.strong === 1
+        );
+
+      if (!correctCounts) continue;
+
+      // 双保险：突袭不能连续。
+      let consecutiveSurprise = false;
+      for (let i = 1; i < n; i += 1) {
+        const a = types[i - 1] === "light" || types[i - 1] === "strong";
+        const b = types[i] === "light" || types[i] === "strong";
+        if (a && b) {
+          consecutiveSurprise = true;
+          break;
+        }
+      }
+      if (consecutiveSurprise) continue;
+
+      return types;
     }
 
-    return types;
+    // 理论上不会走到这里；保留安全兜底。
+    return n === 10
+      ? [
+        "normal", "observe", "relation",
+        "light", "normal", "relation",
+        "observe", "relation", "strong", "normal"
+      ]
+      : [
+        "normal", "observe", "relation",
+        "light", "normal", "observe",
+        "relation", "light", "normal",
+        "observe", "relation", "strong",
+        "normal", "observe", "relation"
+      ];
   }
 
   function buildQueue(n) {
