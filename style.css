@@ -2152,6 +2152,19 @@ main {
   font-weight: 800;
 }
 
+.featured-exam-tags .tag-two-lines {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.4;
+  white-space: normal;
+  height: auto;
+}
+
+.featured-exam-tags .tag-two-lines span + span {
+  margin-top: 2px;
+}
+
 .featured-exam-actions {
   display: grid;
   min-width: 190px;
