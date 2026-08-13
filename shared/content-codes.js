@@ -714,7 +714,8 @@
   "quick-answer-087": "K728",
   "quick-answer-088": "K712",
   "quick-answer-089": "K713",
-  "quick-answer-090": "K714"
+  "quick-answer-090": "K714",
+  "v73-truth-relationship-turning-point": "K729"
 };
   window.FAJIA_CONTENT_CODES = Object.freeze(map);
   window.FAJIA_CONTENT_CODE = (key) => map[key] || "";

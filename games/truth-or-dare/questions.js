@@ -779,6 +779,13 @@ window.FAJIA_QUESTION_BANK = {
         "liveEnabled": true,
         "liveTier": "highlight",
         "liveAction": "稀有深度"
+      },
+      {
+        "id": "v73-truth-relationship-turning-point",
+        "text": "你觉得两个人关系真正发生转折的时间点是什么时候？",
+        "liveEnabled": true,
+        "liveTier": "relation",
+        "liveAction": "保留"
       }
     ],
     "dare": [
