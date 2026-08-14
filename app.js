@@ -180,6 +180,16 @@
 
   renderExternalWorks();
 
+  const fanTestLink = document.querySelector("[data-fan-test-link]");
+  fanTestLink?.addEventListener("click", () => {
+    window.FAJIA_RUM?.reportEvent?.(
+      "fan_test_open",
+      "personality_test",
+      "fajiarrengeceshi",
+      "homepage"
+    );
+  });
+
   randomGameDialog.addEventListener("click", (event) => {
     if (event.target === randomGameDialog) {
       closeRandomGame();

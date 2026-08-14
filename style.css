@@ -2401,3 +2401,254 @@ main {
     margin-top: 14px;
   }
 }
+
+
+/* V78 · fan corner personality test */
+.fan-corner-section {
+  padding: 18px 0 18px;
+  scroll-margin-top: 24px;
+}
+
+.fan-corner-heading {
+  margin-bottom: 24px;
+}
+
+.fan-test-card {
+  display: grid;
+  overflow: hidden;
+  min-height: 360px;
+  border: 1px solid rgba(255, 138, 161, 0.22);
+  border-radius: var(--radius-large);
+  background:
+    radial-gradient(circle at 14% 18%, rgba(255, 138, 161, 0.15), transparent 18rem),
+    radial-gradient(circle at 86% 80%, rgba(255, 226, 91, 0.22), transparent 20rem),
+    rgba(255, 255, 255, 0.84);
+  box-shadow: var(--shadow);
+  grid-template-columns: minmax(310px, 0.82fr) minmax(0, 1.18fr);
+}
+
+.fan-test-visual {
+  position: relative;
+  display: flex;
+  min-height: 360px;
+  padding: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background:
+    linear-gradient(145deg, rgba(255, 240, 244, 0.96), rgba(255, 249, 217, 0.72));
+}
+
+.fan-test-choice {
+  position: relative;
+  display: grid;
+  width: 116px;
+  height: 146px;
+  place-items: center;
+  border: 2px solid rgba(52, 47, 49, 0.07);
+  border-radius: 30px;
+  box-shadow: 0 18px 34px rgba(105, 75, 83, 0.12);
+  transform: rotate(-5deg);
+}
+
+.fan-test-choice strong {
+  font-size: 3.2rem;
+  line-height: 1;
+  letter-spacing: -0.08em;
+}
+
+.fan-test-choice-label {
+  position: absolute;
+  top: 13px;
+  left: 15px;
+  font-size: 0.65rem;
+  font-weight: 950;
+  letter-spacing: 0.16em;
+  opacity: 0.58;
+}
+
+.fan-test-choice-fa {
+  color: #8f3650;
+  background: linear-gradient(145deg, #fff, #ffdce4);
+}
+
+.fan-test-choice-he {
+  color: #655100;
+  background: linear-gradient(145deg, #fff, #fff0a7);
+  transform: rotate(5deg);
+}
+
+.fan-test-question {
+  display: grid;
+  z-index: 2;
+  width: 68px;
+  height: 68px;
+  place-items: center;
+  border: 4px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  color: var(--white);
+  background: var(--ink);
+  box-shadow: 0 14px 30px rgba(52, 47, 49, 0.2);
+  font-size: 2.25rem;
+  font-weight: 950;
+  transform: rotate(6deg);
+}
+
+.fan-test-spark {
+  position: absolute;
+  font-weight: 950;
+}
+
+.fan-test-spark-one {
+  top: 42px;
+  right: 58px;
+  color: var(--pink);
+  font-size: 1.8rem;
+}
+
+.fan-test-spark-two {
+  bottom: 42px;
+  left: 62px;
+  color: #d5ac00;
+  font-size: 1.35rem;
+}
+
+.fan-test-copy {
+  display: flex;
+  padding: 46px 48px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.fan-test-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.fan-test-badges span {
+  display: inline-flex;
+  min-height: 28px;
+  padding: 4px 10px;
+  align-items: center;
+  border-radius: 999px;
+  color: var(--pink-dark);
+  background: var(--pink-soft);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.fan-test-badges span:nth-child(2) {
+  color: var(--gold-dark);
+  background: var(--gold-soft);
+}
+
+.fan-test-badges span:nth-child(3) {
+  color: var(--muted);
+  background: rgba(52, 47, 49, 0.055);
+}
+
+.fan-test-copy h3 {
+  margin: 20px 0 10px;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.06;
+  letter-spacing: -0.05em;
+}
+
+.fan-test-copy > p:not(.fan-test-note) {
+  max-width: 620px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.fan-test-button {
+  margin-top: 28px;
+}
+
+.fan-test-note {
+  margin: 13px 0 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+
+@media (max-width: 920px) {
+  .fan-test-card {
+    grid-template-columns: 1fr;
+  }
+
+  .fan-test-visual {
+    min-height: 280px;
+  }
+
+  .fan-test-copy {
+    padding: 34px;
+  }
+}
+
+@media (max-width: 680px) {
+  .top-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fan-corner-section {
+    padding-top: 8px;
+  }
+
+  .fan-test-card {
+    min-height: 0;
+    border-radius: 24px;
+  }
+
+  .fan-test-visual {
+    min-height: 230px;
+    padding: 30px 18px;
+    gap: 11px;
+  }
+
+  .fan-test-choice {
+    width: 90px;
+    height: 116px;
+    border-radius: 24px;
+  }
+
+  .fan-test-choice strong {
+    font-size: 2.55rem;
+  }
+
+  .fan-test-question {
+    width: 54px;
+    height: 54px;
+    border-width: 3px;
+    font-size: 1.75rem;
+  }
+
+  .fan-test-spark-one {
+    top: 24px;
+    right: 28px;
+  }
+
+  .fan-test-spark-two {
+    bottom: 24px;
+    left: 30px;
+  }
+
+  .fan-test-copy {
+    padding: 28px 22px 26px;
+  }
+
+  .fan-test-copy h3 {
+    margin-top: 17px;
+    font-size: clamp(2rem, 11vw, 2.75rem);
+  }
+
+  .fan-test-button {
+    width: 100%;
+  }
+
+  .fan-test-note {
+    width: 100%;
+    text-align: center;
+  }
+}
