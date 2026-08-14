@@ -448,6 +448,34 @@ a:focus-visible {
   justify-content: flex-end;
 }
 
+.skip-link {
+  align-self: center;
+  padding: 8px 6px;
+  border: 0;
+  color: color-mix(in srgb, var(--muted) 72%, transparent);
+  background: transparent;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.58;
+  transition: opacity 160ms ease, color 160ms ease;
+}
+
+.skip-link:hover,
+.skip-link:focus-visible {
+  color: var(--muted);
+  opacity: 0.9;
+}
+
+.skip-link:focus-visible {
+  outline: 2px solid rgba(255, 138, 161, 0.38);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+
 .summary-card,
 .oath-card,
 .complete-card {
@@ -767,6 +795,13 @@ a:focus-visible {
   .vlog-actions .button,
   .complete-actions .button {
     width: 100%;
+  }
+
+  .quiz-actions .skip-link {
+    width: 100%;
+    margin-top: -1px;
+    padding: 7px 0 2px;
+    text-align: center;
   }
 }
 
