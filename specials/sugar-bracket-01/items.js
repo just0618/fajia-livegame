@@ -157,7 +157,7 @@ window.FAJIA_SUGAR_BRACKET_ITEMS = [
   },
   {
     "id": "sugar-40",
-    "text": "在发生了这么这么多之后 你会好好对对我的对吧"
+    "text": "在发生了这么这么多之后 你会好好对我的对吧"
   },
   {
     "id": "sugar-41",
