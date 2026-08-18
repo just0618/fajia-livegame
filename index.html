@@ -28,6 +28,7 @@
 
     <nav class="top-nav" aria-label="页面导航">
       <a href="#games">全部游戏</a>
+      <a href="#fan-corner">小发夹也来玩</a>
       <a href="#more-works">更多作品</a>
       <a href="#about">关于游戏屋</a>
     </nav>
@@ -66,7 +67,7 @@
         </div>
 
         <ul class="feature-list" aria-label="网站特点">
-          <li>11款游戏</li>
+          <li>12款游戏</li>
           <li>手机与电脑可用</li>
           <li>持续更新</li>
         </ul>
@@ -496,6 +497,34 @@
         </article>
 
         <article
+          class="game-card"
+          data-random-game
+          data-game-id="tolerance-challenge"
+        >
+          <div class="card-top">
+            <div class="game-icon icon-tolerance" aria-hidden="true">👀</div>
+            <span class="status-badge status-live">现已上线</span>
+          </div>
+
+          <p class="game-index">GAME 12</p>
+          <h3>法嘉容忍度挑战</h3>
+          <p>
+            双方闭眼，系统播放 @纸包鱼oO 老师原版18题语音；如果这件事不能忍，就睁眼。
+          </p>
+
+          <ul class="card-tags" aria-label="法嘉容忍度挑战特点">
+            <li>原版18题</li>
+            <li>原版语音</li>
+            <li>闭眼睁眼</li>
+          </ul>
+
+          <a class="button button-primary" href="./games/tolerance-challenge/">
+            开始游戏
+            <span aria-hidden="true">→</span>
+          </a>
+        </article>
+
+        <article
           class="game-card game-card-monopoly"
           data-random-game
           data-game-id="monopoly"
@@ -538,6 +567,61 @@
             <span aria-hidden="true">→</span>
           </a>
         </article>      </div>
+    </section>
+
+    <section class="fan-corner-section" id="fan-corner" aria-labelledby="fan-corner-title">
+      <div class="section-heading fan-corner-heading">
+        <div>
+          <p class="eyebrow">FAN CORNER · 小发夹也来玩</p>
+          <h2 id="fan-corner-title">轮到小发夹自己玩啦</h2>
+        </div>
+        <p>
+          这里放一些专门面向粉丝的小测试和互动玩法。它们不会进入法嘉直播游戏列表，也不会加入随机游戏池。
+        </p>
+      </div>
+
+      <article class="fan-test-card">
+        <div class="fan-test-visual" aria-hidden="true">
+          <div class="fan-test-choice fan-test-choice-fa">
+            <span class="fan-test-choice-label">FA</span>
+            <strong>法</strong>
+          </div>
+          <div class="fan-test-question">?</div>
+          <div class="fan-test-choice fan-test-choice-he">
+            <span class="fan-test-choice-label">HE</span>
+            <strong>贺</strong>
+          </div>
+          <span class="fan-test-spark fan-test-spark-one">✦</span>
+          <span class="fan-test-spark fan-test-spark-two">♥</span>
+        </div>
+
+        <div class="fan-test-copy">
+          <div class="fan-test-badges" aria-label="测试类型">
+            <span>粉丝测试</span>
+            <span>外部页面</span>
+          </div>
+
+          <h3>你更像法宣阁，还是贺嘉述？</h3>
+          <p>
+            回答一组关于性格与选择的小问题，看看最后的测试结果会更接近谁。
+          </p>
+
+          <a
+            class="button button-primary fan-test-button"
+            href="https://fajiarrengeceshi.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-fan-test-link
+          >
+            开始测试
+            <span aria-hidden="true">↗</span>
+          </a>
+
+          <p class="fan-test-note">
+            外部测试页 · 创作者：小喵奇遇y · 内容与版权归原作者所有 · 将在新页面打开
+          </p>
+        </div>
+      </article>
     </section>
 
     <section class="works-section" id="more-works" aria-labelledby="works-title">
