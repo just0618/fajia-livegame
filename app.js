@@ -200,7 +200,7 @@
     el.card.classList.remove("is-observing", "is-discussing");
     el.phase.textContent = replay ? "重新听一次" : "双方闭眼";
     el.question.textContent = q.text;
-    el.copy.textContent = "先保持闭眼。约1.4秒后会播放原版题目语音；如果不能忍，就睁眼。";
+    el.copy.textContent = "先保持闭眼。点击后会很快播放原版题目语音；如果不能忍，就睁眼。";
     el.next.disabled = true;
     state.phase = "audio";
     playFile(q.audio, startObservation, replay ? "正在重播原版题目语音…" : "准备播放原版题目语音…");
@@ -250,7 +250,7 @@
     el.skip.disabled = false;
     renderProgress();
     el.card.classList.remove("is-observing", "is-discussing");
-    report("tolerance_start", String(state.total), "paperfish_original_v2");
+    report("tolerance_start", String(state.total), "paperfish_original_v3");
     playQuestion();
   }
 
