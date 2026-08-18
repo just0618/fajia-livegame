@@ -1,235 +1,301 @@
 (() => {
   "use strict";
 
-  const toast = document.getElementById("toast");
-  const randomGameButton = document.getElementById("randomGameButton");
-  const randomGameDialog = document.getElementById("randomGameDialog");
-  const closeRandomGameButton = document.getElementById("closeRandomGameButton");
-  const rerollGameButton = document.getElementById("rerollGameButton");
-  const randomGameIndex = document.getElementById("randomGameIndex");
-  const randomGameTitle = document.getElementById("randomGameTitle");
-  const randomGameDescription = document.getElementById("randomGameDescription");
-  const randomGameLink = document.getElementById("randomGameLink");
-  const randomCards = [...document.querySelectorAll("[data-random-game]")];
+  const bank = Array.isArray(window.FAJIA_TOLERANCE_QUESTIONS)
+    ? window.FAJIA_TOLERANCE_QUESTIONS
+    : [];
+  const STORAGE_KEY = "fajia-livegame.tolerance.seen.v1";
+  const SOUND_CHECK_AUDIO = "./audio/soundcheck.mp3?v=2-20260818";
+
+  if (bank.length !== 18) {
+    throw new Error("容忍度挑战原版18题未正确加载。");
+  }
+
+  const state = {
+    total: 10,
+    queue: [],
+    index: 0,
+    skipped: 0,
+    seen: new Set(),
+    currentAudio: null,
+    audioToken: 0,
+    observeTimer: null,
+    observeValue: 3,
+    phase: "idle",
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const el = {
+    setup: $("setupScreen"), play: $("playScreen"), result: $("resultScreen"),
+    round: $("roundText"), progress: $("progressBar"), card: $("toleranceCard"),
+    phase: $("phaseLabel"), question: $("questionText"), copy: $("phaseCopy"),
+    observe: $("observeCount"), audioState: $("audioState"), replay: $("replayButton"),
+    next: $("nextButton"), skip: $("skipButton"), finish: $("finishButton"),
+    resultTotal: $("resultTotal"), resultSkipped: $("resultSkipped"), again: $("againButton"),
+    start: $("startButton"), voiceTest: $("voiceTestButton"), history: $("historyText"),
+    clearHistory: $("clearHistoryButton"), help: $("helpDialog"), openHelp: $("openHelpButton"),
+    closeHelp: $("closeHelpButton"), toast: $("toast")
+  };
 
   let toastTimer;
-  let lastRandomCard = null;
+
+  function shuffle(items) {
+    const a = [...items];
+    for (let i = a.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
 
   function showToast(message) {
-    window.clearTimeout(toastTimer);
-    toast.textContent = message;
-    toast.classList.add("is-visible");
-
-    toastTimer = window.setTimeout(() => {
-      toast.classList.remove("is-visible");
-    }, 2800);
+    clearTimeout(toastTimer);
+    el.toast.textContent = message;
+    el.toast.classList.add("is-visible");
+    toastTimer = setTimeout(() => el.toast.classList.remove("is-visible"), 2400);
   }
 
-  function chooseRandomCard() {
-    if (!randomCards.length) return null;
-    if (randomCards.length === 1) return randomCards[0];
-
-    let selected;
-    do {
-      selected = randomCards[Math.floor(Math.random() * randomCards.length)];
-    } while (selected === lastRandomCard);
-
-    lastRandomCard = selected;
-    return selected;
+  function selectedRounds() {
+    return Number(document.querySelector('input[name="rounds"]:checked')?.value || 10);
   }
 
-  function applyRandomCard(card) {
-    if (!card) return;
+  function loadSeen() {
+    try {
+      const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      state.seen = new Set(Array.isArray(raw) ? raw : []);
+    } catch {
+      state.seen = new Set();
+    }
+    updateHistory();
+  }
 
-    const index = card.querySelector(".game-index")?.textContent.trim() || "GAME";
-    const title = card.querySelector("h3")?.textContent.trim() || "随机游戏";
-    const description =
-      card.querySelector(":scope > p:not(.game-index)")?.textContent.trim() || "";
-    const link = card.querySelector("a.button");
+  function saveSeen() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...state.seen])); } catch {}
+    updateHistory();
+  }
 
-    randomGameIndex.textContent = index;
-    randomGameTitle.textContent = title;
-    randomGameDescription.textContent = description;
+  function updateHistory() {
+    const valid = [...state.seen].filter((id) => bank.some((q) => q.id === id)).length;
+    el.history.textContent = `本机已出现 ${valid} / 18 · 下一轮优先未出现题`;
+  }
 
-    randomGameLink.href = link?.href || "#";
-    if (link?.target) {
-      randomGameLink.target = link.target;
-      randomGameLink.rel = link.rel || "noopener noreferrer";
-      randomGameLink.querySelector("span").textContent = "↗";
-    } else {
-      randomGameLink.removeAttribute("target");
-      randomGameLink.removeAttribute("rel");
-      randomGameLink.querySelector("span").textContent = "→";
+  function buildQueue(total) {
+    const unseen = shuffle(bank.filter((q) => !state.seen.has(q.id)));
+    const seen = shuffle(bank.filter((q) => state.seen.has(q.id)));
+    return [...unseen, ...seen].slice(0, total);
+  }
+
+  function stopAudio() {
+    state.audioToken += 1;
+    if (state.currentAudio) {
+      try { state.currentAudio.pause(); } catch {}
+      state.currentAudio = null;
     }
   }
 
-  function randomizeGame() {
-    const selected = chooseRandomCard();
-    if (!selected) {
-      showToast("暂时没有可以随机的游戏。");
-      return;
-    }
-    applyRandomCard(selected);
+  function clearObserve() {
+    clearInterval(state.observeTimer);
+    state.observeTimer = null;
+    el.observe.hidden = true;
   }
 
-  function openRandomGame() {
-    randomizeGame();
-
-    if (typeof randomGameDialog.showModal === "function") {
-      randomGameDialog.showModal();
-      return;
-    }
-
-    const title = randomGameTitle.textContent;
-    const shouldOpen = window.confirm(`今天随机到：${title}\n\n现在进入游戏吗？`);
-    if (shouldOpen) {
-      window.location.href = randomGameLink.href;
-    }
+  function report(name, value = "", detail = "") {
+    window.FAJIA_RUM?.reportEvent?.(name, value, "tolerance_challenge", detail);
   }
 
-  function closeRandomGame() {
-    if (randomGameDialog.open) {
-      randomGameDialog.close();
-    }
-  }
+  function playFile(src, onEnd, label = "正在播放原版语音…") {
+    stopAudio();
+    const token = state.audioToken;
+    const audio = new Audio(src);
+    state.currentAudio = audio;
+    audio.preload = "auto";
+    el.audioState.textContent = label;
 
-  function renderExternalWorks() {
-    const grid = document.getElementById("worksGrid");
-    const works = Array.isArray(window.FAJIA_EXTERNAL_WORKS)
-      ? window.FAJIA_EXTERNAL_WORKS
-      : [];
+    audio.addEventListener("ended", () => {
+      if (token !== state.audioToken) return;
+      state.currentAudio = null;
+      onEnd?.();
+    }, { once: true });
 
-    if (!grid) return;
+    audio.addEventListener("error", () => {
+      if (token !== state.audioToken) return;
+      state.currentAudio = null;
+      el.audioState.textContent = "原版语音暂时无法播放，可直接读屏幕题目";
+      showToast("语音没有成功播放，可以直接读题继续。" );
+      onEnd?.();
+    }, { once: true });
 
-    grid.innerHTML = "";
-
-    works.forEach((work, index) => {
-      const article = document.createElement("article");
-      article.className = "work-card";
-      article.dataset.workId = work.id;
-
-      const top = document.createElement("div");
-      top.className = "work-card-top";
-
-      const platform = document.createElement("span");
-      platform.className = `work-platform work-platform-${work.platformClass}`;
-      platform.textContent = work.platform;
-
-      const number = document.createElement("span");
-      number.className = "work-index";
-      number.textContent = String(index + 1).padStart(2, "0");
-
-      top.append(platform, number);
-
-      const title = document.createElement("h3");
-      title.textContent = work.title;
-
-      const author = document.createElement("p");
-      author.className = "work-author";
-      author.textContent = `创作者：${work.author}`;
-
-      const description = document.createElement("p");
-      description.className = "work-description";
-      description.textContent = work.description;
-
-      const fallback = document.createElement("p");
-      fallback.className = "work-fallback";
-      fallback.textContent = work.fallback;
-
-      const linkGroup = document.createElement("div");
-      linkGroup.className = "work-link-group";
-
-      const links = Array.isArray(work.links)
-        ? work.links
-        : [{
-            url: work.url,
-            label: work.actionLabel
-          }];
-
-      links.forEach((entry, linkIndex) => {
-        const link = document.createElement("a");
-        link.className =
-          `button ${linkIndex === 0 ? "button-primary" : "button-secondary"} work-link`;
-        link.href = entry.url;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.innerHTML = `${entry.label}<span aria-hidden="true">↗</span>`;
-        linkGroup.appendChild(link);
+    const promise = audio.play();
+    if (promise?.catch) {
+      promise.catch(() => {
+        if (token !== state.audioToken) return;
+        state.currentAudio = null;
+        el.audioState.textContent = "点击“重播本题”即可播放原版语音";
+        showToast("浏览器拦截了自动播放，请点一下重播。" );
+        onEnd?.();
       });
-
-      const copyright = document.createElement("p");
-      copyright.className = "work-copyright";
-      copyright.textContent = "外部作品 · 内容与版权归原作者所有";
-
-      article.append(
-        top,
-        title,
-        author,
-        description,
-        fallback,
-        linkGroup,
-        copyright
-      );
-      grid.appendChild(article);
-    });
-  }
-
-  if (randomGameButton) randomGameButton.addEventListener("click", openRandomGame);
-  rerollGameButton.addEventListener("click", randomizeGame);
-  closeRandomGameButton.addEventListener("click", closeRandomGame);
-
-  renderExternalWorks();
-
-  const fanTestLink = document.querySelector("[data-fan-test-link]");
-  fanTestLink?.addEventListener("click", () => {
-    window.FAJIA_RUM?.reportEvent?.(
-      "fan_test_open",
-      "personality_test",
-      "fajiarrengeceshi",
-      "homepage"
-    );
-  });
-
-  randomGameDialog.addEventListener("click", (event) => {
-    if (event.target === randomGameDialog) {
-      closeRandomGame();
-    }
-  });
-
-  const mapPreviewDialog = document.getElementById("mapPreviewDialog");
-  const openMapPreviewButtons =
-    document.querySelectorAll("[data-open-map-preview]");
-  const closeMapPreviewButton =
-    document.getElementById("closeMapPreviewButton");
-  const closeMapPreviewAction =
-    document.getElementById("closeMapPreviewAction");
-
-  function openMapPreview() {
-    if (!mapPreviewDialog) return;
-
-    if (typeof mapPreviewDialog.showModal === "function") {
-      mapPreviewDialog.showModal();
-    } else {
-      showToast("当前浏览器不支持弹窗预览，请点击“开始游戏”查看地图。");
     }
   }
 
-  function closeMapPreview() {
-    if (mapPreviewDialog?.open) {
-      mapPreviewDialog.close();
-    }
+  function softChime() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(660, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.16);
+      gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.22);
+      osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime + 0.24);
+      osc.onended = () => ctx.close();
+    } catch {}
   }
 
-  openMapPreviewButtons.forEach((button) => {
-    button.addEventListener("click", openMapPreview);
-  });
+  function startObservation() {
+    state.phase = "observe";
+    clearObserve();
+    el.card.classList.remove("is-discussing");
+    el.card.classList.add("is-observing");
+    el.phase.textContent = "不能忍的话，请睁眼";
+    el.copy.textContent = "先不要说答案，给彼此和直播间3秒观察时间。";
+    el.audioState.textContent = "原版语音播放完毕";
+    el.next.disabled = true;
+    el.observe.hidden = false;
+    state.observeValue = 3;
+    el.observe.querySelector("strong").textContent = "3";
 
-  closeMapPreviewButton?.addEventListener("click", closeMapPreview);
-  closeMapPreviewAction?.addEventListener("click", closeMapPreview);
+    state.observeTimer = setInterval(() => {
+      state.observeValue -= 1;
+      if (state.observeValue <= 0) {
+        clearObserve();
+        state.phase = "discuss";
+        el.card.classList.remove("is-observing");
+        el.card.classList.add("is-discussing");
+        el.phase.textContent = "可以睁眼讨论啦";
+        el.copy.textContent = "想聊多久都可以。准备好以后，再进入下一题。";
+        el.audioState.textContent = "本题完成";
+        el.next.disabled = false;
+        softChime();
+        return;
+      }
+      el.observe.querySelector("strong").textContent = String(state.observeValue);
+    }, 1000);
+  }
 
-  mapPreviewDialog?.addEventListener("click", (event) => {
-    if (event.target === mapPreviewDialog) {
-      closeMapPreview();
+  function currentQuestion() { return state.queue[state.index] || null; }
+
+  function renderProgress() {
+    el.round.textContent = `第 ${state.index + 1} / ${state.total} 题`;
+    el.progress.style.width = `${((state.index + 1) / state.total) * 100}%`;
+  }
+
+  function playQuestion({ replay = false } = {}) {
+    const q = currentQuestion();
+    if (!q) return;
+    clearObserve();
+    el.card.classList.remove("is-observing", "is-discussing");
+    el.phase.textContent = replay ? "重新听一次" : "双方闭眼";
+    el.question.textContent = q.text;
+    el.copy.textContent = "先保持闭眼。约1.4秒后会播放原版题目语音；如果不能忍，就睁眼。";
+    el.next.disabled = true;
+    state.phase = "audio";
+    playFile(q.audio, startObservation, replay ? "正在重播原版题目语音…" : "准备播放原版题目语音…");
+    report(replay ? "tolerance_replay" : "tolerance_question", q.id, `${state.index + 1}/${state.total}`);
+  }
+
+  function markCurrentSeen() {
+    const q = currentQuestion();
+    if (!q) return;
+    state.seen.add(q.id);
+    saveSeen();
+  }
+
+  function goNext() {
+    markCurrentSeen();
+    if (state.index >= state.total - 1) {
+      finishRound();
+      return;
     }
+    state.index += 1;
+    renderProgress();
+    playQuestion();
+  }
+
+  function skipCurrent() {
+    stopAudio();
+    clearObserve();
+    state.skipped += 1;
+    report("tolerance_skip", currentQuestion()?.id || "", `${state.index + 1}/${state.total}`);
+    goNext();
+  }
+
+
+  function startRound() {
+    state.total = selectedRounds();
+    state.queue = buildQueue(state.total);
+    state.index = 0;
+    state.skipped = 0;
+    state.phase = "audio";
+    el.setup.hidden = true;
+    el.result.hidden = true;
+    el.play.hidden = false;
+    el.resultTotal.textContent = "0";
+    el.resultSkipped.textContent = "0";
+    el.next.innerHTML = '下一题 <span aria-hidden="true">→</span>';
+    el.replay.disabled = false;
+    el.skip.disabled = false;
+    renderProgress();
+    el.card.classList.remove("is-observing", "is-discussing");
+    report("tolerance_start", String(state.total), "paperfish_original_v2");
+    playQuestion();
+  }
+
+  function finishRound() {
+    stopAudio();
+    clearObserve();
+    const hasQuestionStarted = !["opening", "openingDone", "idle"].includes(state.phase);
+    if (hasQuestionStarted && currentQuestion()) markCurrentSeen();
+    const completed = hasQuestionStarted ? Math.min(state.index + 1, state.total) : 0;
+    el.play.hidden = true;
+    el.result.hidden = false;
+    el.resultTotal.textContent = String(completed);
+    el.resultSkipped.textContent = String(state.skipped);
+    report("tolerance_complete", String(completed), `skipped_${state.skipped}`);
+  }
+
+  function returnSetup() {
+    stopAudio(); clearObserve();
+    el.result.hidden = true; el.play.hidden = true; el.setup.hidden = false;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function testVoice() {
+    playFile(SOUND_CHECK_AUDIO, () => {
+      el.audioState && (el.audioState.textContent = "等待开始");
+    }, "正在试听原版开头片段…");
+    showToast("正在播放原版开头的一小段，确认能听见即可。" );
+  }
+
+  el.start.addEventListener("click", startRound);
+  el.replay.addEventListener("click", () => playQuestion({ replay: true }));
+  el.next.addEventListener("click", goNext);
+  el.skip.addEventListener("click", skipCurrent);
+  el.finish.addEventListener("click", finishRound);
+  el.again.addEventListener("click", returnSetup);
+  el.voiceTest.addEventListener("click", testVoice);
+  el.clearHistory.addEventListener("click", () => {
+    state.seen.clear(); saveSeen(); showToast("已清除本机已出现题记录。" );
   });
+
+  el.openHelp.addEventListener("click", () => {
+    if (typeof el.help.showModal === "function") el.help.showModal();
+  });
+  el.closeHelp.addEventListener("click", () => el.help.close());
+  el.help.addEventListener("click", (event) => { if (event.target === el.help) el.help.close(); });
+
+  loadSeen();
 })();

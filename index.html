@@ -4,832 +4,142 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#FF8AA1" />
-  <meta
-    name="description"
-    content="法嘉直播游戏屋：适合双人直播互动的小游戏合集。"
-  />
-  <title>法嘉直播游戏屋</title>
-  <link rel="stylesheet" href="./style.css" />
+  <meta name="description" content="法嘉容忍度挑战：请双方闭眼，不能忍的话就睁眼。" />
+  <title>法嘉容忍度挑战</title>
+  <link rel="stylesheet" href="./style.css?v=2-20260818" />
   <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.min.js?max_age=3600"></script>
-  <script src="shared/rum-config.js?v=64-20260810"></script>
-  <script src="shared/rum.js?v=64-20260810"></script>
-  <script src="shared/content-codes.js?v=69-20260812"></script>
+  <script src="../../shared/rum-config.js?v=64-20260810"></script>
+  <script src="../../shared/rum.js?v=64-20260810"></script>
 </head>
-
 <body>
-  <div class="page-decoration decoration-one" aria-hidden="true"></div>
-  <div class="page-decoration decoration-two" aria-hidden="true"></div>
+  <div class="background-shape shape-pink" aria-hidden="true"></div>
+  <div class="background-shape shape-gold" aria-hidden="true"></div>
 
-  <header class="site-header">
-    <a class="brand" href="./" aria-label="返回法嘉直播游戏屋首页">
-      <span class="brand-mark" aria-hidden="true">FJ</span>
-      <span>法嘉直播游戏屋</span>
-    </a>
-
-    <nav class="top-nav" aria-label="页面导航">
-      <a href="#games">全部游戏</a>
-      <a href="#fan-corner">小发夹也来玩</a>
-      <a href="#more-works">更多作品</a>
-      <a href="#about">关于游戏屋</a>
-    </nav>
+  <header class="game-header">
+    <a class="back-link" href="../../"><span aria-hidden="true">←</span>返回游戏屋</a>
+    <div class="mini-brand"><span class="brand-dot brand-dot-pink"></span>法嘉容忍度挑战<span class="brand-dot brand-dot-gold"></span></div>
+    <button class="text-button" id="openHelpButton" type="button">玩法说明</button>
   </header>
 
-  <main>
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="eyebrow">
-          <span aria-hidden="true">✦</span>
-          FAJIA LIVE GAME ROOM
-        </p>
-
-        <h1 id="hero-title">
-          <span class="hero-title-line">
-            今天，<span class="hero-title-highlight">法嘉</span>
-          </span>
-          <span class="hero-title-line">想玩点什么？</span>
-        </h1>
-
-        <p class="hero-description">
-          适合双人直播互动的小游戏合集。
-          打开网页，挑一个就能开始。
-        </p>
-
-        <div class="hero-actions">
-          <a class="button button-primary" href="#featured">
-            查看本期推荐
-            <span aria-hidden="true">↓</span>
-          </a>
-
-          <a class="button button-secondary" href="#games">
-            查看全部游戏
-            <span aria-hidden="true">↓</span>
-          </a>
-        </div>
-
-        <ul class="feature-list" aria-label="网站特点">
-          <li>12款游戏</li>
-          <li>手机与电脑可用</li>
-          <li>持续更新</li>
-        </ul>
+  <main class="game-shell">
+    <section id="setupScreen">
+      <div class="setup-intro">
+        <p class="eyebrow">GAME 12 · TOLERANCE CHALLENGE</p>
+        <h1>法嘉容忍度挑战</h1>
+        <p>请双方闭眼。听到题目后，如果这件事不能忍，就睁眼。</p>
       </div>
 
-      <div class="hero-visual" aria-label="粉金双人游戏主题装饰">
-        <div class="orbit orbit-large" aria-hidden="true"></div>
-        <div class="orbit orbit-small" aria-hidden="true"></div>
+      <section class="rhythm-card" aria-label="游戏流程">
+        <strong>双方闭眼</strong><span>→</span>
+        <strong>听原版报题</strong><span>→</span>
+        <strong>不能忍就睁眼</strong><span>→</span>
+        <strong>睁眼讨论</strong>
+      </section>
 
-        <div class="player-card player-card-pink">
-          <span class="player-number">01</span>
-          <div class="player-avatar">
-            <img src="./assets/players/fa.webp" alt="法宣阁照片" />
-          </div>
-          <strong>法宣阁</strong>
-          <span>🧣：法宣阁阿</span>
-        </div>
-
-        <div class="connection" aria-hidden="true">
-          <span>♥</span>
-        </div>
-
-        <div class="player-card player-card-gold">
-          <span class="player-number">02</span>
-          <div class="player-avatar">
-            <img src="./assets/players/he.webp" alt="贺嘉述照片" />
-          </div>
-          <strong>贺嘉述</strong>
-          <span>🧣：贺嘉述</span>
-        </div>
-
-        <div class="floating-chip chip-one" aria-hidden="true">LIVE</div>
-        <div class="floating-chip chip-two" aria-hidden="true">GAME</div>
-      </div>
-    </section>
-
-
-    <section class="featured-exam" id="featured" aria-labelledby="featured-exam-title">
-      <div class="featured-exam-paper" aria-hidden="true">
-        <span class="featured-exam-stamp">推荐</span>
-        <span class="featured-exam-line"></span>
-        <span class="featured-exam-line featured-exam-line-short"></span>
-        <strong>01</strong>
-      </div>
-
-      <div class="featured-exam-copy">
-        <p class="eyebrow">FEATURED PLAY · 本期推荐</p>
-        <h2 id="featured-exam-title">法嘉致富模拟测试卷（一）</h2>
-        <p>
-          试卷包含：选择题、Yes or No、简答题、Vlog 拍摄建议以及宣誓环节。
-        </p>
-
-        <ul class="featured-exam-tags" aria-label="模拟测试卷内容">
-          <li>35道问答</li>
-          <li>7项Vlog任务</li>
-          <li>请发誓</li>
-          <li>不保存具体答案</li>
-        </ul>
-      </div>
-
-      <div class="featured-exam-actions">
-        <a class="button button-primary" href="./specials/mock-exam-01/">
-          开始答卷
-          <span aria-hidden="true">→</span>
-        </a>
-        <a class="button button-secondary" href="#games">
-          查看全部游戏
-          <span aria-hidden="true">↓</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="featured-exam featured-cocreate" aria-labelledby="featured-cocreate-title">
-      <div class="featured-exam-paper cocreate-bracket-paper" aria-hidden="true">
-        <span class="featured-exam-stamp">共创</span>
-        <div class="cocreate-paper-bracket">
-          <span>64</span>
-          <i></i>
-          <span>32</span>
-          <i></i>
-          <strong>🏆</strong>
-        </div>
-      </div>
-
-      <div class="featured-exam-copy">
-        <p class="eyebrow">CO-CREATED · 小发夹共创</p>
-        <h2 id="featured-cocreate-title">法嘉糖点极限二选一</h2>
-        <p>
-          64个糖点两两对决，从64进32一路选到最后的冠军；支持保存本机进度、暂缓难选对局和导出晋级榜单。
-        </p>
-
-        <ul class="featured-exam-tags" aria-label="糖点极限二选一信息">
-          <li>原始表格：十九</li>
-          <li class="tag-two-lines">
-            <span>原始网站开发：微博：厌倦猜忌__</span>
-            <span>抖音ID：NSGWJJWW</span>
-          </li>
-          <li>64项淘汰赛</li>
-          <li>本机保存</li>
-        </ul>
-      </div>
-
-      <div class="featured-exam-actions">
-        <a class="button button-primary" href="./specials/sugar-bracket-01/">
-          开始二选一
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
-    </section>
-
-
-
-
-    <section class="room-guide" aria-labelledby="room-guide-title">
-      <div class="room-guide-icon" aria-hidden="true">↗</div>
-
-      <div class="room-guide-copy">
-        <p class="eyebrow">WHAT YOU CAN FIND HERE</p>
-        <h2 id="room-guide-title">这个游戏屋里有什么？</h2>
-        <p>
-          除了可以直接开始的法嘉直播小游戏，这里也会收录小发夹自己能玩的粉丝测试，
-          并整理、指路其他平台老师制作的法嘉直播游戏、视频和互动灵感。
-        </p>
-      </div>
-
-      <div class="room-guide-actions">
-        <a class="button button-primary" href="#games">
-          查看本站游戏
-          <span aria-hidden="true">↓</span>
-        </a>
-
-        <a class="button button-secondary" href="#fan-corner">
-          小发夹也来玩
-          <span aria-hidden="true">↓</span>
-        </a>
-
-        <a class="button button-secondary" href="#more-works">
-          查看更多作品
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="games-section" id="games" aria-labelledby="games-title">
-      <div class="section-heading">
+      <section class="source-card" aria-label="题目来源说明">
+        <div class="source-mark" aria-hidden="true">PF</div>
         <div>
-          <p class="eyebrow">ALL GAMES</p>
-          <h2 id="games-title">全部游戏</h2>
+          <p class="eyebrow">ORIGINAL SOURCE</p>
+          <h2>原版题目与语音：@纸包鱼oO</h2>
+          <p>本页面将老师制作的「法法嘉嘉直播小游戏第二弹 · 容忍度大挑战」18道原版题目整理为可随机抽题的互动网页。题目、原版语音及相关内容版权归原作者所有。</p>
         </div>
-        <p>
-          所有题目、动作和惩罚均可自由跳过或更换，以轻松、开心地完成互动为主。
-        </p>
-      </div>
+      </section>
 
-      <div class="game-grid">
-        <article
-          class="game-card"
-          data-random-game
-          data-game-id="truth-or-dare"
-        >
-          <div class="card-top">
-            <div class="game-icon icon-truth" aria-hidden="true">?</div>
-            <span class="status-badge status-live">现已上线</span>
-          </div>
+      <section class="choice-section">
+        <div class="section-label"><span>STEP 01</span><h2>这一轮抽多少题？</h2></div>
+        <div class="choice-grid four-columns">
+          <label class="choice-card"><input type="radio" name="rounds" value="5" /><span class="choice-card-inner"><strong>5题</strong><small>快速试探</small></span></label>
+          <label class="choice-card"><input type="radio" name="rounds" value="10" checked /><span class="choice-card-inner"><strong>10题</strong><small>标准挑战</small></span></label>
+          <label class="choice-card"><input type="radio" name="rounds" value="15" /><span class="choice-card-inner"><strong>15题</strong><small>玩得久一点</small></span></label>
+          <label class="choice-card"><input type="radio" name="rounds" value="18" /><span class="choice-card-inner"><strong>18题</strong><small>原版全部</small></span></label>
+        </div>
+      </section>
 
-          <p class="game-index">GAME 02</p>
-          <h3>真心话大冒险</h3>
-          <p>
-            先选择真心话、大冒险或混合，再选择题数和第一位玩家；抽到题目后轮流完成，任意题目都可以直接换一张。
-          </p>
+      <section class="audio-panel">
+        <div>
+          <p class="eyebrow">STEP 02 · SOUND CHECK</p>
+          <h2>先确认能听见原版语音</h2>
+          <p>手机如果处于静音模式，请适当调高媒体音量。试听只播放原视频开头的一小段；正式开始挑战后不会再重复播放这段开场。</p>
+        </div>
+        <button class="button button-secondary" id="voiceTestButton" type="button">🔊 试听开头片段</button>
+      </section>
 
-          <ul class="card-tags" aria-label="真心话大冒险特点">
-            <li>轮流抽题</li>
-            <li>可随时换题</li>
-            <li>进度记录</li>
-          </ul>
+      <section class="progress-note">
+        <div><strong>原版18题</strong><span id="historyText">正在读取本机题目进度…</span></div>
+        <button class="text-button" id="clearHistoryButton" type="button">清除已出现记录</button>
+      </section>
 
-          <a class="button button-primary" href="./games/truth-or-dare/">
-            开始游戏
-            <span aria-hidden="true">→</span>
-          </a>
-        </article>
-
-        <article
-          class="game-card"
-          data-random-game
-          data-game-id="compatibility"
-        >
-          <div class="card-top">
-            <div class="game-icon icon-match" aria-hidden="true">♥</div>
-            <span class="status-badge status-live">现已上线</span>
-          </div>
-
-          <p class="game-index">GAME 03</p>
-          <h3>法嘉默契挑战</h3>
-          <p>
-            每题倒计时3秒后，两个人同时回答，再一起判断这一题是“默契”还是“不太默契”。
-          </p>
-
-          <ul class="card-tags" aria-label="法嘉默契挑战特点">
-            <li>同时作答</li>
-            <li>自行判断</li>
-            <li>结果记录</li>
-          </ul>
-
-          <a class="button button-primary" href="./games/compatibility/">
-            开始游戏
-            <span aria-hidden="true">→</span>
-          </a>
-        </article>
-
-        <article
-          class="game-card"
-          data-random-game
-          data-game-id="charades"
-        >
-          <div class="card-top">
-            <div class="game-icon icon-action" aria-hidden="true">↗</div>
-            <span class="status-badge status-live">现已上线</span>
-          </div>
-
-          <p class="game-index">GAME 04</p>
-          <h3>法嘉双向模仿挑战</h3>
-          <p>
-            两个人同时模仿“自己眼里的对方”，看看彼此平时到底观察到了什么。
-          </p>
-
-          <ul class="card-tags" aria-label="法嘉双向模仿挑战特点">
-            <li>49道题</li>
-            <li>3秒准备</li>
-            <li>同时表演</li>
-          </ul>
-
-          <a class="button button-primary" href="./games/charades/">
-            开始游戏
-            <span aria-hidden="true">→</span>
-          </a>
-        </article>
-
-        <article
-          class="game-card"
-          data-random-game
-          data-game-id="heart-rating"
-        >
-          <div class="card-top">
-            <div class="game-icon icon-heart-rate" aria-hidden="true">10</div>
-            <span class="status-badge status-live">现已上线</span>
-          </div>
-
-          <p class="game-index">GAME 05</p>
-          <h3>法嘉心动值挑战</h3>
-          <p>
-            每题倒计时后，两个人同时说出0—10分；记录分数后，再分别说说为什么这样打分。
-          </p>
-
-          <ul class="card-tags" aria-label="法嘉心动值挑战特点">
-            <li>60道题</li>
-            <li>同时打分</li>
-            <li>说出理由</li>
-          </ul>
-
-          <a class="button button-primary" href="./games/heart-rating/">
-            开始游戏
-            <span aria-hidden="true">→</span>
-          </a>
-        </article>
-
-        <article class="game-card" data-game-id="heart-rate-lab">
-          <div class="card-top">
-            <div class="game-icon icon-heart-lab" aria-hidden="true">♥</div>
-            <span class="status-badge status-live">现已上线</span>
-          </div>
-
-          <p class="game-index">GAME 06</p>
-          <h3>法嘉心率实验室</h3>
-          <p>
-            一人佩戴手环，另一人完成互动或回答问题；每轮记录初始心率和最高心率，再看看哪一题反应最明显。
-          </p>
-
-          <ul class="card-tags" aria-label="法嘉心率实验室特点">
-            <li>一块心率设备</li>
-            <li>3或5轮</li>
-            <li>手动记录</li>
-          </ul>
-
-          <a class="button button-primary" href="./games/heart-rate-lab/">
-            开始游戏
-            <span aria-hidden="true">→</span>
-          </a>
-        </article>
-
-        <article
-          class="game-card"
-          data-random-game
-          data-game-id="dont-get-caught"
-        >
-          <div class="card-top">
-            <div class="game-icon icon-trap" aria-hidden="true">!</div>
-            <span class="status-badge status-live">现已上线</span>
-          </div>
-
-          <p class="game-index">GAME 07</p>
-          <h3>法嘉别中招挑战</h3>
-          <p>
-            互设一个隐藏词语或动作，在聊天中诱导对方先中招。
-          </p>
-
-          <ul class="card-tags" aria-label="法嘉别中招挑战特点">
-            <li>隐藏目标</li>
-            <li>观众展示</li>
-            <li>风险惩罚</li>
-          </ul>
-
-          <a class="button button-primary" href="./games/dont-get-caught/">
-            开始游戏
-            <span aria-hidden="true">→</span>
-          </a>
-        </article>
-
-
-
-        <article
-          class="game-card"
-          data-random-game
-          data-game-id="balance-game"
-        >
-          <div class="card-top">
-            <div class="game-icon icon-balance" aria-hidden="true">A/B</div>
-            <span class="status-badge status-live">现已上线</span>
-          </div>
-
-          <p class="game-index">GAME 08</p>
-          <h3>法嘉平衡游戏</h3>
-          <p>
-            每题从两个关系情境中各自选择，并分别说出自己的理由。
-          </p>
-
-          <ul class="card-tags" aria-label="法嘉平衡游戏特点">
-            <li>二选一</li>
-            <li>说出理由</li>
-            <li>关系选择</li>
-          </ul>
-
-          <a class="button button-primary" href="./games/balance-game/">
-            开始游戏
-            <span aria-hidden="true">→</span>
-          </a>
-        </article>
-
-        <article
-          class="game-card"
-          data-random-game
-          data-game-id="lifeline-order"
-        >
-          <div class="card-top">
-            <div class="game-icon icon-lifeline" aria-hidden="true">100</div>
-            <span class="status-badge status-live">现已上线</span>
-          </div>
-
-          <p class="game-index">GAME 09</p>
-          <h3>法嘉百分排序挑战</h3>
-          <p>
-            描述者依次查看A—D对应的四个隐藏数字，并围绕同一主题给出四个例子；排序者只听描述，把A—D按数字从小到大排列。
-          </p>
-
-          <ul class="card-tags" aria-label="法嘉百分排序挑战特点">
-            <li>隐藏数字</li>
-            <li>语言描述</li>
-            <li>排序挑战</li>
-          </ul>
-
-          <a class="button button-primary" href="./games/lifeline-order/">
-            开始游戏
-            <span aria-hidden="true">→</span>
-          </a>
-        </article>
-
-        <article
-          class="game-card"
-          data-random-game
-          data-game-id="guess-word"
-        >
-          <div class="card-top">
-            <div class="game-icon icon-guess-word" aria-hidden="true">?</div>
-            <span class="status-badge status-live">现已上线</span>
-          </div>
-
-          <p class="game-index">GAME 10</p>
-          <h3>法嘉你问我猜</h3>
-          <p>
-            一人查看秘密词，另一人在45秒或60秒里自由提问来猜答案；每完成一题自动交换猜词者。
-          </p>
-
-          <ul class="card-tags" aria-label="法嘉你问我猜特点">
-            <li>34个高产词</li>
-            <li>自由追问</li>
-            <li>轮流猜词</li>
-          </ul>
-
-          <a class="button button-primary" href="./games/guess-word/">
-            开始游戏
-            <span aria-hidden="true">→</span>
-          </a>
-        </article>
-
-        <article
-          class="game-card"
-          data-random-game
-          data-game-id="quick-answer"
-        >
-          <div class="card-top">
-            <div class="game-icon icon-quick-answer" aria-hidden="true">▶</div>
-            <span class="status-badge status-live">现已上线</span>
-          </div>
-
-          <p class="game-index">GAME 11</p>
-          <h3>法嘉快问快答</h3>
-          <p>
-            系统连续语音报题，一人按2秒、3秒或5秒节奏快速回答；下一道题不会提前出现。
-          </p>
-
-          <ul class="card-tags" aria-label="法嘉快问快答特点">
-            <li>90道题</li>
-            <li>系统报题</li>
-            <li>连续快答</li>
-          </ul>
-
-          <a class="button button-primary" href="./games/quick-answer/">
-            开始游戏
-            <span aria-hidden="true">→</span>
-          </a>
-        </article>
-
-        <article
-          class="game-card"
-          data-random-game
-          data-game-id="tolerance-challenge"
-        >
-          <div class="card-top">
-            <div class="game-icon icon-tolerance" aria-hidden="true">👀</div>
-            <span class="status-badge status-live">现已上线</span>
-          </div>
-
-          <p class="game-index">GAME 12</p>
-          <h3>法嘉容忍度挑战</h3>
-          <p>
-            双方闭眼，系统播放 @纸包鱼oO 老师原版18题语音；如果这件事不能忍，就睁眼。
-          </p>
-
-          <ul class="card-tags" aria-label="法嘉容忍度挑战特点">
-            <li>原版18题</li>
-            <li>原版语音</li>
-            <li>闭眼睁眼</li>
-          </ul>
-
-          <a class="button button-primary" href="./games/tolerance-challenge/">
-            开始游戏
-            <span aria-hidden="true">→</span>
-          </a>
-        </article>
-
-        <article
-          class="game-card game-card-monopoly"
-          data-random-game
-          data-game-id="monopoly"
-        >
-          <div class="card-top">
-            <div class="game-icon icon-board" aria-hidden="true">64</div>
-            <span class="status-badge status-live">现已上线</span>
-          </div>
-
-          <p class="game-index">GAME 01</p>
-          <h3>法嘉致富大富翁</h3>
-          <p>
-            掷骰子沿64格棋盘前进，在任务格和特殊事件里完成一场双人冒险。
-          </p>
-
-          <button
-            class="monopoly-map-preview"
-            type="button"
-            data-open-map-preview
-            aria-label="查看法嘉致富大富翁完整地图"
-          >
-            <img
-              src="./assets/maps/map-01-board.webp"
-              alt="法嘉致富大富翁地图缩略图"
-            />
-            <span>查看完整地图</span>
-          </button>
-
-          <ul class="card-tags" aria-label="法嘉致富大富翁特点">
-            <li>64格棋盘</li>
-            <li>双人互动</li>
-            <li>地图预览</li>
-          </ul>
-
-          <a
-            class="button button-primary"
-            href="./games/monopoly/"
-          >
-            开始游戏
-            <span aria-hidden="true">→</span>
-          </a>
-        </article>      </div>
+      <section class="start-panel">
+        <div>
+          <p class="eyebrow">STEP 03 · READY?</p>
+          <h2>不能忍的话，就睁眼。</h2>
+          <p>网页不会记录谁睁眼，也不会保存任何回答；想聊多久都可以，准备好后再进入下一题。</p>
+        </div>
+        <button class="start-button" id="startButton" type="button">开始挑战 <span aria-hidden="true">→</span></button>
+      </section>
     </section>
 
-    <section class="fan-corner-section" id="fan-corner" aria-labelledby="fan-corner-title">
-      <div class="section-heading fan-corner-heading">
-        <div>
-          <p class="eyebrow">FAN CORNER · 小发夹也来玩</p>
-          <h2 id="fan-corner-title">轮到小发夹自己玩啦</h2>
-        </div>
-        <p>
-          这里放一些专门面向粉丝的小测试和互动玩法。它们不会进入法嘉直播游戏列表，也不会加入随机游戏池。
-        </p>
+    <section id="playScreen" hidden>
+      <div class="round-progress">
+        <div class="round-copy"><span id="roundText">第 1 / 10 题</span><span id="sourceText">原版题目 · @纸包鱼oO</span></div>
+        <div class="progress-track"><span id="progressBar"></span></div>
       </div>
 
-      <article class="fan-test-card">
-        <div class="fan-test-visual" aria-hidden="true">
-          <div class="fan-test-choice fan-test-choice-fa">
-            <span class="fan-test-choice-label">FA</span>
-            <strong>法</strong>
-          </div>
-          <div class="fan-test-question">?</div>
-          <div class="fan-test-choice fan-test-choice-he">
-            <span class="fan-test-choice-label">HE</span>
-            <strong>贺</strong>
-          </div>
-          <span class="fan-test-spark fan-test-spark-one">✦</span>
-          <span class="fan-test-spark fan-test-spark-two">♥</span>
+      <article class="tolerance-card" id="toleranceCard">
+        <p class="eyebrow" id="phaseLabel">双方闭眼</p>
+        <div class="eye-stage" id="eyeStage" aria-hidden="true">
+          <span class="eye eye-left"></span><span class="eye eye-right"></span>
         </div>
+        <h1 class="question-text" id="questionText">准备听题</h1>
+        <p class="phase-copy" id="phaseCopy">原版语音播放后，不能忍的人请睁眼。</p>
+        <div class="observe-count" id="observeCount" hidden><strong>3</strong><span>秒观察时间</span></div>
+        <div class="audio-state" id="audioState" role="status" aria-live="polite">等待开始</div>
 
-        <div class="fan-test-copy">
-          <div class="fan-test-badges" aria-label="测试类型">
-            <span>粉丝测试</span>
-            <span>外部页面</span>
-          </div>
-
-          <h3>你更像法宣阁，还是贺嘉述？</h3>
-          <p>
-            回答一组关于性格与选择的小问题，看看最后的测试结果会更接近谁。
-          </p>
-
-          <a
-            class="button button-primary fan-test-button"
-            href="https://fajiarrengeceshi.netlify.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-fan-test-link
-          >
-            开始测试
-            <span aria-hidden="true">↗</span>
-          </a>
-
-          <p class="fan-test-note">
-            外部测试页 · 创作者：小喵奇遇y · 内容与版权归原作者所有 · 将在新页面打开
-          </p>
+        <div class="play-controls">
+          <button class="button button-secondary" id="replayButton" type="button">重播本题</button>
+          <button class="button button-primary" id="nextButton" type="button" disabled>下一题 <span aria-hidden="true">→</span></button>
         </div>
+        <button class="skip-link" id="skipButton" type="button">暂时跳过</button>
       </article>
+
+      <button class="text-button centered-text-button" id="finishButton" type="button">提前结束本轮</button>
     </section>
 
-    <section class="works-section" id="more-works" aria-labelledby="works-title">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">MORE FAJIA WORKS</p>
-          <h2 id="works-title">更多法嘉作品</h2>
+    <section id="resultScreen" hidden>
+      <div class="result-card">
+        <p class="eyebrow">ROUND COMPLETE</p>
+        <h1>这一轮结束啦</h1>
+        <p class="result-copy">谁在哪几题睁眼，就留给你们自己知道 👀</p>
+        <div class="result-grid">
+          <div><span>本轮完成</span><strong id="resultTotal">0</strong><small>题</small></div>
+          <div><span>暂时跳过</span><strong id="resultSkipped">0</strong><small>题</small></div>
         </div>
-        <p>
-          这里收录其他老师为法嘉制作的小游戏、视频或互动作品，仅作原作者作品指路。
-        </p>
-      </div>
-
-      <div class="works-grid" id="worksGrid"></div>
-
-      <p class="works-footer-note">
-        外部作品的内容与版权归原作者所有。更多作品持续收录中。
-      </p>
-    </section>
-
-    <section class="about-section" id="about" aria-labelledby="about-title">
-      <div class="about-copy">
-        <p class="eyebrow">ABOUT THE ROOM</p>
-        <h2 id="about-title">一间慢慢长大的游戏屋</h2>
-        <p>
-          这里收录了一些适合法嘉直播时玩的双人小游戏。
-          不需要下载，打开网页就能开始。
-          <strong>更多玩法，慢慢更新中。</strong>
-        </p>
-      </div>
-
-      <div class="update-list">
-        <div class="update-item">
-          <span>01</span>
-          <div>
-            <strong>打开就能开始</strong>
-            <p>尽量减少额外准备和复杂说明，把更多时间留给法嘉。</p>
-          </div>
-        </div>
-
-        <div class="update-item">
-          <span>02</span>
-          <div>
-            <strong>为直播场景设计</strong>
-            <p>优先考虑手机操作、画面节奏，以及直播间观众能不能轻松看懂。</p>
-          </div>
-        </div>
-
-        <div class="update-item">
-          <span>03</span>
-          <div>
-            <strong>更多玩法慢慢加入</strong>
-            <p>也欢迎分享适合法嘉直播时玩的新点子，游戏屋会继续补充。</p>
-          </div>
+        <p class="result-note">网页没有记录任何回答，只在当前浏览器保存“哪些题已经出现过”，下一轮会优先抽还没出现过的题。</p>
+        <div class="result-actions">
+          <button class="button button-primary" id="againButton" type="button">再来一轮</button>
+          <a class="button button-secondary" href="../../">返回游戏屋</a>
         </div>
       </div>
-    </section>
-
-    <section class="creator-credit" aria-labelledby="creator-credit-title">
-      <div class="creator-credit-mark" aria-hidden="true">HM</div>
-
-      <div class="creator-credit-copy">
-        <p class="eyebrow">CREATED &amp; MAINTAINED BY</p>
-        <h2 id="creator-credit-title">制作与维护</h2>
-        <p>
-          本游戏屋的网页设计、游戏整理与功能开发由
-          <strong>「哈哈哈机器」</strong>完成。
-        </p>
-
-        <div class="creator-platforms" aria-label="创作者平台昵称">
-          <span class="creator-platform">
-            <small>微博</small>
-            <strong>@无情的哈哈哈机器0618</strong>
-          </span>
-
-          <span class="creator-platform">
-            <small>抖音</small>
-            <strong>@哈哈哈机器</strong>
-          </span>
-        </div>
-
-        <p class="creator-message">
-          为法嘉制作，持续慢慢更新中。
-        </p>
-      </div>
-
-      <p class="creator-rights-note">
-        本站指路的外部作品及已注明来源的题目灵感，内容与版权仍归对应创作者所有。
-      </p>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div>
-      <strong>法嘉直播游戏屋</strong>
-      <p>
-        非官方粉丝作品，仅供娱乐与交流。<br />
-        页面不会上传登录信息、答题内容、隐藏目标或心率数值；
-        部分游戏仅在当前浏览器本地保存已展示或已完成的卡片编号，可随时清除。
-      </p>
-      <p data-rum-disclosure>
-        <strong>本站使用腾讯云前端监控统计页面访问与游戏操作情况，用于功能维护与题库优化；不记录答题内容及用户输入信息。</strong>
-      </p>
-    </div>
-
-    <p class="footer-colors">
-      <span class="color-dot color-dot-pink"></span>
-      #FF8AA1
-      <span class="color-dot color-dot-gold"></span>
-      #FFE25B
-    </p>
-  </footer>
-
-  <dialog class="map-preview-dialog" id="mapPreviewDialog">
-    <div class="map-preview-panel">
-      <div class="map-preview-heading">
-        <div>
-          <p class="eyebrow">MAP 01 · BOARD PREVIEW</p>
-          <h2>法嘉致富大富翁</h2>
-          <p>可放大查看64格棋盘内容。</p>
-        </div>
-
-        <button
-          class="map-preview-close"
-          id="closeMapPreviewButton"
-          type="button"
-          aria-label="关闭地图预览"
-        >
-          ×
-        </button>
-      </div>
-
-      <div class="map-preview-image-wrap">
-        <img
-          src="./assets/maps/map-01-board.webp"
-          alt="法嘉致富大富翁 MAP 01 完整棋盘"
-        />
-      </div>
-
-      <div class="map-preview-actions">
-        <button
-          class="button button-secondary"
-          id="closeMapPreviewAction"
-          type="button"
-        >
-          关闭预览
-        </button>
-
-        <a
-          class="button button-primary"
-          href="./games/monopoly/"
-        >
-          进入游戏
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
-    </div>
-  </dialog>
-
-  <dialog class="random-game-dialog" id="randomGameDialog">
-    <div class="random-game-panel">
-      <div class="random-game-heading">
-        <div>
-          <p class="eyebrow">RANDOM PICK</p>
-          <h2>今天随机到的是</h2>
-        </div>
-
-        <button
-          class="random-game-close"
-          id="closeRandomGameButton"
-          type="button"
-          aria-label="关闭随机游戏"
-        >
-          ×
-        </button>
-      </div>
-
-      <div class="random-game-result" aria-live="polite">
-        <span id="randomGameIndex">GAME</span>
-        <strong id="randomGameTitle"></strong>
-        <p id="randomGameDescription"></p>
-      </div>
-
-      <p class="random-game-note">
-        心率实验室需要提前准备设备，因此不会进入本次随机池。
-      </p>
-
-      <div class="random-game-actions">
-        <button class="button button-secondary" id="rerollGameButton" type="button">
-          再随机一次
-        </button>
-
-        <a class="button button-primary" id="randomGameLink" href="#">
-          就玩这个
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
+  <dialog class="help-dialog" id="helpDialog">
+    <div class="dialog-panel">
+      <div class="dialog-heading"><h2>容忍度挑战怎么玩？</h2><button id="closeHelpButton" type="button" aria-label="关闭">×</button></div>
+      <ol>
+        <li>先选择本轮5题、10题、15题或原版全部18题；一轮内不会重复。</li>
+        <li>每题开始前双方闭眼；点击开始挑战或下一题后，会先留约1.4秒准备时间，再播放纸包鱼老师原版报题语音。</li>
+        <li>如果题目里的事情不能忍，请睁眼；语音结束后会留3秒观察时间。</li>
+        <li>提示音结束后双方可以正常睁眼讨论，想聊多久都可以，再手动点击“下一题”。</li>
+        <li>任何题都可以暂时跳过，不会有惩罚。</li>
+        <li>网页不记录谁睁眼，也不保存任何回答内容。</li>
+      </ol>
+      <p class="help-source">题目与原版语音来源：@纸包鱼oO；每题音频已去掉原视频中的题号口播，网页仅作互动形式整理。</p>
     </div>
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <script src="./works.js"></script>
-  <script src="./app.js"></script>
+  <script src="./questions.js?v=2-20260818"></script>
+  <script src="./app.js?v=2-20260818"></script>
 </body>
 </html>
