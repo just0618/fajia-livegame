@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#FF8AA1" />
   <meta name="description" content="法嘉容忍度挑战：请双方闭眼，不能忍的话就睁眼。" />
   <title>法嘉容忍度挑战</title>
-  <link rel="stylesheet" href="./style.css?v=2-20260818" />
+  <link rel="stylesheet" href="./style.css?v=5-20260819" />
   <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.min.js?max_age=3600"></script>
   <script src="../../shared/rum-config.js?v=64-20260810"></script>
   <script src="../../shared/rum.js?v=64-20260810"></script>
@@ -41,17 +41,16 @@
         <div>
           <p class="eyebrow">ORIGINAL SOURCE</p>
           <h2>原版题目与语音：@纸包鱼oO</h2>
-          <p>本页面将老师制作的「法法嘉嘉直播小游戏第二弹 · 容忍度大挑战」18道原版题目整理为可随机抽题的互动网页。题目、原版语音及相关内容版权归原作者所有。</p>
+          <p>本题库保留老师制作的「法法嘉嘉直播小游戏第二弹 · 容忍度大挑战」18道原版题目与原版语音，并加入两组扩展边界题。语义相近的行为会自动归为同一组，一轮内不会重复出现。纸包鱼老师原版题目、语音及相关内容版权归原作者所有。</p>
         </div>
       </section>
 
       <section class="choice-section">
         <div class="section-label"><span>STEP 01</span><h2>这一轮抽多少题？</h2></div>
-        <div class="choice-grid four-columns">
-          <label class="choice-card"><input type="radio" name="rounds" value="5" /><span class="choice-card-inner"><strong>5题</strong><small>快速试探</small></span></label>
-          <label class="choice-card"><input type="radio" name="rounds" value="10" checked /><span class="choice-card-inner"><strong>10题</strong><small>标准挑战</small></span></label>
-          <label class="choice-card"><input type="radio" name="rounds" value="15" /><span class="choice-card-inner"><strong>15题</strong><small>玩得久一点</small></span></label>
-          <label class="choice-card"><input type="radio" name="rounds" value="18" /><span class="choice-card-inner"><strong>18题</strong><small>原版全部</small></span></label>
+        <div class="choice-grid three-columns">
+          <label class="choice-card"><input type="radio" name="rounds" value="5" /><span class="choice-card-inner"><strong>5题</strong><small>2原版 · 2新题 · 1旧题</small></span></label>
+          <label class="choice-card"><input type="radio" name="rounds" value="10" checked /><span class="choice-card-inner"><strong>10题</strong><small>4原版 · 4新题 · 2旧题</small></span></label>
+          <label class="choice-card"><input type="radio" name="rounds" value="15" /><span class="choice-card-inner"><strong>15题</strong><small>6原版 · 6新题 · 3旧题</small></span></label>
         </div>
       </section>
 
@@ -65,7 +64,7 @@
       </section>
 
       <section class="progress-note">
-        <div><strong>原版18题</strong><span id="historyText">正在读取本机题目进度…</span></div>
+        <div><strong>56条原始题 · 47组不重复行为</strong><span id="historyText">正在读取本机题目进度…</span></div>
         <button class="text-button" id="clearHistoryButton" type="button">清除已出现记录</button>
       </section>
 
@@ -81,7 +80,7 @@
 
     <section id="playScreen" hidden>
       <div class="round-progress">
-        <div class="round-copy"><span id="roundText">第 1 / 10 题</span><span id="sourceText">原版题目 · @纸包鱼oO</span></div>
+        <div class="round-copy"><span id="roundText">第 1 / 10 题</span><span id="sourceText">容忍度挑战题库</span></div>
         <div class="progress-track"><span id="progressBar"></span></div>
       </div>
 
@@ -90,8 +89,8 @@
         <div class="eye-stage" id="eyeStage" aria-hidden="true">
           <span class="eye eye-left"></span><span class="eye eye-right"></span>
         </div>
-        <h1 class="question-text" id="questionText">准备听题</h1>
-        <p class="phase-copy" id="phaseCopy">原版语音播放后，不能忍的人请睁眼。</p>
+        <h1 class="question-text" id="questionText">请闭眼</h1>
+        <p class="phase-copy" id="phaseCopy">题目会在播报结束后显示。</p>
         <div class="observe-count" id="observeCount" hidden><strong>3</strong><span>秒观察时间</span></div>
         <div class="audio-state" id="audioState" role="status" aria-live="polite">等待开始</div>
 
@@ -127,19 +126,19 @@
     <div class="dialog-panel">
       <div class="dialog-heading"><h2>容忍度挑战怎么玩？</h2><button id="closeHelpButton" type="button" aria-label="关闭">×</button></div>
       <ol>
-        <li>先选择本轮5题、10题、15题或原版全部18题；一轮内不会重复。</li>
-        <li>每题开始前双方闭眼；点击开始挑战或下一题后，会很快播放纸包鱼老师原版报题语音。</li>
-        <li>如果题目里的事情不能忍，请睁眼；语音结束后会留3秒观察时间。</li>
+        <li>可选5题、10题或15题。每轮按固定来源比例抽取，并确保同一语义行为不会重复出现。</li>
+        <li>每题开始前双方闭眼；点击开始挑战或下一题后会很快开始播报。题目会按L1–L4的后台亲密等级由轻到重排列，但页面不会提前告诉你等级。</li>
+        <li>播报期间屏幕不会提前显示题目；播报结束后才显示题目文字，并留3秒观察时间。</li>
         <li>提示音结束后双方可以正常睁眼讨论，想聊多久都可以，再手动点击“下一题”。</li>
         <li>任何题都可以暂时跳过，不会有惩罚。</li>
         <li>网页不记录谁睁眼，也不保存任何回答内容。</li>
       </ol>
-      <p class="help-source">题目与原版语音来源：@纸包鱼oO；每题音频已去掉原视频中的题号口播，网页仅作互动形式整理。</p>
+      <p class="help-source">纸包鱼原版18题及原版语音来源：@纸包鱼oO。题库另加入18道扩展题与20道边界题；语义重复项已归入同一行为组。每轮按2:2:1的来源比例抽取，再按亲密等级由轻到重排序。</p>
     </div>
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="./questions.js?v=3-20260818"></script>
-  <script src="./app.js?v=3-20260818"></script>
+  <script src="./questions.js?v=5-20260819"></script>
+  <script src="./app.js?v=5-20260819"></script>
 </body>
 </html>
