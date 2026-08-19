@@ -35,6 +35,7 @@
     skipped: 0,
     seenGroups: new Set(),
     currentAudio: null,
+    audioCache: new Map(),
     audioToken: 0,
     observeTimer: null,
     observeValue: 3,
@@ -178,27 +179,50 @@
     window.FAJIA_RUM?.reportEvent?.(name, value, "tolerance_challenge", detail);
   }
 
+  function prepareAudio(src) {
+    let audio = state.audioCache.get(src);
+    if (!audio) {
+      audio = new Audio(src);
+      audio.preload = "auto";
+      try { audio.load(); } catch {}
+      state.audioCache.set(src, audio);
+    }
+    return audio;
+  }
+
+  function preloadUpcomingAudio() {
+    // 当前题先播放，随后在后台把本轮剩余语音提前加载。
+    // 这样点“下一题”时不再临时等网络请求。
+    window.setTimeout(() => {
+      state.queue.forEach((q, idx) => {
+        if (idx > state.index) prepareAudio(q.audio);
+      });
+    }, 180);
+  }
+
   function playFile(src, onEnd, label = "正在播放题目语音…") {
     stopAudio();
     const token = state.audioToken;
-    const audio = new Audio(src);
+    const audio = prepareAudio(src);
     state.currentAudio = audio;
-    audio.preload = "auto";
+    audio.onended = null;
+    audio.onerror = null;
+    try { audio.currentTime = 0; } catch {}
     el.audioState.textContent = label;
 
-    audio.addEventListener("ended", () => {
+    audio.onended = () => {
       if (token !== state.audioToken) return;
       state.currentAudio = null;
       onEnd?.();
-    }, { once: true });
+    };
 
-    audio.addEventListener("error", () => {
+    audio.onerror = () => {
       if (token !== state.audioToken) return;
       state.currentAudio = null;
       el.audioState.textContent = "题目语音暂时无法播放";
       showToast("语音没有成功播放，题目已显示，可以直接读题继续。" );
       onEnd?.();
-    }, { once: true });
+    };
 
     const promise = audio.play();
     if (promise?.catch) {
@@ -311,6 +335,7 @@
     }
 
     playNarration(q, startObservation, replay);
+    if (!replay) preloadUpcomingAudio();
     report(replay ? "tolerance_replay" : "tolerance_question", q.id, `${state.index + 1}/${state.total}_${q.source}_L${q.level}`);
   }
 
@@ -359,7 +384,7 @@
     renderProgress();
     el.card.classList.remove("is-observing", "is-discussing");
     const counts = state.queue.reduce((acc, q) => { acc[q.source] = (acc[q.source] || 0) + 1; return acc; }, {});
-    report("tolerance_start", String(state.total), `v7_P${counts.paperfish||0}_N${counts.new18||0}_O${counts.old621||0}`);
+    report("tolerance_start", String(state.total), `v8_P${counts.paperfish||0}_N${counts.new18||0}_O${counts.old621||0}`);
     playQuestion();
   }
 
