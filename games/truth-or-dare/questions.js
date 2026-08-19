@@ -781,6 +781,34 @@ window.FAJIA_QUESTION_BANK = {
         "liveAction": "稀有深度"
       },
       {
+        "id": "v820-truth-quiet-after-day",
+        "text": "一起玩了一整天以后，两个人安静地待着、不怎么说话，对你来说是尴尬，还是一种放松？",
+        "liveEnabled": true,
+        "liveTier": "relation",
+        "liveAction": "保留"
+      },
+      {
+        "id": "v820-truth-two-meter-distance",
+        "text": "如果因为一些客观原因，需要暂时和对方保持两米左右的距离，你会觉得不习惯吗？",
+        "liveEnabled": true,
+        "liveTier": "relation",
+        "liveAction": "保留"
+      },
+      {
+        "id": "v820-truth-disliked-action-distance",
+        "text": "如果对方正在做一件你很不喜欢、甚至会本能避开的事情，你会走远一点，还是留在旁边等他？",
+        "liveEnabled": true,
+        "liveTier": "relation",
+        "liveAction": "保留"
+      },
+      {
+        "id": "v820-truth-conflict-first-reaction",
+        "text": "如果两个人闹别扭了，你自己的第一反应通常是什么：马上说开、先安静一会儿，还是等对方先来找你？",
+        "liveEnabled": true,
+        "liveTier": "relation",
+        "liveAction": "保留"
+      },
+      {
         "id": "v73-truth-relationship-turning-point",
         "text": "你觉得两个人关系真正发生转折的时间点是什么时候？",
         "liveEnabled": true,
