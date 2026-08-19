@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const V = "6-20260819";
+  const V = "7-20260819";
   const a = (folder, file) => `./audio/${folder}/${file}.mp3?v=${V}`;
 
   // source: paperfish = 纸包鱼老师原版18题；new18 = 新增18题；old621 = 曾玩过的20题锚点。

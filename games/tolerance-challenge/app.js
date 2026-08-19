@@ -359,7 +359,7 @@
     renderProgress();
     el.card.classList.remove("is-observing", "is-discussing");
     const counts = state.queue.reduce((acc, q) => { acc[q.source] = (acc[q.source] || 0) + 1; return acc; }, {});
-    report("tolerance_start", String(state.total), `v6_P${counts.paperfish||0}_N${counts.new18||0}_O${counts.old621||0}`);
+    report("tolerance_start", String(state.total), `v7_P${counts.paperfish||0}_N${counts.new18||0}_O${counts.old621||0}`);
     playQuestion();
   }
 
