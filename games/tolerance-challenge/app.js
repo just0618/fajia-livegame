@@ -11,7 +11,7 @@
   };
   const GROUP_COUNT = new Set(bank.map((q) => q.dup)).size;
   const STORAGE_KEY = "fajia-livegame.tolerance.seen-groups.v2";
-  const SOUND_CHECK_AUDIO = "./audio/soundcheck.mp3?v=5-20260819";
+  const SOUND_CHECK_AUDIO = "./audio/soundcheck.mp3?v=6-20260819";
 
   const SOURCE_PLAN = {
     5:  { paperfish: 2, new18: 2, old621: 1 },
@@ -46,7 +46,7 @@
   const el = {
     setup: $("setupScreen"), play: $("playScreen"), result: $("resultScreen"),
     round: $("roundText"), source: $("sourceText"), progress: $("progressBar"), card: $("toleranceCard"),
-    phase: $("phaseLabel"), question: $("questionText"), copy: $("phaseCopy"),
+    phase: $("phaseLabel"), question: $("questionText"), questionSource: $("questionSource"), copy: $("phaseCopy"),
     observe: $("observeCount"), audioState: $("audioState"), replay: $("replayButton"),
     next: $("nextButton"), skip: $("skipButton"), finish: $("finishButton"),
     resultTotal: $("resultTotal"), resultSkipped: $("resultSkipped"), again: $("againButton"),
@@ -94,7 +94,7 @@
   }
 
   function updateHistory() {
-    el.history.textContent = `本机已出现 ${state.seenGroups.size} / ${GROUP_COUNT} 组行为 · 下一轮优先没出现过的组`;
+    el.history.textContent = `本机已经遇到 ${state.seenGroups.size} 组情境 · 下一轮优先换没出现过的题`;
   }
 
   function orderedCandidates(items) {
@@ -239,6 +239,11 @@
     if (!q) return;
     state.questionRevealed = true;
     el.question.textContent = q.text;
+    if (el.questionSource) {
+      const fromPaperfish = q.source === "paperfish";
+      el.questionSource.hidden = !fromPaperfish;
+      el.questionSource.textContent = fromPaperfish ? "灵感来源：@纸包鱼oO" : "";
+    }
   }
 
   function startObservation() {
@@ -248,7 +253,7 @@
     el.card.classList.remove("is-discussing");
     el.card.classList.add("is-observing");
     el.phase.textContent = "不能忍的话，请睁眼";
-    el.copy.textContent = "先不要说答案，给彼此和直播间3秒观察时间。";
+    el.copy.textContent = "先别急着说，留3秒看看彼此的反应。";
     el.audioState.textContent = "题目播报完毕";
     el.next.disabled = true;
     el.observe.hidden = false;
@@ -262,8 +267,8 @@
         state.phase = "discuss";
         el.card.classList.remove("is-observing");
         el.card.classList.add("is-discussing");
-        el.phase.textContent = "可以睁眼讨论啦";
-        el.copy.textContent = "想聊多久都可以。准备好以后，再进入下一题。";
+        el.phase.textContent = "可以睁眼了";
+        el.copy.textContent = "想聊就聊，不想展开也没关系，直接进入下一题。";
         el.audioState.textContent = "本题完成";
         el.next.disabled = false;
         softChime();
@@ -277,7 +282,7 @@
 
   function renderProgress() {
     el.round.textContent = `第 ${state.index + 1} / ${state.total} 题`;
-    el.source.textContent = "从轻到重 · 同组行为不会重复";
+    el.source.textContent = "从日常边界慢慢加码 👀";
     el.progress.style.width = `${((state.index + 1) / state.total) * 100}%`;
   }
 
@@ -293,10 +298,15 @@
       state.questionRevealed = false;
       el.phase.textContent = "双方闭眼";
       el.question.textContent = "请闭眼";
+      if (el.questionSource) el.questionSource.hidden = true;
       el.copy.textContent = "先听题。题目会在语音播报结束后才显示。";
     } else {
       el.phase.textContent = "重新听一次";
       el.question.textContent = q.text;
+      if (el.questionSource) {
+        el.questionSource.hidden = q.source !== "paperfish";
+        el.questionSource.textContent = q.source === "paperfish" ? "灵感来源：@纸包鱼oO" : "";
+      }
       el.copy.textContent = "本题已经揭晓，可以重新听一次播报。";
     }
 
@@ -349,7 +359,7 @@
     renderProgress();
     el.card.classList.remove("is-observing", "is-discussing");
     const counts = state.queue.reduce((acc, q) => { acc[q.source] = (acc[q.source] || 0) + 1; return acc; }, {});
-    report("tolerance_start", String(state.total), `v5_P${counts.paperfish||0}_N${counts.new18||0}_O${counts.old621||0}`);
+    report("tolerance_start", String(state.total), `v6_P${counts.paperfish||0}_N${counts.new18||0}_O${counts.old621||0}`);
     playQuestion();
   }
 

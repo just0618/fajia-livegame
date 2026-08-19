@@ -28,3 +28,9 @@ button{font:inherit}.background-shape{position:fixed;z-index:-1;border-radius:50
 /* V5 · 三档题数选择 */
 .three-columns{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:680px){.three-columns{grid-template-columns:1fr}}
+
+
+/* V6 · 玩家向规则文案 + 单题灵感来源 */
+.setup-note{max-width:660px;margin:8px auto 0!important;color:var(--pink-dark)!important;font-size:.9rem!important;font-weight:750}
+.question-source{margin:12px 0 0;padding:6px 11px;border-radius:999px;color:var(--pink-dark);background:var(--pink-soft);font-size:.78rem;font-weight:850;letter-spacing:.02em}
+.question-source[hidden]{display:none}

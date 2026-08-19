@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const V = "5-20260819";
+  const V = "6-20260819";
   const a = (folder, file) => `./audio/${folder}/${file}.mp3?v=${V}`;
 
   // source: paperfish = 纸包鱼老师原版18题；new18 = 新增18题；old621 = 曾玩过的20题锚点。
@@ -45,7 +45,7 @@
     { id:"N14", source:"new18", level:4, dup:"cancel_date_for_other", text:"为了对方放弃和自己的约会", audio:a("new18","n14") },
     { id:"N15", source:"new18", level:2, dup:"comfort_other", text:"对方心情不好哄对方开心", audio:a("new18","n15") },
     { id:"N16", source:"new18", level:3, dup:"frequent_chat", text:"和对方每天都聊天无话不说", audio:a("new18","n16") },
-    { id:"N17", source:"new18", level:3, dup:"couple_avatar", text:"和对方用情侣/闺蜜头像", audio:a("new18","n17") },
+    { id:"N17", source:"new18", level:3, dup:"couple_avatar", text:"和对方用情侣头像", audio:a("new18","n17") },
     { id:"N18", source:"new18", level:2, dup:"mention_often", text:"经常把对方挂在嘴边", audio:a("new18","n18") },
 
     // C · 曾经玩过的20题：不做单独入口，只作为每轮少量锚点穿插

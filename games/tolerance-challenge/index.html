@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#FF8AA1" />
   <meta name="description" content="法嘉容忍度挑战：请双方闭眼，不能忍的话就睁眼。" />
   <title>法嘉容忍度挑战</title>
-  <link rel="stylesheet" href="./style.css?v=5-20260819" />
+  <link rel="stylesheet" href="./style.css?v=6-20260819" />
   <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.min.js?max_age=3600"></script>
   <script src="../../shared/rum-config.js?v=64-20260810"></script>
   <script src="../../shared/rum.js?v=64-20260810"></script>
@@ -26,53 +26,54 @@
       <div class="setup-intro">
         <p class="eyebrow">GAME 12 · TOLERANCE CHALLENGE</p>
         <h1>法嘉容忍度挑战</h1>
-        <p>请双方闭眼。听到题目后，如果这件事不能忍，就睁眼。</p>
+        <p>默认把每道题理解成：「如果对方和别人这样，你能接受吗？」除非题目另有说明。请双方闭眼，听完题目后，不能接受就睁眼。</p>
+        <p class="setup-note">睁不睁眼都可以聊；不想展开，也可以直接进入下一题。</p>
       </div>
 
       <section class="rhythm-card" aria-label="游戏流程">
         <strong>双方闭眼</strong><span>→</span>
-        <strong>听原版报题</strong><span>→</span>
-        <strong>不能忍就睁眼</strong><span>→</span>
-        <strong>睁眼讨论</strong>
+        <strong>听题</strong><span>→</span>
+        <strong>不能接受就睁眼</strong><span>→</span>
+        <strong>自由讨论 / 下一题</strong>
       </section>
 
       <section class="source-card" aria-label="题目来源说明">
-        <div class="source-mark" aria-hidden="true">PF</div>
+        <div class="source-mark" aria-hidden="true">✦</div>
         <div>
-          <p class="eyebrow">ORIGINAL SOURCE</p>
-          <h2>原版题目与语音：@纸包鱼oO</h2>
-          <p>本题库保留老师制作的「法法嘉嘉直播小游戏第二弹 · 容忍度大挑战」18道原版题目与原版语音，并加入两组扩展边界题。语义相近的行为会自动归为同一组，一轮内不会重复出现。纸包鱼老师原版题目、语音及相关内容版权归原作者所有。</p>
+          <p class="eyebrow">SPECIAL THANKS · 特别鸣谢</p>
+          <h2>部分题目与原版语音来自 @纸包鱼oO</h2>
+          <p>感谢老师制作「法法嘉嘉直播小游戏第二弹 · 容忍度大挑战」。抽到对应题目时，题目揭晓后会标注「灵感来源：@纸包鱼oO」。</p>
         </div>
       </section>
 
       <section class="choice-section">
         <div class="section-label"><span>STEP 01</span><h2>这一轮抽多少题？</h2></div>
         <div class="choice-grid three-columns">
-          <label class="choice-card"><input type="radio" name="rounds" value="5" /><span class="choice-card-inner"><strong>5题</strong><small>2原版 · 2新题 · 1旧题</small></span></label>
-          <label class="choice-card"><input type="radio" name="rounds" value="10" checked /><span class="choice-card-inner"><strong>10题</strong><small>4原版 · 4新题 · 2旧题</small></span></label>
-          <label class="choice-card"><input type="radio" name="rounds" value="15" /><span class="choice-card-inner"><strong>15题</strong><small>6原版 · 6新题 · 3旧题</small></span></label>
+          <label class="choice-card"><input type="radio" name="rounds" value="5" /><span class="choice-card-inner"><strong>5题</strong><small>快速试探一下</small></span></label>
+          <label class="choice-card"><input type="radio" name="rounds" value="10" checked /><span class="choice-card-inner"><strong>10题</strong><small>标准一轮</small></span></label>
+          <label class="choice-card"><input type="radio" name="rounds" value="15" /><span class="choice-card-inner"><strong>15题</strong><small>慢慢加码</small></span></label>
         </div>
       </section>
 
       <section class="audio-panel">
         <div>
           <p class="eyebrow">STEP 02 · SOUND CHECK</p>
-          <h2>先确认能听见原版语音</h2>
-          <p>手机如果处于静音模式，请适当调高媒体音量。试听只播放原视频开头的一小段；正式开始挑战后不会再重复播放这段开场。</p>
+          <h2>先确认能听见题目语音</h2>
+          <p>手机如果处于静音模式，请适当调高媒体音量。试听会播放纸包鱼oO老师原视频开头的一小段；正式开始挑战后不会重复这段开场。</p>
         </div>
         <button class="button button-secondary" id="voiceTestButton" type="button">🔊 试听开头片段</button>
       </section>
 
       <section class="progress-note">
-        <div><strong>56条原始题 · 47组不重复行为</strong><span id="historyText">正在读取本机题目进度…</span></div>
-        <button class="text-button" id="clearHistoryButton" type="button">清除已出现记录</button>
+        <div><strong>下一轮会尽量换一批情境</strong><span id="historyText">正在读取本机题目进度…</span></div>
+        <button class="text-button" id="clearHistoryButton" type="button">重置题目记录</button>
       </section>
 
       <section class="start-panel">
         <div>
           <p class="eyebrow">STEP 03 · READY?</p>
           <h2>不能忍的话，就睁眼。</h2>
-          <p>网页不会记录谁睁眼，也不会保存任何回答；想聊多久都可以，准备好后再进入下一题。</p>
+          <p>网页不会记录谁睁眼，也不会保存任何回答。想聊就聊，不想展开也没关系，直接进入下一题。</p>
         </div>
         <button class="start-button" id="startButton" type="button">开始挑战 <span aria-hidden="true">→</span></button>
       </section>
@@ -90,6 +91,7 @@
           <span class="eye eye-left"></span><span class="eye eye-right"></span>
         </div>
         <h1 class="question-text" id="questionText">请闭眼</h1>
+        <p class="question-source" id="questionSource" hidden>灵感来源：@纸包鱼oO</p>
         <p class="phase-copy" id="phaseCopy">题目会在播报结束后显示。</p>
         <div class="observe-count" id="observeCount" hidden><strong>3</strong><span>秒观察时间</span></div>
         <div class="audio-state" id="audioState" role="status" aria-live="polite">等待开始</div>
@@ -126,19 +128,19 @@
     <div class="dialog-panel">
       <div class="dialog-heading"><h2>容忍度挑战怎么玩？</h2><button id="closeHelpButton" type="button" aria-label="关闭">×</button></div>
       <ol>
-        <li>可选5题、10题或15题。每轮按固定来源比例抽取，并确保同一语义行为不会重复出现。</li>
-        <li>每题开始前双方闭眼；点击开始挑战或下一题后会很快开始播报。题目会按L1–L4的后台亲密等级由轻到重排列，但页面不会提前告诉你等级。</li>
-        <li>播报期间屏幕不会提前显示题目；播报结束后才显示题目文字，并留3秒观察时间。</li>
-        <li>提示音结束后双方可以正常睁眼讨论，想聊多久都可以，再手动点击“下一题”。</li>
-        <li>任何题都可以暂时跳过，不会有惩罚。</li>
-        <li>网页不记录谁睁眼，也不保存任何回答内容。</li>
+        <li>可选5题、10题或15题，题目会从比较日常的边界情境慢慢加码。</li>
+        <li>默认前提是：「如果对方和别人这样，你能接受吗？」如果某道题有不同前提，以题目本身为准。</li>
+        <li>每题开始前双方闭眼。播报期间屏幕只显示「请闭眼」，语音结束后才揭晓题目文字。</li>
+        <li>如果不能接受，就睁眼。题目揭晓后会留3秒观察彼此反应。</li>
+        <li>3秒结束后大家都可以睁眼：想聊就聊，不想展开也可以直接点击“下一题”。</li>
+        <li>任何题都可以暂时跳过，不会有惩罚；网页也不会记录谁睁眼或保存回答。</li>
       </ol>
-      <p class="help-source">纸包鱼原版18题及原版语音来源：@纸包鱼oO。题库另加入18道扩展题与20道边界题；语义重复项已归入同一行为组。每轮按2:2:1的来源比例抽取，再按亲密等级由轻到重排序。</p>
+      <p class="help-source">特别鸣谢 @纸包鱼oO：部分题目与原版语音来自老师制作的「法法嘉嘉直播小游戏第二弹 · 容忍度大挑战」，对应题目会在揭晓后标注灵感来源。</p>
     </div>
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="./questions.js?v=5-20260819"></script>
-  <script src="./app.js?v=5-20260819"></script>
+  <script src="./questions.js?v=6-20260819"></script>
+  <script src="./app.js?v=6-20260819"></script>
 </body>
 </html>
