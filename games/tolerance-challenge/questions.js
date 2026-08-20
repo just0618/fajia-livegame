@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const V = "7-20260819";
+  const V = "9-20260820";
   const a = (folder, file) => `./audio/${folder}/${file}.mp3?v=${V}`;
 
   // source: paperfish = 纸包鱼老师原版18题；new18 = 新增18题；old621 = 曾玩过的20题锚点。
@@ -61,7 +61,7 @@
     { id:"O10", source:"old621", level:2, dup:"solo_meal", text:"单独吃饭", audio:a("old621","o10") },
     { id:"O11", source:"old621", level:2, dup:"movie_together", text:"单独唱歌看电影", audio:a("old621","o11") },
     { id:"O12", source:"old621", level:1, dup:"music_app_follow", text:"网易云等音乐软件互相关注", audio:a("old621","o12") },
-    { id:"O13", source:"old621", level:2, dup:"nickname", text:"给异性起绰号", audio:a("old621","o13") },
+    { id:"O13", source:"old621", level:2, dup:"nickname", text:"给别人起绰号", audio:a("old621","o13") },
     { id:"O14", source:"old621", level:3, dup:"frequent_chat", text:"频繁聊天发消息", audio:a("old621","o14") },
     { id:"O15", source:"old621", level:4, dup:"solo_trip", text:"单独出去旅行", audio:a("old621","o15") },
     { id:"O16", source:"old621", level:3, dup:"same_drink", text:"喝同一杯饮料", audio:a("old621","o16") },
