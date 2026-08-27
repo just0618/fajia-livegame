@@ -22,12 +22,12 @@
       const hasStarted = video.currentTime > 0.05;
       pauseIcon.textContent = '▶';
       pauseText.textContent = hasStarted ? '继续播放' : '开始播放';
-      statusText.textContent = hasStarted ? '已暂停，可以回答这一题' : '准备好了就开始播放';
+      statusText.textContent = hasStarted ? '已暂停，请答题' : '准备好了就开始播放';
       status.classList.add('is-paused');
     } else {
       pauseIcon.textContent = 'Ⅱ';
       pauseText.textContent = '暂停回答';
-      statusText.textContent = '视频播放中，遇到想回答的题随时暂停';
+      statusText.textContent = '正在播放题目，回答时可先点击暂停';
       status.classList.remove('is-paused');
     }
   }
