@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#fff9f4" />
   <title>法嘉特供版真心话</title>
-  <link rel="stylesheet" href="./style.css?v=1" />
+  <link rel="stylesheet" href="./style.css?v=2" />
 </head>
 <body>
   <div class="page-shell">
@@ -36,17 +36,30 @@
             id="truthVideo"
             controls
             playsinline
-            preload="metadata"
+            preload="auto"
             poster="./video/poster.jpg"
+            data-mobile-src="./video/special-truth-mobile.mp4"
+            data-desktop-src="./video/special-truth.mp4"
           >
-            <source src="./video/special-truth.mp4" type="video/mp4" />
             当前浏览器暂不支持视频播放。
           </video>
+          <script>
+            (() => {
+              const video = document.getElementById('truthVideo');
+              const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+              const slowNetwork = !!connection && (
+                connection.saveData || ['slow-2g', '2g', '3g'].includes(connection.effectiveType)
+              );
+              const preferLightVideo = window.matchMedia('(max-width: 768px)').matches || slowNetwork;
+              video.src = preferLightVideo ? video.dataset.mobileSrc : video.dataset.desktopSrc;
+              video.load();
+            })();
+          </script>
         </div>
 
         <div class="status" aria-live="polite">
           <span class="status-dot"></span>
-          <span id="statusText">准备好了就开始播放</span>
+          <span id="statusText">正在准备视频…</span>
         </div>
 
         <div class="controls">
@@ -86,6 +99,6 @@
     </footer>
   </div>
 
-  <script src="./app.js?v=1"></script>
+  <script src="./app.js?v=3"></script>
 </body>
 </html>

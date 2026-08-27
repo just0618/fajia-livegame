@@ -121,6 +121,16 @@ video { display: block; width: 100%; height: 100%; object-fit: contain; backgrou
 .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 0 5px rgba(255,228,94,.18); }
 .status.is-paused .status-dot { background: var(--pink); box-shadow: 0 0 0 5px rgba(255,130,157,.14); }
 
+.status.is-loading .status-dot {
+  background: var(--yellow);
+  box-shadow: 0 0 0 5px rgba(255,228,94,.18);
+  animation: statusPulse 1.1s ease-in-out infinite;
+}
+@keyframes statusPulse {
+  0%, 100% { transform: scale(.85); opacity: .62; }
+  50% { transform: scale(1.12); opacity: 1; }
+}
+
 .controls {
   display: grid;
   grid-template-columns: minmax(0, .8fr) minmax(220px, 1.4fr) minmax(0, .8fr);

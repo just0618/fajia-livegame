@@ -9,12 +9,17 @@
   const status = document.querySelector('.status');
   const rulesBtn = document.querySelector('[data-scroll-rules]');
 
+  function setStatus(text, state = '') {
+    statusText.textContent = text;
+    status.classList.toggle('is-paused', state === 'paused');
+    status.classList.toggle('is-loading', state === 'loading');
+  }
+
   function updateState() {
     if (video.ended) {
       pauseIcon.textContent = '↻';
       pauseText.textContent = '重新播放';
-      statusText.textContent = '视频播放完毕，可以从头再来';
-      status.classList.add('is-paused');
+      setStatus('视频播放完毕，可以从头再来', 'paused');
       return;
     }
 
@@ -22,24 +27,32 @@
       const hasStarted = video.currentTime > 0.05;
       pauseIcon.textContent = '▶';
       pauseText.textContent = hasStarted ? '继续播放' : '开始播放';
-      statusText.textContent = hasStarted ? '已暂停，请答题' : '准备好了就开始播放';
-      status.classList.add('is-paused');
+
+      if (hasStarted) {
+        setStatus('已暂停，请答题', 'paused');
+      } else if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+        setStatus('视频已准备好，可以开始播放', 'paused');
+      } else {
+        setStatus('正在准备视频…', 'loading');
+      }
     } else {
       pauseIcon.textContent = 'Ⅱ';
       pauseText.textContent = '暂停回答';
-      statusText.textContent = '正在播放题目，回答时可先点击暂停';
-      status.classList.remove('is-paused');
+      setStatus('正在播放题目，回答时可先点击暂停');
     }
   }
 
   pauseBtn.addEventListener('click', async () => {
     if (video.ended) {
       video.currentTime = 0;
-      try { await video.play(); } catch (_) {}
+      try { await video.play(); } catch (_) { updateState(); }
       return;
     }
     if (video.paused) {
-      try { await video.play(); } catch (_) {}
+      if (video.readyState < HTMLMediaElement.HAVE_FUTURE_DATA) {
+        setStatus('正在准备视频…', 'loading');
+      }
+      try { await video.play(); } catch (_) { updateState(); }
     } else {
       video.pause();
     }
@@ -52,16 +65,33 @@
 
   restartBtn.addEventListener('click', async () => {
     video.currentTime = 0;
+    if (video.readyState < HTMLMediaElement.HAVE_FUTURE_DATA) {
+      setStatus('正在准备视频…', 'loading');
+    }
     try { await video.play(); } catch (_) { updateState(); }
   });
 
-  ['play', 'pause', 'ended', 'loadedmetadata'].forEach((eventName) => {
-    video.addEventListener(eventName, updateState);
+  video.addEventListener('loadstart', () => {
+    if (video.currentTime <= 0.05) setStatus('正在准备视频…', 'loading');
+  });
+  video.addEventListener('canplay', updateState);
+  video.addEventListener('loadedmetadata', updateState);
+  video.addEventListener('play', updateState);
+  video.addEventListener('playing', updateState);
+  video.addEventListener('pause', updateState);
+  video.addEventListener('ended', updateState);
+  video.addEventListener('waiting', () => {
+    setStatus('网络稍慢，正在缓冲视频…', 'loading');
+  });
+  video.addEventListener('stalled', () => {
+    setStatus('网络稍慢，正在继续加载…', 'loading');
   });
 
   rulesBtn.addEventListener('click', () => {
     document.getElementById('rules')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 
+  // Explicitly request buffering as soon as this page is opened.
+  if (video.readyState === HTMLMediaElement.HAVE_NOTHING) video.load();
   updateState();
 })();
