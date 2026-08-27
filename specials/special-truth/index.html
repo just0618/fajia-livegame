@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#fff9f4" />
+  <title>法嘉特供版真心话</title>
+  <link rel="stylesheet" href="./style.css?v=1" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="back-link" href="../../">← 返回游戏屋</a>
+      <div class="mini-brand" aria-label="法嘉直播游戏屋">
+        <span class="dot dot-pink"></span>
+        <strong>特供版真心话</strong>
+        <span class="dot dot-yellow"></span>
+      </div>
+      <button class="rules-link" type="button" data-scroll-rules>玩法说明</button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">SPECIAL TRUTH · FEATURED PLAY</p>
+        <h1>法嘉特供版真心话</h1>
+        <p class="hero-copy">视频里的问题会依次出现，回答问题时可点击暂停，本题回答后继续观看回答下一题。</p>
+      </section>
+
+      <section class="flow" id="rules" aria-label="玩法流程">
+        <span>观看题目</span><b>→</b><span>暂停回答</span><b>→</b><span>继续播放</span><b>→</b><span>下一题</span>
+      </section>
+
+      <section class="player-card" aria-label="特供版真心话视频">
+        <div class="video-frame">
+          <video
+            id="truthVideo"
+            controls
+            playsinline
+            preload="metadata"
+            poster="./video/poster.jpg"
+          >
+            <source src="./video/special-truth.mp4" type="video/mp4" />
+            当前浏览器暂不支持视频播放。
+          </video>
+        </div>
+
+        <div class="status" aria-live="polite">
+          <span class="status-dot"></span>
+          <span id="statusText">准备好了就开始播放</span>
+        </div>
+
+        <div class="controls">
+          <button class="control control-secondary" id="rewindBtn" type="button">
+            <span aria-hidden="true">↺</span>
+            后退5秒
+          </button>
+          <button class="control control-primary" id="pauseBtn" type="button">
+            <span id="pauseIcon" aria-hidden="true">▶</span>
+            <span id="pauseText">开始播放</span>
+          </button>
+          <button class="control control-secondary" id="restartBtn" type="button">
+            <span aria-hidden="true">↻</span>
+            从头播放
+          </button>
+        </div>
+
+        <p class="player-tip">回答哪一题都可以自由展开；想直接继续时，再点一次中间按钮即可。</p>
+      </section>
+
+      <section class="credits" aria-labelledby="credits-title">
+        <div class="credits-mark" aria-hidden="true">♡</div>
+        <div>
+          <p class="eyebrow">ORIGINAL VIDEO & QUESTIONS</p>
+          <h2 id="credits-title">原视频及题目来源</h2>
+          <div class="credit-lines">
+            <p><strong>微博：</strong>@纸包鱼oO　@BunnyBoom_77</p>
+            <p><strong>抖音：</strong>@纸包鱼🐟　@爱吃芭乐的葡</p>
+          </div>
+          <p class="credit-note">本页面仅提供视频播放、暂停与回看操作，原视频、题目及相关内容版权归对应原作者所有。</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <a href="../../">fajia-livegame.top</a>
+    </footer>
+  </div>
+
+  <script src="./app.js?v=1"></script>
+</body>
+</html>
