@@ -797,12 +797,6 @@ a:focus-visible {
     width: 100%;
   }
 
-  .quiz-actions .skip-link {
-    width: 100%;
-    margin-top: -1px;
-    padding: 7px 0 2px;
-    text-align: center;
-  }
 }
 
 @media (max-width: 520px) {
@@ -865,6 +859,14 @@ a:focus-visible {
 
 .exam-footer span {
   font-weight: 750;
+}
+
+.exam-footer .footer-skip-link {
+  flex: 0 0 100%;
+  width: fit-content;
+  margin: 4px auto 0;
+  padding: 7px 12px;
+  text-align: center;
 }
 
 @media (max-width: 520px) {

@@ -179,6 +179,10 @@
     ].forEach((item) => {
       item.hidden = item !== screen;
     });
+
+    if (elements.skipButton) {
+      elements.skipButton.hidden = screen !== elements.quizScreen;
+    }
   }
 
   function setPhase(phase) {
