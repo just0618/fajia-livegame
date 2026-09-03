@@ -41,6 +41,11 @@
       opacity: 0.86;
     }
 
+    .quiet-swap-after-note {
+      margin-top: 2px;
+      text-align: center;
+    }
+
     #drawAgainButton::before {
       margin-right: 5px;
       content: "↻";
@@ -262,14 +267,16 @@
           完成，轮到下一位
           <span aria-hidden="true">→</span>
         </button>
-        <button class="button button-secondary" id="drawAgainButton" type="button">
-          换一张
-        </button>
       </div>
 
       <p class="session-note">
         已展示的卡片会立即计入本场记录；开启进度记忆后，下次会继续抽剩余题目。
       </p>
+      <div class="quiet-swap-after-note">
+        <button class="button button-secondary" id="drawAgainButton" type="button">
+          换一张
+        </button>
+      </div>
     </section>
     <section class="result-screen" id="resultScreen" hidden aria-labelledby="resultTitle">
       <div class="result-panel">
