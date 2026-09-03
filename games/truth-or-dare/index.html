@@ -10,13 +10,89 @@
   />
   <title>法嘉真心话大冒险</title>
   <link rel="stylesheet" href="./style.css?v=65-20260810" />
+  <style>
+    /* V72 · 降低“换一张”视觉层级：保留功能，但不与主操作抢注意力 */
+    .play-actions {
+      display: flex;
+      margin-top: 18px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    #completeTurnButton {
+      width: 100%;
+      order: 1;
+    }
+
+    #drawAgainButton {
+      align-self: center;
+      width: auto;
+      min-width: 0;
+      min-height: 44px;
+      padding: 9px 16px;
+      order: 2;
+      border: 0;
+      color: rgba(117, 110, 113, 0.58);
+      background: transparent;
+      box-shadow: none;
+      font-size: 0.76rem;
+      font-weight: 730;
+      opacity: 0.86;
+    }
+
+    #drawAgainButton::before {
+      margin-right: 5px;
+      content: "↻";
+      font-size: 0.86em;
+    }
+
+    #drawAgainButton:hover {
+      transform: none;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.46);
+    }
+
+    #drawAgainButton:active {
+      transform: none;
+    }
+
+    #drawAgainButton:focus-visible {
+      outline: 2px solid rgba(255, 138, 161, 0.24);
+      outline-offset: 2px;
+    }
+
+    /* 规则仍然可见，但不在每道题里反复抢视线 */
+    .card-tip {
+      margin-top: 24px;
+      font-size: 0.74rem;
+      opacity: 0.48;
+    }
+
+    @media (max-width: 760px) {
+      .play-actions {
+        display: flex;
+        grid-template-columns: none;
+      }
+
+      .play-actions .button-primary {
+        order: 1;
+      }
+
+      #drawAgainButton {
+        min-height: 44px;
+        padding: 10px 18px;
+        order: 2;
+        font-size: 0.74rem;
+      }
+    }
+  </style>
   <script src="https://tam.cdn-go.cn/aegis-sdk/latest/aegis.min.js?max_age=3600"></script>
   <script src="../../shared/rum-config.js?v=64-20260810"></script>
   <script src="../../shared/rum.js?v=64-20260810"></script>
   <script src="../../shared/content-codes.js?v=69-20260812"></script>
   <script src="../../shared/skip-read.js?v=66-20260810"></script>
 </head>
-
 <body>
   <div class="background-orb orb-pink" aria-hidden="true"></div>
   <div class="background-orb orb-gold" aria-hidden="true"></div>
@@ -32,7 +108,6 @@
       法嘉真心话大冒险
       <span class="brand-dot brand-dot-gold"></span>
     </div>
-
     <button class="text-button" id="openHelpButton" type="button">
       玩法说明
     </button>
@@ -47,7 +122,6 @@
           先选择真心话、大冒险或混合，再选择题数和第一位玩家。抽到真心话就回答，抽到大冒险就完成任务；任意题目都可以直接换一张。
         </p>
       </div>
-
       <div class="player-preview" aria-label="参与玩家">
         <article class="player-chip player-chip-pink">
           <img src="../../assets/players/fa.webp" alt="法宣阁" />
@@ -59,7 +133,6 @@
           <div><span>PLAYER 02</span><strong>贺嘉述</strong></div>
         </article>
       </div>
-
       <section class="choice-section" aria-labelledby="typeModeTitle">
         <div class="section-label">
           <span>STEP 01</span>
@@ -80,7 +153,6 @@
           </label>
         </div>
       </section>
-
       <section class="choice-section" aria-labelledby="roundCountTitle">
         <div class="section-label">
           <span>STEP 02</span>
@@ -102,7 +174,6 @@
         </div>
         <p class="selection-note" id="roundAvailabilityNote">本场预计完成10题。</p>
       </section>
-
       <section class="choice-section" aria-labelledby="progressTitle">
         <div class="section-label">
           <span>STEP 03</span>
@@ -129,7 +200,6 @@
           </div>
         </div>
       </section>
-
       <section class="start-section" aria-labelledby="starterTitle">
         <div>
           <p class="eyebrow">STEP 04 · READY TO PLAY</p>
@@ -143,7 +213,6 @@
         </div>
       </section>
     </section>
-
     <section class="play-screen" id="playScreen" hidden aria-labelledby="cardQuestion">
       <div class="play-toolbar">
         <button class="text-button" id="restartButton" type="button">
@@ -156,7 +225,6 @@
       </div>
 
       <span id="turnNumber" hidden>1</span>
-
       <div class="current-player" id="currentPlayer">
         <div class="current-player-photo">
           <img id="currentPlayerImage" src="" alt="" />
@@ -166,7 +234,6 @@
           <strong id="currentPlayerName"></strong>
         </div>
       </div>
-
       <article class="question-card" id="questionCard">
         <div class="card-topline">
           <span class="card-type" id="cardType">真心话</span>
@@ -182,7 +249,6 @@
         </p>
 
         <p class="card-source" id="cardSource" hidden></p>
-
         <div class="card-progress" aria-label="当前题库使用情况">
           <span id="remainingText">当前范围还有 0 张未展示</span>
           <div class="progress-track" aria-hidden="true">
@@ -192,13 +258,12 @@
       </article>
 
       <div class="play-actions">
-        <button class="button button-secondary" id="drawAgainButton" type="button">
-          换一张
-        </button>
-
         <button class="button button-primary" id="completeTurnButton" type="button">
           完成，轮到下一位
           <span aria-hidden="true">→</span>
+        </button>
+        <button class="button button-secondary" id="drawAgainButton" type="button">
+          换一张
         </button>
       </div>
 
@@ -206,14 +271,12 @@
         已展示的卡片会立即计入本场记录；开启进度记忆后，下次会继续抽剩余题目。
       </p>
     </section>
-
     <section class="result-screen" id="resultScreen" hidden aria-labelledby="resultTitle">
       <div class="result-panel">
         <div class="result-icon" aria-hidden="true">✓</div>
         <p class="eyebrow">SESSION COMPLETE</p>
         <h1 id="resultTitle">本场真心话大冒险完成</h1>
         <p id="resultSubtitle"></p>
-
         <div class="result-metrics">
           <article>
             <span>正式完成</span>
@@ -232,7 +295,6 @@
             <strong id="resultRemaining">0张</strong>
           </article>
         </div>
-
         <div class="result-message" id="resultMessage"></div>
 
         <div class="result-actions">
@@ -247,7 +309,6 @@
     </section>
   </main>
 
-
   <dialog class="help-dialog skip-read-dialog" id="skipReadDialog">
     <div class="dialog-content skip-read-content">
       <p class="eyebrow">BEFORE SKIPPING</p>
@@ -259,7 +320,6 @@
       </div>
     </div>
   </dialog>
-
   <dialog class="help-dialog" id="helpDialog">
     <div class="dialog-content">
       <div class="dialog-heading">
@@ -278,7 +338,6 @@
       <p>任意题目都可以直接换一张。浏览器只保存已展示卡片编号，不保存回答内容。</p>
     </div>
   </dialog>
-
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="./questions.js?v=68-20260811"></script>
